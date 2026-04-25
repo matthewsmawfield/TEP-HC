@@ -1,0 +1,3 @@
+# Placeholder for tep_cosmology.1.txt
+# Generated: 2026-04-25T04:31:16.982432
+# This file will be overwritten by actual MCMC run

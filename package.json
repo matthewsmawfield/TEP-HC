@@ -1,0 +1,8 @@
+{
+  "name": "tep-wb",
+  "version": "1.0.0",
+  "description": "TEP-WB: Wide Binary Anomaly",
+  "scripts": {
+    "build:markdown": "npm run build:markdown --prefix site"
+  }
+}

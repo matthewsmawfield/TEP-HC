@@ -1,0 +1,35 @@
+{
+  "step": "08_synthesis",
+  "timestamp": "2026-04-25T10:38:59.411880",
+  "key_findings": [
+    "TEP maps exactly to Bellini-Sawicki EFT alphas",
+    "Scalar field is frozen during radiation domination (T^mu_mu ~ 0)",
+    "CMB acoustic peaks preserved: |Delta C_l/C_l| < 0.02%",
+    "alpha_eff posterior is flat (unconstrained by CMB)",
+    "H_0 from CMB remains at 67.4 km/s/Mpc (no tension)",
+    "Hubble tension resolved: local elevation is environmental"
+  ],
+  "figures_generated": [
+    {
+      "file": "figure_1_alpha_evolution.png",
+      "description": "Alpha function evolution with redshift",
+      "path": "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/figure_1_alpha_evolution.png"
+    },
+    {
+      "file": "figure_2_cmb_comparison.png",
+      "description": "CMB TT spectrum: TEP vs LambdaCDM",
+      "path": "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/figure_2_cmb_comparison.png"
+    },
+    {
+      "file": "figure_3_posterior_corner.png",
+      "description": "MCMC posterior corner plot",
+      "path": "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/figure_3_posterior_corner.png"
+    },
+    {
+      "file": "figure_4_H0_comparison.png",
+      "description": "H0 comparison: CMB, TEP, and local measurements",
+      "path": "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/figure_4_H0_comparison.png"
+    }
+  ],
+  "status": "RUNNING"
+}

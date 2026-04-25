@@ -1,0 +1,82 @@
+{
+  "name": "TEP-HC",
+  "short_name": "TEP-HC",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1C2E4A",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "public/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "public/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "title": "Temporal Equivalence Principle: EFT Mapping and Acoustic Peak Constraints via hi_class",
+  "short_title": "TEP-HC: hi_class Cosmology",
+  "author": "Matthew Lukin Smawfield",
+  "version": "v0.1",
+  "codename": "Geneva",
+  "date": "2026",
+  "sections": [
+    {
+      "id": "section-abstract",
+      "title": "Abstract",
+      "file": "1_abstract.html",
+      "order": 1
+    },
+    {
+      "id": "section-intro",
+      "title": "1. Introduction",
+      "file": "2_introduction.html",
+      "order": 2
+    },
+    {
+      "id": "section-theory",
+      "title": "2. Theoretical Architecture",
+      "file": "3_theory.html",
+      "order": 3
+    },
+    {
+      "id": "section-implementation",
+      "title": "3. Software Implementation",
+      "file": "4_implementation.html",
+      "order": 4
+    },
+    {
+      "id": "section-mcmc",
+      "title": "4. MCMC Pipeline",
+      "file": "5_mcmc.html",
+      "order": 5
+    },
+    {
+      "id": "section-results",
+      "title": "5. Results and Constraints",
+      "file": "6_results.html",
+      "order": 6
+    },
+    {
+      "id": "section-conclusion",
+      "title": "6. Conclusion",
+      "file": "7_conclusion.html",
+      "order": 7
+    },
+    {
+      "id": "section-references",
+      "title": "References",
+      "file": "8_references.html",
+      "order": 8
+    },
+    {
+      "id": "section-appendix",
+      "title": "Appendix A",
+      "file": "9_appendix.html",
+      "order": 9
+    }
+  ]
+}

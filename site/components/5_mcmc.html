@@ -1,0 +1,119 @@
+<section id="mcmc">
+     <h2>4. MCMC Parameter Estimation Pipeline</h2>
+
+     <h3>4.1 The Cobaya Framework</h3>
+     
+     <p>Cobaya provides a Python interface to CLASS/hi_class with extensive MCMC sampling capabilities. The transition from SciPy/Pandas pipelines to Cobaya enables:</p>
+     
+     <ul>
+         <li>Native hi_class integration without file-based I/O bottlenecks</li>
+         <li>Parallel tempering and adaptive Metropolis-Hastings sampling</li>
+         <li>Direct Planck likelihood wrapper integration</li>
+         <li>Seamless GetDist posterior visualization</li>
+     </ul>
+
+     <h3>4.2 Likelihood Configuration</h3>
+     
+     <p>The pipeline uses the following Planck 2018 likelihoods:</p>
+     
+     <table>
+         <tr>
+             <th>Likelihood</th>
+             <th>Description</th>
+             <th>$\ell$ Range</th>
+         </tr>
+         <tr>
+             <td><code>planck_2018_highl_TTTEEE</code></td>
+             <td>High-$\ell$ temperature and polarization</td>
+             <td>30–2508</td>
+         </tr>
+         <tr>
+             <td><code>planck_2018_lowl_TT</code></td>
+             <td>Low-$\ell$ temperature</td>
+             <td>2–29</td>
+         </tr>
+         <tr>
+             <td><code>planck_2018_lowl_EE</code></td>
+             <td>Low-$\ell$ polarization</td>
+             <td>2–29</td>
+         </tr>
+         <tr>
+             <td><code>planck_2018_lensing</code></td>
+             <td>CMB lensing reconstruction</td>
+             <td>8–400</td>
+         </tr>
+     </table>
+
+     <h3>4.3 Free Parameters and Priors</h3>
+     
+     <p>Standard $\Lambda$CDM parameters vary alongside TEP-specific parameters:</p>
+     
+     <table>
+         <tr>
+             <th>Parameter</th>
+             <th>Prior</th>
+             <th>Description</th>
+         </tr>
+         <tr>
+             <td>$\Omega_b h^2$</td>
+             <td>$\mathcal{U}(0.005, 0.1)$</td>
+             <td>Baryon density</td>
+         </tr>
+         <tr>
+             <td>$\Omega_{\rm cdm} h^2$</td>
+             <td>$\mathcal{U}(0.001, 0.99)$</td>
+             <td>Cold dark matter density</td>
+         </tr>
+         <tr>
+             <td>$100\theta_s$</td>
+             <td>$\mathcal{U}(0.5, 10)$</td>
+             <td>Angular sound horizon</td>
+         </tr>
+         <tr>
+             <td>$\tau$</td>
+             <td>$\mathcal{U}(0.01, 0.8)$</td>
+             <td>Optical depth</td>
+         </tr>
+         <tr>
+             <td>$\ln(10^{10}A_s)$</td>
+             <td>$\mathcal{U}(1.61, 3.91)$</td>
+             <td>Scalar amplitude</td>
+         </tr>
+         <tr>
+             <td>$n_s$</td>
+             <td>$\mathcal{U}(0.8, 1.2)$</td>
+             <td>Scalar spectral index</td>
+         </tr>
+         <tr>
+             <td>$\log_{10}(\alpha_{\rm eff})$</td>
+             <td>$\mathcal{U}(5, 7)$</td>
+             <td>TEP coupling (centered on $10^6$)</td>
+         </tr>
+     </table>
+
+     <h3>4.4 Pipeline Execution</h3>
+     
+     <pre><code># Cobaya YAML configuration
+theory:
+  classy:
+    path: /path/to/hi_class
+    extra_args:
+      non_linear: hmcode
+      smg_model: tep
+      
+likelihood:
+  planck_2018_highl_TTTEEE: null
+  planck_2018_lowl_TT: null
+  planck_2018_lowl_EE: null
+  planck_2018_lensing: null
+  
+params:
+  log10_alpha_eff:
+    prior: {min: 5, max: 7}
+    latex: \log_{10}\alpha_{\rm eff}
+    
+sampler:
+  mcmc:
+    max_samples: 1000000
+    Rminus1_stop: 0.01</code></pre>
+ </section>

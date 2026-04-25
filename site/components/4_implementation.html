@@ -1,0 +1,69 @@
+<section id="implementation">
+     <h2>3. Software Implementation: hi_class and the Unscreened Regime</h2>
+
+     <h3>3.1 The hi_class Architecture</h3>
+     
+     <p>hi_class extends the CLASS Boltzmann solver to handle general scalar-tensor theories via the EFT formalism. The implementation requires three key modifications:</p>
+
+     <h3>3.2 The TEP Model Module (tep.c)</h3>
+     
+     <p>A new model file <code>source/models/tep.c</code> defines the TEP-specific structure:</p>
+     
+     <pre><code>struct smg_tep_params {
+    double alpha_eff;          // TEP coupling ~1e6
+    double phi_init;           // Initial field value
+    double B_phi_coeff;        // Disformal coupling
+    double screening_threshold; // 20 g/cm³ in cosmological units
+};</code></pre>
+
+     <h3>3.3 Background Solver Modification</h3>
+     
+     <p>In <code>source/background.c</code>, the coupled differential equations for $\phi_0(\tau)$ are appended:</p>
+     
+     $$\phi'' + 2\mathcal{H}\phi' + a^2 V_{,\phi} = a^2 Q_{\rm TEP}$$
+     
+     <p>where the TEP source term is:</p>
+     
+     $$Q_{\rm TEP} = \frac{\beta}{M_{\rm Pl}} T^\mu_\mu \cdot \Theta(\rho_c - \rho)$$
+     
+     <p>The Heaviside function $\Theta$ implements screening: at $z \approx 1100$, $\rho \sim 10^{-21}$ g/cm³ $\ll 20$ g/cm³, so $\Theta = 1$ and the field evolves freely.</p>
+
+     <h3>3.4 Gravity Functions Implementation</h3>
+     
+     <p>The alpha functions are computed at each time step:</p>
+     
+     <pre><code>int smg_tep_gravity_functions(
+    struct background *pba,
+    double *pvecback,
+    double *pvecgravity
+) {
+    double phi = pvecback[pba->index_bg_smg_phi];
+    double phi_prime = pvecback[pba->index_bg_smg_phi_prime];
+    double H = pvecback[pba->index_bg_H];
+    
+    // Planck mass running from conformal factor
+    double d_lnA_dphi = 2.0 * pba->tep_alpha_eff / pba->M_pl;
+    pvecgravity[pba->index_bg_smg_alpha_M] = 
+        (phi_prime / (H * pba->a)) * d_lnA_dphi;
+    
+    // Tensor speed excess from disformal term
+    pvecgravity[pba->index_bg_smg_alpha_T] = 
+        tep_compute_alpha_T(pba, phi, phi_prime);
+    
+    // Braiding and kineticity
+    pvecgravity[pba->index_bg_smg_alpha_B] = 
+        tep_compute_alpha_B(pba, phi, phi_prime);
+    pvecgravity[pba->index_bg_smg_alpha_K] = 
+        tep_compute_alpha_K(pba, phi, phi_prime);
+    
+    return _SUCCESS_;
+}</code></pre>
+
+     <h3>3.5 Stability Constraints</h3>
+     
+     <p>Numerical stability requires the effective scalar sound speed to remain physical:</p>
+     
+     $$c_s^2 = \frac{\alpha_K + \frac{3}{2}\alpha_B^2}{\alpha_K + \frac{3}{2}\alpha_B^2 + \alpha_M - \alpha_T} \geq 0$$
+     
+     <p>The TEP parameter space is restricted to regions where $c_s^2 > 0$ to avoid phantom crossing instabilities during MCMC exploration.</p>
+ </section>

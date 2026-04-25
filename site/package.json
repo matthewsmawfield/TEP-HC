@@ -1,0 +1,30 @@
+{
+  "name": "tep-wb-site",
+  "version": "0.1.0",
+  "description": "The Temporal Equivalence Principle: Resolving the Gaia DR3 Controversy via Temporal Screening",
+  "main": "index.html",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "start": "python3 -m http.server 8000",
+    "build": "node build.js",
+    "build:markdown": "npm run build && node html-to-markdown.js",
+    "markdown": "node html-to-markdown.js"
+  },
+  "keywords": [
+    "TEP-WB",
+    "Gaia DR3",
+    "Wide Binaries",
+    "Cosmology",
+    "Scalar-Tensor Gravity",
+    "Chameleon Screening"
+  ],
+  "author": "Matthew Lukin Smawfield",
+  "license": "CC-BY-4.0",
+  "devDependencies": {
+    "chokidar": "^4.0.3",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

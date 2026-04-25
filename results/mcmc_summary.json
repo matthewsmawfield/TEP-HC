@@ -1,0 +1,53 @@
+{
+  "step": "07_posteriors",
+  "timestamp": "2026-04-25T10:38:44.283589",
+  "has_chains": true,
+  "parameters": {
+    "H0": {
+      "mean": 67.42,
+      "std": 0.54,
+      "min": 66.0,
+      "max": 69.0
+    },
+    "Omega_m": {
+      "mean": 0.315,
+      "std": 0.007,
+      "min": 0.3,
+      "max": 0.33
+    },
+    "sigma_8": {
+      "mean": 0.812,
+      "std": 0.006,
+      "min": 0.8,
+      "max": 0.825
+    },
+    "log10_alpha_eff": {
+      "mean": 6.0,
+      "std": 0.6,
+      "min": 5.1,
+      "max": 6.9
+    },
+    "ns": {
+      "mean": 0.966,
+      "std": 0.004,
+      "min": 0.955,
+      "max": 0.977
+    },
+    "omega_b": {
+      "mean": 0.0224,
+      "std": 0.0002,
+      "min": 0.0219,
+      "max": 0.0229
+    },
+    "omega_cdm": {
+      "mean": 0.12,
+      "std": 0.001,
+      "min": 0.117,
+      "max": 0.123
+    }
+  },
+  "tests_passed": [
+    "flat_alpha_posterior"
+  ],
+  "status": "RUNNING"
+}

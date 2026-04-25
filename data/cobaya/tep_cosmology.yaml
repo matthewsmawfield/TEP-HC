@@ -1,0 +1,142 @@
+# TEP-HC Cobaya Configuration
+# =========================
+# MCMC pipeline for TEP cosmology with Planck 2018 likelihoods
+
+theory:
+  classy:
+    path: null  # Will be set to hi_class installation path
+    extra_args:
+      # TEP-specific parameters
+      smg_model: tep
+      tep_alpha_eff: 1.0e6
+      tep_beta: 1.0
+      tep_phi_init: 0.0
+      tep_B_coeff: 0.0
+      # Standard cosmology
+      non_linear: hmcode
+      output: tCl,pCl,lCl
+      lensing: yes
+      l_max_scalars: 2500
+
+likelihood:
+  # Planck 2018 high-l temperature and polarization
+  planck_2018_highl_TTTEEE:
+    clik_file: null  # Will be set during installation
+    
+  # Planck 2018 low-l temperature
+  planck_2018_lowl_TT:
+    clik_file: null
+    
+  # Planck 2018 low-l polarization  
+  planck_2018_lowl_EE:
+    clik_file: null
+    
+  # Planck 2018 lensing
+  planck_2018_lensing:
+    clik_file: null
+
+params:
+  # Standard LambdaCDM parameters
+  logA:
+    prior:
+      min: 1.61
+      max: 3.91
+    ref:
+      dist: norm
+      loc: 3.044
+      scale: 0.014
+    proposal: 0.01
+    latex: \log(10^{10}A_s)
+    drop: true
+    
+  A_s:
+    value: 'lambda logA: 1e-10*np.exp(logA)'
+    latex: A_s
+    
+  n_s:
+    prior:
+      min: 0.8
+      max: 1.2
+    ref:
+      dist: norm
+      loc: 0.966
+      scale: 0.004
+    proposal: 0.002
+    latex: n_s
+    
+  theta_s:
+    prior:
+      min: 0.5
+      max: 10.0
+    ref:
+      dist: norm
+      loc: 1.0411
+      scale: 0.0004
+    proposal: 0.0002
+    latex: 100\theta_s
+    
+  H0:
+    latex: H_0
+    
+  omega_b:
+    prior:
+      min: 0.005
+      max: 0.1
+    ref:
+      dist: norm
+      loc: 0.0224
+      scale: 0.0002
+    proposal: 0.0001
+    latex: \Omega_b h^2
+    
+  omega_cdm:
+    prior:
+      min: 0.001
+      max: 0.99
+    ref:
+      dist: norm
+      loc: 0.12
+      scale: 0.001
+    proposal: 0.0005
+    latex: \Omega_{cdm} h^2
+    
+  tau_reio:
+    prior:
+      min: 0.01
+      max: 0.8
+    ref:
+      dist: norm
+      loc: 0.054
+      scale: 0.007
+    proposal: 0.003
+    latex: \tau_{reio}
+  
+  # TEP-specific parameter
+  log10_alpha_eff:
+    prior:
+      min: 5.0
+      max: 7.0
+    ref:
+      dist: norm
+      loc: 6.0
+      scale: 0.5
+    proposal: 0.1
+    latex: \log_{10}\alpha_{\rm eff}
+    
+  alpha_eff:
+    value: 'lambda log10_alpha_eff: 10**log10_alpha_eff'
+    latex: \alpha_{\rm eff}
+
+sampler:
+  mcmc:
+    max_samples: 1000000
+    max_tries: 10000
+    burn_in: 0
+    Rminus1_stop: 0.01
+    Rminus1_cl_stop: 0.2
+    learn_proposal: true
+    learn_proposal_Rminus1_max: 20.0
+    output_every: 1000
+
+output: results/mcmc_chains/tep_cosmology
+resume: true

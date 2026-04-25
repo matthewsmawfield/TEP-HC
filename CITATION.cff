@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+authors:
+  - family-names: "Smawfield"
+    given-names: "Matthew Lukin"
+    orcid: "https://orcid.org/0009-0003-4327-8711"
+title: "Temporal Equivalence Principle: EFT Mapping and Acoustic Peak Constraints via hi_class"
+version: 0.1.0
+date-released: 2026
+url: "https://github.com/mlsmawfield/TEP-HC"
+license: MIT
+keywords:
+  - hi_class
+  - Horndeski
+  - effective field theory
+  - CMB
+  - modified gravity
+  - scalar-tensor theories
+  - cosmological parameters
+  - Hubble tension
+  - temporal equivalence principle

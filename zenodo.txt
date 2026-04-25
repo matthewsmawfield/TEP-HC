@@ -1,0 +1,18 @@
+# TEP-WB Zenodo Metadata
+# To be updated upon publication
+
+title: "Wide Binary Stars as Probes of the Temporal Equivalence Principle"
+description: >
+  Paper 15 of the TEP series. Analysis of Gaia DR3 wide binary dynamics
+  demonstrating screening transition consistent with TEP predictions.
+creators:
+  - name: "Smawfield, Matthew Lukin"
+    orcid: "0009-0003-4327-8711"
+keywords:
+  - wide binaries
+  - Gaia DR3
+  - modified gravity
+  - MOND
+  - temporal equivalence principle
+  - gravitational screening
+license: MIT

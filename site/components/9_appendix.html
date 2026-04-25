@@ -1,0 +1,57 @@
+<section id="appendix">
+     <h2>Appendix A: Technical Implementation Details</h2>
+
+     <h3>A.1 hi_class Installation and Configuration</h3>
+     
+     <h4>A.1.1 Building with TEP Support</h4>
+     
+     <pre><code>git clone https://github.com/lesgourg/class_public.git class
+ cd class
+ git checkout hi_class
+ 
+ # Enable scalar field modifications
+ ./configure --with-smg
+ make clean && make</code></pre>
+
+     <h3>A.2 Cobaya Installation</h3>
+     
+     <pre><code>pip install cobaya
+ cobaya-install planck_2018_highl_TTTEEE planck_2018_lowl_TT \
+     planck_2018_lowl_EE planck_2018_lensing --path /path/to/likelihoods</code></pre>
+
+     <h3>A.3 TEP Module C Code Structure</h3>
+     
+     <p>The complete <code>tep.c</code> implementation defines:</p>
+     
+     <ol>
+         <li><code>smg_tep_init()</code>: Parse parameters from .ini file</li>
+         <li><code>smg_tep_background()</code>: Evolve $\phi_0(\tau)$ and $\phi_0'(\tau)$</li>
+         <li><code>smg_tep_gravity_functions()</code>: Return $\alpha_M, \alpha_T, \alpha_B, \alpha_K$</li>
+         <li><code>smg_tep_output()</code>: Write derived quantities to output</li>
+     </ol>
+
+     <h3>A.4 Screening Threshold in Cosmological Units</h3>
+     
+     <p>The 20 g/cm³ screening threshold converts to cosmological units as:</p>
+     
+     $$\rho_c = 20 \text{ g/cm}^3 = 4.6 \times 10^{19} \text{ eV/cm}^3 = 4.6 \times 10^{37} \text{ kg/m}^3$$
+     
+     <p>In Planck units ($\hbar = c = G = 1$):</p>
+     
+     $$\rho_c \approx 1.8 \times 10^{-124} M_{\rm Pl}^4$$
+     
+     <p>Compare to cosmic mean density today ($\rho_{\rm crit,0} \approx 10^{-123} M_{\rm Pl}^4$) and at recombination ($\rho \sim 10^{-113} M_{\rm Pl}^4$). The hierarchy $\rho(z=1100) \ll \rho_c$ confirms the unscreened regime.</p>
+
+     <h3>A.5 Stability Criteria Implementation</h3>
+     
+     <p>The hi_class stability checker tests:</p>
+     
+     <ol>
+         <li>$c_s^2 \geq 0$ (no gradient instabilities)</li>
+         <li>$\alpha_K \geq 0$ (positive kinetic energy)</li>
+         <li>$|\alpha_M| < 1$ (sub-luminal Planck mass evolution)</li>
+         <li>$\alpha_T \approx 0$ (GW speed constraints)</li>
+     </ol>
+     
+     <p>TEP parameter choices automatically satisfy these due to the $T^\mu_\mu$ suppression during radiation domination and the asymptotic $B(\phi) \rightarrow 0$ behavior.</p>
+ </section>
