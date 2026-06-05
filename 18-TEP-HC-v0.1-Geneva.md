@@ -1,7 +1,7 @@
 # Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation
 **Matthew Lukin Smawfield**
 Version: v0.1 (Geneva)
-First published: 24 May 2026 · Last updated: 5 June 2026
+First published: 24 May 2026 · Last updated: 6 June 2026
 Paper Series: TEP Series Paper 18 (hi_class Cosmology)
 
 ---
@@ -9,7 +9,7 @@ Paper Series: TEP Series Paper 18 (hi_class Cosmology)
 ## Abstract
 
 
-General Relativity is extensively validated in the deeply screened, high-density regime of the Solar System, but cosmological tensions—specifically the Hubble discrepancy and galactic mass anomalies—suggest a scale-dependent breakdown of the isochrony axiom.
+General Relativity is extensively validated in the deeply screened, high-proximity regime of the Solar System, but cosmological tensions—specifically the Hubble discrepancy and galactic mass anomalies—suggest a scale-dependent breakdown of the isochrony axiom.
 
 
 
