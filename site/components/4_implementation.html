@@ -1,69 +1,55 @@
-<section id="implementation">
      <h2>3. Software Implementation: hi_class and the Unscreened Regime</h2>
 
      <h3>3.1 The hi_class Architecture</h3>
      
-     <p>hi_class extends the CLASS Boltzmann solver to handle general scalar-tensor theories via the EFT formalism. The implementation requires three key modifications:</p>
+     <p>hi_class extends the CLASS Boltzmann solver to handle general scalar-tensor theories via the EFT formalism. This work uses hi_class v3.2.3 with the modified gravity (SMG) module enabled.</p>
 
-     <h3>3.2 The TEP Model Module (tep.c)</h3>
-     
-     <p>A new model file <code>source/models/tep.c</code> defines the TEP-specific structure:</p>
-     
-     <pre><code>struct smg_tep_params {
-    double alpha_eff;          // TEP coupling ~1e6
-    double phi_init;           // Initial field value
-    double B_phi_coeff;        // Disformal coupling
-    double screening_threshold; // 20 g/cm³ in cosmological units
-};</code></pre>
+     <h3>3.2 Native TEP Background-Only Implementation</h3>
 
-     <h3>3.3 Background Solver Modification</h3>
-     
-     <p>In <code>source/background.c</code>, the coupled differential equations for $\phi_0(\tau)$ are appended:</p>
-     
-     $$\phi'' + 2\mathcal{H}\phi' + a^2 V_{,\phi} = a^2 Q_{\rm TEP}$$
-     
-     <p>where the TEP source term is:</p>
-     
-     $$Q_{\rm TEP} = \frac{\beta}{M_{\rm Pl}} T^\mu_\mu \cdot \Theta(\rho_c - \rho)$$
-     
-     <p>The Heaviside function $\Theta$ implements screening: at $z \approx 1100$, $\rho \sim 10^{-21}$ g/cm³ $\ll 20$ g/cm³, so $\Theta = 1$ and the field evolves freely.</p>
+     <p>The native TEP background-only Hubble modification is implemented directly in hi_class via the <code>tep_mode</code> flag. When enabled, the background expansion history is modified as:</p>
 
-     <h3>3.4 Gravity Functions Implementation</h3>
-     
-     <p>The alpha functions are computed at each time step:</p>
-     
-     <pre><code>int smg_tep_gravity_functions(
-    struct background *pba,
-    double *pvecback,
-    double *pvecgravity
-) {
-    double phi = pvecback[pba->index_bg_smg_phi];
-    double phi_prime = pvecback[pba->index_bg_smg_phi_prime];
-    double H = pvecback[pba->index_bg_H];
-    
-    // Planck mass running from conformal factor
-    double d_lnA_dphi = 2.0 * pba->tep_alpha_eff / pba->M_pl;
-    pvecgravity[pba->index_bg_smg_alpha_M] = 
-        (phi_prime / (H * pba->a)) * d_lnA_dphi;
-    
-    // Tensor speed excess from disformal term
-    pvecgravity[pba->index_bg_smg_alpha_T] = 
-        tep_compute_alpha_T(pba, phi, phi_prime);
-    
-    // Braiding and kineticity
-    pvecgravity[pba->index_bg_smg_alpha_B] = 
-        tep_compute_alpha_B(pba, phi, phi_prime);
-    pvecgravity[pba->index_bg_smg_alpha_K] = 
-        tep_compute_alpha_K(pba, phi, phi_prime);
-    
-    return _SUCCESS_;
-}</code></pre>
+<div class="equation">
+\begin{equation} \label{eq:4_implementation_01}
+H_{\rm TEP}(z) = H_{\Lambda\rm CDM}(z) \times M(z), \quad M(z) = \frac{A(z)}{1 - \alpha_A(z)}
+\end{equation}
+</div>
 
-     <h3>3.5 Stability Constraints</h3>
-     
-     <p>Numerical stability requires the effective scalar sound speed to remain physical:</p>
-     
-     $$c_s^2 = \frac{\alpha_K + \frac{3}{2}\alpha_B^2}{\alpha_K + \frac{3}{2}\alpha_B^2 + \alpha_M - \alpha_T} \geq 0$$
-     
-     <p>The TEP parameter space is restricted to regions where $c_s^2 > 0$ to avoid phantom crossing instabilities during MCMC exploration.</p>
- </section>
+     <p>where $A(z) = \exp[\epsilon_T \ln(1+z) \exp(-(z/z_T)^{n_T})]$ is the covariant conformal factor and $\alpha_A = -d\ln A/d\ln(1+z)$. The transition function $f_T(z)$ appearing in the exponent is the authoritative TEP-C0 form (Paper 26; <code>core/cosmology.py</code>: <code>f_T</code>, <code>conformal_factor_native</code>, <code>jordan_frame_M</code>):</p>
+
+<div class="equation">
+\begin{equation} \label{eq:4_implementation_01b}
+f_T(z) = \ln(1+z)\,\exp\!\left[-(z/z_T)^{n_T}\right].
+\end{equation}
+</div>
+
+     <p>The exponential factor $\exp[-(z/z_T)^{n_T}]$ suppresses the modification for $z \gg z_T$, so $f_T \to 0$ well before recombination and the homogeneous expansion at last scattering is unmodified (radiation-domination freezing, Section 2.3); the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is unchanged. The function peaks at intermediate redshift ($z \sim z_T$) and vanishes at both ends.</p>
+
+     <p><em>Implementation note:</em> an earlier development build used the <em>complement</em> $f_T = 1 - \exp[-(z/z_T)^{n_T}]$, which instead saturates to unity for $z \gg z_T$ and applied the full modification <em>at</em> recombination -- inverting the freezing mechanism and corrupting the acoustic peaks. That bug has been corrected (see Appendix A.3). The default TEP parameters are:</p>
+
+     <pre><code>tep_mode = yes
+epsilon_T = 0.0066
+z_T = 5.0
+n_T = 2.0</code></pre>
+
+     <p>Standard General Relativistic perturbations are preserved; the modification affects only the homogeneous background expansion. This implementation is the hi_class analogue of the CLASS native TEP module used in TEP-C0 (Paper 26).</p>
+
+     <h3>3.3 Perturbation Stability</h3>
+
+     <p>Since the native TEP implementation modifies only $H(z)$ and leaves perturbations unchanged, no modified-gravity stability constraints arise. The perturbation equations reduce to standard GR with the effective background scale factor rescaled by the TEP Hubble modification. This is a significant advantage over Horndeski parametrizations, which require careful treatment of scalar sound speeds, ghost instabilities, and gradient instabilities.</p>
+
+     <h3>3.4 Pipeline Architecture</h3>
+
+     <p>The full analysis pipeline, executed via <code>scripts/run_all.py</code>, consists of:</p>
+     <ol>
+         <li><strong>Step 0 (Setup):</strong> Environment configuration and dependency check.</li>
+         <li><strong>Step 1 (Install):</strong> Install Cobaya, Planck 2018 likelihoods, and hi_class with the native TEP patch (<code>external/patches/hiclass_tep_native.patch</code>).</li>
+         <li><strong>Step 2 (Background):</strong> Compute the TEP-modified background expansion history $H(z)$ and density evolution.</li>
+         <li><strong>Step 3 (Alpha Functions):</strong> Compute Bellini-Sawicki coefficients from the TEP theoretical mapping (archived for reference).</li>
+         <li><strong>Step 4 (CMB Spectra):</strong> Run hi_class with native <code>tep_mode</code> at the Planck 2018 best-fit point. Compare TT, TE, and EE spectra against standard CLASS $\Lambda$CDM.</li>
+         <li><strong>Step 5 (Jordan-Frame Scan):</strong> Dual-scan reconstruction of the acoustic scale in screened and unscreened limits.</li>
+         <li><strong>Step 6 (Cobaya Config):</strong> Generate the Cobaya YAML configuration for the MCMC pipeline with native TEP parameters.</li>
+         <li><strong>Step 7 (MCMC):</strong> Execute the Cobaya MCMC with hi_class, using real Planck + BAO + Pantheon+ likelihoods.</li>
+         <li><strong>Step 8 (Posteriors):</strong> Analyze MCMC chains with burn-in removal and weighted statistics.</li>
+         <li><strong>Step 9 (Synthesis):</strong> Combine all results into summary JSON and markdown.</li>
+     </ol>
+     <p>Publication figures are generated separately via <code>python scripts/generate_figures.py</code> (not part of <code>run_all.py</code>). Output is written to <code>results/figures/</code> and included in the static site by <code>cd site &amp;&amp; npm run build</code>.</p>

@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 const chokidar = require('chokidar');
-const { spawn } = require('child_process');
+const http = require('http');
 const path = require('path');
 const fs = require('fs');
-const net = require('net');
 const { buildStaticSite } = require('./build.js');
 const { HTMLToMarkdownConverter } = require('./html-to-markdown.js');
 
@@ -11,18 +10,34 @@ class DevServer {
     constructor() {
         this.isBuilding = false;
         this.buildQueue = false;
-        this.liveServerProcess = null;
-        this.watcherReady = false;
-        this.port = 51737; // Unique port for TEP-JWST
+        this.server = null;
+        this.port = 54287; // Unique port for TEP-HC
     }
 
     async startLiveServer() {
-        console.log('🚀 Starting live server...');
-        if (this.liveServerProcess) this.liveServerProcess.kill();
-        this.liveServerProcess = spawn('npx', [
-            'live-server', 'dist', `--port=${this.port}`, '--host=localhost', '--no-browser', '--wait=500'
-        ], { stdio: 'pipe', cwd: __dirname });
-        this.liveServerProcess.stdout.on('data', d => console.log('📡 ' + d.toString().trim()));
+        console.log('🚀 Starting static server...');
+        if (this.server) this.server.close();
+        this.server = http.createServer((req, res) => {
+            const filePath = path.join(__dirname, 'dist', req.url === '/' ? 'index.html' : req.url);
+            const ext = path.extname(filePath);
+            const mime = {
+                '.html': 'text/html', '.js': 'application/javascript',
+                '.css': 'text/css', '.json': 'application/json',
+                '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml',
+                '.pdf': 'application/pdf'
+            };
+            fs.readFile(filePath, (err, data) => {
+                if (err) {
+                    res.writeHead(404); res.end('Not found');
+                } else {
+                    res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' });
+                    res.end(data);
+                }
+            });
+        });
+        this.server.listen(this.port, () => {
+            console.log(`📡 Static server running at http://localhost:${this.port}`);
+        });
     }
 
     async build() {
@@ -45,7 +60,7 @@ class DevServer {
     }
 
     async start() {
-        console.log('🎯 TEP-JWST Development Server');
+        console.log('🎯 TEP-HC Development Server');
         const distDir = path.join(__dirname, 'dist');
         if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
         await this.build();

@@ -1,0 +1,63 @@
+{
+  "n_s_mean": 0.9950080990219362,
+  "n_s_std": 0.005835522130479626,
+  "n_samples": 20000,
+  "likelihood_contributions": [
+    {
+      "likelihood": "CMB",
+      "col_name": "chi2__CMB",
+      "mean_chi2": 527.1332635288252,
+      "std_chi2": 5.72547367326461,
+      "corr_ns_chi2": -0.6856352494625182
+    },
+    {
+      "likelihood": "planck_2018_lowl.TT",
+      "col_name": "chi2__planck_2018_lowl.TT",
+      "mean_chi2": 106.13755021812302,
+      "std_chi2": 5.758782444721398,
+      "corr_ns_chi2": -0.6094830802303346
+    },
+    {
+      "likelihood": "planck_2018_lowl.EE",
+      "col_name": "chi2__planck_2018_lowl.EE",
+      "mean_chi2": 406.94278719512937,
+      "std_chi2": 1.7038851536465363,
+      "corr_ns_chi2": -0.13316748262636138
+    },
+    {
+      "likelihood": "SN",
+      "col_name": "chi2__SN",
+      "mean_chi2": 1404.0420660291272,
+      "std_chi2": 1.021495399083707,
+      "corr_ns_chi2": 0.07720409712882549
+    },
+    {
+      "likelihood": "sn.pantheonplus",
+      "col_name": "chi2__sn.pantheonplus",
+      "mean_chi2": 1404.0420660291272,
+      "std_chi2": 1.021495399083707,
+      "corr_ns_chi2": 0.07720409712882549
+    },
+    {
+      "likelihood": "planck_2018_lensing.native",
+      "col_name": "chi2__planck_2018_lensing.native",
+      "mean_chi2": 14.052926107055235,
+      "std_chi2": 3.9453923362094754,
+      "corr_ns_chi2": -0.04785431859821325
+    },
+    {
+      "likelihood": "BAO",
+      "col_name": "chi2__BAO",
+      "mean_chi2": 10.627375812086052,
+      "std_chi2": 2.6821546204638715,
+      "corr_ns_chi2": 0.01881693268231509
+    },
+    {
+      "likelihood": "bao.sdss_dr12_consensus_final",
+      "col_name": "chi2__bao.sdss_dr12_consensus_final",
+      "mean_chi2": 10.627375812086052,
+      "std_chi2": 2.6821546204638715,
+      "corr_ns_chi2": 0.01881693268231509
+    }
+  ]
+}

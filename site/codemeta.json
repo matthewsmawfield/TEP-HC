@@ -1,8 +1,8 @@
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
-  "name": "TEP-WB",
-  "description": "Analysis pipeline for resolving the wide binary anomaly via Temporal Equivalence Principle.",
+  "name": "TEP-HC",
+  "description": "hi_class integration and Cobaya MCMC pipeline mapping the Temporal Equivalence Principle into Bellini-Sawicki EFT and constraining CMB acoustic peaks with Planck 2018 data.",
   "author": [
     {
       "@type": "Person",
@@ -12,6 +12,16 @@
     }
   ],
   "version": "v0.1",
-  "datePublished": "2025-01-01",
-  "codeRepository": "https://github.com/matthewsmawfield/TEP-WB"
+  "datePublished": "2026-04-25",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "codeRepository": "https://github.com/matthewsmawfield/TEP-HC",
+  "url": "https://matthewsmawfield.github.io/TEP-HC/",
+  "keywords": [
+    "hi_class",
+    "Horndeski",
+    "effective field theory",
+    "CMB",
+    "temporal equivalence principle",
+    "Cobaya"
+  ]
 }

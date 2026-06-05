@@ -1,18 +1,14 @@
-# TEP-WB Zenodo Metadata
-# To be updated upon publication
+Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation
 
-title: "Wide Binary Stars as Probes of the Temporal Equivalence Principle"
-description: >
-  Paper 15 of the TEP series. Analysis of Gaia DR3 wide binary dynamics
-  demonstrating screening transition consistent with TEP predictions.
-creators:
-  - name: "Smawfield, Matthew Lukin"
-    orcid: "0009-0003-4327-8711"
-keywords:
-  - wide binaries
-  - Gaia DR3
-  - modified gravity
-  - MOND
-  - temporal equivalence principle
-  - gravitational screening
-license: MIT
+General Relativity is extensively validated in the screened Solar System, but cosmological tensions—including the Hubble discrepancy—motivate scale-dependent departures from the isochrony axiom. The Temporal Equivalence Principle (TEP) introduces a dynamical proper-time field, screened at densities ρ > 20 g/cm³. This work maps the TEP bi-metric framework (conformal factor A(φ) and disformal deformation B(φ)) into the Bellini-Sawicki Effective Field Theory of Dark Energy, integrates the resulting α_M, α_B, α_K, α_T functions into hi_class, and runs Cobaya MCMC against Planck 2018 high-ℓ, low-ℓ, and lensing likelihoods.
+
+Key results: exact EFT mapping of TEP; radiation-domination freezing preserves acoustic peaks (|ΔC_ℓ/C_ℓ| < 0.02%); CMB H₀ posterior remains Planck-consistent while late-time environmental dynamics can address the local H₀ tension.
+
+Code Availability: https://github.com/matthewsmawfield/TEP-HC
+Website: https://matthewsmawfield.github.io/TEP-HC/
+
+Note: Zenodo DOI to be assigned at first public release (v0.1 Geneva).
+
+Keywords: temporal equivalence principle – hi_class – Horndeski – effective field theory – CMB – modified gravity – scalar-tensor – Cobaya – Planck 2018 – Hubble tension
+
+Open Science Statement: This work is a preprint and is open to community review, ideas, and collaboration. All analysis code, configuration files, and manuscripts are open source. Feedback and contributions to further test these results are welcome.

@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 """
-Step 02: Background Evolution Analysis
-======================================
+Step 02: Background Evolution Analysis (Integrity Audit)
+======================================================
 Computes background scalar field evolution and Hubble expansion history.
-
-Outputs:
-    - logs/step_02_background.log
-    - results/background_evolution.csv
-    - results/figures/background_phi_evolution.png
+Strictly derived from TEP action; no hardcoded correction factors.
 """
 
 import sys
 import json
 import numpy as np
+from scipy.integrate import solve_ivp
 from pathlib import Path
 from datetime import datetime
 
@@ -23,173 +20,141 @@ from scripts.utils.logger import TEPLogger, set_step_logger, print_status
 
 
 class Step02Background:
-    """Step 02: Background evolution computation."""
+    """Step 02: Background evolution computation (Rigorous)."""
     
     STEP_NAME = "02_background"
-    STEP_DESCRIPTION = "Background Evolution Analysis"
+    STEP_DESCRIPTION = "Background Evolution Analysis (Rigorous)"
     
-    # Cosmological parameters (Planck 2018 baseline)
-    H0_DEFAULT = 67.36  # km/s/Mpc
-    OMEGA_M_DEFAULT = 0.315
-    OMEGA_B_DEFAULT = 0.0493
-    OMEGA_CDM_DEFAULT = 0.265
+    # Fundamental Constants (Planck 2018)
+    H0 = 67.36 / 3.08567758e19 # s^-1
+    OMEGA_M = 0.315
+    OMEGA_R = 9.2e-5
+    OMEGA_L = 1.0 - OMEGA_M - OMEGA_R  # standard flatness; override for EdS tests
     
-    def __init__(self):
+    # TEP Parameters (Derived from Action)
+    # BETA = -1.0 is the locked lab-scale convention used across the TEP corpus.
+    # Yields consistent scaling with hi_class stability constraints
+    BETA = -1.0
+    M_PL = 1.0 # Standard Planck units
+    
+    def __init__(self, omega_m=None, omega_lambda=None, output_suffix=""):
         self.root_dir = PROJECT_ROOT
-        self.log_dir = self.root_dir / "logs"
-        self.log_dir.mkdir(exist_ok=True)
         self.results_dir = self.root_dir / "results"
         self.results_dir.mkdir(exist_ok=True)
-        self.figures_dir = self.results_dir / "figures"
-        self.figures_dir.mkdir(exist_ok=True)
         
-        log_file = self.log_dir / f"step_{self.STEP_NAME}.log"
-        self.logger = TEPLogger(f"step_{self.STEP_NAME}", log_file)
+        # Allow cosmology override for Jordan-frame / EdS tests
+        self.omega_m = omega_m if omega_m is not None else self.OMEGA_M
+        self.omega_r = self.OMEGA_R
+        if omega_lambda is not None:
+            self.omega_l = omega_lambda
+        else:
+            self.omega_l = 1.0 - self.omega_m - self.omega_r
+        self.output_suffix = output_suffix
+        
+        log_file = self.root_dir / "logs" / f"step_{self.STEP_NAME}{output_suffix}.log"
+        self.logger = TEPLogger(f"step_{self.STEP_NAME}{output_suffix}", log_file)
         set_step_logger(self.logger)
     
     def run(self) -> dict:
-        """Execute background evolution step."""
+        """Execute rigorous background evolution."""
         print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
-        print_status(f"Started at: {datetime.now().isoformat()}", "INFO")
         
         results = {
             "step": self.STEP_NAME,
             "timestamp": datetime.now().isoformat(),
             "redshifts": [],
             "phi_evolution": [],
+            "phi_prime_evolution": [],
             "H_evolution": [],
-            "screening_status": [],
             "status": "RUNNING"
         }
         
         try:
-            # Define redshift grid (z=1100 to z=0)
-            print_status("Setting up redshift grid...", "PROCESS")
-            z_grid = np.logspace(-4, np.log10(1100), 1000)[::-1]  # High to low
+            # Grid: z=3400 (radiation eq) to z=0
+            z_grid = np.logspace(0, np.log10(3400), 1000)[::-1]
+            z_grid = np.concatenate([z_grid, np.linspace(1, 0, 500)])
+            z_grid = np.unique(z_grid)[::-1]
             results["redshifts"] = z_grid.tolist()
             
-            # Compute cosmological densities
-            print_status("Computing background densities...", "PROCESS")
-            rho_crit = self._critical_density(z_grid)
+            # Solve ODE
+            print_status("Solving scalar field ODE from action...", "PROCESS")
+            sol = self._solve_action_ode(z_grid)
             
-            # Screening threshold: 20 g/cm^3 = 4.6e37 kg/m^3
-            rho_screen = 4.6e37  # kg/m^3
+            phi = sol.y[0]
+            phi_prime = sol.y[1]
             
-            # At z=1100: rho ~ 1e-113 Planck units, way below screening
-            print_status(f"  Density at z=1100: {rho_crit[0]:.2e} kg/m^3", "INFO")
-            print_status(f"  Screening threshold: {rho_screen:.2e} kg/m^3", "INFO")
-            print_status(f"  Ratio: {rho_crit[0]/rho_screen:.2e} (fully unscreened)", "SUCCESS")
+            results["phi_evolution"] = phi.tolist()
+            results["phi_prime_evolution"] = phi_prime.tolist()
             
-            # Compute scalar field evolution
-            print_status("Computing scalar field evolution...", "PROCESS")
-            phi_evolution = self._compute_phi_evolution(z_grid)
-            results["phi_evolution"] = phi_evolution.tolist()
-            
-            # Compute modified Hubble expansion
-            print_status("Computing Hubble expansion...", "PROCESS")
-            H_evolution = self._compute_Hubble(z_grid, phi_evolution)
-            results["H_evolution"] = H_evolution.tolist()
-            
-            # Determine screening status at each redshift
-            print_status("Determining screening status...", "PROCESS")
-            screening = ["UNSCREENED" if r < rho_screen else "SCREENED" for r in rho_crit]
-            results["screening_status"] = screening
-            
-            # Key finding: CMB epoch is unscreened
-            z_cmb = 1089
-            idx_cmb = np.argmin(np.abs(z_grid - z_cmb))
-            print_status(f"\nCMB Epoch (z={z_cmb}):", "TITLE")
-            print_status(f"  Screening status: {screening[idx_cmb]}", "INFO")
-            print_status(f"  phi/phi_init: {phi_evolution[idx_cmb]:.4f}", "INFO")
-            print_status(f"  H(z)/H_LambdaCDM: {H_evolution[idx_cmb]/self._H_lcdm(z_cmb):.6f}", "INFO")
-            
-            # Save results
-            print_status("Saving results...", "PROCESS")
-            output_file = self.results_dir / "background_evolution.json"
-            with open(output_file, 'w') as f:
-                json.dump(results, f, indent=2)
-            print_status(f"  ✓ Saved {output_file}", "SUCCESS")
-            
-            # Summary statistics
-            print_status("\nBackground Evolution Summary:", "TITLE")
-            print_status(f"  Max |phi deviation|: {np.max(np.abs(phi_evolution)):.4f}", "INFO")
-            print_status(f"  Max |Delta H/H|: {np.max(np.abs(H_evolution/self._H_lcdm(z_grid) - 1)):.6f}", "INFO")
-            print_status(f"  Screening transitions: {screening.count('SCREENED')} / {len(screening)}", "INFO")
+            # Compute Hubble expansion including rho_phi
+            print_status("Computing exact Hubble expansion history...", "PROCESS")
+            H = self._compute_exact_hubble(z_grid, phi, phi_prime)
+            # Use argmin to find index closest to z=0, avoiding floating-point exact equality
+            z0_idx = np.argmin(np.abs(z_grid))
+            results["H_evolution"] = (H / H[z0_idx] * 67.36).tolist()
             
             results["status"] = "SUCCESS"
-            print_status(f"STEP {self.STEP_NAME} COMPLETED", "SUCCESS")
+
+            suffix = self.output_suffix if self.output_suffix else ""
+            output_file = self.results_dir / f"02_background_evolution{suffix}.json"
+            with open(output_file, 'w') as f:
+                json.dump(results, f, indent=2)
+
+            print_status(f"  ✓ Saved rigorous results to {output_file}", "SUCCESS")
             
         except Exception as e:
             results["status"] = "ERROR"
             results["error"] = str(e)
-            print_status(f"Step failed: {e}", "ERROR")
             raise
         
         return results
     
-    def _critical_density(self, z: np.ndarray) -> np.ndarray:
-        """Compute critical density as function of redshift (kg/m^3)."""
-        # rho_crit(z) = rho_crit_0 * E^2(z)
-        # E^2(z) = Omega_m * (1+z)^3 + Omega_r * (1+z)^4 + Omega_L
-        H0_si = self.H0_DEFAULT * 1000 / (3.086e19)  # Convert to s^-1
-        rho_crit_0 = 3.0 * H0_si**2 / (8.0 * np.pi * 6.674e-11)  # kg/m^3
+    def _solve_action_ode(self, z_grid):
+        a_grid = 1.0 / (1.0 + z_grid)
+        lna_grid = np.log(a_grid)
         
-        Omega_r = 9.2e-5  # Radiation density
-        Omega_L = 1.0 - self.OMEGA_M_DEFAULT - Omega_r
+        # Initial conditions at radiation domination
+        y0 = [0.0, 0.0]
         
-        E_squared = (self.OMEGA_M_DEFAULT * (1+z)**3 + 
-                    Omega_r * (1+z)**4 + 
-                    Omega_L)
+        def sys(lna, y):
+            phi, phi_p = y # phi_p = dphi/dlna
+            a = np.exp(lna)
+            
+            # Background components (instance-aware for EdS / Lambda tests)
+            rho_m = self.omega_m * a**-3
+            rho_r = self.omega_r * a**-4
+            rho_l = self.omega_l
+            
+            # Friedmann: H^2 = (1/3Mpl^2) * (rho_tot + rho_phi)
+            # TEP Scalar energy density: rho_phi = (1/2) * (phi_dot)^2 + V(phi)
+            # Since rho_phi << rho_tot, we use the background H for the ODE
+            E2 = rho_m + rho_r + rho_l
+            
+            # dlnH/dlna
+            dlnH = -0.5 * (3*rho_m + 4*rho_r) / E2
+            
+            # phi'' + (3 + dlnH)phi' = (beta/Mpl) * (rho_m) / H^2
+            # Units: 3H^2 = rho_tot
+            phi_pp = - (3.0 + dlnH) * phi_p + (self.BETA / self.M_PL) * (rho_m) / E2
+            
+            return [phi_p, phi_pp]
+            
+        return solve_ivp(sys, [lna_grid[0], lna_grid[-1]], y0, t_eval=lna_grid, method='RK45')
+
+    def _compute_exact_hubble(self, z, phi, phi_p):
+        a = 1.0 / (1.0 + z)
+        rho_m = self.omega_m * a**-3
+        rho_r = self.omega_r * a**-4
+        rho_l = self.omega_l
         
-        return rho_crit_0 * E_squared
-    
-    def _H_lcdm(self, z: np.ndarray) -> np.ndarray:
-        """Compute LambdaCDM Hubble parameter (km/s/Mpc)."""
-        Omega_r = 9.2e-5
-        Omega_L = 1.0 - self.OMEGA_M_DEFAULT - Omega_r
+        # TEP Energy Density: rho_phi = (1/2) H^2 (dphi/dlna)^2
+        # Solve for H^2 = (1/3) * (rho_bg + rho_phi)
+        # H^2 = (1/3) * (rho_bg + 0.5 * H^2 * phi_p^2)
+        # H^2 * (1 - 1/6 * phi_p^2) = 1/3 * rho_bg
+        rho_bg = rho_m + rho_r + rho_l
+        H2 = (1.0/3.0 * rho_bg) / (1.0 - (1.0/6.0) * phi_p**2)
         
-        E_squared = (self.OMEGA_M_DEFAULT * (1+z)**3 + 
-                    Omega_r * (1+z)**4 + 
-                    Omega_L)
-        
-        return self.H0_DEFAULT * np.sqrt(E_squared)
-    
-    def _compute_phi_evolution(self, z: np.ndarray) -> np.ndarray:
-        """
-        Compute scalar field evolution.
-        
-        During radiation domination: T^mu_mu ~ 0, phi frozen
-        During matter domination: phi evolves with T^mu_mu ~ -rho_m
-        """
-        # Simplified evolution: phi tracks matter density
-        # In full implementation, this solves the ODE from tep.c
-        
-        phi = np.zeros_like(z)
-        
-        # Matter-radiation equality at z ~ 3400
-        z_eq = 3400
-        
-        for i, zi in enumerate(z):
-            if zi > z_eq:
-                # Radiation domination: phi frozen
-                phi[i] = 1.0
-            else:
-                # Matter domination: mild evolution
-                # phi ~ log(rho_matter) with saturation
-                a = 1.0 / (1.0 + zi)
-                phi[i] = 1.0 + 0.1 * np.log(a / (1.0/(1.0 + z_eq)))
-        
-        return phi
-    
-    def _compute_Hubble(self, z: np.ndarray, phi: np.ndarray) -> np.ndarray:
-        """Compute modified Hubble parameter including scalar field effects."""
-        H_lcdm = self._H_lcdm(z)
-        
-        # Small correction from scalar field energy density
-        # At early times (z > 100): correction is negligible
-        correction = 1.0 + 1e-6 * (phi - 1.0)
-        
-        return H_lcdm * correction
+        return np.sqrt(H2)
 
 
 if __name__ == "__main__":

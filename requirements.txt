@@ -1,10 +1,38 @@
+# TEP-HC Core Dependencies
+# =======================
+
+# Scientific Computing
 numpy>=1.24.0
+scipy>=1.10.0
 pandas>=2.0.0
+
+# Astronomy
 astropy>=5.3
 astroquery>=0.4.6
+healpy>=1.16.0
+
+# Visualization
 matplotlib>=3.7.0
-scipy>=1.10.0
-scikit-learn>=1.2.0
-emcee>=3.1.0
 corner>=2.2.0
+
+# MCMC and Statistics
+emcee>=3.1.0
+scikit-learn>=1.2.0
+getdist>=1.4.0
+
+# Progress and Utilities
 tqdm>=4.65.0
+pyyaml>=6.0
+
+# Cobaya and Cosmology
+# (Install with: pip install cobaya)
+cobaya>=3.5.0
+
+# M4 Pro Parallel Support (optional but recommended)
+mpi4py>=3.1.0
+
+# Planck Likelihood Support
+camb>=1.5.0
+
+# CLASS Python interface (installed via Cobaya)
+# classy>=3.2.0

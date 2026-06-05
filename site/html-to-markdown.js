@@ -117,7 +117,7 @@ class HTMLToMarkdownConverter {
     }
 
     async convertSiteToMarkdown() {
-        console.log('🔄 Converting HTML site to markdown (TEP-WB)...');
+        console.log('🔄 Converting HTML site to markdown (TEP-HC)...');
         try {
             const manifestPath = path.join(__dirname, 'manifest.json');
             if (!fs.existsSync(manifestPath)) throw new Error('manifest.json not found.');
@@ -137,10 +137,23 @@ class HTMLToMarkdownConverter {
             }
 
             console.log(`  Total HTML: ${(allHtml.length / 1024).toFixed(1)} KB`);
-            const markdownTitle = manifest.title || 'The Temporal Equivalence Principle: Resolving the Gaia DR3 Controversy via Temporal Screening';
-            const markdown = `# ${markdownTitle}\n\n` + this.htmlToMarkdown(allHtml);
-            const outputPath = path.join(__dirname, '..', '15manuscript-tep-wb.md');
-            fs.writeFileSync(outputPath, markdown, 'utf8');
+            const markdownTitle = manifest.title || 'Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation';
+            const author = manifest.author || 'Matthew Lukin Smawfield';
+            const version = manifest.version || 'v0.1';
+            const codename = manifest.codename || 'Draft';
+            const date = manifest.date || new Date().getFullYear();
+            const firstPublished = '24 May 2026';
+            const lastUpdated = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            const header = `# ${markdownTitle}\n**${author}**\nVersion: ${version} (${codename})\nFirst published: ${firstPublished} · Last updated: ${lastUpdated}\nPaper Series: TEP Series Paper 18 (hi_class Cosmology)\n\n---\n\n`;
+            
+            let markdown = this.htmlToMarkdown(allHtml);
+            // Remove leading indentation from all lines
+            markdown = markdown.split('\n').map(line => line.replace(/^\s+/, '')).join('\n').trim();
+            
+            const fullMarkdown = header + markdown;
+            const outputPath = path.join(__dirname, '..', '18-TEP-HC-v0.1-Geneva.md');
+            fs.writeFileSync(outputPath, fullMarkdown, 'utf8');
             console.log(`✅ Markdown saved to: ${outputPath} (${(markdown.length / 1024).toFixed(1)} KB)`);
         } catch (error) {
             console.error('❌ Markdown conversion failed:', error.message);

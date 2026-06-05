@@ -1,7 +1,7 @@
 {
-  "name": "tep-wb-site",
+  "name": "tep-hc-site",
   "version": "0.1.0",
-  "description": "The Temporal Equivalence Principle: Resolving the Gaia DR3 Controversy via Temporal Screening",
+  "description": "Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation",
   "main": "index.html",
   "scripts": {
     "dev": "node dev-server.js",
@@ -11,18 +11,18 @@
     "markdown": "node html-to-markdown.js"
   },
   "keywords": [
-    "TEP-WB",
-    "Gaia DR3",
-    "Wide Binaries",
-    "Cosmology",
-    "Scalar-Tensor Gravity",
-    "Chameleon Screening"
+    "TEP-HC",
+    "hi_class",
+    "Horndeski",
+    "EFT",
+    "CMB",
+    "Cobaya",
+    "Temporal Equivalence Principle"
   ],
   "author": "Matthew Lukin Smawfield",
   "license": "CC-BY-4.0",
   "devDependencies": {
-    "chokidar": "^4.0.3",
-    "live-server": "^1.2.2"
+    "chokidar": "^4.0.3"
   },
   "engines": {
     "node": ">=16.0.0"

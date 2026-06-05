@@ -1,7 +1,8 @@
 {
-  "version": "0.1.0",
-  "paper": "TEP-HC",
+  "version": "0.1",
   "codename": "Geneva",
-  "series": 14,
-  "status": "in_progress"
+  "date": "2026-05-24",
+  "author": "Matthew Lukin Smawfield",
+  "description": "hi_class EFT mapping and Planck MCMC constraints for TEP",
+  "status": "Preprint"
 }

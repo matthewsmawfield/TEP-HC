@@ -16,6 +16,7 @@ venv/
 # IDE
 .idea/
 .vscode/
+.windsurf/
 *.swp
 *.swo
 
@@ -35,3 +36,5 @@ results/outputs/*
 # Temp files
 *.tmp
 *.temp
+
+.devin

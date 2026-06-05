@@ -2,13 +2,15 @@
 """
 Step 07: Posterior Analysis
 ===========================
-Analyzes MCMC chains and generates corner plots, summary statistics.
+Analyzes joint MCMC chains from hi_class with native TEP background-only
+implementation or archived proxy runs.
+
+# For native TEP: H_TEP(z) = H_LCDM(z) * M(z)  (where M(z) is the covariant disformal factor)
+Standard GR perturbations; only background H(z) is modified.
 
 Outputs:
-    - logs/step_07_posteriors.log
-    - results/mcmc_summary.json
-    - results/figures/corner_plot.png
-    - results/figures/H0_posterior.png
+    - logs/step_07_posteriors_full.log
+    - results/07_mcmc_summary_full.json
 """
 
 import sys
@@ -24,203 +26,235 @@ from scripts.utils.logger import TEPLogger, set_step_logger, print_status
 
 
 class Step07Posteriors:
-    """Step 07: Posterior analysis from MCMC chains."""
+    """Step 07: Posterior analysis from MCMC chains (Rigorous)."""
     
     STEP_NAME = "07_posteriors"
-    STEP_DESCRIPTION = "Posterior Analysis"
-    
-    # Expected parameters
-    PARAMS = [
-        "H0",
-        "Omega_m",
-        "sigma_8", 
-        "log10_alpha_eff",
-        "ns",
-        "omega_b",
-        "omega_cdm"
-    ]
+    STEP_DESCRIPTION = "Posterior Analysis (Rigorous Audit)"
     
     def __init__(self):
         self.root_dir = PROJECT_ROOT
-        self.log_dir = self.root_dir / "logs"
-        self.log_dir.mkdir(exist_ok=True)
         self.results_dir = self.root_dir / "results"
-        self.results_dir.mkdir(exist_ok=True)
-        self.figures_dir = self.results_dir / "figures"
-        self.figures_dir.mkdir(exist_ok=True)
         self.chains_dir = self.results_dir / "mcmc_chains"
         
-        log_file = self.log_dir / f"step_{self.STEP_NAME}.log"
-        self.logger = TEPLogger(f"step_{self.STEP_NAME}", log_file)
+        log_file = self.root_dir / "logs" / f"step_{self.STEP_NAME}_full.log"
+        self.logger = TEPLogger(f"step_{self.STEP_NAME}_full", log_file)
         set_step_logger(self.logger)
     
-    def run(self) -> dict:
-        """Execute posterior analysis."""
-        print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
-        print_status(f"Started at: {datetime.now().isoformat()}", "INFO")
+    def _load_chains(self, prefix: str, min_cols: int = 8):
+        """Load and validate chain files for a given prefix, returning (combined, chains_list, col_map)."""
+        chain_files = sorted(self.chains_dir.glob(f"{prefix}*.txt"))
+        chain_files = [f for f in chain_files if f.suffix == '.txt' and f.stem.split('.')[-1].isdigit()]
         
-        # Statistical framework header
-        print_status("\n" + "="*70, "INFO")
-        print_status("STATISTICAL FRAMEWORK: MCMC Posterior Analysis", "INFO")
-        print_status("="*70, "INFO")
-        print_status("""
-Bayesian Parameter Estimation:
-  Posterior ∝ Likelihood × Prior
-
-  P(θ|d) ∝ P(d|θ) × P(θ)
-
-where θ represents cosmological parameters and d represents the data.
-
-MCMC Methodology:
-  - Algorithm: Metropolis-Hastings / Hamiltonian Monte Carlo
-  - Convergence: Gelman-Rubin R-1 < 0.01
-  - Burn-in: First 30% of chains discarded
-  - Thinning: Every 10th sample retained
-  - Effective samples: > 1000 per parameter
-
-Parameter Space:
-  Standard ΛCDM: {H_0, Ω_b h^2, Ω_c h^2, τ, A_s, n_s}
-  TEP extension: + {log10(α_eff)}
-        """.strip(), "INFO")
+        if not chain_files:
+            print_status(f"  ! No chain files found for prefix: {prefix}", "WARNING")
+            return None, None, None
+        
+        all_data = []
+        per_chain_data = []
+        total_rows = 0
+        col_map = None
+        for cf in chain_files:
+            with open(cf) as f:
+                header = f.readline().strip()
+            if header.startswith('#'):
+                cols = [c.strip() for c in header[1:].split()]
+                col_map = {name: i for i, name in enumerate(cols)}
+            data = np.loadtxt(cf)
+            if data.ndim == 2 and data.shape[1] >= min_cols:
+                all_data.append(data)
+                total_rows += data.shape[0]
+                # Apply per-chain burn-in (30%)
+                burn_in = int(0.3 * data.shape[0])
+                per_chain_data.append(data[burn_in:])
+        
+        if not all_data or col_map is None:
+            print_status(f"  ! Could not parse chain files for: {prefix}", "WARNING")
+            return None, None, None
+        
+        combined = np.vstack(all_data)
+        
+        unique_rows = len(np.unique(combined, axis=0))
+        if unique_rows < total_rows * 0.5:
+            raise RuntimeError(
+                f"CRITICAL: Chains for {prefix} have only {unique_rows}/{total_rows} unique rows. "
+                "This indicates synthetic/mocked data. Pipeline MUST fail."
+            )
+        
+        print_status(f"  ✓ Loaded {total_rows:,} samples from {len(chain_files)} chains ({prefix})", "SUCCESS")
+        return combined, per_chain_data, col_map
+    
+    def _gelman_rubin(self, chains, idx):
+        """Compute Gelman-Rubin R-1 for a given parameter index across chains."""
+        m = len(chains)
+        if m < 2:
+            return None
+        # Use same length for all chains (minimum)
+        n = min(c.shape[0] for c in chains)
+        chain_means = []
+        chain_vars = []
+        for c in chains:
+            col = c[:n, idx]
+            chain_means.append(np.mean(col))
+            chain_vars.append(np.var(col, ddof=1) if n > 1 else 0.0)
+        chain_means = np.array(chain_means)
+        chain_vars = np.array(chain_vars)
+        overall_mean = np.mean(chain_means)
+        B = n * np.sum((chain_means - overall_mean) ** 2) / (m - 1)
+        W = np.mean(chain_vars)
+        if W == 0:
+            return float('inf')
+        V_hat = ((n - 1) / n) * W + B / n
+        R_hat = np.sqrt(V_hat / W)
+        return float(R_hat - 1.0)
+    
+    def run(self) -> dict:
+        """Execute rigorous posterior analysis on ALL chain files."""
+        print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
+        print_status("SCOPE: hi_class with native TEP background-only implementation.", "INFO")
+        print_status("Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9623 +- 0.0046.", "INFO")
         
         results = {
             "step": self.STEP_NAME,
             "timestamp": datetime.now().isoformat(),
-            "has_chains": False,
-            "parameters": {},
-            "tests_passed": [],
-            "status": "RUNNING"
+            "status": "RUNNING",
+            "tep": {},
+            "lcdm": {},
+            "comparison": {}
         }
         
         try:
-            # Check for actual chains
-            print_status("\n[1] MCMC CHAIN VERIFICATION", "TITLE")
-            print_status("Checking for MCMC output files...", "PROCESS")
-            print_status("  Expected location: results/mcmc_chains/", "INFO")
-            print_status("  File format: Cobaya chain files (*.txt)", "INFO")
+            # Load all TEP chains matching tep_hiclass_suite prefix
+            tep_combined, tep_chains, tep_cols = self._load_chains("tep_hiclass_suite")
+            if tep_combined is None:
+                # Fallback to single-chain production run
+                tep_combined, tep_chains, tep_cols = self._load_chains("tep_hiclass_chain")
+            if tep_combined is None:
+                raise FileNotFoundError("No TEP MCMC chains found.")
             
-            chain_files = list(self.chains_dir.glob("*.txt"))
-            results["has_chains"] = len(chain_files) > 0 and any(
-                f.stat().st_size > 100 for f in chain_files
-            )
+            # LCDM comparison skipped: existing lcdm_comparison chain uses
+            # Planck high-l Plik (different likelihoods), making comparison
+            # methodologically invalid. TEP constraints are reported standalone
+            # against published Planck 2018 values in the manuscript.
+            lcdm_available = False
             
-            if results["has_chains"]:
-                print_status(f"  ✓ Found {len(chain_files)} valid chain files", "SUCCESS")
-                print_status(f"  Analyzing chains with GetDist...", "PROCESS")
-                posteriors = self._analyze_real_chains(chain_files)
+            # Map parameter names to column indices dynamically from headers
+            param_names = ["A_s", "n_s", "H0", "omega_b", "omega_cdm", "tau_reio", "A_planck", "epsilon_T", "sigma8"]
+            
+            def _get_idx(col_map, name):
+                if name in col_map:
+                    return col_map[name]
+                # Fallback: logA maps to A_s via lambda, but we want A_s if available
+                if name == "A_s" and "logA" in col_map:
+                    return col_map["logA"]
+                raise KeyError(f"Parameter {name} not found in chain header")
+            
+            def _stats(data, idx):
+                col = data[:, idx]
+                w = data[:, 0]
+                w_sum = np.sum(w)
+                mean = np.sum(w * col) / w_sum
+                w2 = np.sum(w**2)
+                n_eff = w_sum**2 / w2 if w2 > 0 else len(col)
+                var = np.sum(w * (col - mean)**2) / (w_sum * (1 - 1/n_eff)) if n_eff > 1 else 0.0
+                s = np.argsort(col)
+                median = col[s][np.searchsorted(np.cumsum(w[s]), 0.5 * w_sum)]
+                return {"mean": float(mean), "std": float(np.sqrt(var)), "median": float(median),
+                        "min": float(np.min(col)), "max": float(np.max(col))}
+            
+            n_chains = len(tep_chains)
+            r_minus_1 = {}
+            max_r = None
+            if n_chains < 2:
+                print_status(
+                    f"Gelman-Rubin R-1: N/A ({n_chains} chain loaded; requires >= 2 chains)",
+                    "INFO",
+                )
+                for name in param_names:
+                    r_minus_1[name] = None
             else:
-                print_status("  ⚠ No valid chains found, using simulated posteriors", "WARNING")
-                print_status("  Note: Using Planck 2018 constraints as reference", "INFO")
-                posteriors = self._generate_simulated_posteriors()
+                print_status("Cross-chain Gelman-Rubin R-1:", "INFO")
+                max_r = 0.0
+                for name in param_names:
+                    idx = _get_idx(tep_cols, name)
+                    r1 = self._gelman_rubin(tep_chains, idx)
+                    r_minus_1[name] = r1
+                    max_r = max(max_r, r1)
+                    print_status(f"    {name}: R-1 = {r1:.4f}", "INFO")
+                level = "INFO" if max_r < 0.05 else "WARNING"
+                print_status(f"  Max R-1 across parameters: {max_r:.4f}", level)
             
-            results["parameters"] = posteriors
+            # Apply 30% burn-in to combined data for posterior analysis
+            burn_in = int(0.3 * tep_combined.shape[0])
+            tep_post = tep_combined[burn_in:]
             
-            # Analyze key results
-            print_status("\n[2] POSTERIOR DISTRIBUTION ANALYSIS", "TITLE")
-            print_status("Computing posterior statistics for all parameters...", "PROCESS")
-            print_status("\nSummary Statistics:", "INFO")
-            print_status("  - Mean: Expected value under posterior", "INFO")
-            print_status("  - Std: Standard deviation (68% CL width)", "INFO")
-            print_status("  - Min/Max: Extent of posterior support", "INFO")
+            # Compute S8 column: S8 = sigma8 * sqrt( (omega_cdm + omega_b)/(H0/100)^2 / 0.3 )
+            idx_sigma8 = _get_idx(tep_cols, "sigma8")
+            idx_ocdm = _get_idx(tep_cols, "omega_cdm")
+            idx_ob = _get_idx(tep_cols, "omega_b")
+            idx_H0 = _get_idx(tep_cols, "H0")
             
-            # H0 constraint
-            print_status("\n[2.1] Hubble Constant (H_0)", "INFO")
-            H0 = posteriors["H0"]
-            print_status(f"  Posterior: {H0['mean']:.2f} ± {H0['std']:.2f} km/s/Mpc", "INFO")
-            print_status(f"  68% CI: [{H0['mean']-H0['std']:.2f}, {H0['mean']+H0['std']:.2f}] km/s/Mpc", "INFO")
-            print_status(f"  95% CI: [{H0['mean']-2*H0['std']:.2f}, {H0['mean']+2*H0['std']:.2f}] km/s/Mpc", "INFO")
-            print_status(f"  Planck 2018: 67.36 ± 0.54 km/s/Mpc", "INFO")
-            diff = abs(H0['mean'] - 67.36)
-            sigma_diff = diff / np.sqrt(H0['std']**2 + 0.54**2)
-            print_status(f"  Deviation from Planck: {sigma_diff:.2f}σ", "INFO")
-            print_status(f"  Status: {'CONSISTENT' if sigma_diff < 2 else 'CHECK NEEDED'}", 
-                        "SUCCESS" if sigma_diff < 2 else "WARNING")
+            sigma8_col = tep_post[:, idx_sigma8]
+            ocdm_col = tep_post[:, idx_ocdm]
+            ob_col = tep_post[:, idx_ob]
+            h0_col = tep_post[:, idx_H0]
             
-            # TEP coupling
-            print_status("\n[2.2] TEP Coupling Parameter (log₁₀ α_eff)", "INFO")
-            alpha = posteriors["log10_alpha_eff"]
-            print_status(f"  Posterior: {alpha['mean']:.2f} ± {alpha['std']:.2f}", "INFO")
-            print_status(f"  Range: [{alpha['min']:.2f}, {alpha['max']:.2f}]", "INFO")
-            print_status(f"  Prior: Uniform[5.0, 7.0]", "INFO")
+            Om = (ocdm_col + ob_col) / (h0_col / 100.0)**2
+            S8_col = sigma8_col * np.sqrt(Om / 0.3)
             
-            # Test: alpha_eff should be unconstrained (flat posterior)
-            alpha_range = alpha['max'] - alpha['min']
-            prior_range = 7.0 - 5.0  # Prior was 5 to 7
-            flatness = alpha_range / prior_range
-            print_status(f"\n  Flatness test:", "INFO")
-            print_status(f"    Posterior range: {alpha_range:.2f}", "INFO")
-            print_status(f"    Prior range: {prior_range:.2f}", "INFO")
-            print_status(f"    Flatness ratio: {flatness:.2%}", "INFO")
-            print_status(f"    Threshold: > 80% for 'flat' classification", "INFO")
+            # Add S8 to the dataset dynamically
+            tep_post = np.column_stack((tep_post, S8_col))
+            tep_cols["S8"] = tep_post.shape[1] - 1
+            param_names.append("S8")
+            r_minus_1["S8"] = None  # derived parameter; no cross-chain R-1 unless computed per chain
+
+            chain_word = "chain" if n_chains == 1 else "chains"
+            print_status(f"TEP constraints (combined, {n_chains} {chain_word}):", "INFO")
+            for name in param_names:
+                idx = _get_idx(tep_cols, name)
+                st = _stats(tep_post, idx)
+                st["R_minus_1"] = r_minus_1[name]
+                results["tep"][name] = st
+                fmt = "{:.3e}" if abs(st["mean"]) < 0.001 else "{:.5f}"
+                print_status(f"    {name}: " + fmt.format(st["mean"]) + f" ± {st['std']:.5f}", "INFO")
             
-            if flatness > 0.8:
-                print_status(f"  ✓ Result: Posterior is FLAT (unconstrained by CMB)", "SUCCESS")
-                print_status(f"    Interpretation: CMB provides no information about α_eff", "INFO")
-                print_status(f"    Physics: TEP is degenerate with ΛCDM at CMB epochs", "INFO")
-                results["tests_passed"].append("flat_alpha_posterior")
-            else:
-                print_status(f"  ⚠ Result: Posterior shows {flatness:.0%} of prior range", "WARNING")
-                print_status(f"    Some CMB constraint present (unexpected)", "INFO")
+            results["tep"]["best_logpost"] = float(-np.min(tep_post[:, 1]))
+            results["tep"]["tep_c0_reference"] = "TEP-C0 (Paper 26) native TEP: n_s = 0.9623 +- 0.0046"
+            results["tep"]["n_samples"] = tep_post.shape[0]
+            results["tep"]["n_chains"] = n_chains
+            results["tep"]["max_R_minus_1"] = max_r
+            results["tep"]["gelman_rubin_applicable"] = n_chains >= 2
             
-            # Other parameters
-            print_status("\n[2.3] Standard Cosmological Parameters", "INFO")
-            print_status(f"  Ω_m (Matter density):     {posteriors['Omega_m']['mean']:.4f} ± {posteriors['Omega_m']['std']:.4f}", "INFO")
-            print_status(f"  σ_8 (Structure growth):     {posteriors['sigma_8']['mean']:.4f} ± {posteriors['sigma_8']['std']:.4f}", "INFO")
-            print_status(f"  n_s (Spectral index):      {posteriors['ns']['mean']:.4f} ± {posteriors['ns']['std']:.4f}", "INFO")
-            print_status(f"  ω_b (Baryon density):      {posteriors['omega_b']['mean']:.5f} ± {posteriors['omega_b']['std']:.5f}", "INFO")
-            print_status(f"  ω_c (CDM density):       {posteriors['omega_cdm']['mean']:.4f} ± {posteriors['omega_cdm']['std']:.4f}", "INFO")
-            
-            # Hubble tension test
-            print_status("\n[3] HUBBLE TENSION ANALYSIS", "TITLE")
-            print_status("Comparing CMB-inferred H_0 with local measurements...", "PROCESS")
-            print_status("\n  Theoretical Background:", "INFO")
-            print_status("    The Hubble tension is a 5σ discrepancy between:", "INFO")
-            print_status("    - Early-universe probes (CMB, BAO): H_0 ≈ 67 km/s/Mpc", "INFO")
-            print_status("    - Local distance ladder (SH0ES): H_0 ≈ 73 km/s/Mpc", "INFO")
-            
-            local_H0 = 73.0  # SH0ES measurement
-            local_sigma = 1.0  # SH0ES uncertainty
-            early_H0 = H0['mean']
-            early_sigma = H0['std']
-            
-            tension = (local_H0 - early_H0) / np.sqrt(early_sigma**2 + local_sigma**2)
-            
-            print_status(f"\n  Measurements:", "INFO")
-            print_status(f"    Local H_0 (SH0ES):   {local_H0:.1f} ± {local_sigma:.1f} km/s/Mpc", "INFO")
-            print_status(f"    Early H_0 (TEP+CMB): {early_H0:.2f} ± {early_sigma:.2f} km/s/Mpc", "INFO")
-            
-            print_status(f"\n  Statistical Analysis:", "INFO")
-            print_status(f"    Difference: {local_H0 - early_H0:.2f} km/s/Mpc", "INFO")
-            print_status(f"    Combined uncertainty: {np.sqrt(early_sigma**2 + local_sigma**2):.2f} km/s/Mpc", "INFO")
-            print_status(f"    Tension level: {tension:.1f}σ", "INFO")
-            
-            if tension < 3.0:
-                print_status(f"  Status: TENSION RESOLVED (TEP explains difference)", "SUCCESS")
-                results["tests_passed"].append("hubble_tension_resolved")
-            elif tension < 5.0:
-                print_status(f"  Status: PARTIAL TENSION ({tension:.1f}σ - local effect detected)", "INFO")
-            else:
-                print_status(f"  Status: SIGNIFICANT TENSION PERSISTS ({tension:.1f}σ)", "INFO")
-                print_status(f"  Implication: TEP preserves Hubble tension (expected)", "INFO")
-                print_status(f"    TEP affects late-time, not CMB epochs", "INFO")
-            
-            # Save results
-            print_status("\n[4] OUTPUT GENERATION", "TITLE")
-            print_status("Saving MCMC analysis results...", "PROCESS")
-            
-            print_status("  Output file: results/mcmc_summary.json", "INFO")
-            print_status("  Contents:", "INFO")
-            print_status(f"    - Parameters: {len(posteriors)} cosmological parameters", "INFO")
-            print_status(f"    - Has chains: {results['has_chains']}", "INFO")
-            print_status(f"    - Tests passed: {len(results['tests_passed'])}", "INFO")
-            
-            output_file = self.results_dir / "mcmc_summary.json"
-            with open(output_file, 'w') as f:
-                json.dump(results, f, indent=2)
-            print_status(f"✓ Saved {output_file}", "SUCCESS")
+            if lcdm_available:
+                print_status("LCDM constraints:", "INFO")
+                for name in param_names:
+                    idx = _get_idx(lcdm_cols, name)
+                    st = _stats(lcdm_data, idx)
+                    results["lcdm"][name] = st
+                    fmt = "{:.3e}" if abs(st["mean"]) < 0.001 else "{:.5f}"
+                    print_status(f"    {name}: " + fmt.format(st["mean"]) + f" ± {st['std']:.5f}", "INFO")
+                
+                results["lcdm"]["best_logpost"] = float(-np.min(lcdm_data[:, 1]))
+                results["lcdm"]["n_samples"] = lcdm_data.shape[0]
+                
+                print_status("Comparison:", "INFO")
+                dchi2 = 2.0 * (float(np.min(tep_post[:, 1])) - float(np.min(lcdm_data[:, 1])))
+                results["comparison"]["delta_chi2"] = dchi2
+                print_status(f"    Δχ² = {dchi2:.3f}", "INFO")
+                
+                for name in param_names:
+                    dmu = results["tep"][name]["mean"] - results["lcdm"][name]["mean"]
+                    joint = np.sqrt(results["tep"][name]["std"]**2 + results["lcdm"][name]["std"]**2)
+                    results["comparison"][f"{name}_diff"] = {"delta_mean": dmu, "sigma_joint": joint}
+                    print_status(f"    Δ{name}: {dmu:.5f} (joint σ = {joint:.5f})", "INFO")
             
             results["status"] = "SUCCESS"
-            print_status(f"\nSTEP {self.STEP_NAME} COMPLETED", "SUCCESS")
+            
+            # Save rigorous summary
+            output_file = self.results_dir / "07_mcmc_summary_full.json"
+            with open(output_file, 'w') as f:
+                json.dump(results, f, indent=2)
+            
+            print_status(f"  ✓ Saved summary to {output_file}", "SUCCESS")
             
         except Exception as e:
             results["status"] = "ERROR"
@@ -229,63 +263,6 @@ Parameter Space:
             raise
         
         return results
-    
-    def _analyze_real_chains(self, chain_files):
-        """Analyze actual MCMC chains (placeholder)."""
-        # Would load chains using GetDist or numpy
-        # For now, return simulated posteriors
-        return self._generate_simulated_posteriors()
-    
-    def _generate_simulated_posteriors(self):
-        """Generate simulated posterior distributions."""
-        np.random.seed(42)
-        
-        posteriors = {
-            "H0": {
-                "mean": 67.42,
-                "std": 0.54,
-                "min": 66.0,
-                "max": 69.0
-            },
-            "Omega_m": {
-                "mean": 0.315,
-                "std": 0.007,
-                "min": 0.300,
-                "max": 0.330
-            },
-            "sigma_8": {
-                "mean": 0.812,
-                "std": 0.006,
-                "min": 0.800,
-                "max": 0.825
-            },
-            "log10_alpha_eff": {
-                "mean": 6.0,
-                "std": 0.6,
-                "min": 5.1,
-                "max": 6.9  # Flat-ish across prior
-            },
-            "ns": {
-                "mean": 0.966,
-                "std": 0.004,
-                "min": 0.955,
-                "max": 0.977
-            },
-            "omega_b": {
-                "mean": 0.0224,
-                "std": 0.0002,
-                "min": 0.0219,
-                "max": 0.0229
-            },
-            "omega_cdm": {
-                "mean": 0.120,
-                "std": 0.001,
-                "min": 0.117,
-                "max": 0.123
-            }
-        }
-        
-        return posteriors
 
 
 if __name__ == "__main__":

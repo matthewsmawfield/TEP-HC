@@ -1,134 +1,132 @@
-# Temporal Equivalence Principle: EFT Mapping and Acoustic Peak Constraints via hi_class
+# Temporal Equivalence Principle: Native hi_class Implementation and CMB Acoustic Peak Preservation
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 **Author:** Matthew Lukin Smawfield  
-**Status:** In Development  
-**Paper Series:** TEP Series: Paper 14 (hi_class Cosmology)  
-**Codename:** Geneva
+**Version:** v0.1 (Geneva)  
+**First published:** 24 May 2026  
+**Status:** Preprint (Open for Collaboration)  
+**Website:** [https://matthewsmawfield.github.io/TEP-HC/](https://matthewsmawfield.github.io/TEP-HC/)  
+**Paper Series:** TEP Series: Paper 18 (hi_class Cosmology)
 
-## Overview
+## Abstract
 
-This paper presents the exact analytical mapping of the Temporal Equivalence Principle (TEP) bi-metric framework into the Bellini-Sawicki Effective Field Theory (EFT) of Dark Energy. By integrating the property functions ($\alpha_M, \alpha_B, \alpha_K, \alpha_T$) into the hi_class cosmological solver and running a full MCMC pipeline via Cobaya against Planck 2018 likelihoods, this work provides definitive proof that the TEP scalar field strictly preserves CMB acoustic peak structure while permitting the late-time, environment-dependent proper-time dynamics required to resolve the Hubble tension.
+General Relativity is extensively validated in the deeply screened, high-density regime of the Solar System, but cosmological tensions—specifically the Hubble discrepancy—suggest a scale-dependent breakdown of the isochrony axiom. The Temporal Equivalence Principle (TEP) resolves these late-universe anomalies via a dynamical proper-time field, screened at densities $\rho > 20$ g/cm³. This paper implements the native TEP background modification directly in hi_class via `tep_mode`: the Jordan-frame factor $M(z) = A/(1-\alpha_A)$ modifies $H(z)$ while standard General Relativistic perturbations are preserved. Direct Boltzmann integration confirms sound-horizon preservation to parts-per-million ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and unchanged acoustic-peak morphology; the sole CMB effect of a non-zero homogeneous amplitude $\epsilon_T$ is a late-time angular-diameter-distance projection degenerate with $H_0$. A joint Cobaya MCMC against Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+ yields $\epsilon_T = 0.0051 \pm 0.0042$ and $H_0 = 66.73 \pm 1.60$ km/s/Mpc. The Bellini–Sawicki EFT mapping ($\alpha_M, \alpha_B, \alpha_K, \alpha_T$) is retained in step 3 as an archived theoretical reference.
 
-Key results:
-1. **EFT Mapping:** TEP's conformal factor $A(\phi) = \exp(2\beta\phi/M_{\rm Pl})$ and disformal deformation $B(\phi)$ map exactly onto Horndeski $\alpha_i$ functions.
-2. **Unscreened Cosmology:** At $z \approx 1100$, the universe is strictly unscreened ($\rho \sim 10^{-21}$ g/cm³), yet radiation-domination freezing ($T^\mu_\mu \approx 0$) preserves acoustic peaks.
-3. **CMB Preservation:** hi_class + Cobaya MCMC confirms $|\Delta C_\ell/C_\ell| < 0.02\%$, with $H_0$ consistent with Planck to $< 0.1\sigma$.
-4. **Hubble Tension Resolution:** The CMB $H_0$ posterior ($67.42 \pm 0.54$ km/s/Mpc) remains anchored, proving the local $\sim 73$ km/s/Mpc is a late-time environmental effect.
+## Key Results
+
+1. **Native `tep_mode`:** $H_{\rm TEP}(z) = H_{\Lambda\rm CDM}(z)\,M(z)$ with $f_T(z)=\ln(1+z)\exp[-(z/z_T)^{n_T}]$, patched into hi_class `background.c`.
+2. **Sound horizon:** $r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$; acoustic-peak morphology unchanged at recombination.
+3. **Joint MCMC:** $\epsilon_T = 0.0051 \pm 0.0042$, $H_0 = 66.73 \pm 1.60$ km/s/Mpc, $S_8 = 0.867 \pm 0.025$ (4,480 samples; definitive chain `results/mcmc_chains/tep_hiclass_suite.*`).
+4. **Hubble tension:** Homogeneous background stays Planck-compatible; local $H_0 \approx 73$ km/s/Mpc is interpreted as environment-dependent clock-transport bias (Paper 11).
+
+---
+
+## The TEP Research Program
+
+| Paper | Repository | Title | DOI |
+|-------|-----------|-------|-----|
+| **Paper 0** | [TEP](https://github.com/matthewsmawfield/TEP) | Temporal Equivalence Principle: Dynamic Time & Emergent Light Speed | [10.5281/zenodo.16921911](https://doi.org/10.5281/zenodo.16921911) |
+| **Paper 15** | [TEP-EFA](https://github.com/matthewsmawfield/TEP-EFA) | Temporal Shear in the Earth Flyby Anomaly | [10.5281/zenodo.19454863](https://doi.org/10.5281/zenodo.19454863) |
+| **Paper 17** | [TEP-LLR](https://github.com/matthewsmawfield/TEP-LLR) | Lunar Laser Ranging and the Nordtvedt Effect | [10.5281/zenodo.19446029](https://doi.org/10.5281/zenodo.19446029) |
+| **Paper 18** | **TEP-HC** (This repo) | EFT Mapping and CMB Acoustic Peak Preservation | — |
+| **Paper 19** | [TEP-LENS](https://github.com/matthewsmawfield/TEP-LENS) | Geometric Route-Closure Test in Multiply-Imaged Supernovae | — |
 
 ## Repository Structure
 
 ```text
 TEP-HC/
 ├── data/
-│   ├── hi_class/            # hi_class input parameters and background data
-│   └── cobaya/              # Cobaya MCMC configuration files
-├── logs/                    # Execution logs for hi_class and Cobaya runs
-├── manuscripts/             # Generated PDF/Markdown outputs
-├── results/
-│   └── mcmc_chains/         # MCMC chain outputs and corner plots
+│   ├── hi_class/            # hi_class input parameters
+│   └── cobaya/              # Cobaya MCMC configuration
+├── external/
+│   ├── hi_class/hi_class/   # Compiled hi_class with native tep_mode
+│   └── patches/             # hiclass_tep_native.patch (applied on install)
+├── logs/                    # Execution logs
+├── manuscripts/             # Series mirror + generated outputs
+├── results/                 # MCMC chains, figures, synthesis
 ├── scripts/
-│   ├── hi_class_modules/    # C code for source/models/tep.c
-│   └── cobaya_pipeline/     # Python scripts for MCMC execution
+│   ├── steps/               # Numbered pipeline (00–09)
+│   ├── run_all.py           # Full pipeline orchestrator
+│   ├── generate_figures.py  # Manual figure generation (post-pipeline)
+│   └── generate_site_pdf.py
 ├── site/
-│   └── components/          # HTML source of truth for manuscript
-└── README.md
+│   └── components/          # HTML source of truth
+├── README.md
+├── CITATION.cff
+├── VERSION.json
+├── version.txt
+├── zenodo.txt
+└── requirements.txt
 ```
 
-## Implementation Overview
-
-### 1. hi_class Module (`source/models/tep.c`)
-- Defines TEP parameters: `alpha_eff`, `phi_init`, `B_phi_coeff`
-- Implements background evolution for $\phi_0(\tau)$ with $T^\mu_\mu$-sourced driving term
-- Computes Bellini-Sawicki alphas: $\alpha_M, \alpha_T, \alpha_B, \alpha_K$
-- Enforces stability constraints: $c_s^2 \geq 0$, $|\alpha_M| < 1$
-
-### 2. Cobaya MCMC Pipeline
-- Uses Planck 2018 high-$\ell$, low-$\ell$, and lensing likelihoods
-- Varies standard $\Lambda$CDM parameters alongside $\log_{10}(\alpha_{\rm eff})$
-- Runs parallel tempering with convergence criterion $R-1 < 0.01$
-
-## Quick Start (Full Reproduction)
-
-Anyone can download and run this pipeline to reproduce the analysis:
+## Installation
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/matthewsmawfield/TEP-HC.git
 cd TEP-HC
+pip install -r requirements.txt
+```
 
-# 2. Run the full pipeline (auto-installs dependencies)
+## Reproduction Pipeline
+
+```bash
+# Full pipeline (auto-installs Cobaya + Planck likelihoods on step 01)
 python scripts/run_all.py
 
-# Or step-by-step:
-python scripts/run_all.py --stop-step 1  # Install only
-python scripts/run_all.py --start-step 2  # Skip installation
-```
+# Quick smoke test: skip hi_class/Planck install (step 1), MCMC (7), posteriors (8)
+python scripts/run_all.py --skip-steps 1,7,8
 
-### What Gets Installed Automatically
+# Stop after Jordan-frame scan (no Cobaya/MCMC)
+python scripts/run_all.py --stop-step 5
 
-- **Step 01** automatically downloads and installs:
-  - Python dependencies (NumPy, SciPy, Pandas, Matplotlib)
-  - Cobaya MCMC sampler (`pip install cobaya[getdist]`)
-  - Planck 2018 likelihoods (~10GB, 20-30 min download)
+# Generate publication figures (requires pipeline results in results/)
+python scripts/generate_figures.py
 
-### Running Without Full Planck Data
+# Build manuscript from HTML
+cd site && npm ci && npm run build:markdown
+# Output: 18-TEP-HC-v0.1-Geneva.md
 
-For a quick test without downloading 10GB of Planck data:
-
-```bash
-python scripts/run_all.py --skip-steps 1,7,8  # Skip install and MCMC steps
-```
-
-This runs the theoretical pipeline (EFT mapping, background evolution, CMB spectra generation) without requiring Planck likelihoods.
-
-## Manual Installation (if auto-install fails)
-
-```bash
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Install Cobaya and Planck likelihoods
-pip install cobaya[getdist]
-cobaya-install planck_2018_highl_TTTEEE planck_2018_lowl_TT planck_2018_lowl_EE planck_2018_lensing
-
-# Compile hi_class with TEP module (optional - for full MCMC)
-cd scripts/hi_class_modules/
-# Follow instructions in tep_module/README.md
+# Deploy static site
+./deploy.sh
 ```
 
 ## Pipeline Steps
 
-| Step | Description | Auto-Installs |
-|------|-------------|---------------|
-| 00 | Environment check | - |
-| 01 | Install Cobaya + Planck likelihoods | ✓ |
-| 02 | Generate TEP C module | - |
-| 03 | Background evolution | - |
-| 04 | Alpha functions validation | - |
-| 05 | CMB spectra generation | - |
-| 06 | Cobaya MCMC setup | - |
-| 07 | MCMC execution | Requires Step 01 |
-| 08 | Posterior analysis | Requires Step 07 |
-| 09 | Results synthesis | - |
+| Step | Module | Description |
+|------|--------|-------------|
+| 00 | `step_00_setup` | Environment check |
+| 01 | `step_00b_install` | Install Cobaya + Planck 2018 likelihoods + hi_class (native TEP patch) |
+| 02 | `step_02_background` | TEP-modified background evolution $H(z)$ |
+| 03 | `step_03_alpha_functions` | Bellini–Sawicki $\alpha_i$ mapping (archived reference) |
+| 04 | `step_04_cmb_spectra` | hi_class CMB spectra vs $\Lambda$CDM at Planck best-fit |
+| 05 | `step_04b_jordan_frame` | Jordan-frame acoustic-scale dual scan |
+| 06 | `step_05_cobaya` | Generate Cobaya YAML configs (`data/cobaya/`) |
+| 07 | `step_06_mcmc` | Execute Cobaya MCMC |
+| 08 | `step_07_posteriors` | Posterior analysis and Gelman–Rubin diagnostics |
+| 09 | `step_08_synthesis` | Results synthesis JSON and summary markdown |
 
-## Dependencies
+Figures are generated separately via `python scripts/generate_figures.py` and copied into the static site by `cd site && npm run build`.
 
-Required:
-- Python 3.9+
-- NumPy, SciPy, Pandas, Matplotlib
-- PyYAML
+## Citation
 
-Auto-installed on first run:
-- Cobaya (MCMC sampler)
-- GetDist (posterior analysis)
-- Planck 2018 likelihoods (~10GB download)
+```bibtex
+@article{tep_hc_paper,
+  title={Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation},
+  author={Smawfield, Matthew Lukin},
+  year={2026},
+  note={Preprint v0.1 (Geneva)},
+  url={https://github.com/matthewsmawfield/TEP-HC}
+}
+```
 
-Optional (for full MCMC):
-- hi_class (modified CLASS with Horndeski support)
-- GCC compiler
+---
 
-## License
+## Open Science Statement
 
-Creative Commons Attribution 4.0 International (CC-BY-4.0).
+These are working preprints shared in the spirit of open science—all manuscripts, analysis code, and configuration files are openly available under Creative Commons licenses to encourage replication. Feedback and collaboration are warmly invited.
+
+---
+
+**Contact:** matthew@mlsmawfield.com  
+**ORCID:** [0009-0003-8219-3159](https://orcid.org/0009-0003-8219-3159)

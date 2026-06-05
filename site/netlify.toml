@@ -49,11 +49,11 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[redirects]]
-  from = "/tep-jwst"
+  from = "/tep-hc"
   to = "/"
   status = 301
 
 [[redirects]]
-  from = "/TEP-JWST"
+  from = "/TEP-HC"
   to = "/"
   status = 301

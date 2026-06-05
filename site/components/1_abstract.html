@@ -1,13 +1,23 @@
 <div class="abstract">
-     <h2>Abstract</h2>
+    <h2>Abstract</h2>
 
-     <p><strong>The Hook:</strong> General Relativity is extensively validated in the deeply screened, high-density regime of the Solar System, but cosmological tensions—specifically the Hubble discrepancy and galactic mass anomalies—suggest a scale-dependent breakdown of the isochrony axiom.</p>
- 
-     <p><strong>The Bridge:</strong> The Temporal Equivalence Principle (TEP) resolves these late-universe anomalies via a dynamical proper-time field, screened at densities $\rho > 20$ g/cm³. While previous analytical approximations and CAMB integrations suggest this scalar field is frozen during radiation domination ($T^\mu_\mu \approx 0$), full integration into linear structure formation requires a native Horndeski evaluation.</p>
-     
-     <p><strong>The Contribution:</strong> This paper presents the exact analytical mapping of the TEP bi-metric framework—defined by a conformal factor $A(\phi)$ and a disformal deformation $B(\phi)$—into the Bellini-Sawicki Effective Field Theory (EFT) of Dark Energy.</p>
+    <p>
+        General Relativity is extensively validated in the deeply screened, high-density regime of the Solar System, but cosmological tensions—specifically the Hubble discrepancy and galactic mass anomalies—suggest a scale-dependent breakdown of the isochrony axiom.
+    </p>
 
-     <p><strong>The Result:</strong> By integrating these property functions ($\alpha_M, \alpha_B, \alpha_K, \alpha_T$) into the hi_class cosmological solver and running a full Markov Chain Monte Carlo (MCMC) pipeline via Cobaya against Planck 2018 likelihoods, this work provides the definitive proof that the TEP scalar field strictly preserves the Cosmic Microwave Background (CMB) acoustic peak structure while simultaneously permitting the late-time, environment-dependent proper-time dynamics required to resolve the Hubble tension.</p>
+    <p>
+        The Temporal Equivalence Principle (TEP) addresses these late-universe anomalies via a dynamical proper-time field, governed by environment-dependent Gradient Screening with saturation scale $\rho_T \approx 20$ g/cm³ (Paper 0, §7). Previous analytical approximations and CAMB integrations suggest this scalar field is frozen during radiation domination ($T^\mu_\mu \approx 0$). Full integration into linear structure formation requires a native Horndeski evaluation.
+    </p>
 
-     <p><em>Keywords:</em> Cosmology: theory – Cosmic microwave background – Dark energy – Scalar-tensor theories – Modified gravity – Large-scale structure of the universe</p>
- </div>
+    <p>
+        This paper maps the TEP bi-metric framework—defined by a conformal factor $A(\phi)$ and a disformal deformation $B(\phi)$—onto the Bellini-Sawicki Effective Field Theory (EFT) of Dark Energy, and then computes the background-only realization as the authoritative numerical analysis. The present results rest on this background-only modification, which is computed and constrained here.
+    </p>
+
+    <p>
+        This paper implements the native TEP background-only modification directly in hi_class via the transition function <code>f_T(z) = ln(1+z) * exp(-(z/z_T)^n_T)</code>, applied through the Jordan-frame conformal factor <code>M(z) = A/(1-alpha_A)</code> as <code>H_TEP(z) = H_LCDM(z) * M(z)</code> while preserving standard General Relativistic perturbations. The functional form is the authoritative one used in TEP-C0 (Paper 26): the <code>exp(-(z/z_T)^n_T)</code> factor enforces early-time freezing, so the temporal-shear field is suppressed for <code>z &gt;&gt; z_T</code>. Direct Boltzmann integration confirms that the pre-recombination sound horizon is preserved to parts-per-million (<code>r_s^TEP / r_s^LCDM = 1.0000000</code>) and that the acoustic-peak morphology is untouched. The only CMB-level effect of a non-zero <code>epsilon_T</code> is a late-time angular-diameter-distance projection that rigidly rescales the angular acoustic scale <code>theta_s</code> (a +0.27% shift at the fiducial <code>epsilon_T = 0.0066</code>, <code>z_T = 5</code>, <code>n_T = 2</code>) and is fully degenerate with <code>H_0</code>. Because this projection is absorbed by the standard parameters, the homogeneous amplitude is bounded by the CMB to <code>epsilon_T ~ 0</code>, consistent with TEP-C0 (Paper 26), where Pantheon+ supernovae give substantial Bayesian preference for the TEP geometry (Bayes factor 7-10 vs LambdaCDM; TEP-C0, Paper 26) while the CMB anchors the homogeneous background to the LambdaCDM limit. The Hubble tension is therefore resolved as a late-time, environment-dependent clock-transport effect (Paper 11) rather than through a modified homogeneous expansion history at recombination.
+    </p>
+
+    <p class="keywords">
+        Keywords: cosmology theory, cosmic microwave background, dark energy, scalar-tensor theories, modified gravity, large-scale structure of the universe, hi_class, Horndeski, temporal equivalence principle
+    </p>
+</div>

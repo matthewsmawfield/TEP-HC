@@ -1,235 +1,265 @@
 #!/usr/bin/env python3
-"""
-Generate actual figures for TEP-HC paper
-"""
+"""Generate publication-quality figures for TEP-HC."""
 
-import sys
 import json
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend
-import matplotlib.pyplot as plt
+import sys
 from pathlib import Path
 
-# Set style
-plt.style.use('seaborn-v0_8-whitegrid')
-plt.rcParams['figure.dpi'] = 150
-plt.rcParams['font.size'] = 10
-plt.rcParams['axes.labelsize'] = 11
-plt.rcParams['axes.titlesize'] = 12
-plt.rcParams['legend.fontsize'] = 9
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import numpy as np
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+from scripts.utils.plot_style import set_pub_style, COLORS, FIG_SIZES, save_fig
+
+FIGURES_DIR = PROJECT_ROOT / 'results' / 'figures'
+
 
 def figure_1_alpha_evolution():
     """Alpha function evolution with redshift."""
-    # Load alpha data
-    with open('results/alpha_functions.json') as f:
+    with open(PROJECT_ROOT / 'results/03_alpha_functions.json') as f:
         data = json.load(f)
-    
+
     z = np.array(data['redshifts'])
     alpha_M = np.array(data['alpha_M'])
     alpha_T = np.array(data['alpha_T'])
     alpha_B = np.array(data['alpha_B'])
     alpha_K = np.array(data['alpha_K'])
-    
-    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
-    fig.suptitle('TEP Alpha Functions: Bellini-Sawicki EFT', fontsize=13, fontweight='bold')
-    
-    # alpha_M
-    ax = axes[0, 0]
-    ax.semilogx(1+z, alpha_M, 'b-', linewidth=1.5, label=r'$\alpha_M$')
-    ax.axvline(1100, color='gray', linestyle='--', alpha=0.5, label='CMB epoch')
-    ax.axhline(0, color='k', linestyle='-', alpha=0.3)
-    ax.set_xlabel('1 + z')
-    ax.set_ylabel(r'$\alpha_M$ (Planck mass running)')
-    ax.legend(loc='upper right')
-    ax.set_xlim(1, 1200)
-    
-    # alpha_T
-    ax = axes[0, 1]
-    ax.semilogx(1+z, alpha_T, 'r-', linewidth=1.5, label=r'$\alpha_T$')
-    ax.axvline(1100, color='gray', linestyle='--', alpha=0.5)
-    ax.axhline(0, color='k', linestyle='-', alpha=0.3)
-    ax.set_xlabel('1 + z')
-    ax.set_ylabel(r'$\alpha_T$ (tensor speed excess)')
-    ax.legend(loc='upper right')
-    ax.set_xlim(1, 1200)
-    
-    # alpha_B
-    ax = axes[1, 0]
-    ax.semilogx(1+z, alpha_B, 'g-', linewidth=1.5, label=r'$\alpha_B$')
-    ax.axvline(1100, color='gray', linestyle='--', alpha=0.5)
-    ax.axhline(0, color='k', linestyle='-', alpha=0.3)
-    ax.set_xlabel('1 + z')
-    ax.set_ylabel(r'$\alpha_B$ (braiding)')
-    ax.legend(loc='upper right')
-    ax.set_xlim(1, 1200)
-    
-    # alpha_K
-    ax = axes[1, 1]
-    ax.semilogx(1+z, alpha_K, 'purple', linewidth=1.5, label=r'$\alpha_K$')
-    ax.axvline(1100, color='gray', linestyle='--', alpha=0.5)
-    ax.axhline(0, color='k', linestyle='-', alpha=0.3)
-    ax.set_xlabel('1 + z')
-    ax.set_ylabel(r'$\alpha_K$ (kineticity)')
-    ax.legend(loc='upper right')
-    ax.set_xlim(1, 1200)
-    
-    plt.tight_layout()
-    plt.savefig('results/figures/figure_1_alpha_evolution.png', dpi=150, bbox_inches='tight')
-    plt.close()
-    print("✓ Generated figure_1_alpha_evolution.png")
 
-def figure_2_cmb_comparison():
-    """CMB TT spectrum comparison."""
-    # Load CMB data
-    with open('results/cmb_spectra.json') as f:
+    series = [
+        (r'$\alpha_M$', alpha_M, COLORS['tep']),
+        (r'$\alpha_T$', alpha_T, COLORS['red']),
+        (r'$\alpha_B$', alpha_B, COLORS['model']),
+        (r'$\alpha_K$', alpha_K, COLORS['observed']),
+    ]
+
+    fig, axes = plt.subplots(2, 2, figsize=FIG_SIZES['web_quad'])
+    fig.suptitle('TEP Alpha Functions: Bellini–Sawicki EFT', fontsize=13, y=1.02)
+
+    for ax, (label, values, color) in zip(axes.flat, series):
+        ax.semilogx(1 + z, values, color=color, linewidth=2.0, label=label)
+        ax.axvline(1100, color=COLORS['gr'], linestyle='--', alpha=0.7, label='CMB epoch')
+        ax.axhline(0, color=COLORS['text'], linestyle='-', alpha=0.25, linewidth=0.8)
+        ax.set_xlabel('1 + z')
+        ax.set_ylabel(label)
+        ax.set_xlim(1, 1200)
+        ax.legend(loc='upper right', fontsize=9)
+
+    out = FIGURES_DIR / 'figure_1_alpha_evolution.png'
+    save_fig(fig, out)
+    print(f"  Generated {out.name}")
+
+
+def figure_2_cmb_residuals():
+    """CMB residual analysis for the native TEP background modification.
+
+    The physically meaningful statement is twofold and is read directly from the
+    pipeline output (no hardcoded numbers):
+      (a) the fractional C_ell residual at the fiducial epsilon_T, which is a
+          *coherent* pattern -- a rigid angular rescaling of the spectrum, not a
+          change in acoustic-peak morphology;
+      (b) the sound horizon r_s is preserved to ppm (early-time freezing works),
+          so the entire residual is a late-time angular-diameter-distance
+          projection (theta_s), which is degenerate with H0 and absorbed by the
+          standard parameters in a joint fit (-> epsilon_T bounded to ~0, TEP-C0).
+    """
+    with open(PROJECT_ROOT / 'results/04_cmb_spectra.json') as f:
         data = json.load(f)
-    
+
     ells = np.array(data['ells'])
-    cl_tt_lcdm = np.array(data['spectra']['cl_tt_lcdm'])
-    cl_tt_tep = np.array(data['spectra']['cl_tt_tep'])
     residuals = np.array(data['spectra']['residuals'])
-    
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8), 
-                                   gridspec_kw={'height_ratios': [3, 1]})
-    fig.suptitle('CMB Temperature Power Spectrum: TEP vs LambdaCDM', fontsize=13, fontweight='bold')
-    
-    # Main spectrum
-    ax1.plot(ells, cl_tt_lcdm, 'b-', linewidth=1.5, label=r'$\Lambda$CDM', alpha=0.8)
-    ax1.plot(ells, cl_tt_tep, 'r--', linewidth=1.5, label='TEP', alpha=0.8)
-    ax1.set_ylabel(r'$\ell(\ell+1)C_\ell^{TT}/2\pi$ [$(\mu K)^2$]')
-    ax1.set_xlim(2, 2500)
-    ax1.legend(loc='upper right')
-    ax1.set_title('Acoustic peaks show < 0.02% difference (TEP frozen at recombination)')
-    
-    # Mark acoustic peaks
-    for peak in [220, 540, 810]:
-        ax1.axvline(peak, color='gray', linestyle=':', alpha=0.3)
-    
-    # Residuals
-    ax2.plot(ells, residuals * 100, 'k-', linewidth=1)
-    ax2.axhline(0, color='b', linestyle='--', alpha=0.5)
-    ax2.axhline(0.02, color='r', linestyle='--', alpha=0.5, label='0.02% bound')
-    ax2.axhline(-0.02, color='r', linestyle='--', alpha=0.5)
-    ax2.fill_between(ells, -0.02, 0.02, alpha=0.2, color='green')
-    ax2.set_xlabel(r'Multipole $\ell$')
-    ax2.set_ylabel(r'$\Delta C_\ell/C_\ell$ [%]')
-    ax2.set_xlim(2, 2500)
-    ax2.legend(loc='upper right')
-    ax2.set_title('Residuals within Planck bounds')
-    
-    plt.tight_layout()
-    plt.savefig('results/figures/figure_2_cmb_comparison.png', dpi=150, bbox_inches='tight')
-    plt.close()
-    print("✓ Generated figure_2_cmb_comparison.png")
+    acoustic = data.get('acoustic', {})
+    r_s_ratio = acoustic.get('r_s_ratio', float('nan'))
+    theta_shift = acoustic.get('theta_s_frac_shift', float('nan')) * 100.0
 
-def figure_3_posterior_corner():
-    """MCMC posterior corner plot."""
-    with open('results/mcmc_summary.json') as f:
-        data = json.load(f)
-    
-    params = data['parameters']
-    
-    # Generate synthetic samples based on summary statistics
-    np.random.seed(42)
-    n_samples = 5000
-    
-    samples = {}
-    for param, stats in params.items():
-        samples[param] = np.random.normal(stats['mean'], stats['std'], n_samples)
-    
-    # Key parameters for corner plot
-    key_params = ['H0', 'Omega_m', 'log10_alpha_eff', 'ns']
-    n_params = len(key_params)
-    
-    fig, axes = plt.subplots(n_params, n_params, figsize=(10, 10))
-    fig.suptitle('TEP Cosmology: MCMC Posteriors', fontsize=13, fontweight='bold')
-    
-    for i, pi in enumerate(key_params):
-        for j, pj in enumerate(key_params):
-            ax = axes[i, j]
-            
-            if i == j:
-                # Diagonal: 1D histogram
-                ax.hist(samples[pi], bins=30, color='steelblue', alpha=0.7, edgecolor='black')
-                ax.axvline(params[pi]['mean'], color='red', linestyle='--', linewidth=2, 
-                          label=f"{params[pi]['mean']:.2f}")
-                ax.set_xlabel(pi)
-                ax.set_ylabel('Counts')
-                ax.legend()
-            elif i > j:
-                # Lower triangle: 2D scatter
-                ax.scatter(samples[pj], samples[pi], alpha=0.3, s=1, c='steelblue')
-                ax.set_xlabel(pj)
-                ax.set_ylabel(pi)
-            else:
-                # Upper triangle: hide
-                ax.axis('off')
-    
-    plt.tight_layout()
-    plt.savefig('results/figures/figure_3_posterior_corner.png', dpi=150, bbox_inches='tight')
-    plt.close()
-    print("✓ Generated figure_3_posterior_corner.png")
+    # Read the fiducial epsilon_T from the generated tep ini for an honest caption.
+    eps_T = None
+    try:
+        for line in (PROJECT_ROOT / 'results/tep_model.ini').read_text().splitlines():
+            if line.strip().startswith('epsilon_T'):
+                eps_T = float(line.split('=')[1])
+    except (OSError, ValueError):
+        pass
+    eps_str = f'{eps_T:g}' if eps_T is not None else 'fiducial'
+
+    mask_acoustic = (ells >= 100) & (ells <= 2000)
+    max_acoustic = np.nanmax(np.abs(residuals[mask_acoustic])) * 100
+
+    fig, axes = plt.subplots(1, 2, figsize=FIG_SIZES['double_column'])
+    fig.suptitle(
+        'Native TEP background modification: CMB TT impact is a projection',
+        fontsize=12, y=1.02,
+    )
+
+    # Panel (a): residual across the acoustic range (coherent peak-shift pattern)
+    ax = axes[0]
+    ax.plot(ells[mask_acoustic], residuals[mask_acoustic] * 100, color=COLORS['tep'], linewidth=1.2)
+    ax.axhline(0, color=COLORS['gr'], linestyle='--', alpha=0.7)
+    for peak in [220, 540, 810]:
+        ax.axvline(peak, color=COLORS['light_gray'], linestyle='--', alpha=0.5)
+    ax.set_xlabel(r'Multipole $\ell$')
+    ax.set_ylabel(r'$\Delta C_\ell^{TT} / C_\ell^{TT}$ [%]')
+    ax.set_xlim(100, 2000)
+    ax.set_title(
+        rf'(a) $\epsilon_T={eps_str}$: coherent shift, max $|\Delta C_\ell/C_\ell|={max_acoustic:.2f}\%$',
+        fontsize=10,
+    )
+
+    # Panel (b): the acoustic-scale bookkeeping -- r_s preserved, theta_s shifted
+    ax = axes[1]
+    ax.axis('off')
+    txt = (
+        r'$\bf{Acoustic\ scale\ bookkeeping}$' + '\n\n'
+        rf'Sound horizon ratio  $r_s^{{\rm TEP}}/r_s^{{\Lambda\rm CDM}} = {r_s_ratio:.7f}$' + '\n'
+        r'(preserved to ppm $\Rightarrow$ early-time freezing intact:' + '\n'
+        r'$r_s$, BBN and peak morphology untouched)' + '\n\n'
+        rf'Angular scale shift  $\Delta\theta_s/\theta_s = {theta_shift:+.4f}\%$' + '\n'
+        r'(pure late-time $D_A$ projection; degenerate with $H_0$)' + '\n\n'
+        r'$\Rightarrow$ residual is a rigid $\ell$-rescaling that standard' + '\n'
+        r'parameters absorb; the CMB therefore bounds the' + '\n'
+        r'homogeneous amplitude to $\epsilon_T\approx0$ (TEP-C0, Paper 26).'
+    )
+    ax.text(0.02, 0.98, txt, va='top', ha='left', fontsize=9.5,
+            transform=ax.transAxes,
+            bbox=dict(boxstyle='round', facecolor='white', edgecolor=COLORS['tep'], alpha=0.95))
+
+    out = FIGURES_DIR / 'figure_2_cmb_residuals.png'
+    save_fig(fig, out)
+    print(f"  Generated {out.name}")
+
+
+def figure_3_sne_evidence():
+    """Late-time Bayesian evidence for the TEP geometry (TEP-C0, Paper 26).
+
+    These Bayes factors come from the *completed, verified* SNe-only nested
+    sampling over the full 1701x1701 Pantheon+ stat+sys covariance
+    (TEP-C0 step_03_01). They are the genuine late-universe evidence that this
+    paper relies on; the homogeneous CMB amplitude is bounded separately
+    (Section 5). We deliberately do NOT plot the old propto_omega proxy chains
+    (Appendix A), which are an unvalidated numerical artifact, nor the joint
+    SNe+CMB MCMC, which is not yet a completed run.
+    """
+    # Verified Bayes factors vs LCDM from TEP-C0 results/step_03_01 (Paper 26 Table).
+    models = [
+        ('EdS\n(pure matter)', 3.48e-126),
+        ('Pure shear\n(tired light)', 3.40e-10),
+        (r'TEP M1' + '\n' + r'($z_T{=}5$)', 7.21),
+        ('TEP M1\n(free $z_T$)', 10.24),
+        ('wCDM', 18.52),
+        ('CPL\n($w_0w_a$)', 17.83),
+    ]
+    names = [m[0] for m in models]
+    bf = np.array([m[1] for m in models])
+    lnbf = np.log(bf)
+    colors = []
+    for n in names:
+        if 'TEP' in n:
+            colors.append(COLORS['tep'])
+        elif 'EdS' in n or 'shear' in n:
+            colors.append(COLORS['red'])
+        else:
+            colors.append(COLORS['model'])
+
+    fig, ax = plt.subplots(figsize=(9, 4.2))
+    ax.bar(range(len(names)), lnbf, color=colors, alpha=0.85, edgecolor=COLORS['text'])
+    ax.axhline(0, color=COLORS['gr'], linewidth=1.0)
+    ax.axhspan(0, 1, alpha=0.06, color=COLORS['text'])
+    ax.axhspan(1, 3, alpha=0.10, color=COLORS['tep'])
+    ax.set_xticks(range(len(names)))
+    ax.set_xticklabels(names, fontsize=8)
+    ax.set_ylabel(r'$\ln$ Bayes factor vs $\Lambda$CDM')
+    ax.set_title('Late-time SNe evidence (Pantheon+, full covariance; TEP-C0 nested sampling)',
+                 fontsize=11)
+    for i, v in enumerate(lnbf):
+        ax.text(i, v + (0.4 if v >= 0 else -0.4), f'{v:.1f}',
+                ha='center', va='bottom' if v >= 0 else 'top', fontsize=8)
+    ax.text(0.99, 0.04,
+            'TEP and dark-energy models are all "substantial/strong" over $\\Lambda$CDM;\n'
+            'EdS and pure tired-light are decisively rejected.',
+            transform=ax.transAxes, ha='right', va='bottom', fontsize=8.5,
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.9, edgecolor=COLORS['gr']))
+
+    out = FIGURES_DIR / 'figure_3_sne_evidence.png'
+    save_fig(fig, out)
+    print(f"  Generated {out.name}")
+
 
 def figure_4_h0_comparison():
-    """H0 comparison plot."""
-    fig, ax = plt.subplots(figsize=(10, 6))
-    
-    # Data
+    """H0 in the TEP picture: homogeneous background stays Planck-compatible;
+    the local SH0ES value is reinterpreted as a clock-transport bias (Paper 11).
+
+    We do NOT plot the old propto_omega proxy chain H0 (66.0), which is an
+    unvalidated artifact (Appendix A). The TEP homogeneous background is
+    Planck-compatible by construction (epsilon_T bounded to ~0 on homogeneous
+    scales); the late-time tension is resolved locally, not via a modified
+    expansion history.
+    """
+    fig, ax = plt.subplots(figsize=(7.8, 3.8))
+
     measurements = [
-        ('Planck 2018\n(CMB)', 67.36, 0.54, 'blue'),
-        ('TEP+CMB\n(This work)', 67.42, 0.54, 'green'),
-        ('SH0ES\n(Local)', 73.04, 1.04, 'red'),
+        ('Planck 2018 (CMB, $\\Lambda$CDM)', 67.36, 0.54, COLORS['planck']),
+        ('TEP homogeneous background\n($\\epsilon_T\\!\\to\\!0$; Planck-compatible)', 67.36, 0.54, COLORS['tep']),
+        ('SH0ES local, TEP-corrected\n(clock bias removed; Paper 11)', 69.1, 1.0, COLORS['model']),
+        ('SH0ES (local, uncorrected)', 73.04, 1.04, COLORS['shoes']),
     ]
-    
+
     y_pos = np.arange(len(measurements))
-    
+
     for i, (name, value, error, color) in enumerate(measurements):
-        ax.errorbar(value, i, xerr=error, fmt='o', markersize=12, 
-                   color=color, ecolor=color, capsize=5, capthick=2, 
-                   label=name, alpha=0.8)
-        ax.text(value + error + 0.5, i, f'{value:.2f} ± {error:.2f}', 
-               va='center', fontsize=10, fontweight='bold')
-    
+        ax.errorbar(
+            value, i, xerr=error, fmt='o', markersize=10,
+            color=color, ecolor=color, capsize=5, capthick=2,
+            alpha=0.9,
+        )
+        ax.text(
+            value + error + 0.35, i, f'{value:.2f} ± {error:.2f}',
+            va='center', fontsize=10, color=COLORS['text'],
+        )
+
     ax.set_yticks(y_pos)
     ax.set_yticklabels([m[0] for m in measurements])
-    ax.set_xlabel(r'$H_0$ [km/s/Mpc]', fontsize=12)
-    ax.set_title(r'$H_0$ Measurements: Early vs Late Universe', fontsize=13, fontweight='bold')
+    ax.set_xlabel(r'$H_0$ [km/s/Mpc]')
+    ax.set_title(r'$H_0$ Measurements: Early Universe CMB vs Late Universe Cepheids')
     ax.set_xlim(65, 76)
-    ax.axvline(67.4, color='blue', linestyle='--', alpha=0.3, label='Early universe')
-    ax.axvline(73.0, color='red', linestyle='--', alpha=0.3, label='Local universe')
-    
-    # Add tension annotation
-    ax.annotate('Hubble Tension:\n5.6σ discrepancy\nin ΛCDM', 
-               xy=(70, 1), fontsize=10, ha='center',
-               bbox=dict(boxstyle='round', facecolor='yellow', alpha=0.3))
-    
-    ax.annotate('TEP Resolution:\nEnvironmental\neffect', 
-               xy=(70, 0.5), fontsize=10, ha='center', color='green',
-               bbox=dict(boxstyle='round', facecolor='lightgreen', alpha=0.3))
-    
-    ax.legend(loc='upper left')
-    ax.grid(True, alpha=0.3, axis='x')
-    
-    plt.tight_layout()
-    plt.savefig('results/figures/figure_4_H0_comparison.png', dpi=150, bbox_inches='tight')
-    plt.close()
-    print("✓ Generated figure_4_H0_comparison.png")
+    ax.axvline(67.36, color=COLORS['planck'], linestyle='--', alpha=0.35)
+    ax.axvline(73.04, color=COLORS['shoes'], linestyle='--', alpha=0.35)
 
-if __name__ == "__main__":
-    print("=" * 60)
-    print("GENERATING TEP-HC FIGURES")
-    print("=" * 60)
-    print()
-    
-    Path('results/figures').mkdir(exist_ok=True)
-    
+    ax.annotate(
+        'Hubble tension:\n4.8σ discrepancy',
+        xy=(70.2, len(measurements) - 1 + 0.15), fontsize=10, ha='center',
+        bbox=dict(boxstyle='round', facecolor=COLORS['light_gray'], alpha=0.8, edgecolor=COLORS['gr']),
+    )
+    ax.annotate(
+        'TEP interpretation:\nproper-time calibration\nin unscreened media',
+        xy=(70.2, 0.35), fontsize=9, ha='center', color=COLORS['tep'],
+        bbox=dict(boxstyle='round', facecolor='white', alpha=0.9, edgecolor=COLORS['tep']),
+    )
+
+    out = FIGURES_DIR / 'figure_4_H0_comparison.png'
+    save_fig(fig, out)
+    print(f"  Generated {out.name}")
+
+
+def main():
+    print('=' * 60)
+    print('GENERATING TEP-HC FIGURES')
+    print('=' * 60)
+
+    set_pub_style()
+    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+
     figure_1_alpha_evolution()
-    figure_2_cmb_comparison()
-    figure_3_posterior_corner()
+    figure_2_cmb_residuals()
+    figure_3_sne_evidence()
     figure_4_h0_comparison()
-    
+
     print()
-    print("=" * 60)
-    print("✓ ALL FIGURES GENERATED")
-    print("=" * 60)
+    print('=' * 60)
+    print('  ALL FIGURES GENERATED')
+    print('=' * 60)
+
+
+if __name__ == '__main__':
+    main()

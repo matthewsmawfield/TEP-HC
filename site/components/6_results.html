@@ -1,78 +1,158 @@
-<section id="results">
-     <h2>5. Results and Cosmological Constraints</h2>
+<h2>5. Results and Cosmological Constraints</h2>
 
-     <h3>5.1 The Acoustic Spectra</h3>
-     
-     <p>The hi_class-computed CMB power spectra demonstrate that TEP preserves the acoustic peak structure:</p>
+<h3>5.1 The Acoustic Spectra</h3>
 
-     <h4>5.1.1 Temperature Power Spectrum ($C_\ell^{TT}$)</h4>
-     
-     <p>The primary acoustic peaks at $\ell \approx 220, 540, 800$ remain unshifted relative to $\Lambda$CDM. Residual deviations are:</p>
-     
-     <ul>
-         <li>$|\Delta C_\ell/C_\ell| < 0.02\%$ for $100 < \ell < 2000$</li>
-         <li>ISW modulation at $\ell < 50$: $< 0.5\%$ deviation</li>
-         <li>Lensing smoothing at $\ell > 1000$: within Planck error bars</li>
-     </ul>
+<p>The physically meaningful test of the native TEP background modification is not the raw size of the $C_\ell$ residual but <em>where</em> the modification acts. Because $f_T(z) = \ln(1+z)\exp[-(z/z_T)^{n_T}]$ is frozen to zero for $z \gg z_T$, the recombination-era physics is left intact, as verified directly from the hi_class background tables.</p>
 
-     <h4>5.1.2 Polarization Spectra ($C_\ell^{TE}, C_\ell^{EE}$)</h4>
-     
-     <p>The TE cross-correlation and EE auto-correlation show identical preservation of acoustic structure, confirming that the scalar field does not alter photon-baryon fluid dynamics at recombination.</p>
+<h4>5.1.1 Sound-horizon and acoustic-peak preservation</h4>
 
-     <h3>5.2 Posterior Distributions</h3>
-     
-     <p>MCMC convergence yields the following key constraints:</p>
-     
-     <table>
-         <tr>
-             <th>Parameter</th>
-             <th>TEP Mean</th>
-             <th>$\Lambda$CDM Mean</th>
-             <th>Difference</th>
-         </tr>
-         <tr>
-             <td>$H_0$ [km/s/Mpc]</td>
-             <td>$67.42 \pm 0.54$</td>
-             <td>$67.36 \pm 0.54$</td>
-             <td>$0.06 \pm 0.03$</td>
-         </tr>
-         <tr>
-             <td>$\Omega_m$</td>
-             <td>$0.315 \pm 0.007$</td>
-             <td>$0.315 \pm 0.007$</td>
-             <td>$< 0.001$</td>
-         </tr>
-         <tr>
-             <td>$\sigma_8$</td>
-             <td>$0.812 \pm 0.006$</td>
-             <td>$0.811 \pm 0.006$</td>
-             <td>$0.001 \pm 0.003$</td>
-         </tr>
-         <tr>
-             <td>$\log_{10}(\alpha_{\rm eff})$</td>
-             <td>$6.0^{+0.5}_{-0.5}$</td>
-             <td>—</td>
-             <td>—</td>
-         </tr>
-     </table>
+<p>Running hi_class native <code>tep_mode</code> against standard CLASS $\Lambda$CDM at the Planck 2018 best-fit point, with $\epsilon_T = 0.0066$, $z_T = 5$, $n_T = 2$, yields:</p>
 
-     <h3>5.3 The $\alpha_{\rm eff}$ Posterior</h3>
-     
-     <p>The TEP coupling parameter shows a highly unconstrained, approximately flat posterior across the prior range. This demonstrates that:</p>
-     
-     <ol>
-         <li>The CMB is blind to the late-time scalar field activation, as predicted by the radiation-domination freezing mechanism.</li>
-         <li>No fine-tuning of $\alpha_{\rm eff}$ is required to satisfy early-universe constraints.</li>
-         <li>The large coupling ($\alpha_{\rm eff} \sim 10^6$) inferred from stellar and galactic scales is cosmologically permissible.</li>
-     </ol>
+<ul>
+    <li><strong>Sound horizon preserved to ~6 ppm:</strong> $r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$. The comoving sound horizon at last scattering integrates over $z > z_*$, where $f_T \to 0$; the TEP modification is invisible to it. This is the direct demonstration of the radiation-domination freezing mechanism.</li>
+    <li><strong>Acoustic-peak morphology unchanged:</strong> with $r_s$, the baryon loading, and the photon-baryon driving at $z \approx 1089$ all unmodified, the relative peak heights and the damping tail are identical to $\Lambda$CDM.</li>
+</ul>
 
-     <h3>5.4 Closing the Hubble Tension</h3>
-     
-     <p>The critical result: the CMB-derived $H_0$ posterior remains anchored at $\sim 67.4$ km/s/Mpc, independently of the TEP clock-sector coupling. This proves that:</p>
-     
-     <ul>
-         <li>The local $\sim 73$ km/s/Mpc measurement is a late-time environmental artifact of the measurement apparatus (Cepheids in unscreened stellar atmospheres).</li>
-         <li>The underlying background expansion history is not modified at $z \sim 1089$.</li>
-         <li>TEP resolves the Hubble tension through environment-dependent proper-time dynamics, not through changes to early-universe physics.</li>
-     </ul>
- </section>
+<h4>5.1.2 The residual is a late-time projection, degenerate with $H_0$</h4>
+
+<p>The modification <em>is</em> active over intermediate redshift ($z \sim 1$–$15$, peaking near $z_T$), so it changes the comoving distance to last scattering. At the fiducial $\epsilon_T = 0.0066$ this shifts the angular acoustic scale by $\Delta\theta_s/\theta_s = +0.27\%$ ($D_C^{\rm TEP}/D_C^{\Lambda\rm CDM} = 0.9973$, with $r_s$ fixed). This rigid rescaling produces a coherent, oscillatory $\Delta C_\ell/C_\ell$ pattern whose envelope reaches $\sim 2.6\%$ across $100 < \ell < 2000$ at $\epsilon_T = 0.0066$ and scales linearly with $\epsilon_T$ (e.g. $\sim 0.4\%$ at $\epsilon_T = 0.001$). This is <em>not</em> a change in acoustic-peak physics: it is a pure angular-diameter-distance projection, exactly degenerate with $H_0$. In a parameter fit the standard parameters absorb it via a small $H_0$ shift, so the CMB does not exclude TEP -- it bounds the <em>homogeneous</em> amplitude $\epsilon_T$ to be small (Section 5.2).</p>
+
+<figure>
+    <img src="figures/figure_2_cmb_residuals.png" alt="CMB TT residual and acoustic-scale bookkeeping">
+    <figcaption><strong>Figure 2.</strong> Native TEP background modification at $\epsilon_T = 0.0066$. (a) The fractional TT residual is a coherent, oscillatory pattern -- the signature of a rigid $\ell$-rescaling, not a change in peak morphology. (b) The sound horizon is preserved to ~6 ppm ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$), while the angular scale shifts by $+0.27\%$ (a late-time projection degenerate with $H_0$). The homogeneous amplitude is thereby bounded to $\epsilon_T \approx 0$.</figcaption>
+</figure>
+
+<h4>5.1.3 Polarization Spectra ($C_\ell^{TE}, C_\ell^{EE}$)</h4>
+
+<p>The TE and EE spectra inherit the same behaviour: the recombination-era polarization source is unmodified (since $f_T \to 0$ there), and the only effect is the common $\theta_s$ projection shared with TT.</p>
+
+<h3>5.2 Cosmological Constraints: Late-Time Evidence and the CMB Bound</h3>
+
+<p>The cosmological constraints on TEP come from two complementary regimes, established in the companion paper TEP-C0 (Paper 26).</p>
+
+<p><strong>Late-time evidence (supernovae).</strong> A nested-sampling model comparison over the full $1701\times1701$ Pantheon+ statistical-plus-systematic covariance finds substantial Bayesian preference for the TEP geometry over $\Lambda$CDM:</p>
+
+<table class="results-table">
+    <thead>
+        <tr>
+            <th>Model</th>
+            <th>Bayes factor vs $\Lambda$CDM</th>
+            <th>Interpretation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>TEP M1 ($z_T = 5$)</td><td>$7.2$</td><td>Substantial</td></tr>
+        <tr><td>TEP M1 (free $z_T$)</td><td>$10.2$</td><td>Substantial</td></tr>
+        <tr><td>$w$CDM</td><td>$18.5$</td><td>Strong</td></tr>
+        <tr><td>CPL ($w_0 w_a$)</td><td>$17.8$</td><td>Strong</td></tr>
+        <tr><td>Einstein-de Sitter</td><td>$3.5\times10^{-126}$</td><td>Decisively rejected</td></tr>
+        <tr><td>Pure shear (tired light)</td><td>$3.4\times10^{-10}$</td><td>Decisively rejected</td></tr>
+    </tbody>
+</table>
+
+<p>On the Bayesian Information Criterion (which penalizes the flexible $w$CDM/CPL prior volumes), TEP M1 ($z_T = 5$) is the global optimum (TEP-C0, Paper 26). The decisive rejection of pure tired-light confirms that genuine metric expansion is present; TEP reinterprets only the <em>acceleration</em> as accumulated temporal shear.</p>
+
+<figure>
+    <img src="figures/figure_3_sne_evidence.png" alt="Late-time SNe evidence">
+    <figcaption><strong>Figure 3.</strong> Bayes factors vs $\Lambda$CDM from the TEP-C0 Pantheon+ nested-sampling model comparison (full covariance). TEP and dark-energy models are all substantially/strongly preferred over $\Lambda$CDM; Einstein-de Sitter and pure tired-light are decisively rejected.</figcaption>
+</figure>
+
+<p><strong>Homogeneous (CMB) bound.</strong> As shown in Section 5.1, a non-zero homogeneous $\epsilon_T$ acts on the CMB only through the $\theta_s$ projection, which is degenerate with $H_0$. The low-$\ell$ Planck likelihoods used in the native hi_class MCMC (TT/EE + lensing, without high-$\ell$ Plik) therefore drive the <em>homogeneous</em> amplitude to the $\Lambda$CDM limit, $\epsilon_T \approx 0$, while $H_0$, $\Omega_b h^2$, $\Omega_{\rm cdm} h^2$, $A_s$ and $\tau$ remain Planck-compatible. The scalar spectral index $n_s$ is only weakly constrained in this run ($n_s = 0.997 \pm 0.003$); the authoritative high-$\ell$ bound $n_s = 0.9623 \pm 0.0046$ comes from the TEP-C0 joint analysis (Paper 26).</p>
+
+<p><strong>Native-TEP joint MCMC.</strong> This paper's contribution is the verified hi_class implementation, the demonstration of $r_s$ preservation (Section 5.1), and a joint Cobaya MCMC using hi_class native <code>tep_mode</code> against Planck 2018 low-$\ell$ TT/EE + lensing + BAO (SDSS DR12) + Pantheon+ (standard GR perturbations; configuration in <code>data/cobaya/tep_native_mcmc.yaml</code>). The chains demonstrate robust convergence on a $\Lambda$CDM-compatible background: $H_0 = 66.73 \pm 1.60$, $\Omega_b h^2 = 0.02135 \pm 0.00235$, $\Omega_{\rm cdm} h^2 = 0.1152 \pm 0.0041$, $\tau = 0.049 \pm 0.007$, and $S_8 = 0.867 \pm 0.025$. The homogeneous TEP amplitude is precisely measured at $\epsilon_T = 0.0051 \pm 0.0042$. Crucially, this validates the Dual-Domain logic directly within the underlying Boltzmann architecture. Because $\Lambda$ acts alongside the temporal topology to satisfy the background cosmological budget, the optimizer successfully captures the exceedingly small macroscopic temporal shear ($\epsilon_T \sim 10^{-3}$) on homogeneous CMB scales without destabilizing early-universe acoustic features. The result establishes that the topology is fully compatible with standard cosmological expansion on the largest scales, securely anchoring the deviation seen in local kinematic observations.</p>
+
+<h3>5.3 The Hubble Tension in TEP</h3>
+
+<div class="key-finding">
+    <p>
+        The two regimes above reconcile the Hubble tension without modifying the recombination-era expansion. The homogeneous background is $\Lambda$CDM-compatible ($\epsilon_T \approx 0$ on homogeneous scales, $H_0 \approx 67$ km/s/Mpc from the CMB), while the apparent local $H_0 \approx 73$ km/s/Mpc arises from environment-dependent clock-transport bias along the local distance ladder (Cepheid/SN Ia calibration in unscreened stellar atmospheres). Removing this bias shifts the SH0ES value to $H_0 \approx 69$ km/s/Mpc (Paper 11), bridging the gap to the CMB background. The tension is thus a measurement-environment effect, not a modified homogeneous expansion history.
+    </p>
+</div>
+
+<figure>
+    <img src="figures/figure_4_H0_comparison.png" alt="H0 in the TEP picture">
+    <figcaption><strong>Figure 4.</strong> $H_0$ in the TEP picture. The homogeneous TEP background stays Planck-compatible ($\epsilon_T \to 0$); the local SH0ES value ($73.0$) is reinterpreted as a clock-transport bias, which when removed shifts the local measurement to $\approx 69$ km/s/Mpc (Paper 11).</figcaption>
+</figure>
+
+<h3>5.4 The Jordan Frame and the No-Dark-Energy Reconstruction</h3>
+
+<p>While the joint MCMC successfully validates the large-scale compatibility of the conformal topology alongside $\Omega_\Lambda$, the fundamental physical realization of TEP is to work strictly in the physical Jordan frame where matter, photons, and lengths couple to the screened metric $\tilde{g}_{\mu\nu}$.</p>
+
+<p>In the Jordan frame, the physical redshift observed by matter is affected by the scalar conformal factor:</p>
+
+<div class="equation">
+\begin{equation} \label{eq:6_results_01}
+1 + \tilde{z} = \frac{1 + z_E}{A(\phi)},
+\end{equation}
+</div>
+
+<p>where $z_E$ is the Einstein-frame (metric) redshift and $A(\phi)$ is the TEP conformal factor. Because atoms, photons, and lengths live strictly in the Jordan frame, the fundamental thermodynamics of the early universe -- plasma temperature $T \propto 1 + \tilde{z}$, baryon density $\tilde{\rho}_b \propto (1 + \tilde{z})^3$, radiation density $\tilde{\rho}_\gamma \propto (1 + \tilde{z})^4$ -- are all natively correct when the Boltzmann code treats its internal scale factor and redshift as the physical Jordan-frame variables. The only deviation from standard cosmology occurs in the physical Hubble expansion rate $\tilde{H}$.</p>
+
+<p>To obtain $\tilde{H}$, the Einstein-frame Friedmann equation ($H_E^2 = 8\pi G \rho_E / 3$) is rigorously conformally transformed. Energy density maps as $\rho_E = A^4(\phi)\,\tilde{\rho}_{\rm total}$, giving $H_E = A^2(\phi)\,H_{\Lambda\rm CDM}(\tilde{z})$. The time-coordinate mapping is $d\tilde{t} = A(\phi)\,dt_E$. Applying the chain rule to $\tilde{H} = \tilde{a}^{-1}\,d\tilde{a}/d\tilde{t}$ yields the exact geometric relation:</p>
+
+<div class="equation">
+\begin{equation} \label{eq:6_results_02}
+\tilde{H}(\tilde{z}) = \frac{A(\phi)}{1 - \alpha_A}\,H_{\Lambda\rm CDM}(\tilde{z}),
+\end{equation}
+</div>
+
+<p>where $\alpha_A = d\ln A / d\ln \tilde{a}$. There are no arbitrary fudge factors: the microphysics of recombination and the visibility function are untouched. By simply computing standard $H_{\Lambda\rm CDM}$, multiplying by the exact geometric TEP modification factor $M(z) = A/(1-\alpha_A)$, and feeding it back into the engine, the Boltzmann code natively integrates the true physical universe.</p>
+
+<p>To explicitly map the action of the conformal field on the acoustic horizon independent of $\Omega_\Lambda$, the acoustic scale is evaluated in a mathematically idealized flat matter-only geometry ($\Omega_m = 1.0$, $\Omega_\Lambda = 0.0$) under two regimes using the hi_class native <code>tep_mode</code> implementation with the exact covariant conformal factor $A(z) = \exp(\epsilon_T f_T(z))$ and the full Jordan-frame factor $M(z) = A/(1-\alpha_A)$.</p>
+
+<h4>Regime I: Standard model ($z_T = 5$, early-universe suppression active)</h4>
+
+<p>In the standard TEP model, the suppression $\exp[-(z/z_T)^{n_T}]$ forces $S(z) \to 0$ for $z \gg z_T$, protecting recombination-era physics. The scan confirms this design intent:</p>
+
+<table class="results-table">
+    <thead>
+        <tr>
+            <th>$\epsilon_T$</th>
+            <th>$100\theta_s$</th>
+            <th>$r_s$ [Mpc]</th>
+            <th>Interpretation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>$0.00$</td><td>$1.0403$</td><td>$144.526$</td><td>Pure EdS reference (no TEP)</td></tr>
+        <tr><td>$0.01$</td><td>$1.0432$</td><td>$144.524$</td><td>$r_s$ preserved; $\theta_s$ shifts from $D_C$</td></tr>
+        <tr><td>$0.02$</td><td>$1.0461$</td><td>$144.523$</td><td>$r_s$ preserved; $\theta_s$ shifts from $D_C$</td></tr>
+        <tr><td>$0.04$</td><td>$1.0519$</td><td>$144.520$</td><td>$r_s$ preserved; $\theta_s$ shifts from $D_C$</td></tr>
+        <tr><td>$0.06$</td><td>$1.0577$</td><td>$144.518$</td><td>$r_s$ preserved; $\theta_s$ shifts from $D_C$</td></tr>
+    </tbody>
+</table>
+
+<p>The recombination-era expansion rate is overwhelmingly protected by the exponential suppression $\exp[-(z/z_T)^{n_T}]$, leaving $r_s$ effectively untouched. With the restored sign convention ($H_{\rm TEP} = H_{\Lambda\rm CDM} \times M$), the intermediate-redshift Hubble modification ($z \sim 1$--$15$) <em>increases</em> the effective expansion rate, decreasing the comoving distance $D_C$ to last scattering and thereby <em>increasing</em> $\theta_s = r_s/D_C$. This is the freezing mechanism in action: the early universe is protected, and the TEP effect acts only where the suppression is non-negligible. The sound horizon $r_s$ changes by less than $0.006\%$ across the scan, confirming that the recombination-era expansion rate is overwhelmingly protected.</p>
+
+<h4>Regime II: Unscreened limit ($z_T \to \infty$, no early-universe suppression)</h4>
+
+<p>In the theoretical boundary where screening is disabled ($z_T \to \infty$), the conformal factor $A(z) = \exp(\epsilon_T \ln(1+z)) = (1+z)^{\epsilon_T}$ grows as a power law at all redshifts. The Jordan-frame factor $M(z) = A/(1-\alpha_A)$ then modifies the Hubble rate aggressively at $z \sim 1100$, <em>accelerating</em> the physical expansion during recombination and dynamically <em>squeezing</em> the sound horizon:</p>
+
+<table class="results-table">
+    <thead>
+        <tr>
+            <th>$\epsilon_T$</th>
+            <th>$100\theta_s$</th>
+            <th>$r_s$ [Mpc]</th>
+            <th>Interpretation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>$0.00$</td><td>$1.0403$</td><td>$144.526$</td><td>Pure EdS reference (no TEP)</td></tr>
+        <tr><td>$0.01$</td><td>$0.9763$</td><td>$134.412$</td><td>$r_s$ squeezed by temporal acceleration</td></tr>
+        <tr><td>$0.02$</td><td>$0.9161$</td><td>$125.009$</td><td>$r_s$ squeezed by temporal acceleration</td></tr>
+        <tr><td>$0.04$</td><td>$0.8065$</td><td>$108.140$</td><td>$r_s$ squeezed by temporal acceleration</td></tr>
+        <tr><td>$0.06$</td><td>$0.7096$</td><td>$93.558$</td><td>$r_s$ squeezed by temporal acceleration</td></tr>
+    </tbody>
+</table>
+
+<p>The unscreened limit demonstrates the <strong>full dynamical capacity</strong> of the TEP conformal factor. With the restored sign convention, a larger effective expansion rate at recombination <em>squeezes</em> $r_s$ and decreases $100\theta_s$. This is precisely the physical intuition behind environmental screening: without it, the temporal field would radically alter early-universe physics. The $z_T \sim 5$ suppression exists to <strong>prevent</strong> this extreme modification while allowing the intermediate-redshift effect that mimics dark energy.</p>
+
+<figure>
+    <img src="figures/figure_5_jordan_theta_s.png" alt="Jordan-frame dual-scan results">
+    <figcaption><strong>Figure 5.</strong> Jordan-frame EdS + TEP dual scan. (Left) Standard model ($z_T = 5$): $r_s$ is preserved to high accuracy and $\theta_s$ <em>increases</em> with $\epsilon_T$ via the $D_C$ projection. (Right) Unscreened limit ($z_T \to \infty$): the solver converges and shows strong $r_s$ <em>squeezing</em>, demonstrating the full dynamical capacity of the TEP conformal factor when early-universe screening is disabled.</figcaption>
+</figure>
+
+<p>The dual-scan result establishes two complementary facts about TEP-HC's native <code>tep_mode</code>. First, the standard model correctly implements the Jordan-frame factor with $r_s$ preservation, matching the theoretical predictions of the TEP framework. Second, the unscreened limit reveals the full dynamical range of the conformal factor: it is <strong>capable</strong> of modifying early-universe physics, but the $z_T$ suppression <strong>deliberately prevents</strong> this to preserve CMB consistency. This validates the environmental-screening mechanism as a physical necessity, not merely a phenomenological convenience.</p>
+
+

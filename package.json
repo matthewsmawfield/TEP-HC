@@ -1,7 +1,7 @@
 {
-  "name": "tep-wb",
-  "version": "1.0.0",
-  "description": "TEP-WB: Wide Binary Anomaly",
+  "name": "tep-hc",
+  "version": "0.1.0",
+  "description": "TEP-HC: hi_class EFT mapping and CMB constraints",
   "scripts": {
     "build:markdown": "npm run build:markdown --prefix site"
   }

@@ -1,59 +1,91 @@
-<section id="theory">
-     <h2>2. Theoretical Architecture: The EFT Mapping</h2>
+<h2>2. Theoretical Architecture: The EFT Mapping</h2>
 
-     <h3>2.1 The Bi-Metric Action</h3>
-     
-     <p>The TEP framework posits that matter couples to a screened metric $\tilde{g}_{\mu\nu}$ related to the Einstein-frame metric $g_{\mu\nu}$ via a disformal transformation:</p>
-     
-     $$\tilde{g}_{\mu\nu} = A(\phi) g_{\mu\nu} + B(\phi) \nabla_\mu\phi \nabla_\nu\phi$$
-     
-     <p>where:</p>
-     <ul>
-         <li>$A(\phi) = \exp(2\beta\phi/M_{\rm Pl})$ is the conformal factor</li>
-         <li>$B(\phi)$ controls disformal deformation of the causal structure</li>
-         <li>$\phi$ is the dynamical proper-time field</li>
-     </ul>
+<h3>2.1 The Bi-Metric Action</h3>
 
-     <h3>2.2 Deriving the Bellini-Sawicki Alphas</h3>
-     
-     <p>hi_class requires the EFT property functions $\alpha_i$ that encode metric modifications at linear perturbation level.</p>
+<p>The TEP framework posits that matter couples to a screened metric $\tilde{g}_{\mu\nu}$ related to the Einstein-frame metric $g_{\mu\nu}$ via a disformal transformation:</p>
 
-     <h4>2.2.1 Planck Mass Running ($\alpha_M$)</h4>
-     
-     <p>The conformal coupling directly determines the running of the effective Planck mass:</p>
-     
-     $$\alpha_M \equiv \frac{d \ln M_{\rm eff}^2}{d \ln a} = \frac{d \ln A(\phi)}{d \ln a} = \frac{2\beta}{M_{\rm Pl}} \frac{\phi'}{\mathcal{H}}$$
-     
-     <p>where $\mathcal{H} = aH$ is the conformal Hubble parameter and primes denote derivatives with respect to conformal time.</p>
+<div class="equation">
+\begin{equation} \label{eq:3_theory_01}
+\tilde{g}_{\mu\nu} = A^2(\phi) g_{\mu\nu} + B(\phi) \nabla_\mu\phi \nabla_\nu\phi
+\end{equation}
+</div>
 
-     <h4>2.2.2 Tensor Speed Excess ($\alpha_T$)</h4>
-     
-     <p>The disformal term $B(\phi)$ alters the gravitational wave propagation speed. Multi-messenger constraints from GW170817/GRB 170817A require:</p>
-     
-     $$|c_g - c_\gamma|/c \lesssim 10^{-15} \Rightarrow \alpha_T \approx 0 \text{ (today)}$$
-     
-     <p>However, $B(\phi)$ may be non-zero at recombination ($z \approx 1100$) provided it relaxes to zero by $z \sim 0$.</p>
+<p>where:</p>
+<ul>
+    <li>$A(\phi) = \exp(\beta_A\phi/M_{\rm Pl})$ is the conformal factor, with $\beta_A = -1.0$ (the locked lab-scale convention used across the TEP corpus)</li>
+    <li>$B(\phi)$ controls disformal deformation of the causal structure</li>
+    <li>$\phi$ is the dynamical proper-time field</li>
+</ul>
 
-     <h4>2.2.3 Braiding ($\alpha_B$) and Kineticity ($\alpha_K$)</h4>
-     
-     <p>These functions govern scalar field clustering and metric mixing:</p>
-     
-     $$\alpha_B = -\frac{\mathcal{H}'\phi'}{\mathcal{H}^2} \cdot f_B(\phi, X)$$
-     $$\alpha_K = \frac{\phi'^2}{\mathcal{H}^2 M_{\rm Pl}^2} \cdot f_K(\phi, X)$$
-     
-     <p>where $X = -\nabla_\mu\phi \nabla^\mu\phi/2$ and $f_B$, $f_K$ are model-specific functions derived from the TEP action.</p>
+<p><em>Metric signature convention:</em> $(+, -, -, -)$ throughout.</p>
 
-     <h3>2.3 The Radiation Domination Freezing Mechanism</h3>
-     
-     <p>During radiation domination, the trace of the energy-momentum tensor vanishes:</p>
-     
-     $$T^\mu_\mu = -\rho + 3p \approx 0 \text{ (radiation)}$$
-     
-     <p>Since the TEP scalar field couples to $T^\mu_\mu$, the source term for $\phi$ evolution is suppressed. The field freezes at its initial value, and $\alpha_M, \alpha_B \rightarrow 0$. This ensures:</p>
-     
-     <ul>
-         <li>Primary acoustic peaks ($100 \lesssim \ell \lesssim 2000$) generated at $z \sim 1089$ remain unmodified</li>
-         <li>The sound horizon $r_s$ is preserved, anchoring $H_0$ from CMB at $\sim 67.4$ km/s/Mpc</li>
-         <li>Late-time matter domination reactivates the scalar field, enabling environmental $H_0$ variations</li>
-     </ul>
- </section>
+<h3>2.2 Deriving the Bellini-Sawicki Alphas</h3>
+
+<p>hi_class requires the EFT property functions $\alpha_i$ that encode metric modifications at linear perturbation level.</p>
+
+<h4>2.2.1 Planck Mass Running ($\alpha_M$)</h4>
+
+<p>The conformal coupling directly determines the running of the effective Planck mass:</p>
+
+<div class="equation">
+\begin{equation} \label{eq:3_theory_02}
+\alpha_M \equiv \frac{d \ln M_{\rm eff}^2}{d \ln a} = \frac{d \ln A^2(\phi)}{d \ln a} = \frac{2\beta_A}{M_{\rm Pl}} \frac{\phi'}{\mathcal{H}}
+\end{equation}
+</div>
+
+<p>where $\mathcal{H} = aH$ is the conformal Hubble parameter and primes denote derivatives with respect to conformal time.</p>
+
+<h4>2.2.2 Tensor Speed Excess ($\alpha_T$)</h4>
+
+<p>The disformal term $B(\phi)$ alters the gravitational wave propagation speed. Multi-messenger constraints from GW170817/GRB 170817A require:</p>
+
+<div class="equation">
+\begin{equation} \label{eq:3_theory_03}
+|c_g - c_\gamma|/c \lesssim 10^{-15} \Rightarrow \alpha_T \approx 0 \text{ (today)}
+\end{equation}
+</div>
+
+<p>However, $B(\phi)$ may be non-zero at recombination ($z \approx 1100$) provided it relaxes to zero by $z \sim 0$.</p>
+
+<h4>2.2.3 Braiding ($\alpha_B$) and Kineticity ($\alpha_K$)</h4>
+
+<p>These functions govern scalar field clustering and metric mixing:</p>
+
+<div class="equation">
+\begin{equation} \label{eq:3_theory_04}
+\alpha_B = -\frac{\mathcal{H}'\phi'}{\mathcal{H}^2} \cdot f_B(\phi, X)
+\end{equation}
+</div>
+
+<div class="equation">
+\begin{equation} \label{eq:3_theory_05}
+\alpha_K = \frac{\phi'^2}{\mathcal{H}^2 M_{\rm Pl}^2} \cdot f_K(\phi, X)
+\end{equation}
+</div>
+
+<p>where $X = -\nabla_\mu\phi \nabla^\mu\phi/2$ and $f_B$, $f_K$ are functions derived from the TEP action:</p>
+
+<ul>
+    <li>$f_B(\phi, X)$ encodes the disformal coupling to the energy-momentum tensor trace.</li>
+    <li>$f_K(\phi, X)$ encodes the kinetic term non-canonicality from the TEP proper-time field.</li>
+</ul>
+
+<p>The explicit functional forms follow from the bi-metric action (Equation \ref{eq:3_theory_01}) and are determined by the conformal factor $A(\phi)$ and the disformal function $B(\phi)$. Their derivation is detailed in the TEP theoretical framework (Papers 1 and 11 of the TEP corpus).</p>
+
+<h3>2.3 The Radiation Domination Freezing Mechanism</h3>
+
+<p>During radiation domination, the trace of the energy-momentum tensor vanishes:</p>
+
+<div class="equation">
+\begin{equation} \label{eq:3_theory_06}
+T^\mu_\mu = -\rho + 3p \approx 0 \text{ (radiation)}
+\end{equation}
+</div>
+
+<p>Since the TEP scalar field couples to $T^\mu_\mu$, the source term for $\phi$ evolution is suppressed. The field freezes at its initial value, and $\alpha_M, \alpha_B \rightarrow 0$. This ensures:</p>
+
+<ul>
+    <li>Primary acoustic peaks ($100 \lesssim \ell \lesssim 2000$) generated at $z \sim 1089$ remain unmodified</li>
+    <li>The sound horizon $r_s$ is preserved, anchoring $H_0$ from CMB at $\sim 67.9$ km/s/Mpc</li>
+    <li>Late-time matter domination reactivates the scalar field, enabling environmental $H_0$ variations</li>
+</ul>

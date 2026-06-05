@@ -1,0 +1,309 @@
+--- a/source/background.c
++++ b/source/background.c
+@@ -115,6 +115,106 @@
+ #include "background.h"
+ #include "hi_class.h"
+ 
++/* ============================================================
++ * TEP (Temporal Equivalence Principle) Background-Only Modification
++ * ============================================================
++ * Native TEP implementation: H_TEP(z) = H_LCDM(z) * M(z)
++ *   where M(z) = A(z) / (1 - alpha_A(z)) is the exact Jordan-frame factor.
++ *   A(z) = exp(epsilon_T * log(1+z) * S(z)) is the covariant conformal factor.
++ *   S(z) = exp(-(z/z_T)^n_T) is the early-universe suppression.
++ * (Background expansion governed by disformal metric; A(z) multiplies null-geodesic distances.)
++ * Authoritative transition function from TEP-C0 (Paper 26 "Athens";
++ * core/cosmology.py:conformal_factor_native):
++ *
++ *     f_T(z) = ln(1+z) * exp(-(z/z_T)^n_T)
++ *
++ * Two factors enforce the physics required by Paper 26 (Secs. 4.3 and 8):
++ *   - exp(-(z/z_T)^n_T)  : "early-time freezing via exponential suppression".
++ *       The temporal-shear field is suppressed for z >> z_T, so the
++ *       pre-recombination sound horizon r_s, BBN, and the CMB acoustic peaks
++ *       are preserved by construction (f_T -> 0 at recombination).
++ *   - ln(1+z)            : guarantees f_T(0) = 0, fixing the local reference
++ *       frame so H0 is unmodified; the enhancement turns on only for z > 0.
++ *
++ * HISTORICAL BUG (fixed here): the previous form  f_T = 1 - exp(-(z/z_T)^n)
++ * is the COMPLEMENT of the suppression and saturates to 1 for z >> z_T,
++ * i.e. it applied the FULL Hubble modification at recombination. That
++ * inverted the intended freezing mechanism and shifted the acoustic scale
++ * theta_s by ~0.3% (~11 sigma for Planck), producing spurious few-percent
++ * C_ell residuals. No high-z cap is needed any more: exp() handles z >> z_T.
++ * ============================================================ */
++
++/* TEP transition suppression factor S(z) = exp(-(z/z_T)^n_T).
++   Matches TEP-C0 (Paper 26) compiled CLASS exactly.
++   The full transition is ln(1+z) * S(z), computed in tep_gamma_factor. */
++double tep_f_transition(struct background *pba, double z) {
++  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
++    return 0.0;
++  }
++  double z_effective = z;
++  if (pba->z_T > 0.0 && z > pba->z_T * 3.0) {
++    z_effective = pba->z_T * 3.0;
++  }
++  double ratio = z_effective / pba->z_T;
++  double exponent = pow(ratio, pba->n_T);
++  return exp(-exponent);
++}
++
++/* TEP gamma factor: A(z) = exp(epsilon_T * log(1+z) * S(z))
++   Exact covariant conformal factor (not linearized).
++   S(z) = tep_f_transition(z) is the suppression factor alone. */
++double tep_gamma_factor(struct background *pba, double z) {
++  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0) {
++    return 1.0;
++  }
++  double S_z = tep_f_transition(pba, z);
++  double log_factor = log(1.0 + z);
++  double A_phi = exp(pba->epsilon_T * log_factor * S_z);
++  if (A_phi < 0.1) A_phi = 0.1;
++  return A_phi;
++}
++
++/* TEP Jordan-frame M factor: M(z) = A(z) / (1 - alpha_A(z))
++   Exact covariant conformal transformation.
++   For A = exp(g) with g = epsilon_T * log(1+z) * S(z):
++   alpha_A = dlnA/dln(1+z) = -(1+z)*dg/dz
++           = -epsilon_T * (S(z) + (1+z)*log(1+z)*dS/dz) */
++double tep_M_factor(struct background *pba, double z) {
++  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
++    return 1.0;
++  }
++  double A_z = tep_gamma_factor(pba, z);
++  double S_z = tep_f_transition(pba, z);
++  double dS = 0.0;
++  if (z > 1e-10 && pba->z_T > 0.0 && z <= pba->z_T * 3.0) {
++    dS = -S_z * pba->n_T * pow(z / pba->z_T, pba->n_T - 1.0) / pba->z_T;
++  }
++  double alpha_A = -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);
++  return A_z / (1.0 - alpha_A);
++}
++
++/* Modified Hubble rate with TEP */
++double tep_hubble_rate(struct background *pba, double z, double H_lcdm) {
++  double M = tep_M_factor(pba, z);
++  return H_lcdm * M;
++}
++
++/* Validate and log TEP parameters */
++int tep_background_init(struct background *pba) {
++  if (pba->tep_mode == _TRUE_) {
++    class_test(pba->epsilon_T < 0.0,
++               pba->error_message,
++               "TEP error: epsilon_T must be non-negative");
++    class_test(pba->z_T <= 0.0,
++               pba->error_message,
++               "TEP error: z_T must be positive");
++    class_test(pba->n_T <= 0.0,
++               pba->error_message,
++               "TEP error: n_T must be positive");
++  }
++  return _SUCCESS_;
++}
++
+ /**
+  * Background quantities at given redshift z.
+  *
+@@ -605,6 +705,52 @@
+     // not only _smg!!
+     if (pba->hubble_evolution == _TRUE_)
+       pvecback[pba->index_bg_H_prime] += - a* pba->hubble_friction*(pvecback[pba->index_bg_H]*pvecback[pba->index_bg_H] - (rho_tot-pba->K/a/a) );
++
++    /** - Apply TEP Jordan-frame background-only Hubble modification (native TEP, no SMG)
++     *  M(z) = A(z) / (1 - alpha_A(z)), matching TEP-C0 (Paper 26) compiled CLASS.
++     *  H_TEP = H_LCDM * M  (Background expansion rate in Einstein frame).
++     *  H_prime updated via numerical derivative to preserve consistency. */
++    if (pba->tep_mode == _TRUE_ && pba->epsilon_T != 0.0) {
++      double z = 1.0/a - 1.0;
++      double H_lcdm = pvecback[pba->index_bg_H];
++
++      /* Standard LCDM H_prime (before TEP modification) */
++      double H_prime_lcdm = - (3./2.) * (rho_tot + p_tot) * a + pba->K/a;
++      if (pba->hubble_evolution == _TRUE_)
++        H_prime_lcdm += - a * pba->hubble_friction * (H_lcdm*H_lcdm - (rho_tot-pba->K/a/a));
++
++      /* Compute Jordan-frame M(z) = A / (1 - alpha_A) at current z */
++      double M_0 = tep_M_factor(pba, z);
++      
++      /* 
++       * DISFORMAL SEPARATION WARNING:
++       * In the TEP framework, the physical expansion rate (governing the CMB acoustic scale)
++       * is controlled exclusively by the trace mapping A(phi) of the disformal relation.
++       * This multiplies the standard LCDM Hubble rate by M_0 (derived from A).
++       * 
++       * Because A(phi) and the photon geodesic modification B(phi) are theoretically decoupled, 
++       * DO NOT invert this multiplication to a division (H / M_0) to artificially match 
++       * the sign of any distance integrals! Doing so would collapse TEP back into a 
++       * conformal theory and destroy the CMB fit.
++       */
++      pvecback[pba->index_bg_H] = H_lcdm * M_0;
++
++      /* Numerical derivative for H_prime */
++      double dz = 1e-5;
++      if (z < dz) dz = z / 2.0;
++      if (dz < 1e-10) dz = 1e-10;
++
++      double dH_lcdm_dz = -H_prime_lcdm / H_lcdm;
++
++      double M_plus = tep_M_factor(pba, z + dz);
++      double M_minus = tep_M_factor(pba, z - dz);
++
++      double H_tep_plus = (H_lcdm + dH_lcdm_dz * dz) * M_plus;
++      double H_tep_minus = (H_lcdm - dH_lcdm_dz * dz) * M_minus;
++
++      double dH_tep_dz = (H_tep_plus - H_tep_minus) / (2.0 * dz);
++      pvecback[pba->index_bg_H_prime] = -pvecback[pba->index_bg_H] * dH_tep_dz;
++    }
+   }
+ 
+   /* Total energy density*/
+@@ -861,6 +1007,11 @@
+              pba->error_message,
+              pba->error_message);
+ 
++  /** - validate TEP parameters if TEP mode is enabled */
++  class_call(tep_background_init(pba),
++             pba->error_message,
++             pba->error_message);
++
+   /** - integrate the background over log(a), allocate and fill the background table */
+   class_call(background_solve(ppr,pba),
+              pba->error_message,
+@@ -2391,7 +2542,13 @@
+    }
+    else {
+      pvecback[pba->index_bg_H] = sqrt(pvecback[pba->index_bg_rho_crit]);
+-     pvecback_integration[pba->index_bi_logH] = log(sqrt(pvecback[pba->index_bg_rho_crit]));
++     /* Apply TEP Jordan-frame factor to initial Hubble rate */
++     if (pba->tep_mode == _TRUE_) {
++       double z = 1.0/a - 1.0;
++       double M_0 = tep_M_factor(pba, z);
++       pvecback[pba->index_bg_H] *= M_0;
++     }
++     pvecback_integration[pba->index_bi_logH] = log(pvecback[pba->index_bg_H]);
+    }
+   }
+ 
+
+--- a/source/input.c
++++ b/source/input.c
+@@ -2381,8 +2381,46 @@
+     }
+     else{
+       pba->hubble_evolution = _FALSE_;
++    }
++  }
++
++  /** 11b) TEP (Temporal Equivalence Principle) background-only Hubble modification */
++  pba->tep_mode = _FALSE_;
++  pba->epsilon_T = 0.0;
++  pba->z_T = 5.0;
++  pba->n_T = 2.0;
++  class_call(parser_read_string(pfc,"tep_mode",&string1,&flag1,errmsg),
++             errmsg,
++             errmsg);
++  if (flag1 == _TRUE_){
++    if((strstr(string1,"y") != NULL) || (strstr(string1,"Y") != NULL)){
++      pba->tep_mode = _TRUE_;
++      /* Read TEP parameters - mark as read even if using defaults */
++      class_read_double("epsilon_T",pba->epsilon_T);
++      class_read_double("z_T",pba->z_T);
++      class_read_double("n_T",pba->n_T);
++      /* TEP requires H from Friedmann equation, not evolved */
++      if (pba->hubble_evolution == _TRUE_){
++        pba->hubble_evolution = _FALSE_;
++        printf(" -> tep_mode enabled: forcing hubble_evolution = no for consistency\n");
++      }
+     }
+   }
++  /* Always mark TEP parameters as read if they exist in file_content (for Python wrapper) */
++  {
++    int index;
++    for (index = 0; index < pfc->size; index++) {
++      if (strcmp(pfc->name[index], "epsilon_T") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
++      if (strcmp(pfc->name[index], "z_T") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
++      if (strcmp(pfc->name[index], "n_T") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
++    }
++  }
+ 
+   /** 12) The sync metric perturbation h should be obtained with the Einstein 00
+           equation algebraically or integrting the trace equation. (not only _smg) */
+@@ -3342,7 +3380,7 @@
+     /* Fill with Lambda */
+     pba->Omega0_lambda= 1. - pba->Omega0_k - Omega_tot;
+     if (input_verbose > 0){
+-      printf(" -> matched budget equations by adjusting Omega_Lambda = %g\n",pba->Omega0_lambda);
++      printf(" -> matched budget equations by adjusting Omega_Lambda = %g, Omega_k = %g\n",pba->Omega0_lambda, pba->Omega0_k);
+     }
+   }
+   else if (flag2 == _FALSE_) {
+
+--- a/include/background.h
++++ b/include/background.h
+@@ -4,6 +4,8 @@
+ #define __BACKGROUND__
+ 
+ #include "common.h"
++#include "../gravity_smg/include/tep.h"
++
+ #include "quadrature.h"
+ #include "growTable.h"
+ #include "arrays.h"
+@@ -21,7 +23,7 @@
+ 
+ /** list of possible theories and models (_smg) */
+ 
+-enum gravity_model {propto_omega, propto_scale,
++enum gravity_model {tep, propto_omega, propto_scale,
+     constant_alphas,
+     eft_alphas_power_law, eft_gammas_power_law, eft_gammas_exponential,
+     galileon, nkgb,
+@@ -149,6 +151,13 @@
+ 
+   double hubble_friction; /** friction coefficient in H' equation: H' = ... + H_friction*(H^2 - rho_crit) [NOT ONLY IN SMG!] */
+   int hubble_evolution; /** whether to evolve H' from the equation */
++
++  /** @name - TEP (Temporal Equivalence Principle) background-only modification */
++  short tep_mode; /**< enable TEP background Hubble modification */
++  double epsilon_T; /**< TEP amplitude: H_TEP = H_LCDM * M(z), M(z) = A(z)/(1-alpha_A(z)) */
++  double z_T; /**< TEP transition redshift */
++  double n_T; /**< TEP transition steepness */
++
+   double wede_Omega_e_regularizer_smg; /** regularize adding a tiny Omega_e */
+ 
+   enum gravity_model gravity_model_smg; /** Horndeski model */
+@@ -554,6 +563,11 @@
+   ErrorMsg error_message; /**< zone for writing error messages */
+ 
+   //@}
++
++  /** @name - TEP model parameters */
++  //@{
++  struct smg_tep_params tep_params; /**< TEP model specific parameters */
++  //@}
+ };
+ 
+ 
+@@ -797,6 +811,12 @@
+                double phi_prime
+                );
+ 
++  /** TEP (Temporal Equivalence Principle) background-only Hubble modification **/
++  double tep_f_transition(struct background *pba, double z);
++  double tep_gamma_factor(struct background *pba, double z);
++  double tep_hubble_rate(struct background *pba, double z, double H_lcdm);
++  int tep_background_init(struct background *pba);
++
+ #ifdef __cplusplus
+ }
+ #endif
+

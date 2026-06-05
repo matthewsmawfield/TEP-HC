@@ -2,17 +2,17 @@
 """
 TEP-HC Analysis Pipeline Master Script
 ========================================
-Orchestrates the full hi_class/EFT cosmology analysis pipeline for Paper 14.
+Orchestrates the full hi_class/EFT cosmology analysis pipeline for Paper 18.
 
 This script executes the scientific workflow in strict sequential order:
 0. Environment setup and dependency check
-1. Install dependencies and download data (Cobaya, Planck likelihoods)
-2. TEP C module generation for hi_class
-3. Background evolution computation
-4. Bellini-Sawicki alpha functions validation
-5. CMB power spectra generation
+1. Install dependencies and download data (Cobaya, Planck likelihoods, hi_class + TEP patch)
+2. Background evolution computation
+3. Bellini-Sawicki alpha functions validation
+4. CMB power spectra generation
+5. Jordan-frame no-Dark-Energy reconstruction
 6. Cobaya MCMC configuration
-7. MCMC execution (or placeholder)
+7. MCMC execution
 8. Posterior analysis
 9. Results synthesis
 
@@ -32,11 +32,46 @@ import sys
 import time
 import json
 import argparse
+import os
+import subprocess
 from pathlib import Path
 from datetime import datetime
 
-# Ensure project root is in path
+# M4 Pro Performance Optimization: Set environment variables
+# Auto-detect Apple Silicon and configure optimal threading
+if sys.platform == 'darwin':
+    try:
+        # Detect core count
+        ncpu = int(subprocess.run(['sysctl', '-n', 'hw.ncpu'], 
+                                 capture_output=True, text=True).stdout.strip())
+        if ncpu >= 10:
+            # M4 Pro or similar: Use performance cores for CLASS, all cores for NumPy
+            p_cores = min(10, ncpu - 4)  # Estimate P-cores
+            os.environ.setdefault('OMP_NUM_THREADS', str(p_cores))
+            os.environ.setdefault('VECLIB_MAXIMUM_THREADS', str(ncpu))
+            os.environ.setdefault('OPENBLAS_NUM_THREADS', str(ncpu))
+            os.environ.setdefault('NUMEXPR_NUM_THREADS', str(ncpu))
+    except Exception:
+        pass
+
+# Set Cobaya packages path - use existing if available
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+# Check for external packages path from environment variable or default location
+EXTERNAL_PACKAGES = os.environ.get("COBAYA_EXTERNAL_PACKAGES", "")
+EXISTING_PACKAGES_PATH = Path(EXTERNAL_PACKAGES) if EXTERNAL_PACKAGES else PROJECT_ROOT.parent.parent / "TVP" / "TVP" / "data" / "external" / "cosmology_likelihoods"
+LOCAL_PACKAGES_PATH = PROJECT_ROOT / "data" / "external" / "cobaya_packages"
+
+if EXISTING_PACKAGES_PATH.exists() and (EXISTING_PACKAGES_PATH / "data" / "planck_2018").exists():
+    os.environ["COBAYA_PACKAGES_PATH"] = str(EXISTING_PACKAGES_PATH)
+else:
+    os.environ["COBAYA_PACKAGES_PATH"] = str(LOCAL_PACKAGES_PATH)
+
+# Detect MPI availability - only disable if mpirun not available
+_MPI_AVAILABLE = subprocess.run(["which", "mpirun"], capture_output=True).returncode == 0
+if not _MPI_AVAILABLE:
+    os.environ["COBAYA_NOMPI"] = "1"
+
+# Ensure project root is in path
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.utils.logger import TEPLogger, set_step_logger, print_status, print_table
@@ -44,10 +79,10 @@ from scripts.utils.logger import TEPLogger, set_step_logger, print_status, print
 # Import all steps
 from scripts.steps.step_00_setup import Step00Setup
 from scripts.steps.step_00b_install import Step00bInstall
-from scripts.steps.step_01_tep_module import Step01TEPModule
 from scripts.steps.step_02_background import Step02Background
 from scripts.steps.step_03_alphas import Step03Alphas
 from scripts.steps.step_04_cmb import Step04CMB
+from scripts.steps.step_04b_jordan_frame import Step04BJordanFrame
 from scripts.steps.step_05_cobaya import Step05Cobaya
 from scripts.steps.step_06_mcmc import Step06MCMC
 from scripts.steps.step_07_posteriors import Step07Posteriors
@@ -57,10 +92,10 @@ from scripts.steps.step_08_synthesis import Step08Synthesis
 STEP_REGISTRY = {
     0: ("00_setup", Step00Setup, "Environment Setup and Dependency Check"),
     1: ("00b_install", Step00bInstall, "Install Dependencies and Download Data"),
-    2: ("01_tep_module", Step01TEPModule, "TEP C Module Generation"),
-    3: ("02_background", Step02Background, "Background Evolution Analysis"),
-    4: ("03_alphas", Step03Alphas, "Alpha Functions Validation"),
-    5: ("04_cmb", Step04CMB, "CMB Spectra Generation"),
+    2: ("02_background", Step02Background, "Background Evolution Analysis"),
+    3: ("03_alphas", Step03Alphas, "Alpha Functions Validation"),
+    4: ("04_cmb", Step04CMB, "CMB Spectra Generation"),
+    5: ("04b_jordan_frame", Step04BJordanFrame, "Jordan-Frame No-Dark-Energy Reconstruction"),
     6: ("05_cobaya", Step05Cobaya, "Cobaya MCMC Setup"),
     7: ("06_mcmc", Step06MCMC, "MCMC Execution"),
     8: ("07_posteriors", Step07Posteriors, "Posterior Analysis"),
@@ -90,7 +125,7 @@ def run_pipeline(args: argparse.Namespace) -> dict:
     
     print_status("=" * 70, "TITLE")
     print_status("TEP-HC ANALYSIS PIPELINE", "TITLE")
-    print_status("Paper 14: hi_class/EFT Cosmology (Geneva)", "TITLE")
+    print_status("Paper 18: hi_class/EFT Cosmology (Geneva)", "TITLE")
     print_status("=" * 70, "TITLE")
     print_status(f"Project Root: {PROJECT_ROOT}", "INFO")
     print_status(f"Started: {datetime.now().isoformat()}", "INFO")
@@ -99,7 +134,7 @@ def run_pipeline(args: argparse.Namespace) -> dict:
     
     # Determine step range
     start_step = args.start_step if args.start_step is not None else 0
-    stop_step = args.stop_step if args.stop_step is not None else 8
+    stop_step = args.stop_step if args.stop_step is not None else 9
     skip_steps = set(args.skip_steps) if args.skip_steps else set()
     
     print_status(f"Pipeline Configuration:", "TITLE")
@@ -244,13 +279,13 @@ def main():
         epilog="""
 Pipeline Steps:
   00 - Environment setup and dependency check
-  01 - Install dependencies and download data
-  02 - TEP C module generation for hi_class
-  03 - Background evolution analysis
-  04 - Bellini-Sawicki alpha functions validation
-  05 - CMB power spectra generation
+  01 - Install dependencies and download data (hi_class + native TEP patch)
+  02 - Background evolution analysis
+  03 - Bellini-Sawicki alpha functions validation
+  04 - CMB power spectra generation
+  05 - Jordan-frame no-Dark-Energy reconstruction
   06 - Cobaya MCMC configuration
-  07 - MCMC execution (or placeholder)
+  07 - MCMC execution
   08 - Posterior analysis
   09 - Results synthesis
 
@@ -258,7 +293,8 @@ Examples:
   python scripts/run_all.py                  # Run full pipeline
   python scripts/run_all.py --start-step 1   # Start from installation
   python scripts/run_all.py --stop-step 5    # Run through step 05
-  python scripts/run_all.py --skip-steps 7,8  # Skip MCMC steps
+  python scripts/run_all.py --skip-steps 7,8  # Skip MCMC (7) and posteriors (8)
+  python scripts/run_all.py --skip-steps 8,9  # Skip posteriors (8) and synthesis (9)
         """
     )
     

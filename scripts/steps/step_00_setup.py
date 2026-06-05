@@ -71,15 +71,27 @@ class Step00Setup:
         }
         
         try:
+            # Check requirements.txt exists
+            print_status("Checking requirements.txt...", "PROCESS")
+            req_file = self.root_dir / "requirements.txt"
+            if req_file.exists():
+                with open(req_file) as f:
+                    num_pkgs = sum(1 for line in f if line.strip() and not line.startswith('#'))
+                print_status(f"  ✓ requirements.txt found ({num_pkgs} packages)")
+            else:
+                print_status(f"  ✗ requirements.txt NOT FOUND", "WARNING")
+            
             # Check Python packages
             print_status("Checking Python packages...", "PROCESS")
+            print_status("  (Missing packages will be installed by Step 00b from requirements.txt)")
+            
             for pkg in self.REQUIRED_PACKAGES:
                 status = self._check_python_package(pkg)
                 results["python_packages"][pkg] = status
                 if status["available"]:
                     print_status(f"  ✓ {pkg:15s} {status['version']}", "SUCCESS")
                 else:
-                    print_status(f"  ✗ {pkg:15s} NOT FOUND", "ERROR")
+                    print_status(f"  ⚠ {pkg:15s} NOT FOUND (will install in step 00b)", "WARNING")
             
             # Check system dependencies
             print_status("Checking system dependencies...", "PROCESS")
@@ -90,6 +102,35 @@ class Step00Setup:
                     print_status(f"  ✓ {cmd:10s} ({desc})", "SUCCESS")
                 else:
                     print_status(f"  ✗ {cmd:10s} ({desc}) NOT FOUND", "WARNING")
+            
+            # Check M4 Pro optimizations
+            print_status("Checking M4 Pro optimization status...", "PROCESS")
+            import os
+            import platform
+            
+            # Check threading environment
+            omp_threads = os.environ.get('OMP_NUM_THREADS', 'NOT SET')
+            veclib_threads = os.environ.get('VECLIB_MAXIMUM_THREADS', 'NOT SET')
+            
+            # Detect Apple Silicon
+            is_apple_silicon = platform.system() == 'Darwin' and platform.machine() == 'arm64'
+            
+            # Check MPI
+            mpi_check = subprocess.run(["which", "mpirun"], capture_output=True)
+            mpi_available = mpi_check.returncode == 0
+            
+            print_status(f"  Platform: {platform.system()} {platform.machine()}")
+            if is_apple_silicon:
+                print_status(f"  ✓ Apple Silicon detected (M4 Pro optimized)", "SUCCESS")
+            print_status(f"  OMP_NUM_THREADS: {omp_threads}")
+            print_status(f"  VECLIB_MAXIMUM_THREADS: {veclib_threads}")
+            
+            if mpi_available:
+                print_status(f"  ✓ OpenMPI available (parallel chains enabled)", "SUCCESS")
+                results["mpi_available"] = True
+            else:
+                print_status(f"  ○ OpenMPI not yet installed (will auto-install in step 00b)", "INFO")
+                results["mpi_available"] = False
             
             # Create directory structure
             print_status("Creating directory structure...", "PROCESS")
@@ -162,8 +203,20 @@ class Step00Setup:
             return {"available": False, "description": description}
     
     def _check_hi_class(self) -> dict:
-        """Check if hi_class is installed."""
+        """Check if hi_class is installed and importable."""
+        # First check if Python module can be imported
+        try:
+            import classy
+            import inspect
+            classy_path = inspect.getfile(classy)
+            return {"available": True, "path": str(Path(classy_path).parent.parent)}
+        except ImportError:
+            pass
+        
+        # Check common installation paths
         hi_class_paths = [
+            self.root_dir / "external" / "hi_class",
+            self.root_dir / "external" / "hi_class" / "hi_class",  # Nested from install
             self.root_dir / "hi_class",
             self.root_dir / "class",
             Path.home() / "hi_class",
@@ -171,7 +224,8 @@ class Step00Setup:
         ]
         
         for path in hi_class_paths:
-            if (path / "source" / "models").exists():
+            # Check for source directory or compiled python module
+            if (path / "source" / "models").exists() or (path / "python" / "classy.pyx").exists():
                 return {"available": True, "path": str(path)}
         
         return {"available": False, "path": None}

@@ -1,14 +1,14 @@
 {
-  "pipeline_start": "2026-04-25T10:38:59.411662",
+  "pipeline_start": "2026-06-05T20:39:16.218636",
   "steps_completed": [
-    9
+    6
   ],
   "steps_failed": [],
   "steps_skipped": [],
   "execution_times": {
-    "08_synthesis": 0.0
+    "05_cobaya": 0.0
   },
   "status": "SUCCESS",
-  "pipeline_end": "2026-04-25T10:38:59.412554",
+  "pipeline_end": "2026-06-05T20:39:16.220832",
   "total_time_seconds": 0.0
 }

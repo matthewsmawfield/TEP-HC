@@ -17,12 +17,13 @@
       "type": "image/png"
     }
   ],
-  "title": "Temporal Equivalence Principle: EFT Mapping and Acoustic Peak Constraints via hi_class",
+  "title": "Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation",
   "short_title": "TEP-HC: hi_class Cosmology",
   "author": "Matthew Lukin Smawfield",
   "version": "v0.1",
   "codename": "Geneva",
-  "date": "2026",
+  "date": "2026-04-25",
+  "last_updated": "25 April 2026",
   "sections": [
     {
       "id": "section-abstract",
