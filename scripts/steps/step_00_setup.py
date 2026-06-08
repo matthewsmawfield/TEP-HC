@@ -6,7 +6,7 @@ Verifies all required dependencies for hi_class/EFT analysis pipeline.
 
 Outputs:
     - logs/step_00_setup.log
-    - data/interim/dependency_status.json
+    - data/interim/step_00_dependency_status.json
 """
 
 import sys

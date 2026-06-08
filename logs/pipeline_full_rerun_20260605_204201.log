@@ -1,0 +1,286 @@
+20:42:03 [INFO] ======================================================================
+20:42:03 [INFO] TEP-HC ANALYSIS PIPELINE
+20:42:03 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+20:42:03 [INFO] ======================================================================
+20:42:03 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+20:42:03 [INFO] Started: 2026-06-05T20:42:03.122167
+20:42:03 [INFO] Python: 3.13.5
+20:42:03 [INFO] 
+20:42:03 [INFO] Pipeline Configuration:
+20:42:03 [INFO]   Start step: 0
+20:42:03 [INFO]   Stop step: 9
+20:42:03 [INFO] 
+20:42:03 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+20:42:03 [INFO] 
+20:42:03 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+20:42:03 [INFO] Started at: 2026-06-05T20:42:03.123227
+20:42:03 [PROCESS] Checking requirements.txt...
+20:42:03 [INFO]   ✓ requirements.txt found (16 packages)
+20:42:03 [PROCESS] Checking Python packages...
+20:42:03 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+20:42:03 [SUCCESS]   ✓ numpy           2.1.3
+20:42:03 [SUCCESS]   ✓ scipy           1.14.1
+20:42:04 [SUCCESS]   ✓ pandas          2.2.3
+20:42:05 [SUCCESS]   ✓ matplotlib      3.9.2
+20:42:05 [SUCCESS]   ✓ cobaya          3.6.2
+20:42:05 [SUCCESS]   ✓ getdist         1.7.6
+20:42:05 [SUCCESS]   ✓ pyyaml          6.0.3
+20:42:05 [PROCESS] Checking system dependencies...
+20:42:05 [SUCCESS]   ✓ gcc        (GCC compiler)
+20:42:05 [SUCCESS]   ✓ make       (Make build system)
+20:42:05 [SUCCESS]   ✓ git        (Git version control)
+20:42:05 [PROCESS] Checking M4 Pro optimization status...
+20:42:05 [INFO]   Platform: Darwin arm64
+20:42:05 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+20:42:05 [INFO]   OMP_NUM_THREADS: 10
+20:42:05 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+20:42:05 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+20:42:05 [PROCESS] Creating directory structure...
+20:42:05 [SUCCESS]   ✓ data/interim
+20:42:05 [SUCCESS]   ✓ data/processed
+20:42:05 [SUCCESS]   ✓ data/hi_class
+20:42:05 [SUCCESS]   ✓ data/cobaya
+20:42:05 [SUCCESS]   ✓ results/mcmc_chains
+20:42:05 [SUCCESS]   ✓ results/figures
+20:42:05 [SUCCESS]   ✓ logs
+20:42:05 [PROCESS] Checking hi_class availability...
+20:42:05 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+20:42:05 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+20:42:05 [SUCCESS] STEP 00_setup COMPLETED
+20:42:05 [SUCCESS] 
+Step 00 completed in 2.8s
+20:42:05 [INFO] 
+20:42:05 [INFO] ----------------------------------------------------------------------
+20:42:05 [INFO] 
+20:42:05 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+20:42:05 [INFO] 
+20:42:05 [INFO] STEP 00b_install: Install Dependencies and Download Data
+20:42:05 [INFO] Started at: 2026-06-05T20:42:05.968579
+20:42:05 [PROCESS] Checking Python environment...
+20:42:05 [INFO]   Python: 3.13.5
+20:42:10 [PROCESS] Installing base packages...
+20:42:10 [INFO] Installing packages from requirements.txt...
+20:42:13 [INFO]   ✓ Base packages installed successfully
+20:42:13 [INFO]   ✓ Cobaya already available
+20:42:13 [INFO] Checking existing installations...
+20:42:13 [INFO]   ✓ Found 4 already installed:
+20:42:13 [INFO]     • Planck 2018 High-L TTTEEE
+20:42:13 [INFO]     • Planck 2018 Low-L TT
+20:42:13 [INFO]     • Planck 2018 Low-L EE
+20:42:13 [INFO]     • Planck 2018 Lensing
+20:42:13 [INFO]   → 2 likelihood(s) need installation
+20:42:13 [INFO] 
+20:42:13 [INFO] ============================================================
+20:42:13 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+20:42:13 [INFO] ============================================================
+20:42:13 [INFO] To download: 2 likelihood(s)
+20:42:13 [INFO] Total download size: ~0.0 GB
+20:42:13 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+20:42:13 [INFO] Max retries per package: 3
+20:42:13 [INFO] Estimated time: 15-25 minutes
+20:42:13 [INFO] ============================================================
+20:42:13 [INFO] 
+20:42:13 [INFO] 🔍 Pre-flight checks...
+20:42:13 [INFO]   ✓ Network connectivity OK
+20:42:13 [ERROR]   ✗ Insufficient disk space: 13.8GB free, 15.0GB required
+20:42:13 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+20:42:13 [INFO] Checking MPI support for M4 Pro...
+20:42:13 [INFO] Checking OpenMPI availability...
+20:42:14 [INFO]   ✓ OpenMPI already installed
+20:42:14 [INFO]   ✓ mpi4py already installed
+20:42:14 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+20:42:14 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+20:42:14 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+20:42:14 [SUCCESS]   ✓ hi_class already installed
+20:42:14 [INFO]   ✓ Test configurations ready
+20:42:14 [SUCCESS] 
+STEP 00b_install COMPLETED
+20:42:14 [SUCCESS] 
+Step 01 completed in 8.1s
+20:42:14 [INFO] 
+20:42:14 [INFO] ----------------------------------------------------------------------
+20:42:14 [INFO] 
+20:42:14 [INFO] >>> STEP 02: BACKGROUND EVOLUTION ANALYSIS
+20:42:14 [INFO] 
+20:42:14 [INFO] STEP 02_background: Background Evolution Analysis (Rigorous)
+20:42:14 [PROCESS] Solving scalar field ODE from action...
+20:42:14 [PROCESS] Computing exact Hubble expansion history...
+20:42:14 [SUCCESS]   ✓ Saved rigorous results to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/02_background_evolution.json
+20:42:14 [SUCCESS] 
+Step 02 completed in 0.1s
+20:42:14 [INFO] 
+20:42:14 [INFO] ----------------------------------------------------------------------
+20:42:14 [INFO] 
+20:42:14 [INFO] >>> STEP 03: ALPHA FUNCTIONS VALIDATION
+20:42:14 [INFO] 
+20:42:14 [INFO] STEP 03_alphas: Bellini-Sawicki Alpha Functions (Rigorous)
+20:42:14 [SUCCESS]   ✓ Saved rigorous results to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/03_alpha_functions.json
+20:42:14 [SUCCESS] 
+Step 03 completed in 0.0s
+20:42:14 [INFO] 
+20:42:14 [INFO] ----------------------------------------------------------------------
+20:42:14 [INFO] 
+20:42:14 [INFO] >>> STEP 04: CMB SPECTRA GENERATION
+20:42:14 [INFO] 
+20:42:14 [INFO] STEP 04_cmb: CMB Spectra Generation (Real Data)
+20:42:14 [PROCESS] Preparing hi_class input configurations...
+20:42:14 [INFO]   Native TEP: epsilon_T=0.0066, z_T=5.0, n_T=2.0
+20:42:14 [PROCESS] Running hi_class C-engine (LambdaCDM)...
+20:42:17 [PROCESS] Running hi_class C-engine (TEP)...
+20:42:20 [PROCESS] Parsing Boltzmann-solved spectra...
+20:42:20 [PROCESS] Computing acoustic-scale preservation (r_s, theta_s)...
+20:42:20 [INFO]   r_s ratio = 0.9999941 (preservation), theta_s shift = +0.1851%
+20:42:20 [SUCCESS]   ✓ Saved real results to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/04_cmb_spectra.json
+20:42:20 [SUCCESS] 
+Step 04 completed in 6.5s
+20:42:20 [INFO] 
+20:42:20 [INFO] ----------------------------------------------------------------------
+20:42:20 [INFO] 
+20:42:20 [INFO] >>> STEP 05: JORDAN-FRAME NO-DARK-ENERGY RECONSTRUCTION
+20:42:20 [INFO] 
+20:42:20 [INFO] STEP 04b_jordan_frame: Jordan-Frame No-Dark-Energy theta_s Reconstruction
+20:42:20 [INFO]   === Standard Scan (z_T = 5.0) ===
+20:42:20 [PROCESS]   Running EdS + tep_mode, z_T=5.0, epsilon_T = 0.00...
+20:42:22 [SUCCESS]     100*theta_s = 1.0403 (r_s = 144.5256 Mpc)
+20:42:22 [PROCESS]   Running EdS + tep_mode, z_T=5.0, epsilon_T = 0.01...
+20:42:23 [SUCCESS]     100*theta_s = 1.0432 (r_s = 144.5243 Mpc)
+20:42:23 [PROCESS]   Running EdS + tep_mode, z_T=5.0, epsilon_T = 0.02...
+20:42:23 [SUCCESS]     100*theta_s = 1.0461 (r_s = 144.523 Mpc)
+20:42:23 [PROCESS]   Running EdS + tep_mode, z_T=5.0, epsilon_T = 0.03...
+20:42:24 [SUCCESS]     100*theta_s = 1.049 (r_s = 144.5217 Mpc)
+20:42:24 [PROCESS]   Running EdS + tep_mode, z_T=5.0, epsilon_T = 0.04...
+20:42:25 [SUCCESS]     100*theta_s = 1.0519 (r_s = 144.5204 Mpc)
+20:42:25 [PROCESS]   Running EdS + tep_mode, z_T=5.0, epsilon_T = 0.05...
+20:42:26 [SUCCESS]     100*theta_s = 1.0548 (r_s = 144.5191 Mpc)
+20:42:26 [PROCESS]   Running EdS + tep_mode, z_T=5.0, epsilon_T = 0.06...
+20:42:27 [SUCCESS]     100*theta_s = 1.0577 (r_s = 144.5178 Mpc)
+20:42:27 [INFO]   === Unscreened Limit Scan (z_T = 1e+06) ===
+20:42:27 [PROCESS]   Running EdS + tep_mode, z_T=1e+06, epsilon_T = 0.00...
+20:42:28 [SUCCESS]     100*theta_s = 1.0403 (r_s = 144.5256 Mpc)
+20:42:28 [PROCESS]   Running EdS + tep_mode, z_T=1e+06, epsilon_T = 0.01...
+20:42:29 [SUCCESS]     100*theta_s = 0.9763 (r_s = 134.4117 Mpc)
+20:42:29 [PROCESS]   Running EdS + tep_mode, z_T=1e+06, epsilon_T = 0.02...
+20:42:29 [SUCCESS]     100*theta_s = 0.9161 (r_s = 125.009 Mpc)
+20:42:29 [PROCESS]   Running EdS + tep_mode, z_T=1e+06, epsilon_T = 0.03...
+20:42:30 [SUCCESS]     100*theta_s = 0.8596 (r_s = 116.2674 Mpc)
+20:42:30 [PROCESS]   Running EdS + tep_mode, z_T=1e+06, epsilon_T = 0.04...
+20:42:31 [SUCCESS]     100*theta_s = 0.8065 (r_s = 108.14 Mpc)
+20:42:31 [PROCESS]   Running EdS + tep_mode, z_T=1e+06, epsilon_T = 0.05...
+20:42:32 [SUCCESS]     100*theta_s = 0.7565 (r_s = 100.5835 Mpc)
+20:42:32 [PROCESS]   Running EdS + tep_mode, z_T=1e+06, epsilon_T = 0.06...
+20:42:33 [SUCCESS]     100*theta_s = 0.7096 (r_s = 93.5575 Mpc)
+20:42:35 [SUCCESS]   ✓ Saved figure to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/figure_5_jordan_theta_s.png
+20:42:35 [SUCCESS]   ✓ Saved scan results to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/04b_jordan_frame_scan.json
+20:42:35 [SUCCESS] 
+Step 05 completed in 15.0s
+20:42:35 [INFO] 
+20:42:35 [INFO] ----------------------------------------------------------------------
+20:42:35 [INFO] 
+20:42:35 [INFO] >>> STEP 06: COBAYA MCMC SETUP
+20:42:35 [INFO] 
+20:42:35 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+20:42:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+20:42:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+20:42:35 [SUCCESS] 
+Step 06 completed in 0.0s
+20:42:35 [INFO] 
+20:42:35 [INFO] ----------------------------------------------------------------------
+20:42:35 [INFO] 
+20:42:35 [INFO] >>> STEP 07: MCMC EXECUTION
+20:42:35 [INFO] 
+20:42:35 [INFO] STEP 06_mcmc: MCMC Execution with hi_class (Real Data Only)
+20:42:35 [INFO]   Removing old file: tep_hiclass_suite.1.txt
+20:42:35 [INFO]   Removing old file: tep_hiclass_suite.progress
+20:42:35 [INFO]   Removing old file: tep_hiclass_suite.covmat
+20:42:35 [INFO]   Removing old file: tep_hiclass_suite.checkpoint
+20:42:35 [INFO]   Removing old file: tep_hiclass_suite.updated.yaml
+20:42:35 [INFO]   Removing old file: tep_hiclass_suite.input.yaml
+20:42:35 [PROCESS] Launching Cobaya MCMC with REAL Planck + BAO + SN...
+20:42:35 [INFO]   Config: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+20:42:35 [INFO]   Hardware: M4 Pro detected, using 10 performance cores
+20:42:35 [WARNING]   WARNING: This requires real Planck likelihood data.
+20:42:35 [ERROR]   NO FALLBACK. NO MOCK DATA. NO SYNTHETIC DATA. EVER.
+20:42:35 [INFO]   Running single-threaded (1 chain mode)
+20:42:35 [PROCESS]   MCMC running (log: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs/cobaya_run.log)
+20:42:35 [INFO]   This will take hours. Check progress file for status.
+02:11:34 [PROCESS]   Verifying generated chains...
+02:11:34 [SUCCESS]   ✓ Fresh chain verified: tep_hiclass_suite.1.txt (11746512 bytes, 27190/27190 unique)
+02:11:34 [SUCCESS] 
+  ✓ Real MCMC completed successfully
+02:11:34 [SUCCESS] 
+Step 07 completed in 19739.0s
+02:11:34 [INFO] 
+02:11:34 [INFO] ----------------------------------------------------------------------
+02:11:34 [INFO] 
+02:11:34 [INFO] >>> STEP 08: POSTERIOR ANALYSIS
+02:11:34 [INFO] 
+02:11:34 [INFO] STEP 07_posteriors: Posterior Analysis (Rigorous Audit)
+02:11:34 [INFO] SCOPE: hi_class with native TEP background-only implementation.
+02:11:34 [INFO] Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9623 +- 0.0046.
+02:11:34 [SUCCESS]   ✓ Loaded 27,190 samples from 1 chains (tep_hiclass_suite)
+02:11:34 [INFO] Gelman-Rubin R-1: N/A (1 chain loaded; requires >= 2 chains)
+02:11:34 [INFO] TEP constraints (combined, 1 chain):
+02:11:34 [INFO]     A_s: 2.307e-09 ± 0.00000
+02:11:34 [INFO]     n_s: 0.99561 ± 0.00424
+02:11:34 [INFO]     H0: 66.62840 ± 1.69707
+02:11:34 [INFO]     omega_b: 0.02118 ± 0.00251
+02:11:34 [INFO]     omega_cdm: 0.11535 ± 0.00419
+02:11:34 [INFO]     tau_reio: 0.04912 ± 0.00746
+02:11:34 [INFO]     A_planck: 1.08778 ± 0.01221
+02:11:34 [INFO]     epsilon_T: 0.00563 ± 0.00434
+02:11:34 [INFO]     sigma8: 0.85867 ± 0.01655
+02:11:34 [INFO]     S8: 0.86956 ± 0.02766
+02:11:34 [SUCCESS]   ✓ Saved summary to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/07_mcmc_summary_full.json
+02:11:34 [SUCCESS] 
+Step 08 completed in 0.2s
+02:11:34 [INFO] 
+02:11:34 [INFO] ----------------------------------------------------------------------
+02:11:34 [INFO] 
+02:11:34 [INFO] >>> STEP 09: RESULTS SYNTHESIS
+02:11:34 [INFO] 
+02:11:34 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+02:11:34 [PROCESS] Loading joint analysis summary...
+02:11:34 [PROCESS] Loading Jordan-frame scan results...
+02:11:34 [PROCESS] Generating full suite synthesis report...
+02:11:34 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+02:11:34 [SUCCESS] 
+Step 09 completed in 0.0s
+02:11:34 [INFO] 
+02:11:34 [INFO] ----------------------------------------------------------------------
+02:11:34 [INFO] 
+02:11:34 [INFO] ======================================================================
+02:11:34 [INFO] PIPELINE EXECUTION SUMMARY
+02:11:34 [INFO] ======================================================================
+02:11:34 [INFO] 
+02:11:34 [INFO] 
+Execution Statistics
+02:11:34 [INFO] ====================
+02:11:34 [INFO] Metric          | Count | Time (s)
+02:11:34 [INFO] ----------------------------------
+02:11:34 [INFO] Steps Completed | 10    | -       
+02:11:34 [INFO] Steps Skipped   | 0     | -       
+02:11:34 [INFO] Steps Failed    | 0     | -       
+02:11:34 [INFO] Total Time      | -     | 19771.7 
+02:11:34 [INFO] 
+02:11:34 [INFO] Step Timing Breakdown:
+02:11:34 [INFO]   00_setup            :    2.9s
+02:11:34 [INFO]   00b_install         :    8.1s
+02:11:34 [INFO]   02_background       :    0.1s
+02:11:34 [INFO]   03_alphas           :    0.0s
+02:11:34 [INFO]   04_cmb              :    6.5s
+02:11:34 [INFO]   04b_jordan_frame    :   15.0s
+02:11:34 [INFO]   05_cobaya           :    0.0s
+02:11:34 [INFO]   06_mcmc             : 19739.0s
+02:11:34 [INFO]   07_posteriors       :    0.2s
+02:11:34 [INFO]   08_synthesis        :    0.0s
+02:11:34 [INFO] 
+02:11:34 [SUCCESS] Status: ALL STEPS COMPLETED SUCCESSFULLY
+02:11:34 [INFO] 
+02:11:34 [INFO] Results directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results
+02:11:34 [INFO] Logs directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs
+02:11:34 [INFO] 
+02:11:34 [INFO] ======================================================================
+02:11:34 [INFO] Pipeline results saved to: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/pipeline_results.json

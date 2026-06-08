@@ -17,13 +17,14 @@
       "type": "image/png"
     }
   ],
-  "title": "Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation",
+  "title": "Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation",
   "short_title": "TEP-HC: hi_class Cosmology",
   "author": "Matthew Lukin Smawfield",
   "version": "v0.1",
-  "codename": "Geneva",
-  "date": "2026-04-25",
-  "last_updated": "25 April 2026",
+  "codename": "Cambridge",
+  "date": "2026-06-08",
+  "first_published": "8 June 2026",
+  "doi": "10.5281/zenodo.20572723",
   "sections": [
     {
       "id": "section-abstract",
@@ -78,6 +79,12 @@
       "title": "Appendix A",
       "file": "9_appendix.html",
       "order": 9
+    },
+    {
+      "id": "section-reproducibility",
+      "title": "Data Availability and Reproducibility",
+      "file": "10_reproducibility.html",
+      "order": 10
     }
   ]
 }

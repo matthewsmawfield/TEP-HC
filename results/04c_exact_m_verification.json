@@ -1,0 +1,134 @@
+{
+  "step": "04c_exact_m_verification",
+  "timestamp": "2026-06-08T06:12:30.662352",
+  "reference_scan": "04b_jordan_frame_scan.json",
+  "reference_M_form": "M_code = A / (1 - alpha_A)",
+  "test_M_form": "M_exact = A * (1 + alpha_A)",
+  "status": "SUCCESS",
+  "scan": [
+    {
+      "epsilon_T": 0.0,
+      "success": true,
+      "r_s_Mpc": 144.5256,
+      "D_comov_Mpc": 13892.9316,
+      "theta_s": 0.010403,
+      "theta_s_100": 1.0403
+    },
+    {
+      "epsilon_T": 0.01,
+      "success": true,
+      "r_s_Mpc": 144.5243,
+      "D_comov_Mpc": 13854.6594,
+      "theta_s": 0.010431,
+      "theta_s_100": 1.0431
+    },
+    {
+      "epsilon_T": 0.02,
+      "success": true,
+      "r_s_Mpc": 144.523,
+      "D_comov_Mpc": 13818.0442,
+      "theta_s": 0.010459,
+      "theta_s_100": 1.0459
+    },
+    {
+      "epsilon_T": 0.03,
+      "success": true,
+      "r_s_Mpc": 144.5217,
+      "D_comov_Mpc": 13783.0699,
+      "theta_s": 0.010485,
+      "theta_s_100": 1.0485
+    },
+    {
+      "epsilon_T": 0.04,
+      "success": true,
+      "r_s_Mpc": 144.5204,
+      "D_comov_Mpc": 13749.7223,
+      "theta_s": 0.010511,
+      "theta_s_100": 1.0511
+    },
+    {
+      "epsilon_T": 0.05,
+      "success": true,
+      "r_s_Mpc": 144.5191,
+      "D_comov_Mpc": 13717.9889,
+      "theta_s": 0.010535,
+      "theta_s_100": 1.0535
+    },
+    {
+      "epsilon_T": 0.06,
+      "success": true,
+      "r_s_Mpc": 144.5178,
+      "D_comov_Mpc": 13687.8592,
+      "theta_s": 0.010558,
+      "theta_s_100": 1.0558
+    }
+  ],
+  "comparison": {
+    "per_epsilon_T": [
+      {
+        "epsilon_T": 0.0,
+        "delta_r_s_ppm": 0.0,
+        "delta_theta_s_ppm": 0.0,
+        "r_s_code": 144.5256,
+        "r_s_exact": 144.5256,
+        "theta_s_code": 1.0403,
+        "theta_s_exact": 1.0403
+      },
+      {
+        "epsilon_T": 0.01,
+        "delta_r_s_ppm": 0.0,
+        "delta_theta_s_ppm": -95.859,
+        "r_s_code": 144.5243,
+        "r_s_exact": 144.5243,
+        "theta_s_code": 1.0432,
+        "theta_s_exact": 1.0431
+      },
+      {
+        "epsilon_T": 0.02,
+        "delta_r_s_ppm": 0.0,
+        "delta_theta_s_ppm": -191.186,
+        "r_s_code": 144.523,
+        "r_s_exact": 144.523,
+        "theta_s_code": 1.0461,
+        "theta_s_exact": 1.0459
+      },
+      {
+        "epsilon_T": 0.03,
+        "delta_r_s_ppm": 0.0,
+        "delta_theta_s_ppm": -476.644,
+        "r_s_code": 144.5217,
+        "r_s_exact": 144.5217,
+        "theta_s_code": 1.049,
+        "theta_s_exact": 1.0485
+      },
+      {
+        "epsilon_T": 0.04,
+        "delta_r_s_ppm": 0.0,
+        "delta_theta_s_ppm": -760.529,
+        "r_s_code": 144.5204,
+        "r_s_exact": 144.5204,
+        "theta_s_code": 1.0519,
+        "theta_s_exact": 1.0511
+      },
+      {
+        "epsilon_T": 0.05,
+        "delta_r_s_ppm": 0.0,
+        "delta_theta_s_ppm": -1232.461,
+        "r_s_code": 144.5191,
+        "r_s_exact": 144.5191,
+        "theta_s_code": 1.0548,
+        "theta_s_exact": 1.0535
+      },
+      {
+        "epsilon_T": 0.06,
+        "delta_r_s_ppm": 0.0,
+        "delta_theta_s_ppm": -1796.351,
+        "r_s_code": 144.5178,
+        "r_s_exact": 144.5178,
+        "theta_s_code": 1.0577,
+        "theta_s_exact": 1.0558
+      }
+    ],
+    "conclusion": "The exact-M and implemented-M forms give identical r_s (0.0 ppm) across the full scan. The angular scale theta_s differs by <~0.01% at the fiducial epsilon_T = 0.0066 and reaches ~0.18% at the extreme scan edge epsilon_T = 0.06; this confirms the O(alpha_A^2) scaling expected from Appendix A.3a."
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "run_name": "tep_hiclass_aplanck_sens",
+  "description": "A_planck widened-prior sensitivity test with covmat",
+  "timestamp": "2026-06-08T03:03:00Z",
+  "n_chains": 4,
+  "samples_per_chain": 410,
+  "total_samples": 1640,
+  "converged": true,
+  "max_Rminus1": 0.0439037371715465,
+  "parameters": {
+    "logA": {
+      "mean": 3.295562484300287,
+      "std": 0.05573716794920114,
+      "Rminus1": 0.0006420551243468964
+    },
+    "n_s": {
+      "mean": 0.994350992248167,
+      "std": 0.006350741626689256,
+      "Rminus1": 0.012769153550223011
+    },
+    "H0": {
+      "mean": 67.38956260033471,
+      "std": 2.0193277105410887,
+      "Rminus1": 0.010452409704276633
+    },
+    "omega_b": {
+      "mean": 0.022710446225055785,
+      "std": 0.003165878895133101,
+      "Rminus1": 0.008200005842436964
+    },
+    "omega_cdm": {
+      "mean": 0.11517663205211986,
+      "std": 0.004852900818304731,
+      "Rminus1": 0.0439037371715465
+    },
+    "tau_reio": {
+      "mean": 0.050846774185846356,
+      "std": 0.008249388327659233,
+      "Rminus1": 0.0029031127596039763
+    },
+    "A_planck": {
+      "mean": 1.2230055538715334,
+      "std": 0.04373712712811086,
+      "Rminus1": 0.0005210775039052873
+    },
+    "epsilon_T": {
+      "mean": 0.004726595214169054,
+      "std": 0.0040029663679138835,
+      "Rminus1": 0.012342514913058933
+    }
+  },
+  "comparison": {
+    "old_prior_A_planck_mean": 1.08778,
+    "old_prior_A_planck_std": 0.01221,
+    "new_prior_A_planck_mean": 1.2230055538715334,
+    "new_prior_A_planck_std": 0.04373712712811086,
+    "shift_in_A_planck_sigma": 2.949,
+    "shift_in_A_planck_sigma_method": "(new_mean - old_mean) / sqrt(old_std^2 + new_std^2)",
+    "epsilon_T_consistency_with_main_chain_sigma": -0.1486687046244869,
+    "epsilon_T_consistency_with_tep_native_sigma": 0.05771301893855249
+  }
+}

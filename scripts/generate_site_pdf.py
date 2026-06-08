@@ -30,7 +30,7 @@ except ImportError:
 
 PAPER_NUMBER = "18"
 REPO_NAME = "TEP-HC"
-DEFAULT_CODENAME = "Geneva"
+DEFAULT_CODENAME = "Cambridge"
 
 
 def load_citation_metadata():

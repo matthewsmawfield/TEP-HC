@@ -1,4 +1,4 @@
-v0.1 (Geneva) - Initial release of TEP-HC manuscript
+v0.1 (Cambridge) - Initial release of TEP-HC manuscript
 
 - hi_class TEP module (source/models/tep.c)
 - Cobaya MCMC pipeline against Planck 2018 likelihoods

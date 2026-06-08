@@ -1,0 +1,189 @@
+2026-05-25 02:40:59 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-05-25 02:40:59 [INFO] Started at: 2026-05-25T02:40:59.882776
+2026-05-25 02:40:59 [PROCESS] Creating tep.c...
+2026-05-25 02:40:59 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-05-25 02:40:59 [PROCESS] Creating tep.h...
+2026-05-25 02:40:59 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-05-25 02:40:59 [PROCESS] Creating README.md...
+2026-05-25 02:40:59 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-05-25 02:40:59 [INFO] \nModule Summary:
+2026-05-25 02:40:59 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-05-25 02:40:59 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-05-25 02:40:59 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-05-25 02:40:59 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-05-25 02:40:59 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-05-25 02:40:59 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] ----------------------------------------------------------------------
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 05:44:25 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-05-25 05:44:25 [INFO] Started at: 2026-05-25T05:44:25.629747
+2026-05-25 05:44:25 [PROCESS] Creating tep.c...
+2026-05-25 05:44:25 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-05-25 05:44:25 [PROCESS] Creating tep.h...
+2026-05-25 05:44:25 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-05-25 05:44:25 [PROCESS] Creating README.md...
+2026-05-25 05:44:25 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-05-25 05:44:25 [INFO] \nModule Summary:
+2026-05-25 05:44:25 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-05-25 05:44:25 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-05-25 05:44:25 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-05-25 05:44:25 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-05-25 05:44:25 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-05-25 05:44:25 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-05-25 05:44:25 [INFO] 
+2026-05-25 05:44:25 [INFO] ----------------------------------------------------------------------
+2026-05-25 05:44:25 [INFO] 
+2026-05-25 05:44:25 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-05-25 05:44:25 [INFO] 
+2026-06-03 20:35:01 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-06-03 20:35:01 [INFO] Started at: 2026-06-03T20:35:01.789629
+2026-06-03 20:35:01 [PROCESS] Creating tep.c...
+2026-06-03 20:35:01 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-06-03 20:35:01 [PROCESS] Creating tep.h...
+2026-06-03 20:35:01 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-06-03 20:35:01 [PROCESS] Creating README.md...
+2026-06-03 20:35:01 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-06-03 20:35:01 [INFO] \nModule Summary:
+2026-06-03 20:35:01 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-06-03 20:35:01 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-06-03 20:35:01 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-06-03 20:35:01 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-06-03 20:35:01 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-06-03 20:35:01 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 20:35:01 [INFO] ----------------------------------------------------------------------
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 20:35:01 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 21:10:35 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-06-03 21:10:35 [INFO] Started at: 2026-06-03T21:10:35.438248
+2026-06-03 21:10:35 [PROCESS] Creating tep.c...
+2026-06-03 21:10:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-06-03 21:10:35 [PROCESS] Creating tep.h...
+2026-06-03 21:10:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-06-03 21:10:35 [PROCESS] Creating README.md...
+2026-06-03 21:10:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-06-03 21:10:35 [INFO] \nModule Summary:
+2026-06-03 21:10:35 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-06-03 21:10:35 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-06-03 21:10:35 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-06-03 21:10:35 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-06-03 21:10:35 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-06-03 21:10:35 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:10:35 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:10:35 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:31:40 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-06-03 21:31:40 [INFO] Started at: 2026-06-03T21:31:40.433585
+2026-06-03 21:31:40 [PROCESS] Creating tep.c...
+2026-06-03 21:31:40 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-06-03 21:31:40 [PROCESS] Creating tep.h...
+2026-06-03 21:31:40 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-06-03 21:31:40 [PROCESS] Creating README.md...
+2026-06-03 21:31:40 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-06-03 21:31:40 [INFO] \nModule Summary:
+2026-06-03 21:31:40 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-06-03 21:31:40 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-06-03 21:31:40 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-06-03 21:31:40 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-06-03 21:31:40 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-06-03 21:31:40 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:31:40 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:31:40 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:36:19 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-06-03 21:36:19 [INFO] Started at: 2026-06-03T21:36:19.362956
+2026-06-03 21:36:19 [PROCESS] Creating tep.c...
+2026-06-03 21:36:19 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-06-03 21:36:19 [PROCESS] Creating tep.h...
+2026-06-03 21:36:19 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-06-03 21:36:19 [PROCESS] Creating README.md...
+2026-06-03 21:36:19 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-06-03 21:36:19 [INFO] \nModule Summary:
+2026-06-03 21:36:19 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-06-03 21:36:19 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-06-03 21:36:19 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-06-03 21:36:19 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-06-03 21:36:19 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-06-03 21:36:19 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:36:19 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:36:19 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:38:17 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-06-03 21:38:17 [INFO] Started at: 2026-06-03T21:38:17.760551
+2026-06-03 21:38:17 [PROCESS] Creating tep.c...
+2026-06-03 21:38:17 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-06-03 21:38:17 [PROCESS] Creating tep.h...
+2026-06-03 21:38:17 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-06-03 21:38:17 [PROCESS] Creating README.md...
+2026-06-03 21:38:17 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-06-03 21:38:17 [INFO] \nModule Summary:
+2026-06-03 21:38:17 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-06-03 21:38:17 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-06-03 21:38:17 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-06-03 21:38:17 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-06-03 21:38:17 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-06-03 21:38:17 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:40:15 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-06-03 21:40:15 [INFO] Started at: 2026-06-03T21:40:15.244593
+2026-06-03 21:40:15 [PROCESS] Creating tep.c...
+2026-06-03 21:40:15 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-06-03 21:40:15 [PROCESS] Creating tep.h...
+2026-06-03 21:40:15 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-06-03 21:40:15 [PROCESS] Creating README.md...
+2026-06-03 21:40:15 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-06-03 21:40:15 [INFO] \nModule Summary:
+2026-06-03 21:40:15 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-06-03 21:40:15 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-06-03 21:40:15 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-06-03 21:40:15 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-06-03 21:40:15 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-06-03 21:40:15 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 21:40:15 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 21:40:15 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 23:03:05 [INFO] STEP 01_tep_module: TEP C Module Generation
+2026-06-03 23:03:05 [INFO] Started at: 2026-06-03T23:03:05.885969
+2026-06-03 23:03:05 [PROCESS] Creating tep.c...
+2026-06-03 23:03:05 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.c
+2026-06-03 23:03:05 [PROCESS] Creating tep.h...
+2026-06-03 23:03:05 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/tep.h
+2026-06-03 23:03:05 [PROCESS] Creating README.md...
+2026-06-03 23:03:05 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/hi_class_modules/README.md
+2026-06-03 23:03:05 [INFO] \nModule Summary:
+2026-06-03 23:03:05 [INFO]   - Alpha functions: alpha_M, alpha_T, alpha_B, alpha_K
+2026-06-03 23:03:05 [INFO]   - Background evolution: phi'' + 2H*phi' = a^2*Q_TEP
+2026-06-03 23:03:05 [INFO]   - Screening: T^mu_mu-based with 20 g/cm^3 threshold
+2026-06-03 23:03:05 [INFO]   - Stability checks: c_s^2 >= 0 enforced
+2026-06-03 23:03:05 [SUCCESS] STEP 01_tep_module COMPLETED
+2026-06-03 23:03:05 [SUCCESS] 
+Step 02 completed in 0.0s
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] ----------------------------------------------------------------------
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] >>> STEP 03: BACKGROUND EVOLUTION ANALYSIS
+2026-06-03 23:03:05 [INFO] 

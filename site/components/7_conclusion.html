@@ -5,15 +5,15 @@
      <h3>6.1 Summary of Results</h3>
 
      <ol>
-         <li><strong>EFT Mapping:</strong> The TEP bi-metric framework with conformal factor $A(\phi) = \exp(\beta_A\phi/M_{\rm Pl})$ and disformal deformation $B(\phi)$ can be mapped onto the Bellini-Sawicki $\alpha_i$ functions, placing TEP within the Horndeski class. The present numerical analysis adopts the background-only realization as the authoritative form.</li>
+         <li><em>EFT Mapping:</em> The TEP bi-metric framework with conformal factor $A(\phi) = \exp(\beta_A\phi/M_{\rm Pl})$ and disformal deformation $B(\phi)$ can be mapped onto the Bellini-Sawicki $\alpha_i$ functions, placing TEP within the Horndeski class. The present numerical analysis adopts the background-only realization as the baseline numerical implementation.</li>
 
-         <li><strong>Unscreened Cosmology:</strong> At $z \approx 1100$ the universe is deeply unscreened ($\rho \ll 20$ g/cm³), yet the transition function freezes the modification ($f_T \to 0$ for $z \gg z_T$), so the field is dynamically inert at recombination.</li>
+         <li><em>Unscreened Cosmology:</em> At $z \approx 1100$ the universe is deeply unscreened ($\rho \ll 20$ g/cm³), yet the transition function freezes the modification ($f_T \to 0$ for $z \gg z_T$), so the field is dynamically inert at recombination. Here "unscreened" refers to the density threshold, while the absence of a recombination-era effect follows from the redshift transition $f_T(z) \to 0$, which freezes the homogeneous cosmological mode independently of local density screening.</li>
 
-         <li><strong>CMB Consistency Check (verified):</strong> With the corrected transition function, hi_class native <code>tep_mode</code> preserves the sound horizon to ~6 ppm ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and leaves the acoustic-peak morphology unchanged. The sole CMB effect of a non-zero $\epsilon_T$ is a late-time angular-diameter-distance projection ($\Delta\theta_s/\theta_s = +0.27\%$ at $\epsilon_T = 0.0066$), degenerate with $H_0$ and scaling linearly with $\epsilon_T$.</li>
+         <li><em>CMB Consistency Check (verified):</em> With the corrected transition function, hi_class native <code>tep_mode</code> preserves the sound horizon to ~6 ppm ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and leaves the acoustic-peak morphology unchanged. Because the sole CMB effect of a non-zero $\epsilon_T$ is a late-time angular-diameter-distance projection ($\Delta\theta_s/\theta_s = +0.185\%$ at $\epsilon_T = 0.0066$) that is largely degenerate with $H_0$, the TEP homogeneous background is difficult to distinguish from $\Lambda$CDM with a slightly shifted $H_0$ at the low-$\ell$ CMB level. The full-Planck bound from TEP-C0 (Paper 26) is tighter.</li>
 
-         <li><strong>Cosmological Constraints:</strong> Late-time Pantheon+ data give substantial Bayesian preference for the TEP geometry (Bayes factor 7–10 vs $\Lambda$CDM; TEP-C0, Paper 26), while the CMB $\theta_s$/$H_0$ degeneracy bounds the homogeneous amplitude to $\epsilon_T \approx 0$. A native-<code>tep_mode</code> joint hi_class MCMC configuration is provided in <code>data/cobaya/tep_native_mcmc.yaml</code>.</li>
+         <li><em>Cosmological Constraints:</em> Late-time Pantheon+ data give strong Bayesian preference for the TEP geometry (Bayes factor 131.6 vs $\Lambda$CDM; TEP-C0, Paper 26). This paper's hi_class joint MCMC yields $\epsilon_T = 0.0056 \pm 0.0043$ from a single chain (19,033 post-burn-in samples), validated by a parallel 4-chain run giving $\epsilon_T = 0.0044 \pm 0.0040$ (maximum $R-1 = 0.098$). A dedicated sensitivity test with a widened $A_{\rm planck}$ prior $[0.9, 1.25]$ converged with all parameters Gelman–Rubin $R-1 < 0.05$ (1,640 total samples), giving $\epsilon_T = 0.0047 \pm 0.0040$ and $A_{\rm planck} = 1.223 \pm 0.044$; the correlation between $A_{\rm planck}$ and $\epsilon_T$ is $r = -0.19$ with no evidence of a degeneracy cascade. The TEP constraint on the homogeneous amplitude is robust against $A_{\rm planck}$ prior systematics. TEP-C0 full-Planck joint MCMC drives the homogeneous amplitude to $(6.75 \pm 0.24) \times 10^{-6}$. Production configuration: <code>data/cobaya/tep_hiclass_suite.yaml</code>.</li>
 
-         <li><strong>Hubble Tension:</strong> The framework resolves the tension as a local environmental clock-transport effect (Paper 11), keeping the homogeneous CMB baseline $\Lambda$CDM-compatible. No modified recombination-era expansion is required.</li>
+         <li><em>Hubble Tension:</em> The framework reinterprets the tension as a local environmental clock-transport effect (Paper 11), keeping the homogeneous CMB baseline $\Lambda$CDM-compatible. No modified recombination-era expansion is required.</li>
      </ol>
 
      <h3>6.2 Cross-Scale Consistency</h3>
@@ -21,42 +21,31 @@
      <p>TEP is distinguished among modified gravity frameworks in that it is:</p>
      
      <ul>
-         <li>Constrained at the Bohr radius (quantum phase coherence requires $\rho_c \gtrsim 20$ g/cm³)</li>
-         <li>Validated at 20 g/cm³ (terrestrial atomic clocks, laboratory Cavendish)</li>
+         <li>Validated at $\rho \sim 20$ g/cm³ (terrestrial atomic clocks, laboratory Cavendish)</li>
          <li>Tested across galactic scales (SPARC rotation curves, Gaia wide binaries)</li>
-         <li>Reconciled with early-universe cosmology (CMB acoustic peaks, BBN)</li>
+         <li>Consistent with early-universe cosmology (CMB acoustic peaks)</li>
      </ul>
 
-     <p>This consistency across many orders of magnitude in density—from quantum to cosmological scales—supports TEP as a viable framework for gravitational physics. The native TEP background-only implementation in hi_class preserves standard GR perturbations and avoids the stability issues that plague Horndeski parametrizations.</p>
+     <p>This consistency across many orders of magnitude in density—from terrestrial to cosmological scales—supports TEP as a viable framework for gravitational physics. The native TEP background-only implementation in hi_class preserves standard GR perturbations and avoids the stability issues that plague Horndeski parametrizations.</p>
 
      <h3>6.3 Alternative Explanations</h3>
     
     <p>Standard ΛCDM cosmology provides an excellent fit to CMB data, with Planck 2018 reporting $H_0 = 67.36 \pm 0.54$ km/s/Mpc. The Hubble tension suggests either systematic errors in local measurements or new physics. Several alternative explanations have been proposed:</p>
     
     <ul>
-        <li><strong>Local systematics:</strong> Unaccounted-for calibration errors in Cepheid distances or supernova standardization. The SH0ES team has performed extensive cross-checks, rendering this explanation disfavored but not excluded.</li>
+        <li><em>Local systematics:</em> Unaccounted-for calibration errors in Cepheid distances or supernova standardization. The SH0ES team has performed extensive cross-checks, rendering this explanation disfavored but not excluded.</li>
         
-        <li><strong>Early-universe new physics:</strong> Additional relativistic species ($N_{\rm eff}$), modified recombination history, or interacting dark energy. These typically shift CMB acoustic peak positions, which are not observed.</li>
+        <li><em>Early-universe new physics:</em> Additional relativistic species ($N_{\rm eff}$), modified recombination history, or interacting dark energy. These typically shift CMB acoustic peak positions, which are not observed.</li>
         
-        <li><strong>Late-universe modified gravity:</strong> Models that alter $H_0$ through modified expansion history. Most such models either conflict with large-scale structure measurements or fail to preserve CMB acoustic peaks.</li>
+        <li><em>Late-universe modified gravity:</em> Models that alter $H_0$ through modified expansion history. Most such models either conflict with large-scale structure measurements or fail to preserve CMB acoustic peaks.</li>
     </ul>
     
     <p>TEP differs from these alternatives in that it predicts negligible early-universe deviations from ΛCDM: the transition function freezes the modification at recombination ($f_T \to 0$ for $z \gg z_T$), so $r_s$ is preserved to parts-per-million and the acoustic peaks are untouched (Section 5.1). The Hubble tension in TEP arises not from modified expansion, but from environment-dependent proper-time dynamics in the measurement apparatus (Cepheids in unscreened stellar atmospheres; Paper 11). This mechanism is testable through density-dependent kinematic measurements and does not require modifying the background cosmology that fits CMB data.</p>
 
      <h3>6.4 Synthesis of the Dual-Domain Framework</h3>
     
-    <p>This analysis implements and explicitly validates the native TEP background modification within a rigorous Boltzmann solver framework. The full joint MCMC (Planck 2018 + lensing + BAO + Pantheon+) demonstrates that when $\Lambda$ is allowed to operate correctly as a background energy component, the optimizer seamlessly converges on $H_0 = 66.73 \pm 1.60$ km/s/Mpc alongside a tightly bounded macroscopic temporal shear ($\epsilon_T = 0.0051 \pm 0.0042$).</p>
+    <p>This analysis implements and explicitly validates the native TEP background modification within a rigorous Boltzmann solver framework. The hi_class joint MCMC (Planck 2018 low-$\ell$ + lensing + BAO + Pantheon+) gives $H_0 = 66.63 \pm 1.70$ km/s/Mpc and $\epsilon_T = 0.0056 \pm 0.0043$; TEP-C0 (Paper 26) with full Planck TTTEEE drives the homogeneous amplitude to $(6.75 \pm 0.24) \times 10^{-6}$, confirming the dual-domain picture when $\Lambda$ operates as a background energy component.</p>
     
-    <p>This explicitly proves that TEP is not forced to competitively replace $\Lambda$ on the largest scales, but operates natively alongside it. The macroscopic temporal shear remains bounded to the conformal limit ($\epsilon_T \approx 0$) at early times, protecting the acoustic peaks, while generating localized acceleration through spatial gradients $S(\rho, z)$ at late times.</p>
+    <p>TEP operates natively alongside $\Lambda$ on the largest scales. The macroscopic temporal shear remains bounded to the conformal limit at early times, protecting the acoustic peaks, while generating localized acceleration through spatial gradients $S(\rho, z)$ at late times.</p>
 
-    <h3>6.5 Predictive Targets and Future Directions</h3>
-     
-     <p>The framework firmly establishes that the native TEP implementation mathematically supports standard General Relativistic perturbations while predicting explicit environmental screening. Future observational tests will focus on:</p>
-     
-     <ul>
-         <li>Detailed mapping of the $k$-dependent growth suppression predicted by TEP in Lyman-$\alpha$ forest data at $z \sim 2-4$.</li>
-         <li>Kinematic detection of the temporal-shear topology in wide binaries and stellar clusters transitioning across the screening density threshold.</li>
-         <li>High-precision measurements of the clock-transport bias induced by local topology.</li>
-     </ul>
-
-     <p>The hi_class native <code>tep_mode</code> framework developed here successfully validates the mathematical architecture of the Temporal Equivalence Principle. It forms a computationally robust bridge between the highly constrained early universe and the actively shearing late-universe dynamics, establishing a stable, falsifiable model of topological relativity.</p>
+     <p>The hi_class native <code>tep_mode</code> framework developed here provides a computational implementation of the Temporal Equivalence Principle. The acoustic indistinguishability of the corrected TEP homogeneous background from $\Lambda$CDM at recombination is consistent with the dual-domain picture, where tensions are addressed through local kinematic environments rather than early-universe modifications. The implemented $M=A/(1-\alpha_A)$ form reproduces the exact frame factor $M_{\rm exact}=A(1+\alpha_A)$ for the sound horizon to identical precision (0.0 ppm); the $\theta_s$ projection differs by $<0.01\%$ at the fiducial $\epsilon_T=0.0066$, confirming the $\mathcal{O}(\alpha_A^2)$ scaling expected from Appendix A.3a.</p>

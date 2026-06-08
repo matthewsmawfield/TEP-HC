@@ -83,7 +83,38 @@ class Step07Posteriors:
         print_status(f"  ✓ Loaded {total_rows:,} samples from {len(chain_files)} chains ({prefix})", "SUCCESS")
         return combined, per_chain_data, col_map
     
-    def _gelman_rubin(self, chains, idx):
+    def _read_cobaya_sampler_rminus1(self, prefix: str):
+        """Read Cobaya's internal MCMC R-1 from the .progress file when present."""
+        progress = self.chains_dir / f"{prefix}.progress"
+        if not progress.exists():
+            return None
+        try:
+            import yaml
+            with open(progress) as f:
+                data = yaml.safe_load(f)
+            if not isinstance(data, dict):
+                return None
+            for key in ("Rminus1", "R_minus_1", "R-1"):
+                if key in data and data[key] is not None:
+                    return float(data[key])
+            sampler = data.get("sampler", {})
+            mcmc = sampler.get("mcmc", {}) if isinstance(sampler, dict) else {}
+            for key in ("Rminus1", "R_minus_1", "R-1"):
+                if key in mcmc and mcmc[key] is not None:
+                    return float(mcmc[key])
+        except Exception:
+            pass
+        # Fallback: scan raw text for "R-1 = <float>" lines from Cobaya logs
+        try:
+            text = progress.read_text()
+            import re
+            matches = re.findall(r"R-1\s*[=:]\s*([0-9.]+)", text)
+            if matches:
+                return float(matches[-1])
+        except Exception:
+            return None
+        return None
+    
         """Compute Gelman-Rubin R-1 for a given parameter index across chains."""
         m = len(chains)
         if m < 2:
@@ -111,7 +142,7 @@ class Step07Posteriors:
         """Execute rigorous posterior analysis on ALL chain files."""
         print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
         print_status("SCOPE: hi_class with native TEP background-only implementation.", "INFO")
-        print_status("Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9623 +- 0.0046.", "INFO")
+        print_status("Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.", "INFO")
         
         results = {
             "step": self.STEP_NAME,
@@ -218,11 +249,18 @@ class Step07Posteriors:
                 print_status(f"    {name}: " + fmt.format(st["mean"]) + f" ± {st['std']:.5f}", "INFO")
             
             results["tep"]["best_logpost"] = float(-np.min(tep_post[:, 1]))
-            results["tep"]["tep_c0_reference"] = "TEP-C0 (Paper 26) native TEP: n_s = 0.9623 +- 0.0046"
+            results["tep"]["tep_c0_reference"] = (
+                "TEP-C0 (Paper 26) native TEP: n_s = 0.9619 +- 0.0046; "
+                "joint epsilon_T = (6.75 +- 0.24) x 10^-6"
+            )
             results["tep"]["n_samples"] = tep_post.shape[0]
             results["tep"]["n_chains"] = n_chains
             results["tep"]["max_R_minus_1"] = max_r
             results["tep"]["gelman_rubin_applicable"] = n_chains >= 2
+            internal_r = self._read_cobaya_sampler_rminus1("tep_hiclass_suite")
+            results["tep"]["internal_sampler_R_minus_1"] = internal_r
+            if internal_r is not None:
+                print_status(f"  Cobaya internal sampler R-1: {internal_r:.4f}", "INFO")
             
             if lcdm_available:
                 print_status("LCDM constraints:", "INFO")

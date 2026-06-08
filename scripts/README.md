@@ -22,7 +22,7 @@ The production physics is the native `tep_mode` background modification patched 
 cd site && npm ci && npm run build:markdown
 ```
 
-Generates `18-TEP-HC-v0.1-Geneva.md` at the repository root.
+Generates `18-TEP-HC-v0.1-Cambridge.md` at the repository root.
 
 ## Figure generation
 
@@ -32,4 +32,31 @@ Figures are not produced by `run_all.py`. After the pipeline completes, run:
 python scripts/generate_figures.py
 ```
 
-This writes publication figures to `results/figures/`. The static site build (`cd site && npm run build`) copies them into `site/dist/figures/`.
+This writes both publication figures to `results/figures/`.
+
+**Inputs:**
+- Figure 1 (MCMC point + literature benchmarks): `results/07_mcmc_summary_full.json` and `data/references/literature_benchmarks.json`
+- Figure 2: `results/04b_jordan_frame_scan.json` (run step 04b first)
+
+The static site build (`cd site && npm run build`) copies them into `site/dist/figures/`.
+
+## Exact-M acoustic verification (optional)
+
+To confirm that the exact Jordan-frame factor `M_exact = A*(1+alpha_A)` gives the same acoustic result as the implemented `M_code = A/(1-alpha_A)` in the screened CMB regime:
+
+```bash
+python scripts/steps/step_04c_exact_m_verification.py
+```
+
+**Prerequisites:** step `04b` must have been run first to generate the reference scan.
+
+**What it does:**
+1. Temporarily patches `external/hi_class/hi_class/source/background.c` to use `M_exact`
+2. Recompiles hi_class
+3. Runs the standard `z_T = 5` Jordan scan with `M_exact`
+4. Compares `r_s` and `theta_s` against the existing `04b` reference
+5. Restores the original code and recompiles
+
+**Output:** `results/04c_exact_m_verification.json`
+
+This step is **not** included in the default `run_all.py` pipeline because it modifies and recompiles the C codebase. Run it manually when you want to remove the last `O(alpha_A^2)` caveat from the manuscript.

@@ -11,32 +11,36 @@ class DevServer {
         this.isBuilding = false;
         this.buildQueue = false;
         this.server = null;
-        this.port = 54287; // Unique port for TEP-HC
+        this.port = 58763; // Unique port for TEP-HC
     }
 
     async startLiveServer() {
         console.log('🚀 Starting static server...');
         if (this.server) this.server.close();
-        this.server = http.createServer((req, res) => {
-            const filePath = path.join(__dirname, 'dist', req.url === '/' ? 'index.html' : req.url);
-            const ext = path.extname(filePath);
-            const mime = {
-                '.html': 'text/html', '.js': 'application/javascript',
-                '.css': 'text/css', '.json': 'application/json',
-                '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml',
-                '.pdf': 'application/pdf'
-            };
-            fs.readFile(filePath, (err, data) => {
-                if (err) {
-                    res.writeHead(404); res.end('Not found');
-                } else {
-                    res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' });
-                    res.end(data);
-                }
+        return new Promise((resolve, reject) => {
+            this.server = http.createServer((req, res) => {
+                const filePath = path.join(__dirname, 'dist', req.url === '/' ? 'index.html' : req.url);
+                const ext = path.extname(filePath);
+                const mime = {
+                    '.html': 'text/html', '.js': 'application/javascript',
+                    '.css': 'text/css', '.json': 'application/json',
+                    '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml',
+                    '.pdf': 'application/pdf'
+                };
+                fs.readFile(filePath, (err, data) => {
+                    if (err) {
+                        res.writeHead(404); res.end('Not found');
+                    } else {
+                        res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' });
+                        res.end(data);
+                    }
+                });
             });
-        });
-        this.server.listen(this.port, () => {
-            console.log(`📡 Static server running at http://localhost:${this.port}`);
+            this.server.listen(this.port, () => {
+                console.log(`📡 Static server running at http://localhost:${this.port}`);
+                resolve();
+            });
+            this.server.on('error', reject);
         });
     }
 

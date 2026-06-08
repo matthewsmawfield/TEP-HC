@@ -1,0 +1,227 @@
+2026-05-25 02:41:04 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 02:41:04 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_cosmology_full.yaml
+2026-05-25 02:41:04 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-05-25 02:41:04 [INFO] 
+2026-05-25 02:41:04 [INFO] ----------------------------------------------------------------------
+2026-05-25 02:41:04 [INFO] 
+2026-05-25 02:41:04 [INFO] >>> STEP 07: MCMC EXECUTION
+2026-05-25 02:41:04 [INFO] 
+2026-05-25 03:43:40 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 03:43:40 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+2026-05-25 03:43:40 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-05-25 03:43:40 [INFO] 
+2026-05-25 03:43:40 [INFO] ----------------------------------------------------------------------
+2026-05-25 03:43:40 [INFO] 
+2026-05-25 03:43:40 [INFO] >>> STEP 07: MCMC EXECUTION
+2026-05-25 03:43:40 [INFO] 
+2026-05-25 03:45:56 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 03:45:56 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+2026-05-25 03:45:56 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-05-25 03:45:56 [INFO] 
+2026-05-25 03:45:56 [INFO] ----------------------------------------------------------------------
+2026-05-25 03:45:56 [INFO] 
+2026-05-25 03:45:56 [INFO] >>> STEP 07: MCMC EXECUTION
+2026-05-25 03:45:56 [INFO] 
+2026-05-25 03:55:38 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 03:55:38 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+2026-05-25 03:55:38 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-05-25 03:55:38 [INFO] 
+2026-05-25 03:55:38 [INFO] ----------------------------------------------------------------------
+2026-05-25 03:55:38 [INFO] 
+2026-05-25 03:55:38 [INFO] >>> STEP 07: MCMC EXECUTION
+2026-05-25 03:55:38 [INFO] 
+2026-05-25 04:01:24 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 04:01:24 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+2026-05-25 04:01:24 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-05-25 04:01:24 [INFO] 
+2026-05-25 04:01:24 [INFO] ----------------------------------------------------------------------
+2026-05-25 04:01:24 [INFO] 
+2026-05-25 04:01:24 [INFO] >>> STEP 07: MCMC EXECUTION
+2026-05-25 04:01:24 [INFO] 
+2026-05-25 05:44:26 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 05:44:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+2026-05-25 05:44:26 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-05-25 05:44:26 [INFO] 
+2026-05-25 05:44:26 [INFO] ----------------------------------------------------------------------
+2026-05-25 05:44:26 [INFO] 
+2026-05-25 05:44:26 [INFO] >>> STEP 07: MCMC EXECUTION
+2026-05-25 05:44:26 [INFO] 
+2026-05-25 17:48:51 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 17:53:56 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 17:53:56 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003266, -0.019234, 0.019234, 0.000000, 1.0
+2026-05-25 18:47:44 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 18:47:44 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003266, -0.019234, 0.019234, 0.000000, 1.0
+2026-05-25 20:47:34 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 20:47:34 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-25 20:47:34 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-25 21:04:27 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-25 21:04:27 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-25 21:04:27 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-25 21:04:27 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-26 01:03:26 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-26 01:03:26 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-26 01:03:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-26 01:03:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-26 02:36:07 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-26 02:36:07 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-26 02:36:07 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-26 02:36:07 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-26 02:58:26 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-26 02:58:26 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-26 02:58:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-26 02:58:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-26 14:09:00 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-26 14:09:00 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-26 14:09:00 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-26 14:09:00 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-28 01:29:57 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-28 01:29:57 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-28 01:29:57 [INFO]   TEP alphas (z=0): α_M=0.013464, α_B=-0.013464, α_K=0.002286, α_T=0.000000
+2026-05-28 01:29:57 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with gravity_model: tep
+2026-05-28 01:29:57 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-28 01:58:38 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-28 01:58:38 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-28 01:58:38 [INFO]   TEP alphas (z=0): α_M=0.013464, α_B=-0.013464, α_K=0.002286, α_T=0.000000
+2026-05-28 01:58:38 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with gravity_model: tep
+2026-05-28 01:58:38 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-28 02:05:27 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-28 02:05:27 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-28 02:05:27 [INFO]   TEP alphas (z=0): α_M=0.013464, α_B=-0.013464, α_K=0.002286, α_T=0.000000
+2026-05-28 02:05:27 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with gravity_model: tep
+2026-05-28 02:05:27 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-28 02:16:35 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-28 02:16:35 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-28 02:16:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-28 02:16:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-05-28 02:34:39 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-05-28 02:34:39 [INFO]   Ω_DE(z=0) = 0.686083 (Planck best-fit)
+2026-05-28 02:34:39 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml with parameters_smg = 0.003332, -0.019624, 0.019624, 0.000000, 1.0
+2026-05-28 02:34:39 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 20:35:26 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-03 20:35:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-03 20:35:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 20:35:26 [SUCCESS] 
+Step 07 completed in 0.0s
+2026-06-03 20:35:26 [INFO] 
+2026-06-03 20:35:26 [INFO] ----------------------------------------------------------------------
+2026-06-03 20:35:26 [INFO] 
+2026-06-03 20:35:26 [INFO] >>> STEP 08: MCMC EXECUTION
+2026-06-03 20:35:26 [INFO] 
+2026-06-03 21:10:43 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-03 21:10:43 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-03 21:10:43 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 21:10:43 [SUCCESS] 
+Step 07 completed in 0.0s
+2026-06-03 21:10:43 [INFO] 
+2026-06-03 21:10:43 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:10:43 [INFO] 
+2026-06-03 21:10:43 [INFO] >>> STEP 08: MCMC EXECUTION
+2026-06-03 21:10:43 [INFO] 
+2026-06-03 21:31:47 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-03 21:31:47 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-03 21:31:47 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 21:31:47 [SUCCESS] 
+Step 07 completed in 0.0s
+2026-06-03 21:31:47 [INFO] 
+2026-06-03 21:31:47 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:31:47 [INFO] 
+2026-06-03 21:31:47 [INFO] >>> STEP 08: MCMC EXECUTION
+2026-06-03 21:31:47 [INFO] 
+2026-06-03 21:36:26 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-03 21:36:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-03 21:36:26 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 21:36:26 [SUCCESS] 
+Step 07 completed in 0.0s
+2026-06-03 21:36:26 [INFO] 
+2026-06-03 21:36:26 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:36:26 [INFO] 
+2026-06-03 21:36:26 [INFO] >>> STEP 08: MCMC EXECUTION
+2026-06-03 21:36:26 [INFO] 
+2026-06-03 21:38:24 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-03 21:38:24 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-03 21:38:24 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 21:38:24 [SUCCESS] 
+Step 07 completed in 0.0s
+2026-06-03 21:38:24 [INFO] 
+2026-06-03 21:38:24 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:38:24 [INFO] 
+2026-06-03 21:38:24 [INFO] >>> STEP 08: MCMC EXECUTION
+2026-06-03 21:38:24 [INFO] 
+2026-06-03 21:40:21 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-03 21:40:21 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-03 21:40:21 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 21:40:21 [SUCCESS] 
+Step 07 completed in 0.0s
+2026-06-03 21:40:21 [INFO] 
+2026-06-03 21:40:21 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:40:21 [INFO] 
+2026-06-03 21:40:21 [INFO] >>> STEP 08: MCMC EXECUTION
+2026-06-03 21:40:21 [INFO] 
+2026-06-03 23:03:13 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-03 23:03:13 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-03 23:03:13 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-03 23:03:13 [SUCCESS] 
+Step 07 completed in 0.0s
+2026-06-03 23:03:13 [INFO] 
+2026-06-03 23:03:13 [INFO] ----------------------------------------------------------------------
+2026-06-03 23:03:13 [INFO] 
+2026-06-03 23:03:13 [INFO] >>> STEP 08: MCMC EXECUTION
+2026-06-03 23:03:13 [INFO] 
+2026-06-05 20:11:35 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-05 20:11:46 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-05 20:11:46 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-05 20:11:46 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-05 20:26:31 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-05 20:26:31 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-05 20:26:31 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-05 20:39:16 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-05 20:39:16 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-05 20:39:16 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-05 20:39:16 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] ----------------------------------------------------------------------
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] ======================================================================
+2026-06-05 20:39:16 [INFO] PIPELINE EXECUTION SUMMARY
+2026-06-05 20:39:16 [INFO] ======================================================================
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] 
+Execution Statistics
+2026-06-05 20:39:16 [INFO] ====================
+2026-06-05 20:39:16 [INFO] Metric          | Count | Time (s)
+2026-06-05 20:39:16 [INFO] ----------------------------------
+2026-06-05 20:39:16 [INFO] Steps Completed | 1     | -       
+2026-06-05 20:39:16 [INFO] Steps Skipped   | 0     | -       
+2026-06-05 20:39:16 [INFO] Steps Failed    | 0     | -       
+2026-06-05 20:39:16 [INFO] Total Time      | -     | 0.0     
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] Step Timing Breakdown:
+2026-06-05 20:39:16 [INFO]   05_cobaya           :    0.0s
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [SUCCESS] Status: ALL STEPS COMPLETED SUCCESSFULLY
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] Results directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results
+2026-06-05 20:39:16 [INFO] Logs directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] ======================================================================
+2026-06-05 20:39:16 [INFO] Pipeline results saved to: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/pipeline_results.json
+2026-06-05 20:42:35 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-05 20:42:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-05 20:42:35 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-05 20:42:35 [SUCCESS] 
+Step 06 completed in 0.0s
+2026-06-05 20:42:35 [INFO] 
+2026-06-05 20:42:35 [INFO] ----------------------------------------------------------------------
+2026-06-05 20:42:35 [INFO] 
+2026-06-05 20:42:35 [INFO] >>> STEP 07: MCMC EXECUTION
+2026-06-05 20:42:35 [INFO] 
+2026-06-06 19:31:28 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-06 19:31:28 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
+2026-06-06 19:31:28 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)

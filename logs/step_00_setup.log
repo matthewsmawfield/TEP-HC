@@ -1,0 +1,471 @@
+2026-05-25 02:38:05 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-05-25 02:38:05 [INFO] Started at: 2026-05-25T02:38:05.431014
+2026-05-25 02:38:05 [PROCESS] Checking requirements.txt...
+2026-05-25 02:38:05 [INFO]   ✓ requirements.txt found (16 packages)
+2026-05-25 02:38:05 [PROCESS] Checking Python packages...
+2026-05-25 02:38:05 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-05-25 02:38:05 [SUCCESS]   ✓ numpy           1.26.4
+2026-05-25 02:38:05 [SUCCESS]   ✓ scipy           1.16.2
+2026-05-25 02:38:07 [SUCCESS]   ✓ pandas          2.2.3
+2026-05-25 02:40:36 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-05-25 02:40:36 [INFO] Started at: 2026-05-25T02:40:36.952456
+2026-05-25 02:40:36 [PROCESS] Checking requirements.txt...
+2026-05-25 02:40:36 [INFO]   ✓ requirements.txt found (16 packages)
+2026-05-25 02:40:36 [PROCESS] Checking Python packages...
+2026-05-25 02:40:36 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-05-25 02:40:36 [SUCCESS]   ✓ numpy           1.26.4
+2026-05-25 02:40:36 [SUCCESS]   ✓ scipy           1.16.2
+2026-05-25 02:40:37 [SUCCESS]   ✓ pandas          2.2.3
+2026-05-25 02:40:37 [SUCCESS]   ✓ matplotlib      3.10.7
+2026-05-25 02:40:38 [SUCCESS]   ✓ cobaya          3.6.2
+2026-05-25 02:40:38 [SUCCESS]   ✓ getdist         1.7.6
+2026-05-25 02:40:38 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-05-25 02:40:38 [PROCESS] Checking system dependencies...
+2026-05-25 02:40:39 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-05-25 02:40:39 [SUCCESS]   ✓ make       (Make build system)
+2026-05-25 02:40:39 [SUCCESS]   ✓ git        (Git version control)
+2026-05-25 02:40:39 [PROCESS] Checking M4 Pro optimization status...
+2026-05-25 02:40:39 [INFO]   Platform: Darwin arm64
+2026-05-25 02:40:39 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-05-25 02:40:39 [INFO]   OMP_NUM_THREADS: 10
+2026-05-25 02:40:39 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-05-25 02:40:39 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-05-25 02:40:39 [PROCESS] Creating directory structure...
+2026-05-25 02:40:39 [SUCCESS]   ✓ data/interim
+2026-05-25 02:40:39 [SUCCESS]   ✓ data/processed
+2026-05-25 02:40:39 [SUCCESS]   ✓ data/hi_class
+2026-05-25 02:40:39 [SUCCESS]   ✓ data/cobaya
+2026-05-25 02:40:39 [SUCCESS]   ✓ results/mcmc_chains
+2026-05-25 02:40:39 [SUCCESS]   ✓ results/figures
+2026-05-25 02:40:39 [SUCCESS]   ✓ logs
+2026-05-25 02:40:39 [PROCESS] Checking hi_class availability...
+2026-05-25 02:40:39 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13
+2026-05-25 02:40:39 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-05-25 02:40:39 [SUCCESS] STEP 00_setup COMPLETED
+2026-05-25 02:40:39 [SUCCESS] 
+Step 00 completed in 2.5s
+2026-05-25 02:40:39 [INFO] 
+2026-05-25 02:40:39 [INFO] ----------------------------------------------------------------------
+2026-05-25 02:40:39 [INFO] 
+2026-05-25 02:40:39 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-05-25 02:40:39 [INFO] 
+2026-05-25 02:40:55 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-05-25 02:40:55 [INFO] Started at: 2026-05-25T02:40:55.810084
+2026-05-25 02:40:55 [PROCESS] Checking requirements.txt...
+2026-05-25 02:40:55 [INFO]   ✓ requirements.txt found (16 packages)
+2026-05-25 02:40:55 [PROCESS] Checking Python packages...
+2026-05-25 02:40:55 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-05-25 02:40:55 [SUCCESS]   ✓ numpy           1.26.4
+2026-05-25 02:40:55 [SUCCESS]   ✓ scipy           1.16.2
+2026-05-25 02:40:56 [SUCCESS]   ✓ pandas          2.2.3
+2026-05-25 02:40:56 [SUCCESS]   ✓ matplotlib      3.10.7
+2026-05-25 02:40:57 [SUCCESS]   ✓ cobaya          3.6.2
+2026-05-25 02:40:57 [SUCCESS]   ✓ getdist         1.7.6
+2026-05-25 02:40:57 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-05-25 02:40:57 [PROCESS] Checking system dependencies...
+2026-05-25 02:40:57 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-05-25 02:40:57 [SUCCESS]   ✓ make       (Make build system)
+2026-05-25 02:40:57 [SUCCESS]   ✓ git        (Git version control)
+2026-05-25 02:40:57 [PROCESS] Checking M4 Pro optimization status...
+2026-05-25 02:40:57 [INFO]   Platform: Darwin arm64
+2026-05-25 02:40:57 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-05-25 02:40:57 [INFO]   OMP_NUM_THREADS: 10
+2026-05-25 02:40:57 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-05-25 02:40:57 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-05-25 02:40:57 [PROCESS] Creating directory structure...
+2026-05-25 02:40:57 [SUCCESS]   ✓ data/interim
+2026-05-25 02:40:57 [SUCCESS]   ✓ data/processed
+2026-05-25 02:40:57 [SUCCESS]   ✓ data/hi_class
+2026-05-25 02:40:57 [SUCCESS]   ✓ data/cobaya
+2026-05-25 02:40:57 [SUCCESS]   ✓ results/mcmc_chains
+2026-05-25 02:40:57 [SUCCESS]   ✓ results/figures
+2026-05-25 02:40:57 [SUCCESS]   ✓ logs
+2026-05-25 02:40:57 [PROCESS] Checking hi_class availability...
+2026-05-25 02:40:57 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13
+2026-05-25 02:40:57 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-05-25 02:40:57 [SUCCESS] STEP 00_setup COMPLETED
+2026-05-25 02:40:57 [SUCCESS] 
+Step 00 completed in 1.7s
+2026-05-25 02:40:57 [INFO] 
+2026-05-25 02:40:57 [INFO] ----------------------------------------------------------------------
+2026-05-25 02:40:57 [INFO] 
+2026-05-25 02:40:57 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-05-25 02:40:57 [INFO] 
+2026-05-25 05:44:20 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-05-25 05:44:20 [INFO] Started at: 2026-05-25T05:44:20.582650
+2026-05-25 05:44:20 [PROCESS] Checking requirements.txt...
+2026-05-25 05:44:20 [INFO]   ✓ requirements.txt found (16 packages)
+2026-05-25 05:44:20 [PROCESS] Checking Python packages...
+2026-05-25 05:44:20 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-05-25 05:44:20 [SUCCESS]   ✓ numpy           1.26.4
+2026-05-25 05:44:20 [SUCCESS]   ✓ scipy           1.16.2
+2026-05-25 05:44:21 [SUCCESS]   ✓ pandas          2.2.3
+2026-05-25 05:44:21 [SUCCESS]   ✓ matplotlib      3.10.7
+2026-05-25 05:44:21 [SUCCESS]   ✓ cobaya          3.6.2
+2026-05-25 05:44:21 [SUCCESS]   ✓ getdist         1.7.6
+2026-05-25 05:44:21 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-05-25 05:44:21 [PROCESS] Checking system dependencies...
+2026-05-25 05:44:21 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-05-25 05:44:21 [SUCCESS]   ✓ make       (Make build system)
+2026-05-25 05:44:21 [SUCCESS]   ✓ git        (Git version control)
+2026-05-25 05:44:21 [PROCESS] Checking M4 Pro optimization status...
+2026-05-25 05:44:21 [INFO]   Platform: Darwin arm64
+2026-05-25 05:44:21 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-05-25 05:44:21 [INFO]   OMP_NUM_THREADS: 10
+2026-05-25 05:44:21 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-05-25 05:44:21 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-05-25 05:44:21 [PROCESS] Creating directory structure...
+2026-05-25 05:44:21 [SUCCESS]   ✓ data/interim
+2026-05-25 05:44:21 [SUCCESS]   ✓ data/processed
+2026-05-25 05:44:21 [SUCCESS]   ✓ data/hi_class
+2026-05-25 05:44:21 [SUCCESS]   ✓ data/cobaya
+2026-05-25 05:44:21 [SUCCESS]   ✓ results/mcmc_chains
+2026-05-25 05:44:21 [SUCCESS]   ✓ results/figures
+2026-05-25 05:44:21 [SUCCESS]   ✓ logs
+2026-05-25 05:44:21 [PROCESS] Checking hi_class availability...
+2026-05-25 05:44:21 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13
+2026-05-25 05:44:21 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-05-25 05:44:21 [SUCCESS] STEP 00_setup COMPLETED
+2026-05-25 05:44:21 [SUCCESS] 
+Step 00 completed in 1.2s
+2026-05-25 05:44:21 [INFO] 
+2026-05-25 05:44:21 [INFO] ----------------------------------------------------------------------
+2026-05-25 05:44:21 [INFO] 
+2026-05-25 05:44:21 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-05-25 05:44:21 [INFO] 
+2026-06-03 20:34:46 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-03 20:34:46 [INFO] Started at: 2026-06-03T20:34:46.935227
+2026-06-03 20:34:46 [PROCESS] Checking requirements.txt...
+2026-06-03 20:34:46 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-03 20:34:46 [PROCESS] Checking Python packages...
+2026-06-03 20:34:46 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-03 20:34:46 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-03 20:34:46 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-03 20:34:48 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-03 20:34:48 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-03 20:34:49 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-03 20:34:49 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-03 20:34:49 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-03 20:34:49 [PROCESS] Checking system dependencies...
+2026-06-03 20:34:49 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-03 20:34:50 [SUCCESS]   ✓ make       (Make build system)
+2026-06-03 20:34:50 [SUCCESS]   ✓ git        (Git version control)
+2026-06-03 20:34:50 [PROCESS] Checking M4 Pro optimization status...
+2026-06-03 20:34:50 [INFO]   Platform: Darwin arm64
+2026-06-03 20:34:50 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-03 20:34:50 [INFO]   OMP_NUM_THREADS: 10
+2026-06-03 20:34:50 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-03 20:34:50 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-03 20:34:50 [PROCESS] Creating directory structure...
+2026-06-03 20:34:50 [SUCCESS]   ✓ data/interim
+2026-06-03 20:34:50 [SUCCESS]   ✓ data/processed
+2026-06-03 20:34:50 [SUCCESS]   ✓ data/hi_class
+2026-06-03 20:34:50 [SUCCESS]   ✓ data/cobaya
+2026-06-03 20:34:50 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-03 20:34:50 [SUCCESS]   ✓ results/figures
+2026-06-03 20:34:50 [SUCCESS]   ✓ logs
+2026-06-03 20:34:50 [PROCESS] Checking hi_class availability...
+2026-06-03 20:34:51 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-03 20:34:51 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-03 20:34:51 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-03 20:34:51 [SUCCESS] 
+Step 00 completed in 4.1s
+2026-06-03 20:34:51 [INFO] 
+2026-06-03 20:34:51 [INFO] ----------------------------------------------------------------------
+2026-06-03 20:34:51 [INFO] 
+2026-06-03 20:34:51 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-03 20:34:51 [INFO] 
+2026-06-03 21:10:31 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-03 21:10:31 [INFO] Started at: 2026-06-03T21:10:31.566450
+2026-06-03 21:10:31 [PROCESS] Checking requirements.txt...
+2026-06-03 21:10:31 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-03 21:10:31 [PROCESS] Checking Python packages...
+2026-06-03 21:10:31 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-03 21:10:31 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-03 21:10:31 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-03 21:10:31 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-03 21:10:32 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-03 21:10:32 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-03 21:10:32 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-03 21:10:32 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-03 21:10:32 [PROCESS] Checking system dependencies...
+2026-06-03 21:10:32 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-03 21:10:32 [SUCCESS]   ✓ make       (Make build system)
+2026-06-03 21:10:32 [SUCCESS]   ✓ git        (Git version control)
+2026-06-03 21:10:32 [PROCESS] Checking M4 Pro optimization status...
+2026-06-03 21:10:32 [INFO]   Platform: Darwin arm64
+2026-06-03 21:10:32 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-03 21:10:32 [INFO]   OMP_NUM_THREADS: 10
+2026-06-03 21:10:32 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-03 21:10:32 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-03 21:10:32 [PROCESS] Creating directory structure...
+2026-06-03 21:10:32 [SUCCESS]   ✓ data/interim
+2026-06-03 21:10:32 [SUCCESS]   ✓ data/processed
+2026-06-03 21:10:32 [SUCCESS]   ✓ data/hi_class
+2026-06-03 21:10:32 [SUCCESS]   ✓ data/cobaya
+2026-06-03 21:10:32 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-03 21:10:32 [SUCCESS]   ✓ results/figures
+2026-06-03 21:10:32 [SUCCESS]   ✓ logs
+2026-06-03 21:10:32 [PROCESS] Checking hi_class availability...
+2026-06-03 21:10:32 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-03 21:10:32 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-03 21:10:32 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-03 21:10:32 [SUCCESS] 
+Step 00 completed in 0.9s
+2026-06-03 21:10:32 [INFO] 
+2026-06-03 21:10:32 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:10:32 [INFO] 
+2026-06-03 21:10:32 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-03 21:10:32 [INFO] 
+2026-06-03 21:31:36 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-03 21:31:36 [INFO] Started at: 2026-06-03T21:31:36.798047
+2026-06-03 21:31:36 [PROCESS] Checking requirements.txt...
+2026-06-03 21:31:36 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-03 21:31:36 [PROCESS] Checking Python packages...
+2026-06-03 21:31:36 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-03 21:31:36 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-03 21:31:36 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-03 21:31:37 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-03 21:31:37 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-03 21:31:37 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-03 21:31:37 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-03 21:31:37 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-03 21:31:37 [PROCESS] Checking system dependencies...
+2026-06-03 21:31:37 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-03 21:31:37 [SUCCESS]   ✓ make       (Make build system)
+2026-06-03 21:31:37 [SUCCESS]   ✓ git        (Git version control)
+2026-06-03 21:31:37 [PROCESS] Checking M4 Pro optimization status...
+2026-06-03 21:31:37 [INFO]   Platform: Darwin arm64
+2026-06-03 21:31:37 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-03 21:31:37 [INFO]   OMP_NUM_THREADS: 10
+2026-06-03 21:31:37 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-03 21:31:37 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-03 21:31:37 [PROCESS] Creating directory structure...
+2026-06-03 21:31:37 [SUCCESS]   ✓ data/interim
+2026-06-03 21:31:37 [SUCCESS]   ✓ data/processed
+2026-06-03 21:31:37 [SUCCESS]   ✓ data/hi_class
+2026-06-03 21:31:37 [SUCCESS]   ✓ data/cobaya
+2026-06-03 21:31:37 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-03 21:31:37 [SUCCESS]   ✓ results/figures
+2026-06-03 21:31:37 [SUCCESS]   ✓ logs
+2026-06-03 21:31:37 [PROCESS] Checking hi_class availability...
+2026-06-03 21:31:37 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-03 21:31:37 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-03 21:31:37 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-03 21:31:37 [SUCCESS] 
+Step 00 completed in 1.1s
+2026-06-03 21:31:37 [INFO] 
+2026-06-03 21:31:37 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:31:37 [INFO] 
+2026-06-03 21:31:37 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-03 21:31:37 [INFO] 
+2026-06-03 21:36:16 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-03 21:36:16 [INFO] Started at: 2026-06-03T21:36:16.234116
+2026-06-03 21:36:16 [PROCESS] Checking requirements.txt...
+2026-06-03 21:36:16 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-03 21:36:16 [PROCESS] Checking Python packages...
+2026-06-03 21:36:16 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-03 21:36:16 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-03 21:36:16 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-03 21:36:16 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-03 21:36:16 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-03 21:36:16 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-03 21:36:16 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-03 21:36:16 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-03 21:36:16 [PROCESS] Checking system dependencies...
+2026-06-03 21:36:16 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-03 21:36:16 [SUCCESS]   ✓ make       (Make build system)
+2026-06-03 21:36:16 [SUCCESS]   ✓ git        (Git version control)
+2026-06-03 21:36:16 [PROCESS] Checking M4 Pro optimization status...
+2026-06-03 21:36:16 [INFO]   Platform: Darwin arm64
+2026-06-03 21:36:16 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-03 21:36:16 [INFO]   OMP_NUM_THREADS: 10
+2026-06-03 21:36:16 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-03 21:36:16 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-03 21:36:16 [PROCESS] Creating directory structure...
+2026-06-03 21:36:16 [SUCCESS]   ✓ data/interim
+2026-06-03 21:36:16 [SUCCESS]   ✓ data/processed
+2026-06-03 21:36:16 [SUCCESS]   ✓ data/hi_class
+2026-06-03 21:36:16 [SUCCESS]   ✓ data/cobaya
+2026-06-03 21:36:16 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-03 21:36:16 [SUCCESS]   ✓ results/figures
+2026-06-03 21:36:16 [SUCCESS]   ✓ logs
+2026-06-03 21:36:16 [PROCESS] Checking hi_class availability...
+2026-06-03 21:36:16 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-03 21:36:16 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-03 21:36:16 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-03 21:36:16 [SUCCESS] 
+Step 00 completed in 0.6s
+2026-06-03 21:36:16 [INFO] 
+2026-06-03 21:36:16 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:36:16 [INFO] 
+2026-06-03 21:36:16 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-03 21:36:16 [INFO] 
+2026-06-03 21:38:14 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-03 21:38:14 [INFO] Started at: 2026-06-03T21:38:14.515515
+2026-06-03 21:38:14 [PROCESS] Checking requirements.txt...
+2026-06-03 21:38:14 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-03 21:38:14 [PROCESS] Checking Python packages...
+2026-06-03 21:38:14 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-03 21:38:14 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-03 21:38:14 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-03 21:38:14 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-03 21:38:14 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-03 21:38:15 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-03 21:38:15 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-03 21:38:15 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-03 21:38:15 [PROCESS] Checking system dependencies...
+2026-06-03 21:38:15 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-03 21:38:15 [SUCCESS]   ✓ make       (Make build system)
+2026-06-03 21:38:15 [SUCCESS]   ✓ git        (Git version control)
+2026-06-03 21:38:15 [PROCESS] Checking M4 Pro optimization status...
+2026-06-03 21:38:15 [INFO]   Platform: Darwin arm64
+2026-06-03 21:38:15 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-03 21:38:15 [INFO]   OMP_NUM_THREADS: 10
+2026-06-03 21:38:15 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-03 21:38:15 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-03 21:38:15 [PROCESS] Creating directory structure...
+2026-06-03 21:38:15 [SUCCESS]   ✓ data/interim
+2026-06-03 21:38:15 [SUCCESS]   ✓ data/processed
+2026-06-03 21:38:15 [SUCCESS]   ✓ data/hi_class
+2026-06-03 21:38:15 [SUCCESS]   ✓ data/cobaya
+2026-06-03 21:38:15 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-03 21:38:15 [SUCCESS]   ✓ results/figures
+2026-06-03 21:38:15 [SUCCESS]   ✓ logs
+2026-06-03 21:38:15 [PROCESS] Checking hi_class availability...
+2026-06-03 21:38:15 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-03 21:38:15 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-03 21:38:15 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-03 21:38:15 [SUCCESS] 
+Step 00 completed in 0.6s
+2026-06-03 21:38:15 [INFO] 
+2026-06-03 21:38:15 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:38:15 [INFO] 
+2026-06-03 21:38:15 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-03 21:38:15 [INFO] 
+2026-06-03 21:40:12 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-03 21:40:12 [INFO] Started at: 2026-06-03T21:40:12.119161
+2026-06-03 21:40:12 [PROCESS] Checking requirements.txt...
+2026-06-03 21:40:12 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-03 21:40:12 [PROCESS] Checking Python packages...
+2026-06-03 21:40:12 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-03 21:40:12 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-03 21:40:12 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-03 21:40:12 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-03 21:40:12 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-03 21:40:12 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-03 21:40:12 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-03 21:40:12 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-03 21:40:12 [PROCESS] Checking system dependencies...
+2026-06-03 21:40:12 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-03 21:40:12 [SUCCESS]   ✓ make       (Make build system)
+2026-06-03 21:40:12 [SUCCESS]   ✓ git        (Git version control)
+2026-06-03 21:40:12 [PROCESS] Checking M4 Pro optimization status...
+2026-06-03 21:40:12 [INFO]   Platform: Darwin arm64
+2026-06-03 21:40:12 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-03 21:40:12 [INFO]   OMP_NUM_THREADS: 10
+2026-06-03 21:40:12 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-03 21:40:12 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-03 21:40:12 [PROCESS] Creating directory structure...
+2026-06-03 21:40:12 [SUCCESS]   ✓ data/interim
+2026-06-03 21:40:12 [SUCCESS]   ✓ data/processed
+2026-06-03 21:40:12 [SUCCESS]   ✓ data/hi_class
+2026-06-03 21:40:12 [SUCCESS]   ✓ data/cobaya
+2026-06-03 21:40:12 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-03 21:40:12 [SUCCESS]   ✓ results/figures
+2026-06-03 21:40:12 [SUCCESS]   ✓ logs
+2026-06-03 21:40:12 [PROCESS] Checking hi_class availability...
+2026-06-03 21:40:12 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-03 21:40:12 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-03 21:40:12 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-03 21:40:12 [SUCCESS] 
+Step 00 completed in 0.6s
+2026-06-03 21:40:12 [INFO] 
+2026-06-03 21:40:12 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:40:12 [INFO] 
+2026-06-03 21:40:12 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-03 21:40:12 [INFO] 
+2026-06-03 23:03:01 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-03 23:03:01 [INFO] Started at: 2026-06-03T23:03:01.508321
+2026-06-03 23:03:01 [PROCESS] Checking requirements.txt...
+2026-06-03 23:03:01 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-03 23:03:01 [PROCESS] Checking Python packages...
+2026-06-03 23:03:01 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-03 23:03:01 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-03 23:03:01 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-03 23:03:01 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-03 23:03:01 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-03 23:03:02 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-03 23:03:02 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-03 23:03:02 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-03 23:03:02 [PROCESS] Checking system dependencies...
+2026-06-03 23:03:02 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-03 23:03:02 [SUCCESS]   ✓ make       (Make build system)
+2026-06-03 23:03:02 [SUCCESS]   ✓ git        (Git version control)
+2026-06-03 23:03:02 [PROCESS] Checking M4 Pro optimization status...
+2026-06-03 23:03:02 [INFO]   Platform: Darwin arm64
+2026-06-03 23:03:02 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-03 23:03:02 [INFO]   OMP_NUM_THREADS: 10
+2026-06-03 23:03:02 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-03 23:03:02 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-03 23:03:02 [PROCESS] Creating directory structure...
+2026-06-03 23:03:02 [SUCCESS]   ✓ data/interim
+2026-06-03 23:03:02 [SUCCESS]   ✓ data/processed
+2026-06-03 23:03:02 [SUCCESS]   ✓ data/hi_class
+2026-06-03 23:03:02 [SUCCESS]   ✓ data/cobaya
+2026-06-03 23:03:02 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-03 23:03:02 [SUCCESS]   ✓ results/figures
+2026-06-03 23:03:02 [SUCCESS]   ✓ logs
+2026-06-03 23:03:02 [PROCESS] Checking hi_class availability...
+2026-06-03 23:03:02 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-03 23:03:02 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-03 23:03:02 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-03 23:03:02 [SUCCESS] 
+Step 00 completed in 1.5s
+2026-06-03 23:03:02 [INFO] 
+2026-06-03 23:03:02 [INFO] ----------------------------------------------------------------------
+2026-06-03 23:03:02 [INFO] 
+2026-06-03 23:03:02 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-03 23:03:02 [INFO] 
+2026-06-05 20:42:03 [INFO] STEP 00_setup: Environment Setup and Dependency Check
+2026-06-05 20:42:03 [INFO] Started at: 2026-06-05T20:42:03.123227
+2026-06-05 20:42:03 [PROCESS] Checking requirements.txt...
+2026-06-05 20:42:03 [INFO]   ✓ requirements.txt found (16 packages)
+2026-06-05 20:42:03 [PROCESS] Checking Python packages...
+2026-06-05 20:42:03 [INFO]   (Missing packages will be installed by Step 00b from requirements.txt)
+2026-06-05 20:42:03 [SUCCESS]   ✓ numpy           2.1.3
+2026-06-05 20:42:03 [SUCCESS]   ✓ scipy           1.14.1
+2026-06-05 20:42:04 [SUCCESS]   ✓ pandas          2.2.3
+2026-06-05 20:42:05 [SUCCESS]   ✓ matplotlib      3.9.2
+2026-06-05 20:42:05 [SUCCESS]   ✓ cobaya          3.6.2
+2026-06-05 20:42:05 [SUCCESS]   ✓ getdist         1.7.6
+2026-06-05 20:42:05 [SUCCESS]   ✓ pyyaml          6.0.3
+2026-06-05 20:42:05 [PROCESS] Checking system dependencies...
+2026-06-05 20:42:05 [SUCCESS]   ✓ gcc        (GCC compiler)
+2026-06-05 20:42:05 [SUCCESS]   ✓ make       (Make build system)
+2026-06-05 20:42:05 [SUCCESS]   ✓ git        (Git version control)
+2026-06-05 20:42:05 [PROCESS] Checking M4 Pro optimization status...
+2026-06-05 20:42:05 [INFO]   Platform: Darwin arm64
+2026-06-05 20:42:05 [SUCCESS]   ✓ Apple Silicon detected (M4 Pro optimized)
+2026-06-05 20:42:05 [INFO]   OMP_NUM_THREADS: 10
+2026-06-05 20:42:05 [INFO]   VECLIB_MAXIMUM_THREADS: 14
+2026-06-05 20:42:05 [SUCCESS]   ✓ OpenMPI available (parallel chains enabled)
+2026-06-05 20:42:05 [PROCESS] Creating directory structure...
+2026-06-05 20:42:05 [SUCCESS]   ✓ data/interim
+2026-06-05 20:42:05 [SUCCESS]   ✓ data/processed
+2026-06-05 20:42:05 [SUCCESS]   ✓ data/hi_class
+2026-06-05 20:42:05 [SUCCESS]   ✓ data/cobaya
+2026-06-05 20:42:05 [SUCCESS]   ✓ results/mcmc_chains
+2026-06-05 20:42:05 [SUCCESS]   ✓ results/figures
+2026-06-05 20:42:05 [SUCCESS]   ✓ logs
+2026-06-05 20:42:05 [PROCESS] Checking hi_class availability...
+2026-06-05 20:42:05 [SUCCESS]   ✓ hi_class found at /Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages
+2026-06-05 20:42:05 [INFO] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/interim/step_00_dependency_status.json
+2026-06-05 20:42:05 [SUCCESS] STEP 00_setup COMPLETED
+2026-06-05 20:42:05 [SUCCESS] 
+Step 00 completed in 2.8s
+2026-06-05 20:42:05 [INFO] 
+2026-06-05 20:42:05 [INFO] ----------------------------------------------------------------------
+2026-06-05 20:42:05 [INFO] 
+2026-06-05 20:42:05 [INFO] >>> STEP 01: INSTALL DEPENDENCIES AND DOWNLOAD DATA
+2026-06-05 20:42:05 [INFO] 

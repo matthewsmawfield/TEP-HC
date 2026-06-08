@@ -1,14 +1,21 @@
-Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation
+Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation
 
-General Relativity is extensively validated in the screened Solar System, but cosmological tensions—including the Hubble discrepancy—motivate scale-dependent departures from the isochrony axiom. The Temporal Equivalence Principle (TEP) introduces a dynamical proper-time field, screened at densities ρ > 20 g/cm³. This work maps the TEP bi-metric framework (conformal factor A(φ) and disformal deformation B(φ)) into the Bellini-Sawicki Effective Field Theory of Dark Energy, integrates the resulting α_M, α_B, α_K, α_T functions into hi_class, and runs Cobaya MCMC against Planck 2018 high-ℓ, low-ℓ, and lensing likelihoods.
+General Relativity is extensively validated in the deeply screened, dense regime of the Solar System, but cosmological tensions—specifically the Hubble discrepancy and galactic mass anomalies—motivate testing a scale-dependent breakdown of the isochrony axiom.
 
-Key results: exact EFT mapping of TEP; radiation-domination freezing preserves acoustic peaks (|ΔC_ℓ/C_ℓ| < 0.02%); CMB H₀ posterior remains Planck-consistent while late-time environmental dynamics can address the local H₀ tension.
+The Temporal Equivalence Principle (TEP) addresses these late-universe anomalies via a dynamical proper-time field, governed by environment-dependent Gradient Screening with saturation scale rho_T ~ 20 g/cm^3 (Paper 0, §7). Previous analytical approximations and CAMB integrations suggest this scalar field is frozen during radiation domination (T^mu_mu ~ 0). Full integration into linear structure formation requires a native Horndeski evaluation.
 
-Code Availability: https://github.com/matthewsmawfield/TEP-HC
-Website: https://matthewsmawfield.github.io/TEP-HC/
+This paper maps the TEP bi-metric framework—defined by a conformal factor A(phi) and a disformal deformation B(phi)—onto the Bellini-Sawicki Effective Field Theory (EFT) of Dark Energy to provide the theoretical blueprint for full linear structure mapping. To isolate the fundamental TEP effect and avoid Horndeski-class instabilities, the current numerical analysis isolates the background-only realization as the baseline numerical implementation.
 
-Note: Zenodo DOI to be assigned at first public release (v0.1 Geneva).
+This paper implements the native TEP background-only modification directly in hi_class via the transition function f_T(z) = ln(1+z) * exp(-(z/z_T)^n_T), applied through the Jordan-frame conformal factor M(z) = A/(1-alpha_A) as H_TEP(z) = H_LCDM(z) * M(z) while preserving standard General Relativistic perturbations. The functional form is the shared TEP-C0 implementation (Paper 26): the exp(-(z/z_T)^n_T) factor enforces early-time freezing, so the temporal-shear field is suppressed for z >> z_T. Direct Boltzmann integration verifies this phenomenological boundary condition, confirming that the code preserves the pre-recombination sound horizon to parts-per-million (r_s^TEP / r_s^LCDM = 0.999994) and leaves the acoustic-peak morphology untouched. A direct exact-frame-factor check confirms that replacing the implemented first-order factor A/(1-alpha_A) with the exact form A(1+alpha_A) leaves r_s unchanged to quoted precision in the screened regime (Section 5.4 and Appendix A.3a). The only CMB-level effect of a non-zero epsilon_T is a late-time angular-diameter-distance projection that rigidly rescales the angular acoustic scale theta_s (a +0.185% shift at the fiducial epsilon_T = 0.0066, z_T = 5, n_T = 2) and is largely degenerate with H_0.
 
-Keywords: temporal equivalence principle – hi_class – Horndeski – effective field theory – CMB – modified gravity – scalar-tensor – Cobaya – Planck 2018 – Hubble tension
+A joint hi_class Cobaya MCMC (Planck 2018 low-l TT/EE + lensing + BAO + Pantheon+) yields epsilon_T = 0.0056 +/- 0.0043 and H_0 = 66.63 +/- 1.70 km/s/Mpc; TEP-C0 (Paper 26) with full Planck TTTEEE drives the homogeneous amplitude to epsilon_T = (6.75 +/- 0.24) x 10^-6. Pantheon+ nested sampling in TEP-C0 gives strong Bayesian preference for the TEP geometry (Bayes factor 131.6 vs Lambda CDM for z_T = 5). Within the TEP framework, the Hubble tension is thereby reinterpreted as a late-time, environment-dependent clock-transport effect (Paper 11) rather than through a modified homogeneous expansion history at recombination.
 
-Open Science Statement: This work is a preprint and is open to community review, ideas, and collaboration. All analysis code, configuration files, and manuscripts are open source. Feedback and contributions to further test these results are welcome.
+Keywords: cosmology theory, cosmic microwave background, Hubble tension, scalar-tensor theories, modified gravity, effective field theory of dark energy, hi_class, Horndeski, temporal equivalence principle, proper time, Cobaya, Planck 2018
+
+Website: https://mlsmawfield.com/tep/hc
+Repository: https://github.com/matthewsmawfield/TEP-HC
+
+DOI: 10.5281/zenodo.20572723
+
+Open Science Statement:
+This work is a preprint and is open to community review, ideas, and collaboration. All analysis code, configuration files, and manuscripts are open source. Feedback and contributions to further test these results are welcome.

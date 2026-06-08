@@ -1,14 +1,32 @@
 {
-  "pipeline_start": "2026-06-05T20:39:16.218636",
+  "pipeline_start": "2026-06-05T20:42:03.122366",
   "steps_completed": [
-    6
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
   ],
   "steps_failed": [],
   "steps_skipped": [],
   "execution_times": {
-    "05_cobaya": 0.0
+    "00_setup": 2.85,
+    "00b_install": 8.07,
+    "02_background": 0.05,
+    "03_alphas": 0.01,
+    "04_cmb": 6.53,
+    "04b_jordan_frame": 15.02,
+    "05_cobaya": 0.0,
+    "06_mcmc": 19738.97,
+    "07_posteriors": 0.18,
+    "08_synthesis": 0.01
   },
   "status": "SUCCESS",
-  "pipeline_end": "2026-06-05T20:39:16.220832",
-  "total_time_seconds": 0.0
+  "pipeline_end": "2026-06-06T02:11:34.825094",
+  "total_time_seconds": 19771.7
 }

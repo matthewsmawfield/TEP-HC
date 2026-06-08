@@ -16,7 +16,6 @@ venv/
 # IDE
 .idea/
 .vscode/
-.windsurf/
 *.swp
 *.swo
 
@@ -24,18 +23,17 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Logs (keep structure)
-logs/*.log
-logs/*.txt
-!logs/.gitkeep
-
-# Results (keep structure)
-results/outputs/*
-!results/outputs/.gitkeep
-
 # Temp files
 *.tmp
 *.temp
 
-.devin
+.devin/
 results/mcmc_chains/
+data/interim/
+results/jordan_*.ini
+results/jordan_*.dat
+results/tep_model_*.ini
+results/tep_model_*.dat
+results/lcdm_baseline*.ini
+results/lcdm_baseline*.dat
+.windsurf/

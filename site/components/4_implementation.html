@@ -14,15 +14,15 @@ H_{\rm TEP}(z) = H_{\Lambda\rm CDM}(z) \times M(z), \quad M(z) = \frac{A(z)}{1 -
 \end{equation}
 </div>
 
-     <p>where $A(z) = \exp[\epsilon_T \ln(1+z) \exp(-(z/z_T)^{n_T})]$ is the covariant conformal factor and $\alpha_A = -d\ln A/d\ln(1+z)$. The transition function $f_T(z)$ appearing in the exponent is the authoritative TEP-C0 form (Paper 26; <code>core/cosmology.py</code>: <code>f_T</code>, <code>conformal_factor_native</code>, <code>jordan_frame_M</code>):</p>
+     <p>where $S(z) = \exp[-(z/z_T)^{n_T}]$ is the redshift suppression factor, $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ is the covariant conformal factor, and $\alpha_A = -d\ln A/d\ln(1+z)$. The first-order form $M = A/(1-\alpha_A)$ is directly checked against the exact frame factor $M_{\rm exact}=A(1+\alpha_A)$ in Section 5.4 and Appendix A.3a. The transition function $f_T(z) = \ln(1+z)\,S(z)$ appearing in the exponent is the shared TEP-C0 implementation (Paper 26; <code>core/cosmology.py</code>: <code>f_T</code>, <code>conformal_factor_native</code>, <code>jordan_frame_M</code>):</p>
 
 <div class="equation">
 \begin{equation} \label{eq:4_implementation_01b}
-f_T(z) = \ln(1+z)\,\exp\!\left[-(z/z_T)^{n_T}\right].
+f_T(z) = \ln(1+z)\,S(z).
 \end{equation}
 </div>
 
-     <p>The exponential factor $\exp[-(z/z_T)^{n_T}]$ suppresses the modification for $z \gg z_T$, so $f_T \to 0$ well before recombination and the homogeneous expansion at last scattering is unmodified (radiation-domination freezing, Section 2.3); the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is unchanged. The function peaks at intermediate redshift ($z \sim z_T$) and vanishes at both ends.</p>
+     <p>The suppression factor $S(z)$ drives $f_T \to 0$ for $z \gg z_T$ well before recombination, so the homogeneous expansion at last scattering is unmodified (radiation-domination freezing, Section 2.3); the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is unchanged. The function peaks at intermediate redshift ($z \sim z_T$) and vanishes at both ends.</p>
 
      <p><em>Implementation note:</em> an earlier development build used the <em>complement</em> $f_T = 1 - \exp[-(z/z_T)^{n_T}]$, which instead saturates to unity for $z \gg z_T$ and applied the full modification <em>at</em> recombination -- inverting the freezing mechanism and corrupting the acoustic peaks. That bug has been corrected (see Appendix A.3). The default TEP parameters are:</p>
 
@@ -41,15 +41,15 @@ n_T = 2.0</code></pre>
 
      <p>The full analysis pipeline, executed via <code>scripts/run_all.py</code>, consists of:</p>
      <ol>
-         <li><strong>Step 0 (Setup):</strong> Environment configuration and dependency check.</li>
-         <li><strong>Step 1 (Install):</strong> Install Cobaya, Planck 2018 likelihoods, and hi_class with the native TEP patch (<code>external/patches/hiclass_tep_native.patch</code>).</li>
-         <li><strong>Step 2 (Background):</strong> Compute the TEP-modified background expansion history $H(z)$ and density evolution.</li>
-         <li><strong>Step 3 (Alpha Functions):</strong> Compute Bellini-Sawicki coefficients from the TEP theoretical mapping (archived for reference).</li>
-         <li><strong>Step 4 (CMB Spectra):</strong> Run hi_class with native <code>tep_mode</code> at the Planck 2018 best-fit point. Compare TT, TE, and EE spectra against standard CLASS $\Lambda$CDM.</li>
-         <li><strong>Step 5 (Jordan-Frame Scan):</strong> Dual-scan reconstruction of the acoustic scale in screened and unscreened limits.</li>
-         <li><strong>Step 6 (Cobaya Config):</strong> Generate the Cobaya YAML configuration for the MCMC pipeline with native TEP parameters.</li>
-         <li><strong>Step 7 (MCMC):</strong> Execute the Cobaya MCMC with hi_class, using real Planck + BAO + Pantheon+ likelihoods.</li>
-         <li><strong>Step 8 (Posteriors):</strong> Analyze MCMC chains with burn-in removal and weighted statistics.</li>
-         <li><strong>Step 9 (Synthesis):</strong> Combine all results into summary JSON and markdown.</li>
+         <li><em>Step 0 (Setup):</em> Environment configuration and dependency check.</li>
+         <li><em>Step 1 (Install):</em> Install Cobaya, Planck 2018 likelihoods, and hi_class with the native TEP patch (<code>external/patches/hiclass_tep_native.patch</code>).</li>
+         <li><em>Step 2 (Background):</em> Compute the TEP-modified background expansion history $H(z)$ and density evolution.</li>
+         <li><em>Step 3 (Alpha Functions):</em> Compute Bellini-Sawicki coefficients from the TEP theoretical mapping (archived for reference).</li>
+         <li><em>Step 4 (CMB Spectra):</em> Run hi_class with native <code>tep_mode</code> at the Planck 2018 best-fit point. Compare TT, TE, and EE spectra against standard CLASS $\Lambda$CDM.</li>
+         <li><em>Step 5 (Jordan-Frame Scan):</em> Dual-scan reconstruction of the acoustic scale in screened and unscreened limits.</li>
+         <li><em>Step 6 (Cobaya Config):</em> Generate the Cobaya YAML configuration for the MCMC pipeline with native TEP parameters.</li>
+         <li><em>Step 7 (MCMC):</em> Execute the Cobaya MCMC with hi_class, using real Planck + BAO + Pantheon+ likelihoods.</li>
+         <li><em>Step 8 (Posteriors):</em> Analyze MCMC chains with burn-in removal and weighted statistics.</li>
+         <li><em>Step 9 (Synthesis):</em> Combine all results into summary JSON and markdown.</li>
      </ol>
-     <p>Publication figures are generated separately via <code>python scripts/generate_figures.py</code> (not part of <code>run_all.py</code>). Output is written to <code>results/figures/</code> and included in the static site by <code>cd site &amp;&amp; npm run build</code>.</p>
+     <p>Publication figures are generated separately via <code>python scripts/generate_figures.py</code> (not part of <code>run_all.py</code>). Both figures are written to <code>results/figures/</code>. Figure 2 requires step 04b. Include them in the static site with <code>cd site &amp;&amp; npm run build</code>. Note: internal pipeline filenames (<code>figure_4_H0_comparison.png</code>, <code>figure_5_jordan_theta_s.png</code>) differ from publication figure numbering (Figure 1, Figure 2).</p>

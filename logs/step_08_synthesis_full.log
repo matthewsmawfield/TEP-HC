@@ -1,0 +1,118 @@
+2026-06-02 19:31:22 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-02 19:31:22 [PROCESS] Loading joint analysis summary...
+2026-06-02 19:31:22 [PROCESS] Loading Jordan-frame scan results...
+2026-06-02 19:31:22 [PROCESS] Generating full suite synthesis report...
+2026-06-02 19:31:22 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-03 23:01:37 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-03 23:01:37 [PROCESS] Loading joint analysis summary...
+2026-06-03 23:01:37 [PROCESS] Loading Jordan-frame scan results...
+2026-06-03 23:01:37 [PROCESS] Generating full suite synthesis report...
+2026-06-03 23:01:37 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-05 08:05:27 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-05 08:05:27 [PROCESS] Loading joint analysis summary...
+2026-06-05 08:05:27 [PROCESS] Loading Jordan-frame scan results...
+2026-06-05 08:05:27 [PROCESS] Generating full suite synthesis report...
+2026-06-05 08:05:27 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-05 10:41:31 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-05 10:41:31 [PROCESS] Loading joint analysis summary...
+2026-06-05 10:41:31 [PROCESS] Loading Jordan-frame scan results...
+2026-06-05 10:41:31 [PROCESS] Generating full suite synthesis report...
+2026-06-05 10:41:31 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-05 10:42:18 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-05 10:42:18 [PROCESS] Loading joint analysis summary...
+2026-06-05 10:42:18 [PROCESS] Loading Jordan-frame scan results...
+2026-06-05 10:42:18 [PROCESS] Generating full suite synthesis report...
+2026-06-05 10:42:18 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-05 20:23:39 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-05 20:23:39 [PROCESS] Loading joint analysis summary...
+2026-06-05 20:23:39 [PROCESS] Loading Jordan-frame scan results...
+2026-06-05 20:23:39 [PROCESS] Generating full suite synthesis report...
+2026-06-05 20:23:39 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-05 20:23:39 [SUCCESS] 
+Step 09 completed in 0.0s
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] ----------------------------------------------------------------------
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] ======================================================================
+2026-06-05 20:23:39 [INFO] PIPELINE EXECUTION SUMMARY
+2026-06-05 20:23:39 [INFO] ======================================================================
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] 
+Execution Statistics
+2026-06-05 20:23:39 [INFO] ====================
+2026-06-05 20:23:39 [INFO] Metric          | Count | Time (s)
+2026-06-05 20:23:39 [INFO] ----------------------------------
+2026-06-05 20:23:39 [INFO] Steps Completed | 2     | -       
+2026-06-05 20:23:39 [INFO] Steps Skipped   | 0     | -       
+2026-06-05 20:23:39 [INFO] Steps Failed    | 0     | -       
+2026-06-05 20:23:39 [INFO] Total Time      | -     | 0.0     
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] Step Timing Breakdown:
+2026-06-05 20:23:39 [INFO]   07_posteriors       :    0.0s
+2026-06-05 20:23:39 [INFO]   08_synthesis        :    0.0s
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [SUCCESS] Status: ALL STEPS COMPLETED SUCCESSFULLY
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] Results directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results
+2026-06-05 20:23:39 [INFO] Logs directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] ======================================================================
+2026-06-05 20:23:39 [INFO] Pipeline results saved to: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/pipeline_results.json
+2026-06-05 20:26:31 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-05 20:26:31 [PROCESS] Loading joint analysis summary...
+2026-06-05 20:26:31 [PROCESS] Loading Jordan-frame scan results...
+2026-06-05 20:26:31 [PROCESS] Generating full suite synthesis report...
+2026-06-05 20:26:31 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-06 02:11:34 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-06 02:11:34 [PROCESS] Loading joint analysis summary...
+2026-06-06 02:11:34 [PROCESS] Loading Jordan-frame scan results...
+2026-06-06 02:11:34 [PROCESS] Generating full suite synthesis report...
+2026-06-06 02:11:34 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-06 02:11:34 [SUCCESS] 
+Step 09 completed in 0.0s
+2026-06-06 02:11:34 [INFO] 
+2026-06-06 02:11:34 [INFO] ----------------------------------------------------------------------
+2026-06-06 02:11:34 [INFO] 
+2026-06-06 02:11:34 [INFO] ======================================================================
+2026-06-06 02:11:34 [INFO] PIPELINE EXECUTION SUMMARY
+2026-06-06 02:11:34 [INFO] ======================================================================
+2026-06-06 02:11:34 [INFO] 
+2026-06-06 02:11:34 [INFO] 
+Execution Statistics
+2026-06-06 02:11:34 [INFO] ====================
+2026-06-06 02:11:34 [INFO] Metric          | Count | Time (s)
+2026-06-06 02:11:34 [INFO] ----------------------------------
+2026-06-06 02:11:34 [INFO] Steps Completed | 10    | -       
+2026-06-06 02:11:34 [INFO] Steps Skipped   | 0     | -       
+2026-06-06 02:11:34 [INFO] Steps Failed    | 0     | -       
+2026-06-06 02:11:34 [INFO] Total Time      | -     | 19771.7 
+2026-06-06 02:11:34 [INFO] 
+2026-06-06 02:11:34 [INFO] Step Timing Breakdown:
+2026-06-06 02:11:34 [INFO]   00_setup            :    2.9s
+2026-06-06 02:11:34 [INFO]   00b_install         :    8.1s
+2026-06-06 02:11:34 [INFO]   02_background       :    0.1s
+2026-06-06 02:11:34 [INFO]   03_alphas           :    0.0s
+2026-06-06 02:11:34 [INFO]   04_cmb              :    6.5s
+2026-06-06 02:11:34 [INFO]   04b_jordan_frame    :   15.0s
+2026-06-06 02:11:34 [INFO]   05_cobaya           :    0.0s
+2026-06-06 02:11:34 [INFO]   06_mcmc             : 19739.0s
+2026-06-06 02:11:34 [INFO]   07_posteriors       :    0.2s
+2026-06-06 02:11:34 [INFO]   08_synthesis        :    0.0s
+2026-06-06 02:11:34 [INFO] 
+2026-06-06 02:11:34 [SUCCESS] Status: ALL STEPS COMPLETED SUCCESSFULLY
+2026-06-06 02:11:34 [INFO] 
+2026-06-06 02:11:34 [INFO] Results directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results
+2026-06-06 02:11:34 [INFO] Logs directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs
+2026-06-06 02:11:34 [INFO] 
+2026-06-06 02:11:34 [INFO] ======================================================================
+2026-06-06 02:11:34 [INFO] Pipeline results saved to: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/pipeline_results.json
+2026-06-06 17:43:42 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-06 17:43:42 [PROCESS] Loading joint analysis summary...
+2026-06-06 17:43:42 [PROCESS] Loading Jordan-frame scan results...
+2026-06-06 17:43:42 [PROCESS] Generating full suite synthesis report...
+2026-06-06 17:43:42 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md
+2026-06-06 20:20:45 [INFO] STEP 08_synthesis: Results Synthesis (Full Suite)
+2026-06-06 20:20:45 [PROCESS] Loading joint analysis summary...
+2026-06-06 20:20:45 [PROCESS] Loading Jordan-frame scan results...
+2026-06-06 20:20:45 [PROCESS] Generating full suite synthesis report...
+2026-06-06 20:20:45 [SUCCESS]   ✓ Saved full suite report to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/18-TEP-HC-Results-Full-Suite.md

@@ -1,7 +1,7 @@
 {
   "name": "tep-hc-site",
   "version": "0.1.0",
-  "description": "Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation",
+  "description": "Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation",
   "main": "index.html",
   "scripts": {
     "dev": "node dev-server.js",

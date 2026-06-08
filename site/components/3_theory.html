@@ -19,7 +19,7 @@
 
 <p><em>Metric signature convention:</em> $(+, -, -, -)$ throughout.</p>
 
-<h3>2.2 Deriving the Bellini-Sawicki Alphas</h3>
+<h3>2.2 Formal Bellini-Sawicki Alpha Correspondence</h3>
 
 <p>hi_class requires the EFT property functions $\alpha_i$ that encode metric modifications at linear perturbation level.</p>
 
@@ -72,6 +72,8 @@
 
 <p>The explicit functional forms follow from the bi-metric action (Equation \ref{eq:3_theory_01}) and are determined by the conformal factor $A(\phi)$ and the disformal function $B(\phi)$. Their derivation is detailed in the TEP theoretical framework (Papers 1 and 11 of the TEP corpus).</p>
 
+<p>Because the production analysis in this paper does not activate the scalar perturbation sector, the $\alpha_B$ and $\alpha_K$ expressions are used as formal EFT bookkeeping rather than as fitted numerical functions; a full perturbative TEP-hi_class treatment would require explicit closure of $f_B(\phi,X)$, $f_K(\phi,X)$, sound-speed, and no-ghost stability conditions.</p>
+
 <h3>2.3 The Radiation Domination Freezing Mechanism</h3>
 
 <p>During radiation domination, the trace of the energy-momentum tensor vanishes:</p>
@@ -86,6 +88,8 @@ T^\mu_\mu = -\rho + 3p \approx 0 \text{ (radiation)}
 
 <ul>
     <li>Primary acoustic peaks ($100 \lesssim \ell \lesssim 2000$) generated at $z \sim 1089$ remain unmodified</li>
-    <li>The sound horizon $r_s$ is preserved, anchoring $H_0$ from CMB at $\sim 67.9$ km/s/Mpc</li>
+    <li>The sound horizon $r_s$ is preserved, anchoring $H_0$ from CMB at $\sim 67$ km/s/Mpc (Planck 2018: $67.36 \pm 0.54$ km/s/Mpc)</li>
     <li>Late-time matter domination reactivates the scalar field, enabling environmental $H_0$ variations</li>
 </ul>
+
+<p><em>Archived EFT reference.</em> The Bellini–Sawicki $\alpha_i$ functions mapped from the TEP bi-metric action (step-3 fiducial) are archived in <code>results/03_alpha_functions.json</code>. Production CMB constraints use the native background-only <code>tep_mode</code> implementation (Section 4), not this linear-perturbation mapping.</p>

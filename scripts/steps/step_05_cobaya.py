@@ -3,7 +3,7 @@
 Step 05: Cobaya MCMC Setup
 ==========================
 Configures the Cobaya MCMC pipeline with the full cosmological suite:
-Planck 2018 + BAO (SDSS DR16) + Pantheon+ SNIa.
+Planck 2018 + BAO (SDSS DR12) + Pantheon+ SNIa.
 
 Outputs:
     - logs/step_05_cobaya_full.log
@@ -22,7 +22,8 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.utils.logger import TEPLogger, set_step_logger, print_status
 
-HICLASS_PATH = (PROJECT_ROOT / "external" / "hi_class" / "hi_class").resolve()
+# Relative to project root; Cobaya is always launched from PROJECT_ROOT (step 06).
+HICLASS_REL_PATH = "external/hi_class/hi_class"
 _HICLASS_PATH_PLACEHOLDER = "__HICLASS_PATH__"
 
 
@@ -89,7 +90,7 @@ params:
     proposal: 0.005
   epsilon_T:
     prior: {min: -1.0, max: 1.0}
-    ref: {dist: norm, loc: 0.018, scale: 0.005}
+    ref: {dist: norm, loc: 0.006, scale: 0.005}
     proposal: 0.0005
     latex: '\\epsilon_T'
   sigma8:
@@ -191,7 +192,7 @@ resume: false
 
 
 def _inject_hiclass_path(template: str) -> str:
-    return template.replace(_HICLASS_PATH_PLACEHOLDER, str(HICLASS_PATH))
+    return template.replace(_HICLASS_PATH_PLACEHOLDER, HICLASS_REL_PATH)
 
 
 class Step05Cobaya:

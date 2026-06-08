@@ -5,12 +5,13 @@ authors:
   - family-names: "Smawfield"
     given-names: "Matthew Lukin"
     orcid: "https://orcid.org/0009-0003-8219-3159"
-title: "Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation"
+title: "Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation"
 abstract: "General Relativity is extensively validated in the screened Solar System, but cosmological tensions suggest scale-dependent breakdown of the isochrony axiom. The Temporal Equivalence Principle (TEP) resolves late-universe anomalies via a dynamical proper-time field, screened at densities above roughly 20 g/cm^3. This paper presents the exact analytical mapping of the TEP bi-metric framework into the Bellini-Sawicki Effective Field Theory of Dark Energy, integrates property functions into hi_class, and constrains the model with Cobaya MCMC against Planck 2018 likelihoods."
-version: "v0.1 (Geneva)"
-date-released: 2026-05-24
+version: "v0.1 (Cambridge)"
+date-released: 2026-06-08
 url: "https://github.com/matthewsmawfield/TEP-HC"
 repository-code: "https://github.com/matthewsmawfield/TEP-HC"
+doi: 10.5281/zenodo.20572723
 license: CC-BY-4.0
 keywords:
   - hi_class
@@ -21,7 +22,7 @@ keywords:
 
 preferred-citation:
   type: article
-  title: "Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation"
+  title: "Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation"
   authors:
     - family-names: Smawfield
       given-names: Matthew Lukin
@@ -29,4 +30,4 @@ preferred-citation:
   year: 2026
   journal: Zenodo
   url: "https://github.com/matthewsmawfield/TEP-HC"
-  notes: "Preprint v0.1 (Geneva)"
+  notes: "Preprint v0.1 (Cambridge)"

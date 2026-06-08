@@ -1,0 +1,3 @@
+[submodule "hi_class"]
+	path = external/hi_class/hi_class
+	url = https://github.com/miguelzuma/hi_class.git

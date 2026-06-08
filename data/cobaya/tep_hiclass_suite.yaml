@@ -8,7 +8,7 @@
 
 theory:
   classy:
-    path: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/external/hi_class/hi_class
+    path: external/hi_class/hi_class
     ignore_obsolete: true
     extra_args:
       output: tCl,pCl,lCl,mPk
@@ -61,7 +61,7 @@ params:
     proposal: 0.005
   epsilon_T:
     prior: {min: -1.0, max: 1.0}
-    ref: {dist: norm, loc: 0.018, scale: 0.005}
+    ref: {dist: norm, loc: 0.006, scale: 0.005}
     proposal: 0.0005
     latex: '\epsilon_T'
   sigma8:

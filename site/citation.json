@@ -1,5 +1,5 @@
 {
-  "title": "Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation",
+  "title": "Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation",
   "authors": [
     {
       "given": "Matthew Lukin",
@@ -7,7 +7,7 @@
       "orcid": "https://orcid.org/0009-0003-8219-3159"
     }
   ],
-  "date": "2026-05-24",
-  "version": "v0.1 (Geneva)",
+  "date": "2026-06-08",
+  "version": "v0.1 (Cambridge)",
   "repository": "https://github.com/matthewsmawfield/TEP-HC"
 }

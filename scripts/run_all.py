@@ -24,7 +24,7 @@ Usage:
 
 Author: Matthew Lukin Smawfield
 Date: April 2026
-Version: v0.1-Geneva
+Version: v0.1-Cambridge
 License: CC-BY-4.0
 """
 
@@ -125,7 +125,7 @@ def run_pipeline(args: argparse.Namespace) -> dict:
     
     print_status("=" * 70, "TITLE")
     print_status("TEP-HC ANALYSIS PIPELINE", "TITLE")
-    print_status("Paper 18: hi_class/EFT Cosmology (Geneva)", "TITLE")
+    print_status("Paper 18: hi_class/EFT Cosmology (Cambridge)", "TITLE")
     print_status("=" * 70, "TITLE")
     print_status(f"Project Root: {PROJECT_ROOT}", "INFO")
     print_status(f"Started: {datetime.now().isoformat()}", "INFO")

@@ -1,0 +1,844 @@
+2026-05-25 02:40:39 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-05-25 02:40:39 [INFO] Started at: 2026-05-25T02:40:39.477808
+2026-05-25 02:40:39 [PROCESS] Checking Python environment...
+2026-05-25 02:40:39 [INFO]   Python: 3.13.5
+2026-05-25 02:40:43 [PROCESS] Installing base packages...
+2026-05-25 02:40:43 [INFO] Installing packages from requirements.txt...
+2026-05-25 02:40:44 [INFO]   ✓ Base packages installed successfully
+2026-05-25 02:40:44 [INFO]   ✓ Cobaya already available
+2026-05-25 02:40:44 [INFO] Checking existing installations...
+2026-05-25 02:40:44 [INFO]   ✓ Found 4 already installed:
+2026-05-25 02:40:44 [INFO]     • Planck 2018 High-L TTTEEE
+2026-05-25 02:40:44 [INFO]     • Planck 2018 Low-L TT
+2026-05-25 02:40:44 [INFO]     • Planck 2018 Low-L EE
+2026-05-25 02:40:44 [INFO]     • Planck 2018 Lensing
+2026-05-25 02:40:44 [INFO]   → 2 likelihood(s) need installation
+2026-05-25 02:40:44 [INFO] 
+2026-05-25 02:40:44 [INFO] ============================================================
+2026-05-25 02:40:44 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-05-25 02:40:44 [INFO] ============================================================
+2026-05-25 02:40:44 [INFO] To download: 2 likelihood(s)
+2026-05-25 02:40:44 [INFO] Total download size: ~0.0 GB
+2026-05-25 02:40:44 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-05-25 02:40:44 [INFO] Max retries per package: 3
+2026-05-25 02:40:44 [INFO] Estimated time: 15-25 minutes
+2026-05-25 02:40:44 [INFO] ============================================================
+2026-05-25 02:40:44 [INFO] 
+2026-05-25 02:40:44 [INFO] 🔍 Pre-flight checks...
+2026-05-25 02:40:45 [INFO]   ✓ Network connectivity OK
+2026-05-25 02:40:45 [INFO]   ✓ Disk space OK: 70.7GB free
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] 
+🔍 Verifying installations...
+2026-05-25 02:40:45 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-05-25 02:40:45 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] ============================================================
+2026-05-25 02:40:45 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-05-25 02:40:45 [INFO] ============================================================
+2026-05-25 02:40:45 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-05-25 02:40:45 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-05-25 02:40:45 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-05-25 02:40:45 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-05-25 02:40:45 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-05-25 02:40:45 [INFO] 
+BAO Data: 1/1
+2026-05-25 02:40:45 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-05-25 02:40:45 [INFO] 
+Supernova Data: 1/1
+2026-05-25 02:40:45 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-05-25 02:40:45 [INFO] 
+  Complete: 100% (6/6)
+2026-05-25 02:40:45 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-05-25 02:40:45 [INFO] ============================================================
+2026-05-25 02:40:45 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-05-25 02:40:45 [INFO] Checking MPI support for M4 Pro...
+2026-05-25 02:40:45 [INFO] Checking OpenMPI availability...
+2026-05-25 02:40:45 [INFO]   ✓ OpenMPI already installed
+2026-05-25 02:40:45 [INFO]   ✓ mpi4py already installed
+2026-05-25 02:40:45 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-05-25 02:40:45 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-05-25 02:40:45 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-05-25 02:40:45 [SUCCESS]   ✓ hi_class already installed
+2026-05-25 02:40:45 [INFO]   ✓ Test configurations ready
+2026-05-25 02:40:45 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-05-25 02:40:45 [SUCCESS] 
+Step 01 completed in 6.2s
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] ----------------------------------------------------------------------
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] ======================================================================
+2026-05-25 02:40:45 [INFO] PIPELINE EXECUTION SUMMARY
+2026-05-25 02:40:45 [INFO] ======================================================================
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] 
+Execution Statistics
+2026-05-25 02:40:45 [INFO] ====================
+2026-05-25 02:40:45 [INFO] Metric          | Count | Time (s)
+2026-05-25 02:40:45 [INFO] ----------------------------------
+2026-05-25 02:40:45 [INFO] Steps Completed | 2     | -       
+2026-05-25 02:40:45 [INFO] Steps Skipped   | 0     | -       
+2026-05-25 02:40:45 [INFO] Steps Failed    | 0     | -       
+2026-05-25 02:40:45 [INFO] Total Time      | -     | 8.7     
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] Step Timing Breakdown:
+2026-05-25 02:40:45 [INFO]   00_setup            :    2.5s
+2026-05-25 02:40:45 [INFO]   00b_install         :    6.2s
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [SUCCESS] Status: ALL STEPS COMPLETED SUCCESSFULLY
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] Results directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results
+2026-05-25 02:40:45 [INFO] Logs directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs
+2026-05-25 02:40:45 [INFO] 
+2026-05-25 02:40:45 [INFO] ======================================================================
+2026-05-25 02:40:45 [INFO] Pipeline results saved to: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/pipeline_results.json
+2026-05-25 02:40:57 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-05-25 02:40:57 [INFO] Started at: 2026-05-25T02:40:57.501393
+2026-05-25 02:40:57 [PROCESS] Checking Python environment...
+2026-05-25 02:40:57 [INFO]   Python: 3.13.5
+2026-05-25 02:40:58 [PROCESS] Installing base packages...
+2026-05-25 02:40:58 [INFO] Installing packages from requirements.txt...
+2026-05-25 02:40:59 [ERROR]   ✗ Base package installation failed
+2026-05-25 02:40:59 [INFO]   ✓ Cobaya already available
+2026-05-25 02:40:59 [INFO] Checking existing installations...
+2026-05-25 02:40:59 [INFO]   ✓ Found 4 already installed:
+2026-05-25 02:40:59 [INFO]     • Planck 2018 High-L TTTEEE
+2026-05-25 02:40:59 [INFO]     • Planck 2018 Low-L TT
+2026-05-25 02:40:59 [INFO]     • Planck 2018 Low-L EE
+2026-05-25 02:40:59 [INFO]     • Planck 2018 Lensing
+2026-05-25 02:40:59 [INFO]   → 2 likelihood(s) need installation
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] ============================================================
+2026-05-25 02:40:59 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-05-25 02:40:59 [INFO] ============================================================
+2026-05-25 02:40:59 [INFO] To download: 2 likelihood(s)
+2026-05-25 02:40:59 [INFO] Total download size: ~0.0 GB
+2026-05-25 02:40:59 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-05-25 02:40:59 [INFO] Max retries per package: 3
+2026-05-25 02:40:59 [INFO] Estimated time: 15-25 minutes
+2026-05-25 02:40:59 [INFO] ============================================================
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] 🔍 Pre-flight checks...
+2026-05-25 02:40:59 [INFO]   ✓ Network connectivity OK
+2026-05-25 02:40:59 [INFO]   ✓ Disk space OK: 70.7GB free
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] 
+🔍 Verifying installations...
+2026-05-25 02:40:59 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-05-25 02:40:59 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] ============================================================
+2026-05-25 02:40:59 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-05-25 02:40:59 [INFO] ============================================================
+2026-05-25 02:40:59 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-05-25 02:40:59 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-05-25 02:40:59 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-05-25 02:40:59 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-05-25 02:40:59 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-05-25 02:40:59 [INFO] 
+BAO Data: 1/1
+2026-05-25 02:40:59 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-05-25 02:40:59 [INFO] 
+Supernova Data: 1/1
+2026-05-25 02:40:59 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-05-25 02:40:59 [INFO] 
+  Complete: 100% (6/6)
+2026-05-25 02:40:59 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-05-25 02:40:59 [INFO] ============================================================
+2026-05-25 02:40:59 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-05-25 02:40:59 [INFO] Checking MPI support for M4 Pro...
+2026-05-25 02:40:59 [INFO] Checking OpenMPI availability...
+2026-05-25 02:40:59 [INFO]   ✓ OpenMPI already installed
+2026-05-25 02:40:59 [INFO]   ✓ mpi4py already installed
+2026-05-25 02:40:59 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-05-25 02:40:59 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-05-25 02:40:59 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-05-25 02:40:59 [SUCCESS]   ✓ hi_class already installed
+2026-05-25 02:40:59 [INFO]   ✓ Test configurations ready
+2026-05-25 02:40:59 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-05-25 02:40:59 [SUCCESS] 
+Step 01 completed in 2.4s
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] ----------------------------------------------------------------------
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 02:40:59 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-05-25 02:40:59 [INFO] 
+2026-05-25 05:44:21 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-05-25 05:44:21 [INFO] Started at: 2026-05-25T05:44:21.792201
+2026-05-25 05:44:21 [PROCESS] Checking Python environment...
+2026-05-25 05:44:21 [INFO]   Python: 3.13.5
+2026-05-25 05:44:23 [PROCESS] Installing base packages...
+2026-05-25 05:44:23 [INFO] Installing packages from requirements.txt...
+2026-05-25 05:44:24 [INFO]   ✓ Base packages installed successfully
+2026-05-25 05:44:24 [INFO]   ✓ Cobaya already available
+2026-05-25 05:44:24 [INFO] Checking existing installations...
+2026-05-25 05:44:24 [INFO]   ✓ Found 4 already installed:
+2026-05-25 05:44:24 [INFO]     • Planck 2018 High-L TTTEEE
+2026-05-25 05:44:24 [INFO]     • Planck 2018 Low-L TT
+2026-05-25 05:44:24 [INFO]     • Planck 2018 Low-L EE
+2026-05-25 05:44:24 [INFO]     • Planck 2018 Lensing
+2026-05-25 05:44:24 [INFO]   → 2 likelihood(s) need installation
+2026-05-25 05:44:24 [INFO] 
+2026-05-25 05:44:24 [INFO] ============================================================
+2026-05-25 05:44:24 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-05-25 05:44:24 [INFO] ============================================================
+2026-05-25 05:44:24 [INFO] To download: 2 likelihood(s)
+2026-05-25 05:44:24 [INFO] Total download size: ~0.0 GB
+2026-05-25 05:44:24 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-05-25 05:44:24 [INFO] Max retries per package: 3
+2026-05-25 05:44:24 [INFO] Estimated time: 15-25 minutes
+2026-05-25 05:44:24 [INFO] ============================================================
+2026-05-25 05:44:24 [INFO] 
+2026-05-25 05:44:24 [INFO] 🔍 Pre-flight checks...
+2026-05-25 05:44:25 [INFO]   ✓ Network connectivity OK
+2026-05-25 05:44:25 [INFO]   ✓ Disk space OK: 69.8GB free
+2026-05-25 05:44:25 [INFO] 
+2026-05-25 05:44:25 [INFO] 
+🔍 Verifying installations...
+2026-05-25 05:44:25 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-05-25 05:44:25 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-05-25 05:44:25 [INFO] 
+2026-05-25 05:44:25 [INFO] ============================================================
+2026-05-25 05:44:25 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-05-25 05:44:25 [INFO] ============================================================
+2026-05-25 05:44:25 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-05-25 05:44:25 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-05-25 05:44:25 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-05-25 05:44:25 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-05-25 05:44:25 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-05-25 05:44:25 [INFO] 
+BAO Data: 1/1
+2026-05-25 05:44:25 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-05-25 05:44:25 [INFO] 
+Supernova Data: 1/1
+2026-05-25 05:44:25 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-05-25 05:44:25 [INFO] 
+  Complete: 100% (6/6)
+2026-05-25 05:44:25 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-05-25 05:44:25 [INFO] ============================================================
+2026-05-25 05:44:25 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-05-25 05:44:25 [INFO] Checking MPI support for M4 Pro...
+2026-05-25 05:44:25 [INFO] Checking OpenMPI availability...
+2026-05-25 05:44:25 [INFO]   ✓ OpenMPI already installed
+2026-05-25 05:44:25 [INFO]   ✓ mpi4py already installed
+2026-05-25 05:44:25 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-05-25 05:44:25 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-05-25 05:44:25 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-05-25 05:44:25 [SUCCESS]   ✓ hi_class already installed
+2026-05-25 05:44:25 [INFO]   ✓ Test configurations ready
+2026-05-25 05:44:25 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-05-25 05:44:25 [SUCCESS] 
+Step 01 completed in 3.8s
+2026-05-25 05:44:25 [INFO] 
+2026-05-25 05:44:25 [INFO] ----------------------------------------------------------------------
+2026-05-25 05:44:25 [INFO] 
+2026-05-25 05:44:25 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-05-25 05:44:25 [INFO] 
+2026-06-03 20:34:51 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-03 20:34:51 [INFO] Started at: 2026-06-03T20:34:51.043819
+2026-06-03 20:34:51 [PROCESS] Checking Python environment...
+2026-06-03 20:34:51 [INFO]   Python: 3.13.5
+2026-06-03 20:34:57 [PROCESS] Installing base packages...
+2026-06-03 20:34:57 [INFO] Installing packages from requirements.txt...
+2026-06-03 20:35:00 [INFO]   ✓ Base packages installed successfully
+2026-06-03 20:35:00 [INFO]   ✓ Cobaya already available
+2026-06-03 20:35:00 [INFO] Checking existing installations...
+2026-06-03 20:35:00 [INFO]   ✓ Found 4 already installed:
+2026-06-03 20:35:00 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-03 20:35:00 [INFO]     • Planck 2018 Low-L TT
+2026-06-03 20:35:00 [INFO]     • Planck 2018 Low-L EE
+2026-06-03 20:35:00 [INFO]     • Planck 2018 Lensing
+2026-06-03 20:35:00 [INFO]   → 2 likelihood(s) need installation
+2026-06-03 20:35:00 [INFO] 
+2026-06-03 20:35:00 [INFO] ============================================================
+2026-06-03 20:35:00 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-03 20:35:00 [INFO] ============================================================
+2026-06-03 20:35:00 [INFO] To download: 2 likelihood(s)
+2026-06-03 20:35:00 [INFO] Total download size: ~0.0 GB
+2026-06-03 20:35:00 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-03 20:35:00 [INFO] Max retries per package: 3
+2026-06-03 20:35:00 [INFO] Estimated time: 15-25 minutes
+2026-06-03 20:35:00 [INFO] ============================================================
+2026-06-03 20:35:00 [INFO] 
+2026-06-03 20:35:00 [INFO] 🔍 Pre-flight checks...
+2026-06-03 20:35:01 [INFO]   ✓ Network connectivity OK
+2026-06-03 20:35:01 [INFO]   ✓ Disk space OK: 33.4GB free
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 20:35:01 [INFO] 
+🔍 Verifying installations...
+2026-06-03 20:35:01 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-06-03 20:35:01 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 20:35:01 [INFO] ============================================================
+2026-06-03 20:35:01 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-06-03 20:35:01 [INFO] ============================================================
+2026-06-03 20:35:01 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-06-03 20:35:01 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-06-03 20:35:01 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-06-03 20:35:01 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-06-03 20:35:01 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-06-03 20:35:01 [INFO] 
+BAO Data: 1/1
+2026-06-03 20:35:01 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-06-03 20:35:01 [INFO] 
+Supernova Data: 1/1
+2026-06-03 20:35:01 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-06-03 20:35:01 [INFO] 
+  Complete: 100% (6/6)
+2026-06-03 20:35:01 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-06-03 20:35:01 [INFO] ============================================================
+2026-06-03 20:35:01 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-03 20:35:01 [INFO] Checking MPI support for M4 Pro...
+2026-06-03 20:35:01 [INFO] Checking OpenMPI availability...
+2026-06-03 20:35:01 [INFO]   ✓ OpenMPI already installed
+2026-06-03 20:35:01 [INFO]   ✓ mpi4py already installed
+2026-06-03 20:35:01 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-03 20:35:01 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-03 20:35:01 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-03 20:35:01 [SUCCESS]   ✓ hi_class already installed
+2026-06-03 20:35:01 [INFO]   ✓ Test configurations ready
+2026-06-03 20:35:01 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-03 20:35:01 [SUCCESS] 
+Step 01 completed in 10.7s
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 20:35:01 [INFO] ----------------------------------------------------------------------
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 20:35:01 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-06-03 20:35:01 [INFO] 
+2026-06-03 21:10:32 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-03 21:10:32 [INFO] Started at: 2026-06-03T21:10:32.474497
+2026-06-03 21:10:32 [PROCESS] Checking Python environment...
+2026-06-03 21:10:32 [INFO]   Python: 3.13.5
+2026-06-03 21:10:34 [PROCESS] Installing base packages...
+2026-06-03 21:10:34 [INFO] Installing packages from requirements.txt...
+2026-06-03 21:10:34 [INFO]   ✓ Base packages installed successfully
+2026-06-03 21:10:34 [INFO]   ✓ Cobaya already available
+2026-06-03 21:10:34 [INFO] Checking existing installations...
+2026-06-03 21:10:34 [INFO]   ✓ Found 4 already installed:
+2026-06-03 21:10:34 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-03 21:10:34 [INFO]     • Planck 2018 Low-L TT
+2026-06-03 21:10:34 [INFO]     • Planck 2018 Low-L EE
+2026-06-03 21:10:34 [INFO]     • Planck 2018 Lensing
+2026-06-03 21:10:34 [INFO]   → 2 likelihood(s) need installation
+2026-06-03 21:10:34 [INFO] 
+2026-06-03 21:10:34 [INFO] ============================================================
+2026-06-03 21:10:34 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-03 21:10:34 [INFO] ============================================================
+2026-06-03 21:10:34 [INFO] To download: 2 likelihood(s)
+2026-06-03 21:10:34 [INFO] Total download size: ~0.0 GB
+2026-06-03 21:10:34 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-03 21:10:34 [INFO] Max retries per package: 3
+2026-06-03 21:10:34 [INFO] Estimated time: 15-25 minutes
+2026-06-03 21:10:34 [INFO] ============================================================
+2026-06-03 21:10:34 [INFO] 
+2026-06-03 21:10:34 [INFO] 🔍 Pre-flight checks...
+2026-06-03 21:10:35 [INFO]   ✓ Network connectivity OK
+2026-06-03 21:10:35 [INFO]   ✓ Disk space OK: 38.8GB free
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:10:35 [INFO] 
+🔍 Verifying installations...
+2026-06-03 21:10:35 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-06-03 21:10:35 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:10:35 [INFO] ============================================================
+2026-06-03 21:10:35 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-06-03 21:10:35 [INFO] ============================================================
+2026-06-03 21:10:35 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-06-03 21:10:35 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-06-03 21:10:35 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-06-03 21:10:35 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-06-03 21:10:35 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-06-03 21:10:35 [INFO] 
+BAO Data: 1/1
+2026-06-03 21:10:35 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-06-03 21:10:35 [INFO] 
+Supernova Data: 1/1
+2026-06-03 21:10:35 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-06-03 21:10:35 [INFO] 
+  Complete: 100% (6/6)
+2026-06-03 21:10:35 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-06-03 21:10:35 [INFO] ============================================================
+2026-06-03 21:10:35 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-03 21:10:35 [INFO] Checking MPI support for M4 Pro...
+2026-06-03 21:10:35 [INFO] Checking OpenMPI availability...
+2026-06-03 21:10:35 [INFO]   ✓ OpenMPI already installed
+2026-06-03 21:10:35 [INFO]   ✓ mpi4py already installed
+2026-06-03 21:10:35 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-03 21:10:35 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-03 21:10:35 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-03 21:10:35 [SUCCESS]   ✓ hi_class already installed
+2026-06-03 21:10:35 [INFO]   ✓ Test configurations ready
+2026-06-03 21:10:35 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-03 21:10:35 [SUCCESS] 
+Step 01 completed in 3.0s
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:10:35 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:10:35 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-06-03 21:10:35 [INFO] 
+2026-06-03 21:31:37 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-03 21:31:37 [INFO] Started at: 2026-06-03T21:31:37.908789
+2026-06-03 21:31:37 [PROCESS] Checking Python environment...
+2026-06-03 21:31:37 [INFO]   Python: 3.13.5
+2026-06-03 21:31:39 [PROCESS] Installing base packages...
+2026-06-03 21:31:39 [INFO] Installing packages from requirements.txt...
+2026-06-03 21:31:39 [INFO]   ✓ Base packages installed successfully
+2026-06-03 21:31:39 [INFO]   ✓ Cobaya already available
+2026-06-03 21:31:39 [INFO] Checking existing installations...
+2026-06-03 21:31:39 [INFO]   ✓ Found 4 already installed:
+2026-06-03 21:31:39 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-03 21:31:39 [INFO]     • Planck 2018 Low-L TT
+2026-06-03 21:31:39 [INFO]     • Planck 2018 Low-L EE
+2026-06-03 21:31:39 [INFO]     • Planck 2018 Lensing
+2026-06-03 21:31:39 [INFO]   → 2 likelihood(s) need installation
+2026-06-03 21:31:39 [INFO] 
+2026-06-03 21:31:39 [INFO] ============================================================
+2026-06-03 21:31:39 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-03 21:31:39 [INFO] ============================================================
+2026-06-03 21:31:39 [INFO] To download: 2 likelihood(s)
+2026-06-03 21:31:39 [INFO] Total download size: ~0.0 GB
+2026-06-03 21:31:39 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-03 21:31:39 [INFO] Max retries per package: 3
+2026-06-03 21:31:39 [INFO] Estimated time: 15-25 minutes
+2026-06-03 21:31:39 [INFO] ============================================================
+2026-06-03 21:31:39 [INFO] 
+2026-06-03 21:31:39 [INFO] 🔍 Pre-flight checks...
+2026-06-03 21:31:40 [INFO]   ✓ Network connectivity OK
+2026-06-03 21:31:40 [INFO]   ✓ Disk space OK: 40.3GB free
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:31:40 [INFO] 
+🔍 Verifying installations...
+2026-06-03 21:31:40 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-06-03 21:31:40 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:31:40 [INFO] ============================================================
+2026-06-03 21:31:40 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-06-03 21:31:40 [INFO] ============================================================
+2026-06-03 21:31:40 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-06-03 21:31:40 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-06-03 21:31:40 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-06-03 21:31:40 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-06-03 21:31:40 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-06-03 21:31:40 [INFO] 
+BAO Data: 1/1
+2026-06-03 21:31:40 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-06-03 21:31:40 [INFO] 
+Supernova Data: 1/1
+2026-06-03 21:31:40 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-06-03 21:31:40 [INFO] 
+  Complete: 100% (6/6)
+2026-06-03 21:31:40 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-06-03 21:31:40 [INFO] ============================================================
+2026-06-03 21:31:40 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-03 21:31:40 [INFO] Checking MPI support for M4 Pro...
+2026-06-03 21:31:40 [INFO] Checking OpenMPI availability...
+2026-06-03 21:31:40 [INFO]   ✓ OpenMPI already installed
+2026-06-03 21:31:40 [INFO]   ✓ mpi4py already installed
+2026-06-03 21:31:40 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-03 21:31:40 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-03 21:31:40 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-03 21:31:40 [SUCCESS]   ✓ hi_class already installed
+2026-06-03 21:31:40 [INFO]   ✓ Test configurations ready
+2026-06-03 21:31:40 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-03 21:31:40 [SUCCESS] 
+Step 01 completed in 2.5s
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:31:40 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:31:40 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-06-03 21:31:40 [INFO] 
+2026-06-03 21:36:16 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-03 21:36:16 [INFO] Started at: 2026-06-03T21:36:16.862490
+2026-06-03 21:36:16 [PROCESS] Checking Python environment...
+2026-06-03 21:36:16 [INFO]   Python: 3.13.5
+2026-06-03 21:36:18 [PROCESS] Installing base packages...
+2026-06-03 21:36:18 [INFO] Installing packages from requirements.txt...
+2026-06-03 21:36:18 [INFO]   ✓ Base packages installed successfully
+2026-06-03 21:36:18 [INFO]   ✓ Cobaya already available
+2026-06-03 21:36:18 [INFO] Checking existing installations...
+2026-06-03 21:36:18 [INFO]   ✓ Found 4 already installed:
+2026-06-03 21:36:18 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-03 21:36:18 [INFO]     • Planck 2018 Low-L TT
+2026-06-03 21:36:18 [INFO]     • Planck 2018 Low-L EE
+2026-06-03 21:36:18 [INFO]     • Planck 2018 Lensing
+2026-06-03 21:36:18 [INFO]   → 2 likelihood(s) need installation
+2026-06-03 21:36:18 [INFO] 
+2026-06-03 21:36:18 [INFO] ============================================================
+2026-06-03 21:36:18 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-03 21:36:18 [INFO] ============================================================
+2026-06-03 21:36:18 [INFO] To download: 2 likelihood(s)
+2026-06-03 21:36:18 [INFO] Total download size: ~0.0 GB
+2026-06-03 21:36:18 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-03 21:36:18 [INFO] Max retries per package: 3
+2026-06-03 21:36:18 [INFO] Estimated time: 15-25 minutes
+2026-06-03 21:36:18 [INFO] ============================================================
+2026-06-03 21:36:18 [INFO] 
+2026-06-03 21:36:18 [INFO] 🔍 Pre-flight checks...
+2026-06-03 21:36:19 [INFO]   ✓ Network connectivity OK
+2026-06-03 21:36:19 [INFO]   ✓ Disk space OK: 39.2GB free
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:36:19 [INFO] 
+🔍 Verifying installations...
+2026-06-03 21:36:19 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-06-03 21:36:19 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:36:19 [INFO] ============================================================
+2026-06-03 21:36:19 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-06-03 21:36:19 [INFO] ============================================================
+2026-06-03 21:36:19 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-06-03 21:36:19 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-06-03 21:36:19 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-06-03 21:36:19 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-06-03 21:36:19 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-06-03 21:36:19 [INFO] 
+BAO Data: 1/1
+2026-06-03 21:36:19 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-06-03 21:36:19 [INFO] 
+Supernova Data: 1/1
+2026-06-03 21:36:19 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-06-03 21:36:19 [INFO] 
+  Complete: 100% (6/6)
+2026-06-03 21:36:19 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-06-03 21:36:19 [INFO] ============================================================
+2026-06-03 21:36:19 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-03 21:36:19 [INFO] Checking MPI support for M4 Pro...
+2026-06-03 21:36:19 [INFO] Checking OpenMPI availability...
+2026-06-03 21:36:19 [INFO]   ✓ OpenMPI already installed
+2026-06-03 21:36:19 [INFO]   ✓ mpi4py already installed
+2026-06-03 21:36:19 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-03 21:36:19 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-03 21:36:19 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-03 21:36:19 [SUCCESS]   ✓ hi_class already installed
+2026-06-03 21:36:19 [INFO]   ✓ Test configurations ready
+2026-06-03 21:36:19 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-03 21:36:19 [SUCCESS] 
+Step 01 completed in 2.5s
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:36:19 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:36:19 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-06-03 21:36:19 [INFO] 
+2026-06-03 21:38:15 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-03 21:38:15 [INFO] Started at: 2026-06-03T21:38:15.121370
+2026-06-03 21:38:15 [PROCESS] Checking Python environment...
+2026-06-03 21:38:15 [INFO]   Python: 3.13.5
+2026-06-03 21:38:16 [PROCESS] Installing base packages...
+2026-06-03 21:38:16 [INFO] Installing packages from requirements.txt...
+2026-06-03 21:38:17 [INFO]   ✓ Base packages installed successfully
+2026-06-03 21:38:17 [INFO]   ✓ Cobaya already available
+2026-06-03 21:38:17 [INFO] Checking existing installations...
+2026-06-03 21:38:17 [INFO]   ✓ Found 4 already installed:
+2026-06-03 21:38:17 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-03 21:38:17 [INFO]     • Planck 2018 Low-L TT
+2026-06-03 21:38:17 [INFO]     • Planck 2018 Low-L EE
+2026-06-03 21:38:17 [INFO]     • Planck 2018 Lensing
+2026-06-03 21:38:17 [INFO]   → 2 likelihood(s) need installation
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] ============================================================
+2026-06-03 21:38:17 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-03 21:38:17 [INFO] ============================================================
+2026-06-03 21:38:17 [INFO] To download: 2 likelihood(s)
+2026-06-03 21:38:17 [INFO] Total download size: ~0.0 GB
+2026-06-03 21:38:17 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-03 21:38:17 [INFO] Max retries per package: 3
+2026-06-03 21:38:17 [INFO] Estimated time: 15-25 minutes
+2026-06-03 21:38:17 [INFO] ============================================================
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] 🔍 Pre-flight checks...
+2026-06-03 21:38:17 [INFO]   ✓ Network connectivity OK
+2026-06-03 21:38:17 [INFO]   ✓ Disk space OK: 39.1GB free
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] 
+🔍 Verifying installations...
+2026-06-03 21:38:17 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-06-03 21:38:17 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] ============================================================
+2026-06-03 21:38:17 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-06-03 21:38:17 [INFO] ============================================================
+2026-06-03 21:38:17 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-06-03 21:38:17 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-06-03 21:38:17 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-06-03 21:38:17 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-06-03 21:38:17 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-06-03 21:38:17 [INFO] 
+BAO Data: 1/1
+2026-06-03 21:38:17 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-06-03 21:38:17 [INFO] 
+Supernova Data: 1/1
+2026-06-03 21:38:17 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-06-03 21:38:17 [INFO] 
+  Complete: 100% (6/6)
+2026-06-03 21:38:17 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-06-03 21:38:17 [INFO] ============================================================
+2026-06-03 21:38:17 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-03 21:38:17 [INFO] Checking MPI support for M4 Pro...
+2026-06-03 21:38:17 [INFO] Checking OpenMPI availability...
+2026-06-03 21:38:17 [INFO]   ✓ OpenMPI already installed
+2026-06-03 21:38:17 [INFO]   ✓ mpi4py already installed
+2026-06-03 21:38:17 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-03 21:38:17 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-03 21:38:17 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-03 21:38:17 [SUCCESS]   ✓ hi_class already installed
+2026-06-03 21:38:17 [INFO]   ✓ Test configurations ready
+2026-06-03 21:38:17 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-03 21:38:17 [SUCCESS] 
+Step 01 completed in 2.6s
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:38:17 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-06-03 21:38:17 [INFO] 
+2026-06-03 21:40:12 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-03 21:40:12 [INFO] Started at: 2026-06-03T21:40:12.709165
+2026-06-03 21:40:12 [PROCESS] Checking Python environment...
+2026-06-03 21:40:12 [INFO]   Python: 3.13.5
+2026-06-03 21:40:13 [PROCESS] Installing base packages...
+2026-06-03 21:40:13 [INFO] Installing packages from requirements.txt...
+2026-06-03 21:40:14 [INFO]   ✓ Base packages installed successfully
+2026-06-03 21:40:14 [INFO]   ✓ Cobaya already available
+2026-06-03 21:40:14 [INFO] Checking existing installations...
+2026-06-03 21:40:14 [INFO]   ✓ Found 4 already installed:
+2026-06-03 21:40:14 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-03 21:40:14 [INFO]     • Planck 2018 Low-L TT
+2026-06-03 21:40:14 [INFO]     • Planck 2018 Low-L EE
+2026-06-03 21:40:14 [INFO]     • Planck 2018 Lensing
+2026-06-03 21:40:14 [INFO]   → 2 likelihood(s) need installation
+2026-06-03 21:40:14 [INFO] 
+2026-06-03 21:40:14 [INFO] ============================================================
+2026-06-03 21:40:14 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-03 21:40:14 [INFO] ============================================================
+2026-06-03 21:40:14 [INFO] To download: 2 likelihood(s)
+2026-06-03 21:40:14 [INFO] Total download size: ~0.0 GB
+2026-06-03 21:40:14 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-03 21:40:14 [INFO] Max retries per package: 3
+2026-06-03 21:40:14 [INFO] Estimated time: 15-25 minutes
+2026-06-03 21:40:14 [INFO] ============================================================
+2026-06-03 21:40:14 [INFO] 
+2026-06-03 21:40:14 [INFO] 🔍 Pre-flight checks...
+2026-06-03 21:40:15 [INFO]   ✓ Network connectivity OK
+2026-06-03 21:40:15 [INFO]   ✓ Disk space OK: 39.0GB free
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 21:40:15 [INFO] 
+🔍 Verifying installations...
+2026-06-03 21:40:15 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-06-03 21:40:15 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 21:40:15 [INFO] ============================================================
+2026-06-03 21:40:15 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-06-03 21:40:15 [INFO] ============================================================
+2026-06-03 21:40:15 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-06-03 21:40:15 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-06-03 21:40:15 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-06-03 21:40:15 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-06-03 21:40:15 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-06-03 21:40:15 [INFO] 
+BAO Data: 1/1
+2026-06-03 21:40:15 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-06-03 21:40:15 [INFO] 
+Supernova Data: 1/1
+2026-06-03 21:40:15 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-06-03 21:40:15 [INFO] 
+  Complete: 100% (6/6)
+2026-06-03 21:40:15 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-06-03 21:40:15 [INFO] ============================================================
+2026-06-03 21:40:15 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-03 21:40:15 [INFO] Checking MPI support for M4 Pro...
+2026-06-03 21:40:15 [INFO] Checking OpenMPI availability...
+2026-06-03 21:40:15 [INFO]   ✓ OpenMPI already installed
+2026-06-03 21:40:15 [INFO]   ✓ mpi4py already installed
+2026-06-03 21:40:15 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-03 21:40:15 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-03 21:40:15 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-03 21:40:15 [SUCCESS]   ✓ hi_class already installed
+2026-06-03 21:40:15 [INFO]   ✓ Test configurations ready
+2026-06-03 21:40:15 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-03 21:40:15 [SUCCESS] 
+Step 01 completed in 2.5s
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 21:40:15 [INFO] ----------------------------------------------------------------------
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 21:40:15 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-06-03 21:40:15 [INFO] 
+2026-06-03 23:03:02 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-03 23:03:02 [INFO] Started at: 2026-06-03T23:03:02.988234
+2026-06-03 23:03:02 [PROCESS] Checking Python environment...
+2026-06-03 23:03:02 [INFO]   Python: 3.13.5
+2026-06-03 23:03:04 [PROCESS] Installing base packages...
+2026-06-03 23:03:04 [INFO] Installing packages from requirements.txt...
+2026-06-03 23:03:05 [INFO]   ✓ Base packages installed successfully
+2026-06-03 23:03:05 [INFO]   ✓ Cobaya already available
+2026-06-03 23:03:05 [INFO] Checking existing installations...
+2026-06-03 23:03:05 [INFO]   ✓ Found 4 already installed:
+2026-06-03 23:03:05 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-03 23:03:05 [INFO]     • Planck 2018 Low-L TT
+2026-06-03 23:03:05 [INFO]     • Planck 2018 Low-L EE
+2026-06-03 23:03:05 [INFO]     • Planck 2018 Lensing
+2026-06-03 23:03:05 [INFO]   → 2 likelihood(s) need installation
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] ============================================================
+2026-06-03 23:03:05 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-03 23:03:05 [INFO] ============================================================
+2026-06-03 23:03:05 [INFO] To download: 2 likelihood(s)
+2026-06-03 23:03:05 [INFO] Total download size: ~0.0 GB
+2026-06-03 23:03:05 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-03 23:03:05 [INFO] Max retries per package: 3
+2026-06-03 23:03:05 [INFO] Estimated time: 15-25 minutes
+2026-06-03 23:03:05 [INFO] ============================================================
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] 🔍 Pre-flight checks...
+2026-06-03 23:03:05 [INFO]   ✓ Network connectivity OK
+2026-06-03 23:03:05 [INFO]   ✓ Disk space OK: 34.2GB free
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] 
+🔍 Verifying installations...
+2026-06-03 23:03:05 [INFO]   ✓ BAO SDSS DR12 Consensus: Verified (built-in)
+2026-06-03 23:03:05 [INFO]   ✓ SN Pantheon+: Verified (built-in)
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] ============================================================
+2026-06-03 23:03:05 [INFO] INSTALLATION SUMMARY (00:00 total)
+2026-06-03 23:03:05 [INFO] ============================================================
+2026-06-03 23:03:05 [INFO] 
+Planck 2018 (CMB): 4/4
+2026-06-03 23:03:05 [INFO]   Planck 2018 High-L TTTEEE: ✓ (already present)
+2026-06-03 23:03:05 [INFO]   Planck 2018 Low-L TT: ✓ (already present)
+2026-06-03 23:03:05 [INFO]   Planck 2018 Low-L EE: ✓ (already present)
+2026-06-03 23:03:05 [INFO]   Planck 2018 Lensing: ✓ (already present)
+2026-06-03 23:03:05 [INFO] 
+BAO Data: 1/1
+2026-06-03 23:03:05 [INFO]   BAO SDSS DR12 Consensus: ✓ (just installed)
+2026-06-03 23:03:05 [INFO] 
+Supernova Data: 1/1
+2026-06-03 23:03:05 [INFO]   SN Pantheon+: ✓ (just installed)
+2026-06-03 23:03:05 [INFO] 
+  Complete: 100% (6/6)
+2026-06-03 23:03:05 [SUCCESS] 
+✓ ALL REQUIRED LIKELIHOODS INSTALLED - Step 06 can proceed
+2026-06-03 23:03:05 [INFO] ============================================================
+2026-06-03 23:03:05 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-03 23:03:05 [INFO] Checking MPI support for M4 Pro...
+2026-06-03 23:03:05 [INFO] Checking OpenMPI availability...
+2026-06-03 23:03:05 [INFO]   ✓ OpenMPI already installed
+2026-06-03 23:03:05 [INFO]   ✓ mpi4py already installed
+2026-06-03 23:03:05 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-03 23:03:05 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-03 23:03:05 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-03 23:03:05 [SUCCESS]   ✓ hi_class already installed
+2026-06-03 23:03:05 [INFO]   ✓ Test configurations ready
+2026-06-03 23:03:05 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-03 23:03:05 [SUCCESS] 
+Step 01 completed in 2.9s
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] ----------------------------------------------------------------------
+2026-06-03 23:03:05 [INFO] 
+2026-06-03 23:03:05 [INFO] >>> STEP 02: TEP C MODULE GENERATION
+2026-06-03 23:03:05 [INFO] 
+2026-06-05 20:42:05 [INFO] STEP 00b_install: Install Dependencies and Download Data
+2026-06-05 20:42:05 [INFO] Started at: 2026-06-05T20:42:05.968579
+2026-06-05 20:42:05 [PROCESS] Checking Python environment...
+2026-06-05 20:42:05 [INFO]   Python: 3.13.5
+2026-06-05 20:42:10 [PROCESS] Installing base packages...
+2026-06-05 20:42:10 [INFO] Installing packages from requirements.txt...
+2026-06-05 20:42:13 [INFO]   ✓ Base packages installed successfully
+2026-06-05 20:42:13 [INFO]   ✓ Cobaya already available
+2026-06-05 20:42:13 [INFO] Checking existing installations...
+2026-06-05 20:42:13 [INFO]   ✓ Found 4 already installed:
+2026-06-05 20:42:13 [INFO]     • Planck 2018 High-L TTTEEE
+2026-06-05 20:42:13 [INFO]     • Planck 2018 Low-L TT
+2026-06-05 20:42:13 [INFO]     • Planck 2018 Low-L EE
+2026-06-05 20:42:13 [INFO]     • Planck 2018 Lensing
+2026-06-05 20:42:13 [INFO]   → 2 likelihood(s) need installation
+2026-06-05 20:42:13 [INFO] 
+2026-06-05 20:42:13 [INFO] ============================================================
+2026-06-05 20:42:13 [INFO] PLANCK 2018 LIKELIHOOD INSTALLATION (ULTRA-ROBUST)
+2026-06-05 20:42:13 [INFO] ============================================================
+2026-06-05 20:42:13 [INFO] To download: 2 likelihood(s)
+2026-06-05 20:42:13 [INFO] Total download size: ~0.0 GB
+2026-06-05 20:42:13 [INFO] Max parallel downloads: 2 (to avoid overwhelming server)
+2026-06-05 20:42:13 [INFO] Max retries per package: 3
+2026-06-05 20:42:13 [INFO] Estimated time: 15-25 minutes
+2026-06-05 20:42:13 [INFO] ============================================================
+2026-06-05 20:42:13 [INFO] 
+2026-06-05 20:42:13 [INFO] 🔍 Pre-flight checks...
+2026-06-05 20:42:13 [INFO]   ✓ Network connectivity OK
+2026-06-05 20:42:13 [ERROR]   ✗ Insufficient disk space: 13.8GB free, 15.0GB required
+2026-06-05 20:42:13 [PROCESS] 
+🔄 Checking MPI support for M4 Pro...
+2026-06-05 20:42:13 [INFO] Checking MPI support for M4 Pro...
+2026-06-05 20:42:13 [INFO] Checking OpenMPI availability...
+2026-06-05 20:42:14 [INFO]   ✓ OpenMPI already installed
+2026-06-05 20:42:14 [INFO]   ✓ mpi4py already installed
+2026-06-05 20:42:14 [SUCCESS]   ✓ MPI parallel mode available (10x speedup!)
+2026-06-05 20:42:14 [PROCESS] 
+🔭 Checking hi_class (modified gravity Boltzmann solver)...
+2026-06-05 20:42:14 [PROCESS] 
+📦 Installing hi_class (Horndeski in CLASS)...
+2026-06-05 20:42:14 [SUCCESS]   ✓ hi_class already installed
+2026-06-05 20:42:14 [INFO]   ✓ Test configurations ready
+2026-06-05 20:42:14 [SUCCESS] 
+STEP 00b_install COMPLETED
+2026-06-05 20:42:14 [SUCCESS] 
+Step 01 completed in 8.1s
+2026-06-05 20:42:14 [INFO] 
+2026-06-05 20:42:14 [INFO] ----------------------------------------------------------------------
+2026-06-05 20:42:14 [INFO] 
+2026-06-05 20:42:14 [INFO] >>> STEP 02: BACKGROUND EVOLUTION ANALYSIS
+2026-06-05 20:42:14 [INFO] 

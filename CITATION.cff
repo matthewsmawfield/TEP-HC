@@ -5,10 +5,10 @@ authors:
 - family-names: Smawfield
   given-names: Matthew Lukin
   orcid: https://orcid.org/0009-0003-8219-3159
-title: 'Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation'
+title: 'Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation'
 abstract: General Relativity is extensively validated in the screened Solar System,
-  but cosmological tensions suggest scale-dependent breakdown of the isochrony axiom.
-  The Temporal Equivalence Principle (TEP) resolves late-universe anomalies via a
+  but cosmological tensions motivate testing a scale-dependent breakdown of the isochrony axiom.
+  The Temporal Equivalence Principle (TEP) addresses late-universe anomalies via a
   dynamical proper-time field, screened at densities above roughly 20 g/cm^3. This
   paper presents the exact analytical mapping of the TEP bi-metric framework—conformal
   factor A(phi) and disformal deformation B(phi)—into the Bellini-Sawicki Effective
@@ -16,21 +16,21 @@ abstract: General Relativity is extensively validated in the screened Solar Syst
   are integrated into the hi_class cosmological solver and constrained with a Cobaya
   MCMC pipeline against Planck 2018 likelihoods. The TEP scalar field preserves CMB
   acoustic peak structure (|Delta C_l/C_l| < 0.02%) while permitting late-time, environment-dependent
-  proper-time dynamics relevant to the Hubble tension.
-version: v0.1 (Geneva)
-date-released: 2026-06-07
-url: https://github.com/matthewsmawfield/TEP-HC
+  proper-time dynamics relevant to the Hubble tension. A direct exact-frame-factor check
+  confirms that the exact Jordan-frame factor M_exact=A(1+alpha_A) leaves the sound
+  horizon unchanged to quoted precision in the screened regime.
+version: v0.1 (Cambridge)
+date-released: 2026-06-08
+url: https://mlsmawfield.com/tep/hc
 repository-code: https://github.com/matthewsmawfield/TEP-HC
+doi: 10.5281/zenodo.20572723
 license: CC-BY-4.0
 keywords:
 - Temporal Equivalence Principle
 - Temporal Shear
-- Temporal Topology
 - proper time
 - conformal metric
 - disformal metric
-- synchronization holonomy
-- clock-sector gravity
 - scalar-tensor theory
 - hi_class
 - Horndeski
@@ -44,12 +44,12 @@ keywords:
 - Planck 2018
 preferred-citation:
   type: article
-  title: 'Temporal Equivalence Principle: EFT Mapping and CMB Acoustic Peak Preservation'
+  title: 'Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation'
   authors:
   - family-names: Smawfield
     given-names: Matthew Lukin
     orcid: https://orcid.org/0009-0003-8219-3159
   year: 2026
   journal: Zenodo
-  url: https://github.com/matthewsmawfield/TEP-HC
-  notes: Preprint v0.1 (Geneva)
+  url: https://mlsmawfield.com/tep/hc
+  notes: Preprint v0.1 (Cambridge)

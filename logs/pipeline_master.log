@@ -1,0 +1,252 @@
+2026-05-25 02:38:05 [INFO] ======================================================================
+2026-05-25 02:38:05 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 02:38:05 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 02:38:05 [INFO] ======================================================================
+2026-05-25 02:38:05 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 02:38:05 [INFO] Started: 2026-05-25T02:38:05.430526
+2026-05-25 02:38:05 [INFO] Python: 3.13.5
+2026-05-25 02:38:05 [INFO] 
+2026-05-25 02:38:05 [INFO] Pipeline Configuration:
+2026-05-25 02:38:05 [INFO]   Start step: 0
+2026-05-25 02:38:05 [INFO]   Stop step: 8
+2026-05-25 02:38:05 [INFO] 
+2026-05-25 02:38:05 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-05-25 02:38:05 [INFO] 
+2026-05-25 02:40:36 [INFO] ======================================================================
+2026-05-25 02:40:36 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 02:40:36 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 02:40:36 [INFO] ======================================================================
+2026-05-25 02:40:36 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 02:40:36 [INFO] Started: 2026-05-25T02:40:36.951857
+2026-05-25 02:40:36 [INFO] Python: 3.13.5
+2026-05-25 02:40:36 [INFO] 
+2026-05-25 02:40:36 [INFO] Pipeline Configuration:
+2026-05-25 02:40:36 [INFO]   Start step: 0
+2026-05-25 02:40:36 [INFO]   Stop step: 1
+2026-05-25 02:40:36 [INFO] 
+2026-05-25 02:40:36 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-05-25 02:40:36 [INFO] 
+2026-05-25 02:40:55 [INFO] ======================================================================
+2026-05-25 02:40:55 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 02:40:55 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 02:40:55 [INFO] ======================================================================
+2026-05-25 02:40:55 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 02:40:55 [INFO] Started: 2026-05-25T02:40:55.808588
+2026-05-25 02:40:55 [INFO] Python: 3.13.5
+2026-05-25 02:40:55 [INFO] 
+2026-05-25 02:40:55 [INFO] Pipeline Configuration:
+2026-05-25 02:40:55 [INFO]   Start step: 0
+2026-05-25 02:40:55 [INFO]   Stop step: 8
+2026-05-25 02:40:55 [INFO] 
+2026-05-25 02:40:55 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-05-25 02:40:55 [INFO] 
+2026-05-25 03:43:38 [INFO] ======================================================================
+2026-05-25 03:43:38 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 03:43:38 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 03:43:38 [INFO] ======================================================================
+2026-05-25 03:43:38 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 03:43:38 [INFO] Started: 2026-05-25T03:43:38.863911
+2026-05-25 03:43:38 [INFO] Python: 3.13.5
+2026-05-25 03:43:38 [INFO] 
+2026-05-25 03:43:38 [INFO] Pipeline Configuration:
+2026-05-25 03:43:38 [INFO]   Start step: 5
+2026-05-25 03:43:38 [INFO]   Stop step: 8
+2026-05-25 03:43:38 [INFO] 
+2026-05-25 03:43:38 [INFO] >>> STEP 05: CMB SPECTRA GENERATION
+2026-05-25 03:43:38 [INFO] 
+2026-05-25 03:45:53 [INFO] ======================================================================
+2026-05-25 03:45:53 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 03:45:53 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 03:45:53 [INFO] ======================================================================
+2026-05-25 03:45:53 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 03:45:53 [INFO] Started: 2026-05-25T03:45:53.347923
+2026-05-25 03:45:53 [INFO] Python: 3.13.5
+2026-05-25 03:45:53 [INFO] 
+2026-05-25 03:45:53 [INFO] Pipeline Configuration:
+2026-05-25 03:45:53 [INFO]   Start step: 5
+2026-05-25 03:45:53 [INFO]   Stop step: 8
+2026-05-25 03:45:53 [INFO] 
+2026-05-25 03:45:53 [INFO] >>> STEP 05: CMB SPECTRA GENERATION
+2026-05-25 03:45:53 [INFO] 
+2026-05-25 03:55:37 [INFO] ======================================================================
+2026-05-25 03:55:37 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 03:55:37 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 03:55:37 [INFO] ======================================================================
+2026-05-25 03:55:37 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 03:55:37 [INFO] Started: 2026-05-25T03:55:37.523845
+2026-05-25 03:55:37 [INFO] Python: 3.13.5
+2026-05-25 03:55:37 [INFO] 
+2026-05-25 03:55:37 [INFO] Pipeline Configuration:
+2026-05-25 03:55:37 [INFO]   Start step: 5
+2026-05-25 03:55:37 [INFO]   Stop step: 8
+2026-05-25 03:55:37 [INFO] 
+2026-05-25 03:55:37 [INFO] >>> STEP 05: CMB SPECTRA GENERATION
+2026-05-25 03:55:37 [INFO] 
+2026-05-25 04:01:20 [INFO] ======================================================================
+2026-05-25 04:01:20 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 04:01:20 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 04:01:20 [INFO] ======================================================================
+2026-05-25 04:01:20 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 04:01:20 [INFO] Started: 2026-05-25T04:01:20.760987
+2026-05-25 04:01:20 [INFO] Python: 3.13.5
+2026-05-25 04:01:20 [INFO] 
+2026-05-25 04:01:20 [INFO] Pipeline Configuration:
+2026-05-25 04:01:20 [INFO]   Start step: 5
+2026-05-25 04:01:20 [INFO]   Stop step: 8
+2026-05-25 04:01:20 [INFO] 
+2026-05-25 04:01:20 [INFO] >>> STEP 05: CMB SPECTRA GENERATION
+2026-05-25 04:01:20 [INFO] 
+2026-05-25 05:44:20 [INFO] ======================================================================
+2026-05-25 05:44:20 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-05-25 05:44:20 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-05-25 05:44:20 [INFO] ======================================================================
+2026-05-25 05:44:20 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-05-25 05:44:20 [INFO] Started: 2026-05-25T05:44:20.582198
+2026-05-25 05:44:20 [INFO] Python: 3.13.5
+2026-05-25 05:44:20 [INFO] 
+2026-05-25 05:44:20 [INFO] Pipeline Configuration:
+2026-05-25 05:44:20 [INFO]   Start step: 0
+2026-05-25 05:44:20 [INFO]   Stop step: 8
+2026-05-25 05:44:20 [INFO] 
+2026-05-25 05:44:20 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-05-25 05:44:20 [INFO] 
+2026-06-03 20:34:46 [INFO] ======================================================================
+2026-06-03 20:34:46 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-03 20:34:46 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-03 20:34:46 [INFO] ======================================================================
+2026-06-03 20:34:46 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-03 20:34:46 [INFO] Started: 2026-06-03T20:34:46.934178
+2026-06-03 20:34:46 [INFO] Python: 3.13.5
+2026-06-03 20:34:46 [INFO] 
+2026-06-03 20:34:46 [INFO] Pipeline Configuration:
+2026-06-03 20:34:46 [INFO]   Start step: 0
+2026-06-03 20:34:46 [INFO]   Stop step: 9
+2026-06-03 20:34:46 [INFO] 
+2026-06-03 20:34:46 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-03 20:34:46 [INFO] 
+2026-06-03 21:10:31 [INFO] ======================================================================
+2026-06-03 21:10:31 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-03 21:10:31 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-03 21:10:31 [INFO] ======================================================================
+2026-06-03 21:10:31 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-03 21:10:31 [INFO] Started: 2026-06-03T21:10:31.565961
+2026-06-03 21:10:31 [INFO] Python: 3.13.5
+2026-06-03 21:10:31 [INFO] 
+2026-06-03 21:10:31 [INFO] Pipeline Configuration:
+2026-06-03 21:10:31 [INFO]   Start step: 0
+2026-06-03 21:10:31 [INFO]   Stop step: 9
+2026-06-03 21:10:31 [INFO] 
+2026-06-03 21:10:31 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-03 21:10:31 [INFO] 
+2026-06-03 21:31:36 [INFO] ======================================================================
+2026-06-03 21:31:36 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-03 21:31:36 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-03 21:31:36 [INFO] ======================================================================
+2026-06-03 21:31:36 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-03 21:31:36 [INFO] Started: 2026-06-03T21:31:36.797516
+2026-06-03 21:31:36 [INFO] Python: 3.13.5
+2026-06-03 21:31:36 [INFO] 
+2026-06-03 21:31:36 [INFO] Pipeline Configuration:
+2026-06-03 21:31:36 [INFO]   Start step: 0
+2026-06-03 21:31:36 [INFO]   Stop step: 9
+2026-06-03 21:31:36 [INFO] 
+2026-06-03 21:31:36 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-03 21:31:36 [INFO] 
+2026-06-03 21:36:16 [INFO] ======================================================================
+2026-06-03 21:36:16 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-03 21:36:16 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-03 21:36:16 [INFO] ======================================================================
+2026-06-03 21:36:16 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-03 21:36:16 [INFO] Started: 2026-06-03T21:36:16.233712
+2026-06-03 21:36:16 [INFO] Python: 3.13.5
+2026-06-03 21:36:16 [INFO] 
+2026-06-03 21:36:16 [INFO] Pipeline Configuration:
+2026-06-03 21:36:16 [INFO]   Start step: 0
+2026-06-03 21:36:16 [INFO]   Stop step: 9
+2026-06-03 21:36:16 [INFO] 
+2026-06-03 21:36:16 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-03 21:36:16 [INFO] 
+2026-06-03 21:38:14 [INFO] ======================================================================
+2026-06-03 21:38:14 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-03 21:38:14 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-03 21:38:14 [INFO] ======================================================================
+2026-06-03 21:38:14 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-03 21:38:14 [INFO] Started: 2026-06-03T21:38:14.515137
+2026-06-03 21:38:14 [INFO] Python: 3.13.5
+2026-06-03 21:38:14 [INFO] 
+2026-06-03 21:38:14 [INFO] Pipeline Configuration:
+2026-06-03 21:38:14 [INFO]   Start step: 0
+2026-06-03 21:38:14 [INFO]   Stop step: 9
+2026-06-03 21:38:14 [INFO] 
+2026-06-03 21:38:14 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-03 21:38:14 [INFO] 
+2026-06-03 21:40:12 [INFO] ======================================================================
+2026-06-03 21:40:12 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-03 21:40:12 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-03 21:40:12 [INFO] ======================================================================
+2026-06-03 21:40:12 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-03 21:40:12 [INFO] Started: 2026-06-03T21:40:12.118705
+2026-06-03 21:40:12 [INFO] Python: 3.13.5
+2026-06-03 21:40:12 [INFO] 
+2026-06-03 21:40:12 [INFO] Pipeline Configuration:
+2026-06-03 21:40:12 [INFO]   Start step: 0
+2026-06-03 21:40:12 [INFO]   Stop step: 9
+2026-06-03 21:40:12 [INFO] 
+2026-06-03 21:40:12 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-03 21:40:12 [INFO] 
+2026-06-03 23:03:01 [INFO] ======================================================================
+2026-06-03 23:03:01 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-03 23:03:01 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-03 23:03:01 [INFO] ======================================================================
+2026-06-03 23:03:01 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-03 23:03:01 [INFO] Started: 2026-06-03T23:03:01.507881
+2026-06-03 23:03:01 [INFO] Python: 3.13.5
+2026-06-03 23:03:01 [INFO] 
+2026-06-03 23:03:01 [INFO] Pipeline Configuration:
+2026-06-03 23:03:01 [INFO]   Start step: 0
+2026-06-03 23:03:01 [INFO]   Stop step: 9
+2026-06-03 23:03:01 [INFO] 
+2026-06-03 23:03:01 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-03 23:03:01 [INFO] 
+2026-06-05 20:23:39 [INFO] ======================================================================
+2026-06-05 20:23:39 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-05 20:23:39 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-05 20:23:39 [INFO] ======================================================================
+2026-06-05 20:23:39 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-05 20:23:39 [INFO] Started: 2026-06-05T20:23:39.240635
+2026-06-05 20:23:39 [INFO] Python: 3.13.5
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] Pipeline Configuration:
+2026-06-05 20:23:39 [INFO]   Start step: 8
+2026-06-05 20:23:39 [INFO]   Stop step: 9
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:23:39 [INFO] >>> STEP 08: POSTERIOR ANALYSIS
+2026-06-05 20:23:39 [INFO] 
+2026-06-05 20:39:16 [INFO] ======================================================================
+2026-06-05 20:39:16 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-05 20:39:16 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-05 20:39:16 [INFO] ======================================================================
+2026-06-05 20:39:16 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-05 20:39:16 [INFO] Started: 2026-06-05T20:39:16.218117
+2026-06-05 20:39:16 [INFO] Python: 3.13.5
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] Pipeline Configuration:
+2026-06-05 20:39:16 [INFO]   Start step: 6
+2026-06-05 20:39:16 [INFO]   Stop step: 6
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:39:16 [INFO] >>> STEP 06: COBAYA MCMC SETUP
+2026-06-05 20:39:16 [INFO] 
+2026-06-05 20:42:03 [INFO] ======================================================================
+2026-06-05 20:42:03 [INFO] TEP-HC ANALYSIS PIPELINE
+2026-06-05 20:42:03 [INFO] Paper 18: hi_class/EFT Cosmology (Geneva)
+2026-06-05 20:42:03 [INFO] ======================================================================
+2026-06-05 20:42:03 [INFO] Project Root: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC
+2026-06-05 20:42:03 [INFO] Started: 2026-06-05T20:42:03.122167
+2026-06-05 20:42:03 [INFO] Python: 3.13.5
+2026-06-05 20:42:03 [INFO] 
+2026-06-05 20:42:03 [INFO] Pipeline Configuration:
+2026-06-05 20:42:03 [INFO]   Start step: 0
+2026-06-05 20:42:03 [INFO]   Stop step: 9
+2026-06-05 20:42:03 [INFO] 
+2026-06-05 20:42:03 [INFO] >>> STEP 00: ENVIRONMENT SETUP AND DEPENDENCY CHECK
+2026-06-05 20:42:03 [INFO] 

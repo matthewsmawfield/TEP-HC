@@ -12,16 +12,20 @@
     }
   ],
   "version": "v0.1",
-  "datePublished": "2026-04-25",
+  "datePublished": "2026-06-08",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "codeRepository": "https://github.com/matthewsmawfield/TEP-HC",
-  "url": "https://matthewsmawfield.github.io/TEP-HC/",
+  "url": "https://mlsmawfield.com/tep/hc/",
   "keywords": [
     "hi_class",
     "Horndeski",
     "effective field theory",
     "CMB",
     "temporal equivalence principle",
-    "Cobaya"
+    "Cobaya",
+    "Hubble tension",
+    "proper time",
+    "acoustic peaks",
+    "modified gravity"
   ]
 }

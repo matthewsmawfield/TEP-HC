@@ -1,0 +1,27 @@
+{
+  "description": "External literature benchmarks used in TEP-HC figures (not produced by the hi_class pipeline).",
+  "h0_km_s_mpc": {
+    "planck2018_lcdm": {
+      "label": "Planck 2018 (CMB, $\\Lambda$CDM)",
+      "value": 67.36,
+      "error": 0.54,
+      "source": "Planck Collaboration VI (2018)"
+    },
+    "sh0es_local_uncorrected": {
+      "label": "SH0ES (local, uncorrected)",
+      "value": 73.04,
+      "error": 1.04,
+      "source": "SH0ES collaboration"
+    },
+    "sh0es_tep_corrected": {
+      "label": "SH0ES local, TEP-corrected\n(clock bias removed; Paper 11)",
+      "value": 69.1,
+      "error": 1.0,
+      "source": "TEP Paper 11 (clock-transport correction)"
+    }
+  },
+  "planck_theta_s_100_lcdm": {
+    "value": 1.0411,
+    "note": "External Planck ΛCDM reference for comparison only; Jordan-frame EdS scan baseline is read from 04b_jordan_frame_scan.json at epsilon_T=0."
+  }
+}

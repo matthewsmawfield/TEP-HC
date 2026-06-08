@@ -17,7 +17,8 @@ correct. The only modification is the background Hubble rate.
 
 Outputs:
     - results/04b_jordan_frame_scan.json
-    - results/figures/figure_5_jordan_theta_s.png (if matplotlib available)
+
+Figure 5 is generated from that JSON by scripts/generate_figures.py.
 """
 
 import sys
@@ -47,8 +48,6 @@ class Step04BJordanFrame:
     def __init__(self):
         self.root_dir = PROJECT_ROOT
         self.results_dir = self.root_dir / "results"
-        self.figures_dir = self.results_dir / "figures"
-        self.figures_dir.mkdir(parents=True, exist_ok=True)
         self.hi_class_bin = self.root_dir / "external" / "hi_class" / "hi_class" / "class"
 
         log_file = self.root_dir / "logs" / f"step_{self.STEP_NAME}.log"
@@ -103,9 +102,6 @@ class Step04BJordanFrame:
                     f"(r_s = {scan_result.get('r_s_Mpc', 'N/A')} Mpc)",
                     status_icon
                 )
-
-            # Generate figure if matplotlib available
-            self._generate_figure(results["standard_scan"]["scan"], results["unscreened_scan"]["scan"])
 
             results["status"] = "SUCCESS"
 
@@ -229,83 +225,6 @@ n_T = 2.0
             except (ValueError, IndexError):
                 return -1
         return max(candidates, key=_suffix)
-
-    def _generate_figure(self, standard_scan, unscreened_scan):
-        """Generate figure 5: theta_s vs epsilon_T for both standard and unscreened scans."""
-        try:
-            import matplotlib
-            matplotlib.use('Agg')
-            import matplotlib.pyplot as plt
-            import numpy as np
-        except ImportError:
-            print_status("  matplotlib not available; figure skipped", "INFO")
-            return
-
-        # Extract standard scan data
-        std_eps = []
-        std_theta = []
-        for r in standard_scan:
-            if r.get("success"):
-                std_eps.append(r["epsilon_T"])
-                std_theta.append(r["theta_s_100"])
-
-        # Extract unscreened scan data
-        unscr_eps = []
-        unscr_theta = []
-        for r in unscreened_scan:
-            if r.get("success"):
-                unscr_eps.append(r["epsilon_T"])
-                unscr_theta.append(r["theta_s_100"])
-
-        if len(std_eps) < 2 and len(unscr_eps) < 2:
-            print_status("  Insufficient successful runs for figure", "WARNING")
-            return
-
-        std_eps = np.array(std_eps)
-        std_theta = np.array(std_theta)
-        unscr_eps = np.array(unscr_eps)
-        unscr_theta = np.array(unscr_theta)
-
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.5))
-
-        # --- Panel 1: Standard scan (z_T = 5) ---
-        if len(std_eps) >= 2:
-            ax1.plot(std_eps, std_theta, 'ko-', markersize=6, linewidth=1.5,
-                     label=r'Standard ($z_T=5$)')
-            ax1.axhline(1.0411, color='C0', linestyle='--', linewidth=1.5,
-                        label=r'Planck: $100\,\theta_s = 1.0411$')
-            ax1.set_xlabel(r'$\epsilon_T$')
-            ax1.set_ylabel(r'$100\,\theta_s$')
-            ax1.set_title(r'Standard TEP ($z_T=5$): Early-Universe Suppression Active')
-            ax1.legend(loc='upper left', fontsize=8)
-            ax1.set_xlim(left=0)
-
-        # --- Panel 2: Unscreened limit scan ---
-        if len(unscr_eps) >= 2:
-            ax2.plot(unscr_eps, unscr_theta, 'rs-', markersize=6, linewidth=1.5,
-                     label=r'Unscreened ($z_T \to \infty$)')
-            ax2.axhline(1.0411, color='C0', linestyle='--', linewidth=1.5,
-                        label=r'Planck: $100\,\theta_s = 1.0411$')
-            # Highlight recovery point
-            if len(unscr_theta) > 0:
-                recovery_idx = np.argmin(np.abs(unscr_theta - 1.0411))
-                recovery_eps = unscr_eps[recovery_idx]
-                recovery_theta = unscr_theta[recovery_idx]
-                ax2.plot(recovery_eps, recovery_theta, 'g*', markersize=14,
-                         label=rf'Recovery: $\epsilon_T \approx {recovery_eps:.2f}$')
-            ax2.set_xlabel(r'$\epsilon_T$')
-            ax2.set_ylabel(r'$100\,\theta_s$')
-            ax2.set_title(r'Unscreened Limit ($z_T \to \infty$): No Early-Universe Protection')
-            ax2.legend(loc='upper right', fontsize=8)
-            ax2.set_xlim(left=0)
-
-        fig.suptitle('Jordan-Frame EdS + TEP: Two Regimes', fontsize=12)
-        fig.tight_layout()
-
-        fig_path = self.figures_dir / "figure_5_jordan_theta_s.png"
-        fig.savefig(fig_path, dpi=150)
-        plt.close(fig)
-        print_status(f"  ✓ Saved figure to {fig_path}", "SUCCESS")
 
 
 if __name__ == "__main__":

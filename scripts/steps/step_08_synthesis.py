@@ -99,7 +99,7 @@ class Step08Synthesis:
 
 ## 1. Executive Summary
 
-This report documents the TEP-HC analysis using the native TEP background-only implementation. The native TEP modification is H_TEP(z) = H_LCDM(z) * M(z) with M(z) = A(z)/(1 - alpha_A(z)) and standard GR perturbations. When confronted with full Planck TTTEEE, TEP-C0 (Paper 26) yields n_s = 0.9623 +- 0.0046, consistent with Planck LambdaCDM.
+This report documents the TEP-HC analysis using the native TEP background-only implementation. The native TEP modification is H_TEP(z) = H_LCDM(z) * M(z) with M(z) = A(z)/(1 - alpha_A(z)) and standard GR perturbations. When confronted with full Planck TTTEEE, TEP-C0 (Paper 26) yields n_s = 0.9619 +- 0.0046 and epsilon_T = (6.75 +- 0.24) x 10^-6, consistent with Planck LambdaCDM.
 
 ## 2. Parameter Constraints
 
@@ -109,13 +109,21 @@ This report documents the TEP-HC analysis using the native TEP background-only i
 | $n_s$ | {tep_params.get('n_s', {}).get('mean', 0.966):.4f} ± {tep_params.get('n_s', {}).get('std', 0.004):.4f} | 0.966 ± 0.004 |
 | $\omega_b$ | {tep_params.get('omega_b', {}).get('mean', 0.0224):.5f} ± {tep_params.get('omega_b', {}).get('std', 0.0002):.5f} | 0.0224 ± 0.0002 |
 | $\omega_{{\rm cdm}}$ | {tep_params.get('omega_cdm', {}).get('mean', 0.12):.4f} ± {tep_params.get('omega_cdm', {}).get('std', 0.001):.4f} | 0.12 ± 0.001 |
+| $\epsilon_T$ | {tep_params.get('epsilon_T', {}).get('mean', 0.0):.4f} ± {tep_params.get('epsilon_T', {}).get('std', 0.004):.4f} | (6.75 ± 0.24) × 10⁻⁶ (TEP-C0 full Planck) |
+| $S_8$ | {tep_params.get('S8', {}).get('mean', 0.87):.3f} ± {tep_params.get('S8', {}).get('std', 0.03):.3f} | — |
+
+## 3. Native TEP Joint MCMC (hi_class)
+
+- **Configuration:** `data/cobaya/tep_hiclass_suite.yaml` → `results/mcmc_chains/tep_hiclass_suite`
+- **Samples:** {tep_params.get('n_samples', 'N/A')} post-burn-in (single chain; Gelman–Rubin N/A)
+- **Interpretation:** low-ℓ Planck run gives $\epsilon_T = {tep_params.get('epsilon_T', {}).get('mean', 0.0):.4f} \pm {tep_params.get('epsilon_T', {}).get('std', 0.004):.4f}$; authoritative homogeneous bound from TEP-C0 full Planck
 """
         
         if has_lcdm:
             H0_lcdm = lcdm_params.get("H0", {"mean": 67.36, "std": 0.54})
             dchi2 = comp.get("delta_chi2", 0.0)
             report += rf"""
-## 3. LCDM Comparison
+## 4. LCDM Comparison
 
 | Parameter | TEP | LCDM | Difference |
 |-----------|-----|------|------------|
