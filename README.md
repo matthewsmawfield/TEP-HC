@@ -1,6 +1,9 @@
 # Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20572723.svg)](https://doi.org/10.5281/zenodo.20572723)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+![TEP-HC: hi_class Background Implementation and CMB Acoustic Peak Preservation](site/public/image.webp)
 
 **Author:** Matthew Lukin Smawfield  
 **Version:** v0.1 (Cambridge)  
@@ -28,7 +31,7 @@ General Relativity is extensively validated in the deeply screened, dense regime
 | **Paper 0** | [TEP](https://github.com/matthewsmawfield/TEP) | Temporal Equivalence Principle: Dynamic Time & Emergent Light Speed | [10.5281/zenodo.16921911](https://doi.org/10.5281/zenodo.16921911) |
 | **Paper 15** | [TEP-EFA](https://github.com/matthewsmawfield/TEP-EFA) | Temporal Shear in the Earth Flyby Anomaly | [10.5281/zenodo.19454863](https://doi.org/10.5281/zenodo.19454863) |
 | **Paper 17** | [TEP-LLR](https://github.com/matthewsmawfield/TEP-LLR) | Lunar Laser Ranging and the Nordtvedt Effect | [10.5281/zenodo.19446029](https://doi.org/10.5281/zenodo.19446029) |
-| **Paper 18** | **TEP-HC** (This repo) | hi_class Background Implementation and CMB Acoustic Peak Preservation | — |
+| **Paper 18** | **TEP-HC** (This repo) | hi_class Background Implementation and CMB Acoustic Peak Preservation | [10.5281/zenodo.20572723](https://doi.org/10.5281/zenodo.20572723) |
 | **Paper 26** | [TEP-C0](https://github.com/matthewsmawfield/TEP-C0) | Covariant Alternative to Cosmic Expansion (Pantheon+ + full Planck) | [10.5281/zenodo.20370144](https://doi.org/10.5281/zenodo.20370144) |
 | **Paper 19** | [TEP-LENS](https://github.com/matthewsmawfield/TEP-LENS) | Geometric Route-Closure Test in Multiply-Imaged Supernovae | — |
 
