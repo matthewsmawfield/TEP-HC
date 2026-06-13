@@ -1,14 +1,14 @@
 # Temporal Equivalence Principle: Suppressed Density Scaling in Globular Cluster Pulsars
 **Matthew Lukin Smawfield**
 Version: v0.7 (Caracas)
-First published: 9 January 2026 · Last updated: 8 June 2026
+First published: 9 January 2026 · Last updated: 12 June 2026
 DOI: 10.5281/zenodo.18165798
 
 ---
 
 ## Abstract
 
-A spatially stratified spin-down anomaly is reported in 197 globular-cluster millisecond pulsars compared with 346 field controls. Cluster pulsars show a 0.63 dex raw excess and a 0.40 dex controlled residual, with covariance-aware significance of 8.3σ. The signal exhibits suppressed density scaling: a mixed-effects slope Γ = 0.39 ± 0.08 dex/dex compared with a Newtonian ensemble baseline Γ = 0.72, rejecting the baseline at 4.1σ. Field binaries provide a null control, while cluster binaries show an inversion relative to isolated pulsars. An adversarial dynamics model accounting for line-of-sight acceleration, jerk, Shklovskii terms, mass segregation, and cluster mass profiles cannot explain the observed suppression. An N-body baseline derived from 21.0M CMC-simulation pulsars predicts an excess 2.5× larger than observed (9.4σ tension), and a mock pulsar-timing-array detection pipeline confirms that the missing high-acceleration population cannot be attributed to observational selection effects. These results are interpreted as a time-domain test of the TEP observable response coefficient κMSP, not as a measurement of a microscopic scalar coupling.
+A spatially stratified spin-down anomaly is reported in 197 globular-cluster millisecond pulsars compared with 346 field controls. Cluster pulsars show a 0.63 dex raw excess and a 0.40 dex controlled residual, with covariance-aware significance of 8.3σ. The signal exhibits suppressed density scaling: the mixed-effects slope Γ = 0.39 ± 0.08 dex/dex is accompanied by flat-weighted specifications at Γ ≈ 0.11, with a cross-estimator range of 0.11–0.44 dex/dex across weighting and exclusion variants, all below the Newtonian ensemble baseline Γ = 0.72; tension is 3.1–4.1σ across exclusion tests. Field binaries provide a null control, while cluster binaries show an inversion relative to isolated pulsars. An adversarial dynamics model accounting for line-of-sight acceleration, jerk, Shklovskii terms, mass segregation, and cluster mass profiles cannot explain the observed suppression. An N-body baseline derived from 21.0M CMC-simulation pulsars predicts an excess 2.5× larger than observed (9.4σ tension), and a mock pulsar-timing-array detection pipeline confirms that the missing high-acceleration population cannot be attributed to observational selection effects. These results are interpreted as a time-domain test of the TEP observable response coefficient κMSP, not as a measurement of a microscopic scalar coupling.
 
 Code Availability: All data and analysis code required to reproduce the results presented in this work, including the full pulsar catalog compilation, are available in the public repository at [https://github.com/matthewsmawfield/TEP-COS](https://github.com/matthewsmawfield/TEP-COS).
 
@@ -53,7 +53,7 @@ The pulsar signal satisfies three independent criteria consistent with TEP: (i) 
 
 A central requirement of TEP phenomenology is that intermediate-scale signals coexist with stringent Solar System bounds. Local light-propagation tests constrain the screened local gradient/source-charge sector and any disformal cone tilt. The pulsar analysis instead fits an observable response coefficient, $\kappa_{\text{MSP}}$, in globular-cluster environments. $\kappa_{\text{MSP}}$ should not be compared directly to PPN couplings without a solved transfer function.
 
-The screening hierarchy itself is governed by the non-linear superposition of field gradients, termed Temporal Shear. While the asymptotic saturation of screening occurs at the Temporal Topology saturation scale ρT ≈ 20 g/cm³, the onset of modulation is sensitive to the gradient coherence length. In compact systems like globular clusters (ρ ~ 10⁻¹⁸ g/cm³), the gradient is set by the diffuse embedding halo, allowing TEP effects to remain fully active despite high local densities. In contrast, distributed galactic environments (ρ ~ 10⁻²³ g/cm³) matching the gradient scale exhibit partial suppression, as observed in the distance-ladder modulation of Paper 11.
+The screening hierarchy itself is governed by the non-linear superposition of field gradients, termed Temporal Shear. While the asymptotic saturation of screening occurs at the Temporal Topology saturation scale ρT ≈ 20 g/cm³, the onset of modulation is sensitive to the gradient coherence length. In compact systems like globular clusters, the internal potential structure is coherent on scales comparable to the cluster size, and the ambient embedding halo density (ρ ~ 10⁻¹⁸ g/cm³) is too low to suppress the gradient; TEP effects therefore remain fully active. In contrast, galactic disk environments, where the local stellar density reaches ρ ~ ρhalf ≈ 0.5 M⊙/pc³ ≈ 3×10⁻²³ g/cm³, exhibit partial suppression through the continuous shear-suppression factor S(ρ), as observed in the distance-ladder modulation of Paper 11.
 
 Within this weakly screened regime, the TEP-enhanced time dilation exhibits topological flattening rather than scaling indefinitely with potential depth. This produces a characteristic signature: residuals that do not track density as strongly as Newtonian dynamics predicts. The observed suppressed density scaling (4.1σ rejection of ρ² dynamics, with all clusters showing positive residuals) is consistent with this continuous geometric screening behavior.
 
@@ -71,7 +71,7 @@ The analysis is organized to prioritize empirical evidence from time-domain prob
 
 ## 2. Theoretical Framework: The Screening Transition
 
-The Temporal Equivalence Principle predicts that gravitational time dilation is enhanced at intermediate astrophysical scales while remaining consistent with precision tests in the screened Solar System regime. This section establishes the theoretical basis for the time-domain probe examined in this work: pulsar spin-down in globular clusters, based on the continuous geometric screening framework established in TEP v0.8 Jakarta. This theoretical foundation is necessary to derive the specific quantitative predictions (Pulsar Ṗ drift) tested in the subsequent sections.
+The Temporal Equivalence Principle predicts that gravitational time dilation is enhanced at intermediate astrophysical scales while remaining consistent with precision tests in the screened Solar System regime. This section establishes the theoretical basis for the time-domain probe examined in this work: pulsar spin-down in globular clusters, based on the continuous geometric screening framework established in TEP (Paper 0). This theoretical foundation is necessary to derive the specific quantitative predictions (Pulsar Ṗ drift) tested in the subsequent sections.
 
 ## 2.1 The TEP Modification
 
@@ -144,13 +144,13 @@ TEP requires intermediate-scale signals to coexist with strict Solar System boun
 
 Mechanistically, this operates via environment-responsive Temporal Shear suppression, acting on the Temporal Shear (field gradient). The observational consequence is a "flattening" behavior: clock-rate anomalies appear in diffuse potentials where gradients remain coherent, but vanish locally when the local topology is flattened. The absence of local anomalies constrains the environmental/source-screening function $S_\Sigma(E)$, not ρT alone, rather than falsifying the underlying conformal coupling.
 
-The screening hierarchy is governed by the gradient coherence length. While the Temporal Topology saturation scale $\rho_T \approx 20$ g/cm³ marks the asymptotic saturation of the screening effect (Solar System regime), the onset of modulation occurs at galactic-scale densities $\rho_{\rm half} \approx 10^{-23}$ g/cm³ (Paper 11). These two numbers are not in conflict; they describe different tiers of the screening cascade:
+The screening hierarchy is governed by the gradient coherence length and the continuous suppression operator $\mathcal S_\Sigma(\mathcal E)$, where $\mathcal E$ includes source structure, ambient environment, and boundary conditions (Paper 0, §7). While the Temporal Topology saturation scale $\rho_T \approx 20$ g/cm³ marks the asymptotic saturation of the screening effect (Solar System regime), observable modulation depends on the interplay of multiple density scales, not a single ambient-density switch. Two distinct density variables govern different observables:
 
 - Saturated regime ($\rho \gtrsim \rho_T$): Temporal Shear is geometrically suppressed. The local topology is flattened, recovering standard GR (Solar System).
 
-- Weak Screening ($\rho \ll \rho_{\rm half}$): Gradient coherence length exceeds system size (Globular Clusters). Despite high local density ($\rho \sim 10^{-18}$), the gradient is set by the diffuse embedding halo, allowing full TEP activity.
+- Weak ambient screening ($\rho_{\rm amb} \ll \rho_T$): In compact systems such as globular clusters, the gradient coherence length exceeds the cluster scale, and the ambient embedding halo density ($\rho_{\rm amb} \sim 10^{-18}$ g/cm³) is too low to suppress the internal gradient. TEP effects remain fully active because the system-scale potential structure permits gradient coherence, not because the ambient density is high.
 
-- Environmental Modulation ($\rho \sim \rho_{\rm half}$): Gradient scale matches density profile (Galactic disks), producing the modulated distance-ladder signal of Paper 11.
+- Environmental modulation ($\rho_* \sim \rho_{\rm half}$): In galactic disks, the *local stellar mass density* $\rho_*$ reaches $\rho_{\rm half} \approx 0.5\,M_\odot/\text{pc}^3 \approx 3\times10^{-23}$ g/cm³ (Paper 11). Here the continuous shear-suppression factor $S(\rho_*) = [1 + (\rho_*/\rho_{\rm half})^2]^{-1}$ modulates the observable response, producing the distance-ladder signal. This is a statement about *local stellar density*, not ambient halo density.
 
 | System | Mass | Ambient ρ | Screening Status | TEP Observable |
 | --- | --- | --- | --- | --- |
@@ -807,7 +807,7 @@ where the shielding fraction is the companion's gravitational influence relative
 
 $f_{shield} = \frac{M_c/d}{M_{clust}/R_{core} + M_c/d}$
 
-This formula derives from the non-linear superposition of Temporal Shear, where competing density wells contribute in proportion to their mass-to-distance ratio. The interpolation is continuous across the spatial profile; there is no step-function boundary. For φmin(ρT) / φcluster ~ 10⁻⁴ to 10⁻⁶, the companion's contribution is effectively negligible, and the formula reduces to the standard result (Khoury & Weltman 2004).
+This formula derives from the non-linear superposition of Temporal Shear, where competing density wells contribute in proportion to their mass-to-distance ratio. The interpolation is continuous across the spatial profile; there is no step-function boundary. For φmin(ρT) / φcluster ~ 10⁻⁴ to 10⁻⁶, the companion's *field amplitude* is strongly suppressed, but its *geometric weight* in the interpolation, fshield, remains non-negligible. The formula does not reduce to the standard result because the 47% geometric weight produces a measurable suppression even when the companion's absolute field contribution is small (Khoury & Weltman 2004).
 
 Why the Field Value Determines the Observed Rate: The observed spin-down rate compares the pulsar's rotation period (measured in its local proper time) to the observer's proper time on Earth. While the NS interior is in the screened regime (ρNS ~ 10¹⁴ g/cm³), the EM signals traverse the scalar field from the NS surface to the topology transition region before entering the ambient cluster field. The conformal factor at the topology transition region determines the relationship between the pulsar's internal proper time and the coordinate time measured by a distant observer. This is analogous to gravitational redshift: a clock at the bottom of a potential well ticks at canonical rate locally, but an external observer sees signals redshifted by the potential difference. Here, the "redshift" is set by the scalar field value at the topology transition.
 
@@ -1298,7 +1298,7 @@ The Temporal Topology saturation scale ρT ≈ 20 g/cm³, independently calibrat
 | Globular Cluster | ~10⁻¹⁸ g/cm³ | Weak screening ($\rho \ll \rho_T$) | Topologically flattened residual | +0.606 dex (this work) |
 | Galaxy Halo | ~10⁻²⁴ g/cm³ | Weak screening ($\rho \ll \rho_T$) | Active gradient coherence | External constraints (beyond scope) |
 
-The key test is not whether ρT predicts specific length scales, but whether the *topological flattening* is observed: in weakly screened systems, TEP effects should not scale indefinitely with density. The pulsar channel confirms this with a 4.1σ rejection of $\rho^2$ scaling, showing 0.606 dex higher |Ṗ| than field pulsars. Leave-one-cluster-out validation confirms this result is robust.
+The key test is not whether ρT predicts specific length scales, but whether the *topological flattening* is observed: in weakly screened systems, TEP effects should not scale indefinitely with density. The pulsar channel confirms this with a 4.1σ rejection of $\rho^2$ scaling, showing 0.606 dex higher |Ṗ| than field pulsars (period-matched estimand; the hybrid-matching estimand reported in the abstract is 0.40 dex; Section 5.6). Leave-one-cluster-out validation confirms this result is robust.
 
 ## 4.3 Suppressed Density Scaling
 
@@ -1810,7 +1810,7 @@ Smawfield, M. L. (2025). *Temporal-Spatial Coupling in Gravitational Lensing: A 
 
 Smawfield, M. L. (2025). *Global Time Echoes: Empirical Synthesis*. Preprint v0.4 (Singapore). Zenodo. DOI: [10.5281/zenodo.18004832](https://doi.org/10.5281/zenodo.18004832) (Paper 5)
 
-Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.3 (New Delhi). Zenodo. DOI: [10.5281/zenodo.18064365](https://doi.org/10.5281/zenodo.18064365) (Paper 6)
+Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.6 (New Delhi). Zenodo. DOI: [10.5281/zenodo.18064365](https://doi.org/10.5281/zenodo.18064365) (Paper 6)
 
 Smawfield, M. L. (2025). *The Soliton Wake: Exploring RBH-1 as a Temporal Topology Candidate*. Preprint v0.3 (Blantyre). Zenodo. DOI: [10.5281/zenodo.18059250](https://doi.org/10.5281/zenodo.18059250) (Paper 7)
 

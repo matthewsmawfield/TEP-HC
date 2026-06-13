@@ -102,7 +102,7 @@ def figure_4_h0_comparison():
         bbox=dict(boxstyle='round', facecolor='white', alpha=0.9, edgecolor=COLORS['accent'], pad=0.35),
     )
 
-    out = FIGURES_DIR / 'figure_4_H0_comparison.png'
+    out = FIGURES_DIR / 'figure_1_H0_comparison.png'
     save_fig(fig, out)
     print(f"  Generated {out.name}")
 
@@ -158,7 +158,7 @@ def figure_5_jordan_theta_s():
 
     fig.subplots_adjust(wspace=0.22)
 
-    out = FIGURES_DIR / 'figure_5_jordan_theta_s.png'
+    out = FIGURES_DIR / 'figure_2_jordan_theta_s.png'
     save_fig(fig, out)
     print(f"  Generated {out.name}")
 

@@ -1,25 +1,25 @@
 # Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20572723.svg)](https://doi.org/10.5281/zenodo.20572723)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20572722.svg)](https://doi.org/10.5281/zenodo.20572722)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 ![TEP-HC: hi_class Background Implementation and CMB Acoustic Peak Preservation](site/public/image.webp)
 
 **Author:** Matthew Lukin Smawfield  
-**Version:** v0.1 (Cambridge)  
+**Version:** v0.2 (Cambridge)  
 **First published:** 8 June 2026  
 **Website:** [https://mlsmawfield.com/tep/hc](https://mlsmawfield.com/tep/hc)  
 **Paper Series:** TEP Series: Paper 18 (hi_class Cosmology)
 
 ## Abstract
 
-General Relativity is extensively validated in the deeply screened, dense regime of the Solar System, but cosmological tensions—specifically the Hubble discrepancy—motivate testing a scale-dependent breakdown of the isochrony axiom. The Temporal Equivalence Principle (TEP) addresses these late-universe anomalies via a dynamical proper-time field, screened at densities $\rho > 20$ g/cm³. This paper implements the native TEP background modification directly in hi_class via `tep_mode`: the Jordan-frame factor $M(z) = A/(1-\alpha_A)$ modifies $H(z)$ while standard General Relativistic perturbations are preserved. Direct Boltzmann integration confirms sound-horizon preservation to parts-per-million ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and unchanged acoustic-peak morphology. A direct exact-frame-factor check confirms that replacing the implemented first-order factor $A/(1-\alpha_A)$ with the exact form $A(1+\alpha_A)$ leaves $r_s$ unchanged to quoted precision in the screened regime (Section 5.4 and Appendix A.3a). The sole CMB effect of a non-zero homogeneous amplitude $\epsilon_T$ is a late-time angular-diameter-distance projection largely degenerate with $H_0$. A joint Cobaya MCMC against Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+ yields $\epsilon_T = 0.0056 \pm 0.0043$ and $H_0 = 66.63 \pm 1.70$ km/s/Mpc. The Bellini–Sawicki EFT mapping ($\alpha_M, \alpha_B, \alpha_K, \alpha_T$) is retained in step 3 as an archived theoretical reference.
+Standard cosmology relies on spatial expansion and a Big Bang singularity to explain the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN). This paper demonstrates that these early-universe successes are natively preserved under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP). The Jordan-frame factor $M(z) = A/(1-\alpha_A)$ modifies $H(z)$ via `tep_mode` while standard General Relativistic perturbations are preserved. Direct Boltzmann integration confirms sound-horizon preservation to parts-per-million ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and unchanged acoustic-peak morphology. The exact geometric relation $M = A/(1-\alpha_A)$ is evaluated directly in the production implementation (Appendix A.3). The sole CMB effect of a non-zero homogeneous amplitude $\epsilon_T$ is a late-time angular-diameter-distance projection largely degenerate with $H_0$. A joint Cobaya MCMC against Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+ yields $\epsilon_T = 0.0056 \pm 0.0043$ and $H_0 = 66.63 \pm 1.70$ km/s/Mpc. The Bellini–Sawicki EFT mapping is retained as an archived theoretical reference.
 
 ## Key Results
 
 1. **Native `tep_mode`:** $H_{\rm TEP}(z) = H_{\Lambda\rm CDM}(z)\,M(z)$ with $f_T(z)=\ln(1+z)\exp[-(z/z_T)^{n_T}]$, patched into hi_class `background.c`.
 2. **Sound horizon:** $r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$; acoustic-peak morphology unchanged at recombination.
-3. **Joint MCMC:** $\epsilon_T = 0.0056 \pm 0.0043$, $H_0 = 66.63 \pm 1.70$ km/s/Mpc, $S_8 = 0.870 \pm 0.028$ (27,190 samples; primary chain `results/mcmc_chains/tep_hiclass_suite.*`).
+3. **Joint MCMC:** $\epsilon_T = 0.0056 \pm 0.0043$, $H_0 = 66.63 \pm 1.70$ km/s/Mpc, $S_8 = 0.870 \pm 0.028$ (19,033 post-burn-in samples; primary chain `results/mcmc_chains/tep_hiclass_suite.*`).
 4. **Hubble tension:** Homogeneous background stays Planck-compatible; local $H_0 \approx 73$ km/s/Mpc is interpreted as environment-dependent clock-transport bias (Paper 11).
 
 ---
@@ -31,7 +31,7 @@ General Relativity is extensively validated in the deeply screened, dense regime
 | **Paper 0** | [TEP](https://github.com/matthewsmawfield/TEP) | Temporal Equivalence Principle: Dynamic Time & Emergent Light Speed | [10.5281/zenodo.16921911](https://doi.org/10.5281/zenodo.16921911) |
 | **Paper 15** | [TEP-EFA](https://github.com/matthewsmawfield/TEP-EFA) | Temporal Shear in the Earth Flyby Anomaly | [10.5281/zenodo.19454863](https://doi.org/10.5281/zenodo.19454863) |
 | **Paper 17** | [TEP-LLR](https://github.com/matthewsmawfield/TEP-LLR) | Lunar Laser Ranging and the Nordtvedt Effect | [10.5281/zenodo.19446029](https://doi.org/10.5281/zenodo.19446029) |
-| **Paper 18** | **TEP-HC** (This repo) | hi_class Background Implementation and CMB Acoustic Peak Preservation | [10.5281/zenodo.20572723](https://doi.org/10.5281/zenodo.20572723) |
+| **Paper 18** | **TEP-HC** (This repo) | hi_class Background Implementation and CMB Acoustic Peak Preservation | [10.5281/zenodo.20572722](https://doi.org/10.5281/zenodo.20572722) |
 | **Paper 26** | [TEP-C0](https://github.com/matthewsmawfield/TEP-C0) | Covariant Alternative to Cosmic Expansion (Pantheon+ + full Planck) | [10.5281/zenodo.20370144](https://doi.org/10.5281/zenodo.20370144) |
 | **Paper 19** | [TEP-LENS](https://github.com/matthewsmawfield/TEP-LENS) | Geometric Route-Closure Test in Multiply-Imaged Supernovae | — |
 
@@ -87,7 +87,7 @@ python scripts/generate_figures.py
 
 # Build manuscript from HTML
 cd site && npm ci && npm run build:markdown
-# Output: 18-TEP-HC-v0.1-Cambridge.md
+# Output: 18-TEP-HC-v0.2-Cambridge.md
 
 # Build static site (figures copied from results/figures/)
 cd site && npm ci && npm run build
@@ -118,9 +118,9 @@ Figures are generated separately via `python scripts/generate_figures.py` and co
 @article{tep_hc_paper,
   title={Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation},
   author={Smawfield, Matthew Lukin},
-  year={2028},
-  note={Preprint v0.1 (Cambridge)},
-  url={https://github.com/matthewsmawfield/TEP-HC}
+  year={2026},
+  note={Preprint v0.2 (Cambridge)},
+  url={https://mlsmawfield.com/tep/hc}
 }
 ```
 

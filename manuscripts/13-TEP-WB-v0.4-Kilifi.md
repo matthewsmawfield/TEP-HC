@@ -10,7 +10,7 @@ DOI: 10.5281/zenodo.19102061
 
 The Gaia DR3 catalog of over one million wide binaries opens a precise window onto gravity in the weak-field regime ($a \lesssim 10^{-10}\,\mathrm{m\,s^{-2}}$), yet whether the observed velocity excess reflects modified gravity or unresolved systematics remains contested.
 
-In the Temporal Equivalence Principle (TEP v0.8 Jakarta), a conformal scalar field modulates matter proper time as
+In the Temporal Equivalence Principle (TEP), a conformal scalar field modulates matter proper time as
 
 \begin{equation} \label{eq:conformal_relation} \mathrm{d}\tau/\mathrm{d}t \approx A(\phi),
     \qquad
@@ -41,7 +41,7 @@ Unlike MOND, which is organized around a universal acceleration threshold $a_0 \
 
 ### 2.1 The Screening Radius
 
-$R_T$ here denotes the projected separation at which the Temporal Shear suppression transitions from the screened to unscreened regime, related to but distinct from the GNSS correlation length $\lambda_T$ (which characterises the radial relaxation scale within a gravitational well) and the screening radius $R_s$ of Paper 10 (which characterises the system-level boundary condition).
+$R_T$ here denotes the projected separation at which the Temporal Shear suppression transitions from the screened to unscreened regime, related to but distinct from the GNSS correlation length $\lambda_T$ (which characterises the radial relaxation scale within a gravitational well) and the geometric saturation radius $R_T(M, \rho_T, \epsilon_{\rm env})$ derived in Paper 6 (which characterises the system-level boundary condition for a self-gravitating source of mass $M$). The wide-binary screening radius $R_s$ introduced below in Equation (\ref{eq:screening_radius}) is the chameleon-completion benchmark for this transition scale.
 
 For a binary of total mass $M$, the locally active Temporal Shear $\Sigma_\mu \equiv \nabla_\mu \ln A(\phi)$ is suppressed continuously by the environmental and source state rather than gated by an on/off density threshold (Smawfield 2025a, Section 7). As the binary's internal Newtonian potential becomes shallow enough that the source-charge sector no longer fully suppresses the locally observable Temporal Shear, the residual gradient of $\ln A$ generates an additional kinematic enhancement above the Keplerian baseline. The transition is therefore characterized by a continuous recovery of the Temporal Shear, parameterized below by an effective screening radius $R_s$.
 

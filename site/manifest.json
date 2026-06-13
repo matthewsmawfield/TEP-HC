@@ -20,11 +20,11 @@
   "title": "Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation",
   "short_title": "TEP-HC: hi_class Cosmology",
   "author": "Matthew Lukin Smawfield",
-  "version": "v0.1",
+  "version": "v0.2",
   "codename": "Cambridge",
-  "date": "2026-06-08",
+  "date": "2026-06-13",
   "first_published": "8 June 2026",
-  "doi": "10.5281/zenodo.20572723",
+  "doi": "10.5281/zenodo.20572722",
   "sections": [
     {
       "id": "section-abstract",

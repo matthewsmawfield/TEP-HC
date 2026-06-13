@@ -102,6 +102,30 @@ The following canonical definitions are provided so that every paper in the TEP 
 Each entry uses a domain-appropriate parameterization of the same underlying operator <em>S</em><sub>&Sigma;</sub>(<em>&Epsilon;</em>). The LHC entry is explicitly marked as probing a channel-specific response under high-energy momentum transfer, not the macroscopic bulk-density screening that governs astrophysical and cosmological observables.
 </p>
 
+<h4>A.5.2 Screening Scales and Symbols</h4>
+<p>
+The following table lists the canonical screening-related symbols used across the TEP corpus, their meanings, and the papers in which they appear. This is provided to prevent symbol collisions and scale misattribution (e.g., <em>R<sub>s</sub></em> for wide binaries vs <em>R</em><sub>sol</sub> for pulsar companion saturation).
+</p>
+<table>
+<thead>
+<tr><th>Symbol</th><th>Meaning</th><th>Defined in</th><th>Typical value / formula</th><th>Used in</th></tr>
+</thead>
+<tbody>
+<tr><td>&rho;<sub>T</sub></td><td>Temporal Topology saturation scale</td><td>Paper 6</td><td>&asymp; 20 g/cm<sup>3</sup></td><td>Papers 6, 10, 11, 13, 17, 21</td></tr>
+<tr><td>&rho;<sub>half</sub></td><td>Galactic stellar half-suppression density</td><td>Paper 11</td><td>&asymp; 0.5 <em>M</em><sub>&odot;</sub>/pc<sup>3</sup> &asymp; 3&times;10<sup>&minus;23</sup> g/cm<sup>3</sup></td><td>Paper 11 (<em>S</em>(&rho;<sub>*</sub>) for Cepheids)</td></tr>
+<tr><td>&rho;<sub>c</sub></td><td>Macroscopic many-body suppression scale</td><td>Paper 21</td><td>&asymp; 20 g/cm<sup>3</sup> (equivalent to &rho;<sub>T</sub>)</td><td>Paper 21</td></tr>
+<tr><td><em>R</em><sub>T</sub></td><td>Geometric saturation radius</td><td>Paper 6</td><td>(3<em>M</em> / 4&pi;&rho;<sub>T</sub>)<sup>1/3</sup></td><td>Papers 6, 13</td></tr>
+<tr><td><em>R<sub>s</sub></em></td><td>Effective screening radius (wide binaries)</td><td>Paper 13</td><td>(3<em>M</em> / 4&pi;&epsilon;<sub>env</sub>&rho;<sub>T</sub>)<sup>1/3</sup></td><td>Paper 13</td></tr>
+<tr><td><em>R</em><sub>sol</sub></td><td>Companion saturation radius (pulsars)</td><td>Paper 10</td><td>&sim; companion orbital scale</td><td>Paper 10</td></tr>
+<tr><td>&lambda;<sub>T</sub></td><td>GNSS correlation length / relaxation scale</td><td>Papers 1&ndash;3</td><td>&sim; 4,200 km</td><td>Papers 1&ndash;3, 4, 14</td></tr>
+<tr><td>&rho;<sub>amb</sub></td><td>Ambient halo density</td><td>Context-dependent</td><td>&sim; 10<sup>&minus;18</sup> g/cm<sup>3</sup> (GC halo)</td><td>Papers 10, 11, 13</td></tr>
+<tr><td>&rho;<sub>*</sub></td><td>Local stellar mass density</td><td>Context-dependent</td><td>&sim; 0.5 <em>M</em><sub>&odot;</sub>/pc<sup>3</sup> (galactic disk)</td><td>Paper 11</td></tr>
+</tbody>
+</table>
+<p>
+Key distinction: &rho;<sub>half</sub> is a <strong>local stellar density</strong> parameter for the continuous suppression factor <em>S</em>(&rho;<sub>*</sub>) in galactic disks (Paper 11), not an ambient halo density. Globular clusters are active not because &rho;<sub>amb</sub> &ll; &rho;<sub>half</sub> but because their internal potential structure permits gradient coherence on scales larger than the cluster size. Conversely, &rho;<sub>T</sub> &asymp; 20 g/cm<sup>3</sup> is the asymptotic saturation scale of the conformal-factor sector; systems with &rho; &gg; &rho;<sub>T</sub> (e.g., Solar System interiors) are in the saturated/GR-recovered regime.
+</p>
+
 <h3>A.6 Observable Response Coefficient</h3>
 <p>
 An observable response coefficient, denoted &kappa; with an appropriate subscript (e.g. &kappa;<sub>Cep</sub>, &kappa;<sub>MSP</sub>), is a domain-level empirical transfer coefficient that maps a TEP field structure to a specific observable shift in a given experiment.  It is not a bare microscopic coupling; it absorbs the combined effect of local screening, instrument bandwidth, calibration conventions, and systematic residuals.  Different experiments constrain different response coefficients, and the same underlying &beta;<sub>A</sub> can manifest through different &kappa; values in different domains.

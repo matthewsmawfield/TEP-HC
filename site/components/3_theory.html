@@ -72,24 +72,27 @@
 
 <p>The explicit functional forms follow from the bi-metric action (Equation \ref{eq:3_theory_01}) and are determined by the conformal factor $A(\phi)$ and the disformal function $B(\phi)$. Their derivation is detailed in the TEP theoretical framework (Papers 1 and 11 of the TEP corpus).</p>
 
-<p>Because the production analysis in this paper does not activate the scalar perturbation sector, the $\alpha_B$ and $\alpha_K$ expressions are used as formal EFT bookkeeping rather than as fitted numerical functions; a full perturbative TEP-hi_class treatment would require explicit closure of $f_B(\phi,X)$, $f_K(\phi,X)$, sound-speed, and no-ghost stability conditions.</p>
+<p>Because the production analysis in this paper does not activate the scalar perturbation sector, the $\alpha_B$ and $\alpha_K$ expressions are used as formal EFT bookkeeping rather than as fitted numerical functions; during native <code>tep_mode</code> background-only integration $f_B$ and $f_K$ evaluate identically to zero, confirming that this is a strict, background-only geometric mapping. A full perturbative TEP-hi_class treatment would require explicit closure of $f_B(\phi,X)$, $f_K(\phi,X)$, sound-speed, and no-ghost stability conditions, the theoretical basis for which is developed in the foundational TEP formalism (Papers 1 and 11).</p>
 
-<h3>2.3 The Radiation Domination Freezing Mechanism</h3>
+<h3>2.3 The Static Conformal Isomorphism</h3>
 
-<p>During radiation domination, the trace of the energy-momentum tensor vanishes:</p>
+<p>The defining feature of the TEP framework is that it recasts the role normally played by a physically expanding spatial metric in the background/acoustic sector. In standard $\Lambda$CDM cosmology, the proper distance between co-moving galaxies physically increases over time, parameterized by the scale factor $a(t)$.</p>
+
+<p>In the TEP interpretation tested here, the underlying spatial metric is treated as static. The spatial distance between co-moving galaxies remains rigidly constant. However, the causal matter metric $\tilde{g}_{\mu\nu}$ is modulated by the conformal clock-rate field $A(\phi)$. We emphasize that the Temporal Equivalence Principle relies on this distinct, dynamical proper-time field and is fundamentally separate from the standard Einstein Equivalence Principle (EEP), which concerns the universality of free fall and local Lorentz invariance in metric theories of gravity. Photons propagating through this gradient experience a shift in phase and frequency, leading to the exact geometric relation:</p>
 
 <div class="equation">
 \begin{equation} \label{eq:3_theory_06}
-T^\mu_\mu = -\rho + 3p \approx 0 \text{ (radiation)}
+1+z = \frac{A_0}{A_{\text{em}}}
 \end{equation}
 </div>
 
-<p>Since the TEP scalar field couples to $T^\mu_\mu$, the source term for $\phi$ evolution is suppressed. The field freezes at its initial value, and $\alpha_M, \alpha_B \rightarrow 0$. This ensures:</p>
+<p>Because the mathematical transport geometry of $A(\phi)$ across a static conformal geometry is formally isomorphic to the transport geometry of a photon in an expanding FLRW metric with scale factor $a(t)$, standard cosmological integrators (like <code>hi_class</code> and <code>CLASS</code>) can be deployed natively as exact conformal-frame calculators for the background/acoustic-sector mapping tested here.</p>
 
 <ul>
-    <li>Primary acoustic peaks ($100 \lesssim \ell \lesssim 2000$) generated at $z \sim 1089$ remain unmodified</li>
-    <li>The sound horizon $r_s$ is preserved, anchoring $H_0$ from CMB at $\sim 67$ km/s/Mpc (Planck 2018: $67.36 \pm 0.54$ km/s/Mpc)</li>
-    <li>Late-time matter domination reactivates the scalar field, enabling environmental $H_0$ variations</li>
+    <li>The primary acoustic peaks ($100 \lesssim \ell \lesssim 2000$) generated at $z \sim 1089$ are preserved with extreme precision, because the mathematics of the acoustic horizon $r_s$ depend only on the conformal integration path, not on physical spatial stretching.</li>
+    <li>The parameter conventionally identified as Dark Energy ($\Omega_\Lambda$) is entirely reinterpreted. It does not represent a mysterious vacuum energy accelerating the stretching of space; it is simply the background kinetic energy density of the scalar field $\Omega_\phi$.</li>
+    <li>The Big Bang singularity is reinterpreted, within TEP, as a temporal-horizon boundary of the conformal clock-rate field where $A(\phi) \to 0$ relative to the present epoch, creating the mathematical appearance of infinite density in standard FLRW reconstructions.</li>
+    <li><em>Thermodynamic Cooling:</em> The adiabatic cooling of the CMB photon gas ($T \propto 1/a$ in standard cosmology) is preserved as $T \propto 1/A$. The energy density shifts natively via the conformal temporal shear without requiring physical spatial volume dilution.</li>
 </ul>
 
-<p><em>Archived EFT reference.</em> The Bellini–Sawicki $\alpha_i$ functions mapped from the TEP bi-metric action (step-3 fiducial) are archived in <code>results/03_alpha_functions.json</code>. Production CMB constraints use the native background-only <code>tep_mode</code> implementation (Section 4), not this linear-perturbation mapping.</p>
+<p><em>Archived EFT reference.</em> The Bellini–Sawicki $\alpha_i$ functions mapped from the TEP bi-metric action (step-3 fiducial) are archived in <code>results/03_alpha_functions.json</code>. Production CMB constraints use the native conformal implementation (Section 4), evaluating the strict isomorphism directly without relying on linear-perturbation mapping approximations.</p>

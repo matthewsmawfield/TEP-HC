@@ -1,6 +1,6 @@
 {
   "name": "tep-hc",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TEP-HC: hi_class EFT mapping and CMB constraints",
   "scripts": {
     "build:markdown": "npm run build:markdown --prefix site"

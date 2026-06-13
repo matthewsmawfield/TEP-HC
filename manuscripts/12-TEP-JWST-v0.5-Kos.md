@@ -314,7 +314,7 @@ quantities used in the present analysis.
 
 The TEP framework builds upon scalar-tensor theories with
 environment-dependent screening (Khoury & Weltman 2004; Brax et al. 2004;
-Burrage & Sakstein 2018), extending them via the v0.8 Temporal Topology
+Burrage & Sakstein 2018), extending them via the TEP Temporal Topology
 mechanism where field gradient flattening (Temporal Shear) provides
 continuous geometric screening. The key steps mapping the fundamental physics to the
 observable $\Gamma_t$ are:
@@ -342,10 +342,10 @@ the potential depth $\Phi \propto M_h^{2/3}$, yielding:
 
 
 
-##### 2.3.2.1c The Log-Mass Effective Theory (v0.8 Jakarta)
+##### 2.3.2.1c The Log-Mass Effective Theory
 
 
-While the potential-linear kernel (v0.8) provides a direct link to the gravitational potential $\Phi$, high-redshift observations across the UNCOVER, CEERS, and COSMOS-Web samples consistently favor a **Log-Mass effective mapping** for stellar-population observables. In this refined v0.8 Jakarta framework, the temporal enhancement factor scales with the log-mass perturbation:
+While the potential-linear kernel provides a direct link to the gravitational potential $\Phi$, high-redshift observations across the UNCOVER, CEERS, and COSMOS-Web samples consistently favor a **Log-Mass effective mapping** for stellar-population observables. In this refined TEP framework, the temporal enhancement factor scales with the log-mass perturbation:
 
 
 
@@ -1199,7 +1199,7 @@ galaxies appear more evolved than they truly are.
 
 
 The central value $\kappa_{\rm gal} = 9.6 \times 10^5$ mag of the external Cepheid prior was
-derived from period-luminosity residuals in local galaxies (Paper 11, v0.8 continuous screening)
+derived from period-luminosity residuals in local galaxies (Paper 11, continuous screening)
 and then applied to $z > 5$ galaxies with only the physically motivated
 redshift scaling $(1+z)^{0.5}$ and no tuning to JWST data. That it quantitatively
 accounts for the anomaly is therefore a non-trivial consistency check. TEP is not
@@ -4157,7 +4157,7 @@ Smawfield, M. L. (2025). *Temporal-Spatial Coupling in Gravitational Lensing: A 
 
 Smawfield, M. L. (2025). *Global Time Echoes: Empirical Synthesis*. Preprint v0.4 (Singapore). Zenodo. DOI: 10.5281/zenodo.18004832 (Paper 5)
 
-Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.3 (New Delhi). Zenodo. DOI: 10.5281/zenodo.18064365 (Paper 6)
+Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.6 (New Delhi). Zenodo. DOI: 10.5281/zenodo.18064365 (Paper 6)
 
 Smawfield, M. L. (2025). *The Soliton Wake: Exploring RBH-1 as a Temporal Topology Candidate*. Preprint v0.3 (Blantyre). Zenodo. DOI: 10.5281/zenodo.18059250 (Paper 7)
 
@@ -4290,7 +4290,7 @@ trace of the matter stress-energy tensor in the Jordan frame.
 
 
 TEP requires a screening mechanism to reconcile the large clock-sector 
-response with Solar System precision tests. In the Jakarta v0.8 
+response with Solar System precision tests. In the TEP 
 framework, this is achieved through Temporal Shear: the 
 suppression of field gradients in dense environments. 
 Phenomenologically, the screening is characterized by a 

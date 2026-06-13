@@ -6,12 +6,12 @@ authors:
     given-names: "Matthew Lukin"
     orcid: "https://orcid.org/0009-0003-8219-3159"
 title: "Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation"
-abstract: "General Relativity is extensively validated in the screened Solar System, but cosmological tensions suggest scale-dependent breakdown of the isochrony axiom. The Temporal Equivalence Principle (TEP) resolves late-universe anomalies via a dynamical proper-time field, screened at densities above roughly 20 g/cm^3. This paper presents the exact analytical mapping of the TEP bi-metric framework into the Bellini-Sawicki Effective Field Theory of Dark Energy, integrates property functions into hi_class, and constrains the model with Cobaya MCMC against Planck 2018 likelihoods."
-version: "v0.1 (Cambridge)"
-date-released: 2026-06-08
-url: "https://github.com/matthewsmawfield/TEP-HC"
+abstract: "Standard cosmology relies on spatial expansion and a Big Bang singularity to explain the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN). This paper demonstrates that these early-universe successes are natively preserved under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP). The Jordan-frame factor M(z) = A/(1-alpha_A) modifies H(z) via tep_mode while standard General Relativistic perturbations are preserved. Direct Boltzmann integration confirms sound-horizon preservation to parts-per-million and unchanged acoustic-peak morphology. A joint Cobaya MCMC against Planck 2018 low-l TT/EE + lensing + BAO + Pantheon+ yields epsilon_T = 0.0056 +/- 0.0043 and H_0 = 66.63 +/- 1.70 km/s/Mpc."
+version: "v0.2 (Cambridge)"
+date-released: 2026-06-13
+url: "https://mlsmawfield.com/tep/hc"
 repository-code: "https://github.com/matthewsmawfield/TEP-HC"
-doi: 10.5281/zenodo.20572723
+doi: 10.5281/zenodo.20572722
 license: CC-BY-4.0
 keywords:
   - hi_class
@@ -19,6 +19,13 @@ keywords:
   - effective field theory
   - CMB
   - temporal equivalence principle
+  - static universe
+  - conformal gravity
+  - scalar-tensor theories
+  - Hubble tension
+  - Cobaya
+  - Planck 2018
+  - proper time
 
 preferred-citation:
   type: article
@@ -29,5 +36,5 @@ preferred-citation:
       orcid: "https://orcid.org/0009-0003-8219-3159"
   year: 2026
   journal: Zenodo
-  url: "https://github.com/matthewsmawfield/TEP-HC"
-  notes: "Preprint v0.1 (Cambridge)"
+  url: "https://mlsmawfield.com/tep/hc"
+  notes: "Preprint v0.2 (Cambridge)"

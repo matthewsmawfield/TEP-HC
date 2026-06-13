@@ -6,24 +6,22 @@ authors:
   given-names: Matthew Lukin
   orcid: https://orcid.org/0009-0003-8219-3159
 title: 'Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation'
-abstract: General Relativity is extensively validated in the screened Solar System,
-  but cosmological tensions motivate testing a scale-dependent breakdown of the isochrony axiom.
-  The Temporal Equivalence Principle (TEP) addresses late-universe anomalies via a
-  dynamical proper-time field, screened at densities above roughly 20 g/cm^3. This
-  paper presents the exact analytical mapping of the TEP bi-metric framework—conformal
-  factor A(phi) and disformal deformation B(phi)—into the Bellini-Sawicki Effective
-  Field Theory of Dark Energy. Property functions (alpha_M, alpha_B, alpha_K, alpha_T)
-  are integrated into the hi_class cosmological solver and constrained with a Cobaya
-  MCMC pipeline against Planck 2018 likelihoods. The TEP scalar field preserves CMB
-  acoustic peak structure (|Delta C_l/C_l| < 0.02%) while permitting late-time, environment-dependent
-  proper-time dynamics relevant to the Hubble tension. A direct exact-frame-factor check
-  confirms that the exact Jordan-frame factor M_exact=A(1+alpha_A) leaves the sound
-  horizon unchanged to quoted precision in the screened regime.
-version: v0.1 (Cambridge)
-date-released: 2026-06-08
+abstract: Standard cosmology relies on spatial expansion and a Big Bang singularity
+  to explain the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination
+  sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN).
+  This paper demonstrates that these early-universe successes are natively preserved
+  under a static conformal temporal-transport geometry governed by the Temporal
+  Equivalence Principle (TEP). The Jordan-frame factor M(z) = A/(1-alpha_A) modifies
+  H(z) via tep_mode while standard General Relativistic perturbations are preserved.
+  Direct Boltzmann integration confirms sound-horizon preservation to parts-per-million
+  and unchanged acoustic-peak morphology. A joint Cobaya MCMC against Planck 2018
+  low-l TT/EE + lensing + BAO + Pantheon+ yields epsilon_T = 0.0056 +/- 0.0043 and
+  H_0 = 66.63 +/- 1.70 km/s/Mpc.
+version: v0.2 (Cambridge)
+date-released: 2026-06-13
 url: https://mlsmawfield.com/tep/hc
 repository-code: https://github.com/matthewsmawfield/TEP-HC
-doi: 10.5281/zenodo.20572723
+doi: 10.5281/zenodo.20572722
 license: CC-BY-4.0
 keywords:
 - Temporal Equivalence Principle
@@ -52,4 +50,4 @@ preferred-citation:
   year: 2026
   journal: Zenodo
   url: https://mlsmawfield.com/tep/hc
-  notes: Preprint v0.1 (Cambridge)
+  notes: Preprint v0.2 (Cambridge)

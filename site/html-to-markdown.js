@@ -139,7 +139,7 @@ class HTMLToMarkdownConverter {
             console.log(`  Total HTML: ${(allHtml.length / 1024).toFixed(1)} KB`);
             const markdownTitle = manifest.title || 'Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation';
             const author = manifest.author || 'Matthew Lukin Smawfield';
-            const version = manifest.version || 'v0.1';
+            const version = manifest.version || 'v0.2';
             const codename = manifest.codename || 'Draft';
             const date = manifest.date || new Date().getFullYear();
             const firstPublished = '8 June 2026';
@@ -152,7 +152,7 @@ class HTMLToMarkdownConverter {
             markdown = markdown.split('\n').map(line => line.replace(/^\s+/, '')).join('\n').trim();
             
             const fullMarkdown = header + markdown;
-            const outputPath = path.join(__dirname, '..', '18-TEP-HC-v0.1-Cambridge.md');
+            const outputPath = path.join(__dirname, '..', '18-TEP-HC-v0.2-Cambridge.md');
             fs.writeFileSync(outputPath, fullMarkdown, 'utf8');
             console.log(`✅ Markdown saved to: ${outputPath} (${(markdown.length / 1024).toFixed(1)} KB)`);
         } catch (error) {

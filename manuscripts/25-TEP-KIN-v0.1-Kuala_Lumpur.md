@@ -1,13 +1,13 @@
 # Temporal Equivalence Principle: Disformal Kinematics and the Measurement Landscape
 **Matthew Lukin Smawfield**
 Version: v0.1 (Kuala Lumpur)
-First published: 24 May 2026 · Last updated: 8 June 2026
+First published: 24 May 2026 · Last updated: 13 June 2026
 
 ---
 
 ## Abstract
 
-In the unscreened regime of the Temporal Equivalence Principle, this paper proposes that virtual force carriers and statistical wavefunctions are tangent-limit descriptions of a deeper disformal geometry of the temporal field, governed by the coupling coefficient B(φ). In the screened limit, where the local interaction energy density substantially exceeds the saturation scale ρ_{T} ≈ 20 g/cm^{3}, the observable disformal response is suppressed and standard perturbation theory is recovered as the tangent limit. U(1) electromagnetism is derived from temporal vortex defects in a compact phase bundle, with the photon interpreted as a propagating shear-wave in the dilute-defect limit. The SU(2) sector is currently speculative: no gauge-covariant derivation exists and no claim is made about replacing the weak interaction geometrically. Geometric kinematics is developed by showing how attraction and repulsion can arise when charged defects navigate spatially varying temporal shear, with Coulomb-like behavior recovered when source boundary conditions impose the corresponding weak-field B(φ) gradient. Entanglement is modeled as an unbroken macroscopic geometric contour connecting bifurcated topological charges, with Schmidt rank mapped to contour winding number. The probability wavefunction is reinterpreted as the physical volumetric shear-wake of proper-time phase transport; the double-slit and tunneling phenomena are described as interference and barrier-navigation effects of that wake. A re-analysis of published graphene Aharonov-Bohm interferometry data (Zimmermann et al., Nat. Commun. 8, 14983, 2017) is presented as a candidate empirical test. Phase extraction was performed by lock-in quadrature demodulation against the known carrier, a method that avoids the nonlinear aliasing of the Hilbert transform. A disformal topography regression, in which the measured phase shift is regressed directly against the metric tilt B(φ), was evaluated with the corrected standard BIC formula. The Gaussian confinement-peak model is overwhelmingly preferred (BIC = -498.86), with the linear gradient model ranking second (BIC = -467.48) and the exponential boundary-decay model third (BIC = -453.83). The harmonic periodic-shear model is strongly disfavoured (BIC = -107.69). Bayesian model averaging assigns the Gaussian model a posterior probability of ≈ 1.0000, indicating an unambiguous preference. The uniform temporal-dilation model (γ ≠ 1) fails strongly (BIC = -87.22). Synthetic null tests with the lock-in pipeline show that exponential ground truth is recovered perfectly (true-positive rate ≈ 1.000), but Gaussian and harmonic models remain partially conflated on synthetic data with strong amplitude modulation. These findings underscore the need for replication across independent devices. A comprehensive control suite was performed on the medium-smoothed transmission profile: dataset provenance was verified by SHA-256; the original MATLAB processing was reproduced exactly; seven standard nuisance models were fitted; P-gamma covariance was estimated by Hessian and bootstrap; a train/test split was performed; and the model was refitted on raw, light, medium, and heavily smoothed data. The γ parameter is degenerate with an effective period P_{eff} = P/γ and is unstable across smoothing levels, ranging from 0.864 (raw) to 0.845 (medium), with 1.067 (light) and 1.011 (heavy), confirming that the uniform-dilation proxy is not the correct observable for this geometry.
+Within the density-dependent screening hierarchy of the Temporal Equivalence Principle, virtual force carriers and statistical wavefunctions are tangent-limit descriptions of a deeper disformal geometry of the temporal field, governed by the coupling coefficient B(φ). Observable disformal tilt increases continuously as the local bulk density falls below the saturation scale ρ_{T} ≈ 20 g/cm^{3}; as density approaches ρ_{T}, the response is progressively suppressed and standard perturbation theory is recovered only in the fully screened tangent limit. This continuous hierarchy — not a binary on/off switch — unifies cosmological void bounds (|∇φ| → 0), hadronic cores (steep gradients), and mesoscopic cavities such as the graphene device analysed here (bulk density well below ρ_{T}, localised electrostatic gradients at split-gate boundaries). A candidate U(1) phase-bundle construction is proposed from temporal vortex defects in the compact temporal phase bundle, with the photon interpreted as a propagating shear-wave in the dilute-defect limit. Geometric kinematics is developed by showing how the disformal metric can geometrize force routing once the internal charge sector supplies the sign and radial source law, with Coulomb-like behavior recovered as a weak-field consistency condition when source boundary conditions fix the corresponding B(φ) gradient. Entanglement is modeled as an unbroken macroscopic geometric contour connecting bifurcated topological charges; for the maximally entangled two-level case, the contour winding is proposed to encode the non-separable topological class corresponding to Bell-pair structure. The probability wavefunction is proposed as the tangent-limit representation of a physical volumetric shear-wake of proper-time phase transport; the double-slit and tunneling phenomena are described as interference and barrier-navigation effects of that wake. A re-analysis of published graphene Aharonov-Bohm interferometry data (Zimmermann et al., Nat. Commun. 8, 14983, 2017) is presented as a candidate empirical test. Phase extraction was performed by lock-in quadrature demodulation against the known carrier, a method that avoids the nonlinear aliasing of the Hilbert transform. A disformal topography regression, in which the measured phase shift is regressed directly against the metric tilt B(φ), was evaluated with the corrected standard BIC formula. The Gaussian confinement-peak model is overwhelmingly preferred (BIC = -498.86), with the linear gradient model ranking second (BIC = -467.48) and the exponential boundary-decay model third (BIC = -453.83). The harmonic periodic-shear model is strongly disfavoured (BIC = -107.69). Bayesian model averaging assigns the Gaussian model a posterior probability of ≈ 1.0000, indicating an unambiguous preference. The uniform temporal-dilation model (γ ≠ 1) fails strongly (BIC = -87.22). Synthetic null tests with the lock-in pipeline show that exponential ground truth is recovered perfectly (true-positive rate ≈ 1.000), but Gaussian and harmonic models remain partially conflated on synthetic data with strong amplitude modulation. These findings underscore the need for replication across independent devices. A comprehensive control suite was performed on the medium-smoothed transmission profile: dataset provenance was verified by SHA-256; the original MATLAB processing was reproduced exactly; seven standard nuisance models were fitted; P-gamma covariance was estimated by Hessian and bootstrap; a train/test split was performed; and the model was refitted on raw, light, medium, and heavily smoothed data. The γ parameter is degenerate with an effective period P_{eff} = P/γ and is unstable across smoothing levels, ranging from 0.864 (raw) to 0.845 (medium), with 1.067 (light) and 1.011 (heavy), confirming that the uniform-dilation proxy is not the correct observable for this geometry.
 
 Keywords: disformal kinematics, measurement, entanglement, Aharonov-Bohm, graphene interferometry, light-cone geometry, virtual bosons, temporal equivalence principle, shear-wake, geometric kinematics
 
@@ -15,27 +15,27 @@ Keywords: disformal kinematics, measurement, entanglement, Aharonov-Bohm, graphe
 
 ### 1.1 Virtual Bosons as Geometric Fiction
 
-The standard model uses virtual bosons as the perturbative bookkeeping for forces between particles. In the TEP framework, this paper asks whether that bookkeeping can be recovered as the screened tangent limit of a deeper continuous light-cone geometry tilted by the disformal coupling B(φ). In the screened limit, where the local interaction energy density substantially exceeds the critical saturation scale *ρ_{c} ≈ 20 g/cm^{3}* (derived as the macroscopic temporal saturation limit ρ_{T} in TEP-UCD, Paper 6), the observable disformal response is suppressed and the light cone recovers its isotropic form; standard perturbation theory is recovered as the tangent limit. In the unscreened regime, the disformal structure becomes the candidate interaction ontology.
+The standard model uses virtual bosons as the perturbative bookkeeping for forces between particles. In the TEP framework, this paper asks whether that bookkeeping can be recovered as the screened tangent limit of a deeper continuous light-cone geometry tilted by the disformal coupling B(φ). Screening is not a binary classification but a density-dependent hierarchy: the observable disformal response scales with a suppression factor that increases continuously as local bulk density approaches the critical saturation scale *ρ_{c} ≈ 20 g/cm^{3}* (the macroscopic temporal saturation limit ρ_{T} in TEP-UCD, Paper 6). In candidate low-screening measurement channels where the local bulk density is well below ρ_{c}, B(φ) remains fully active and disformal geometry is the candidate interaction ontology; as density approaches ρ_{c}, the light cone recovers its isotropic form and standard perturbation theory emerges as the tangent limit. The Temporal Equivalence Principle is therefore distinct from the Einstein Equivalence Principle not merely by a regime label, but by this continuous coupling of geometry to local energy density and temporal-field gradient.
 
 ### 1.2 Reinterpreting the Copenhagen Interpretation
 
-Historically, the resistance to the Copenhagen Interpretation was most famously articulated by Einstein's assertion that nature is fundamentally deterministic, rather than probabilistic. The TEP framework formally vindicates this intuition. What the standard model interprets as fundamental statistical indeterminism — such as wavefunction collapse and complementarity — is reinterpreted in TEP merely as a symptom of assuming a flat, isochronous background. When the assumption of universal parameter time is dropped, "measurement" is no longer a probabilistic dice roll, but is instead modeled as a deterministic geometric interaction of a probe with the local temporal shear field.
-
-The Copenhagen Interpretation's statistical indeterminism — wavefunction collapse, complementarity, the measurement problem — is reinterpreted in TEP as a symptom of assuming a flat, isochronous background. When the background is dynamical, "measurement" is modeled as the geometric interaction of a probe with the local temporal shear field.
+Historically, the resistance to the Copenhagen Interpretation was most famously articulated by Einstein's assertion that nature is fundamentally deterministic, rather than probabilistic. The TEP framework is consistent with this intuition. What the standard model interprets as fundamental statistical indeterminism — such as wavefunction collapse and complementarity — is proposed in TEP as a symptom of assuming a flat, isochronous background. When the assumption of universal parameter time is relaxed, "measurement" is modeled as a deterministic geometric interaction of a probe with the local temporal shear field, though the Born-rule mapping remains to be derived.
 
 ## 2. Routing Interactions via Disformal Coupling
 
 ### 2.1 Gauge Symmetries as Candidate Light-Cone Tilts
 
-In the unscreened regime, where the local interaction energy density is well below the saturation scale *ρ_{T}*, internal gauge symmetries are modeled as candidate disformal light-cone tilts governed by the coupling coefficient B(φ). In the screened limit the observable disformal response is suppressed and interactions become isotropic. The minimal metric ansatz
+In candidate low-screening measurement channels of the density hierarchy, where the local bulk density is well below the saturation scale *ρ_{T}*, internal gauge symmetries are modeled as candidate disformal light-cone tilts governed by the coupling coefficient B(φ). As density rises toward ρ_{T}, the observable disformal response is continuously suppressed and interactions become isotropic. The minimal metric ansatz
 
 g̃_{μν} = A^{2}(φ) g_{μν} + B(φ) ∂_{μ}φ ∂_{ν}φ
 
-encodes the interaction geometry considered in this paper through the scalar function B(φ). The matter metric g̃_{μν} encodes the causal structure to which all non-gravitational fields couple; the gravitational metric g_{μν} describes spacetime curvature. The conformal factor A(φ) governs local length-scale rescaling; in the present interaction analysis it is absorbed into the background and does not affect the interference phase directly. A complete gauge replacement, especially for non-Abelian sectors, may require additional internal orientation variables or multiplet structure beyond this minimal ansatz. *Metric signature convention:* (+, −, −, −) throughout.
+encodes the interaction geometry considered in this paper through the scalar function B(φ). The matter metric g̃_{μν} encodes the causal structure to which all non-gravitational fields couple; the gravitational metric g_{μν} describes spacetime curvature. The conformal factor A(φ) governs local length-scale rescaling; in the present interaction analysis it is absorbed into the background and does not affect the interference phase directly. A complete gauge replacement, especially for non-Abelian sectors, may require additional internal orientation variables or multiplet structure beyond this minimal ansatz. *Metric signature convention:* (+, −, −, −) throughout. The tensor algebra of this ansatz — inverse metric, null-cone tilt, Christoffel symbols, and synchronization-holonomy partition — is verified symbolically in `results/disformal_kinematics_audit.log` (`python scripts/run_all.py --audit`), complementing the conformal Dirac subsumption audit of TEP-QF (Paper 23).
 
 While multi-messenger constraints (GW170817) require the effective disformal term $B(\phi)(\partial\phi)^2$ to be phenomenologically negligible for signals propagating across deep intergalactic voids, the subatomic environment is entirely different. At the femtometer scale of the topological charge, the temporal gradient $(\partial\phi)^2$ is immense. This extreme local gradient drives quantum kinematics via $B(\phi)$ at the particle scale, while naturally vanishing as $\nabla\phi \to 0$ in the late universe, remaining compatible with Paper 0's macroscopic propagation bounds.
 
-For U(1) electromagnetism the TEP replacement program requires a first-principles derivation of Maxwell theory from temporal geometry, not merely a consistency construction. The starting point is a temporal phase bundle χ on the temporal manifold, a compact U(1) fibre over spacetime. The scalar field φ is the bundle magnitude; χ is the compact phase. The topological charge (Paper 24, TEP-SPIN) carries a quantised vortex in χ, with circulation ∮ ∇χ · d*l* = 2πn around the defect core. This U(1) phase bundle is introduced here as distinct from the SU(2) orientation bundle that carries spin in TEP-SPIN; the two bundles coexist over the same spacetime manifold.
+Scale-bridging signpost. The observable disformal response enters only through the scalar invariant *B*(φ)(∇φ)^{2}. Multi-messenger bounds constrain the fractional light-cone deformation to |Δc|/c &lesssim; 10^{−15} for propagation across cosmological voids, where the temporal field is homogeneous and |∇φ| → 0, so the entire product is suppressed regardless of the bare value of *B*(φ). At a topological charge core of radius *r*_{c} &sim; ℏ/(*mc*) &sim; 10^{−13} m, the same invariant is multiplied by a gradient-squared factor scaling as |∇φ|^{2} &sim; *r*_{c}^{−2} &sim; 10^{26} m^{−2}. Relative to a cosmological gradient scale set by the Hubble length *L*_{H} &sim; *c*/*H*_{0} &sim; 10^{26} m, the ratio |∇φ|^{2}_{core}/|∇φ|^{2}_{cosmos} is therefore of order 10^{52}. The mesoscopic graphene cavity analysed in Section 5 occupies an intermediate rung on this hierarchy: macroscopic lattice density (ρ &sim; 2–3 g/cm^{3}) places the host in a candidate low-screening measurement channel because the bulk density is below ρ_{T} and the split-gate boundaries supply localised gradients; the relevant observable is the channel-specific disformal response B(φ)(∇φ)^{2}, not density alone. The same coupling *B*(φ) thus drives negligible observable tilt in void propagation, order-unity kinematics at hadronic scales, and a localised Gaussian confinement signature in gate-voltage space.
+
+For U(1) electromagnetism the TEP replacement program requires a first-principles derivation of Maxwell theory from temporal geometry, not merely a consistency construction. The starting point is the compact U(1) temporal phase bundle χ over spacetime. The scalar field φ sets the conformal magnitude, while χ is the compact phase degree of freedom. The topological charge carries a quantised vortex in χ, with circulation ∮ ∇χ · d*l* = 2πn around the defect core. This compact temporal phase bundle is distinct from the temporal-orientation bundle that carries spin; the two bundles coexist over the same spacetime manifold.
 
 A_{μ} = ∂_{μ}χ − (singular defect contribution),
 
@@ -43,13 +43,27 @@ where the gauge field A_{μ} is defined as the smooth part of the temporal phase
 
 F_{μν} = ∂_{[μ}A_{ν]},
 
-which is the curvature of the temporal phase bundle in the dilute-defect limit. The photon is the propagating shear-wave of the temporal phase field on the disformal metric. This derivation connects directly to the quantised circulation of TEP-SPIN and provides a geometric origin for electromagnetism that does not require ad hoc boundary conditions. The complete derivation, including the propagating mode equation and coupling to matter currents, is reserved for a forthcoming companion paper.
+which is the curvature of the temporal phase bundle in the dilute-defect limit. The photon is the propagating shear-wave of the temporal phase field on the disformal metric. This geometric sketch connects directly to the quantised circulation of TEP-SPIN and provides a candidate geometric origin for electromagnetism that does not require ad hoc boundary conditions. The complete derivation, including the propagating mode equation and coupling to matter currents, is reserved for a forthcoming companion paper. Non-Abelian gauge completion, including the speculative SU(2) weak-interaction sector, is deferred to Section 7 so that the present section can remain anchored on the U(1) phase bundle that directly motivates the graphene interferometry analysis.
 
-For SU(2) weak interactions no gauge-covariant derivation currently exists. The expression previously written,
+**Proposition 1 (Bianchi identity).** Because the gauge field A_{μ} = ∂_{μ}χ − (singular defect contribution) is defined on the smooth part of the phase gradient, its exterior derivative is globally closed away from defect singularities. The field strength F_{μν} = ∂_{[μ}A_{ν]} therefore satisfies
 
-F^{a}_{μν} = ∂_{[μ}(B^{a} ∂_{ν]}φ^{a}) + g ε^{abc} B^{b}B^{c} ∂_{μ}φ^{b} ∂_{ν}φ^{c},
+∂_{[α}F_{μν]} = 0,
 
-uses ordinary derivatives rather than covariant derivatives and does not transform under the adjoint representation. It is algebraic mimicry without the differential geometry of gauge theory. Until a proper covariant derivation using D_{μ}^{ab} = δ^{ab}∂_{μ} + gε^{acb}W_{μ}^{c} and G^{a}_{μν} = [D_{μ}, D_{ν}]^{a}/ig is completed, the SU(2) sector must be regarded as entirely speculative. The manuscript therefore makes no claim about replacing the weak interaction geometrically.
+or equivalently dF = d^{2}A = 0. This is exactly the homogeneous Maxwell pair — the Bianchi identity — for the U(1) curvature. It follows purely from the bundle geometry and requires no action or matter-current coupling. The inhomogeneous Maxwell equation ∇_{μ}F^{μν} = J^{ν} remains to be derived from a matter action coupled to the disformal metric.
+
+**Proposition 2 (flux quantisation and Aharonov-Bohm holonomy).** The compact phase χ carries a quantised circulation ∮ ∇χ · d*l* = 2πn around any loop enclosing the defect core. Because A_{μ} differs from ∂_{μ}χ only by the singular defect contribution, the gauge holonomy around a closed loop γ is
+
+Δθ = q ∮_{γ} A_{μ} dx^{μ}.
+
+By Stokes' theorem applied on the punctured manifold (or on a surface excluding the singular defect core),
+
+∮_{γ} A_{μ} dx^{μ} = ∫_{S(γ)} F_{μν} dS^{μν},
+
+so that the phase shift is proportional to the flux of the bundle curvature through the enclosed surface. This gives the Aharonov-Bohm topological structure
+
+Δθ = (q / ℏ) Φ,
+
+where Φ = ∫ F_{μν} dS^{μν} is the magnetic flux. Strictly, when the loop encloses a defect core, Stokes' theorem is applied on the punctured manifold or on a surface excluding the singular core; the non-trivial holonomy is precisely the obstruction to globally gauging away A_{μ}. This derivation requires only the compact phase bundle and Stokes' theorem on the punctured domain; it does not assume the full Maxwell action or Lorenz gauge, and it directly supports the graphene interferometry analysis of Section 5.
 
 ### 2.2 The Photon as Proper-Time Phase Wake
 
@@ -57,9 +71,27 @@ In the proposed TEP ontology, the photon is not fundamental as a force carrier; 
 
 ### 2.3 Geometric Kinematics: Attraction and Repulsion as Navigation
 
-Particles attract or repel because they are navigating localized, direction-dependent light-cone tilts. Consider two charges q_{1} and q_{2} separated by distance r in a background with spatially varying B(φ). The disformal metric introduces an effective refractive index for temporal propagation:
+The disformal metric can geometrize force routing once the internal charge sector supplies the sign and radial source law. Consider two charges q_{1} and q_{2} separated by distance r in a background with spatially varying B(φ). The disformal metric introduces an effective refractive index for temporal propagation:
 
 n_{eff}(r) = √(1 + B(φ(r)) |∇φ|^{2} / A^{2}(φ)).
+
+**Derivation.** For a static spatial gradient and propagation along the gradient direction, the matter metric is schematically
+
+d̃s^{2} = A^{2}c^{2}dt^{2} − (A^{2} + B|∇φ|^{2}) dx^{2}.
+
+Setting d̃s^{2} = 0 for a null trajectory gives
+
+A^{2}c^{2}dt^{2} = (A^{2} + B|∇φ|^{2}) dx^{2},
+
+so that the effective propagation speed is
+
+v_{eff} = dx/dt = cA / √(A^{2} + B|∇φ|^{2}).
+
+The refractive index is therefore
+
+n_{eff} = c / v_{eff} = √(1 + B|∇φ|^{2} / A^{2}),
+
+which is the expression used above. This derivation anchors the disformal topography picture: the observable response enters only through the scalar invariant B(φ)(|∇φ|)^{2}.
 
 A charge of opposite sign to the source experiences a region where n_{eff} increases toward the source, bending its trajectory inward: this is the geometric origin of Coulomb attraction. The trajectory equation follows from the geodesic equation in the disformal metric:
 
@@ -71,7 +103,25 @@ The radial acceleration between two point charges in the weak-field limit (B ≪
 
 a_{r} = −q_{1}q_{2} ∇B(φ) · r̂,
 
-which reproduces Coulomb's law when the source equation or boundary condition fixes the disformal potential so that ∇B = −(1/4πε_{0}) r̂ / r^{2} for a static charge distribution. This is a weak-field consistency condition: the geometric ansatz can recover the Coulomb form once the charge defect supplies the correct radial B(φ) gradient. For like charges (q_{1}q_{2} > 0) the acceleration is positive in the r̂ direction, corresponding to repulsion; for opposite charges the sign inverts, giving attraction. No virtual photons are introduced as fundamental carriers in this geometric description.
+which reproduces Coulomb's law as a weak-field consistency condition once the charge defect supplies the correct radial B(φ) gradient. The sign inversion (like charges repel, opposite charges attract) is supplied by the internal phase sector, not by B(φ) alone. No virtual photons are introduced as fundamental carriers in this geometric description.
+
+**Proposition 3 (conditional Coulomb theorem).** Assume the compact phase/charge sector supplies a radial source potential Φ_{B} satisfying the Poisson equation
+
+∇^{2}Φ_{B} = −(q / ε_{0}) δ^{3}(**r**).
+
+The solution is the Coulomb potential
+
+Φ_{B}(r) = q / (4πε_{0}r),
+
+so that
+
+−∇Φ_{B} = (q / 4πε_{0}r^{2}) **r**̂.
+
+If the disformal force law is a_{r} ∝ q_{test}(−∇Φ_{B}), then
+
+a_{r} ∝ (q_{source} q_{test} / 4πε_{0}r^{2}) **r**̂.
+
+This gives Coulomb attraction/repulsion as a *conditional theorem*: if the compact phase defect supplies the radial Poisson source, the disformal geodesic response reproduces inverse-square force with the correct sign. The disformal metric itself does not generate the source; it geometrizes the force routing once the internal charge sector fixes the radial profile and the sign.
 
 ### 2.4 Entanglement Geometry
 
@@ -83,17 +133,29 @@ L_{ent} = ∫_{γ} dτ = ∫_{γ} √(B(φ) |dφ/ds|^{2}) ds.
 
 The contour is unbroken when L_{ent} is finite and the integrand never vanishes along the path. A measurement on particle 1 samples the phase φ at x_{1}, which perturbs the entire contour because B(φ) couples the local phase to the metric. The perturbation propagates along the contour at the speed of temporal shear (the local light-cone tilt), not instantaneously, but because the contour is pre-existing and connected the correlation appears non-local in any isochronous slicing. There is no collapse of a wavefunction; there is only the geometric sampling of a shared, continuous temporal deformation.
 
-The Schmidt rank of a bipartite entangled state maps to the winding number of the phase contour around the charge pair. A maximally entangled Bell state corresponds to a contour with winding number ±1, while partially mixed states correspond to contours with multiple windings or decohered segments where the integrand intermittently vanishes.
+For the maximally entangled two-level case, the contour winding is proposed to encode the non-separable topological class corresponding to Bell-pair structure. A general mapping between Schmidt rank and contour topology remains open. Partially mixed states correspond to contours with multiple windings or decohered segments where the integrand intermittently vanishes.
+
+Conceptually, the geometry can be read as follows: two bifurcated topological charges (orientation-conjugate phase modes) remain joined by a single continuous temporal-shear contour that never breaks as the particles separate. Measurement at either endpoint samples a point on that shared geodesic; the correlation is geometric transport along the contour, not instantaneous non-local collapse. Figure 3 illustrates this topology: bifurcated charge cores, the shared geodesic with winding number ±1, and local sampling at the measurement endpoints. The quantitative holonomy construction in Section 2.5 follows from this geometry without additional assumptions.
+
+![Schematic of bifurcated topological charges joined by a continuous entanglement contour with winding number plus or minus one](figures/fig3_entanglement_contour.png)
+
+*Figure 3.* Entanglement as a continuous macroscopic contour. Two bifurcated topological charges (phase vortices ±χ) remain connected by a shared temporal-shear geodesic as the particles separate. For the maximally entangled two-level case, the contour winding is proposed to encode the non-separable topological class corresponding to Bell-pair structure; a general Schmidt-rank mapping remains open. Measurements at Alice and Bob sample local phase on the pre-existing contour; correlation propagates along the geodesic rather than by instantaneous non-local collapse.
 
 ### 2.5 Bell Correlation from Contour Holonomy
 
-The entanglement contour picture must reproduce the quantum correlation function if it is to be more than a geometric analogy. Consider a spin-1/2 singlet state prepared at the origin. In the TEP framework the two particles are topological charges in the temporal orientation bundle, each carrying a local spinor frame. The measurement at Alice's location projects the local spinor onto her chosen axis *a*; the measurement at Bob projects onto axis *b*.
+**Proposition 4 (conditional Bell correlation).** Assume: (i) a temporal-orientation bundle with SU(2) holonomy; (ii) a creation event that produces two topological charges with opposite local spinor frames (singlet-like alignment); (iii) measurement axes *a* at Alice and *b* at Bob. Then the transported spinor correlation is
 
-The spinor is parallel-transported from the creation event to each detector along the shared geodesic γ of the temporal orientation bundle. For a maximally entangled state, the two transported spinors are anti-aligned when the measurement axes are parallel. The correlation function is determined by the SU(2) holonomy of the orientation bundle around the loop formed by the two measurement frames and the shared contour:
+E(*a*, *b*) = −*a* · *b* = −cos θ_{ab},
 
-C(*a*, *b*) = −cos θ_{ab},
+where θ_{ab} is the holonomy angle between the two measurement frames along the shared contour.
 
-where θ_{ab} is the holonomy angle of the orientation transport. This equals the quantum mechanical correlation because the SU(2) holonomy of the spin-1/2 representation gives exactly the rotation matrix R_{ij}(θ) = δ_{ij} cos θ + ε_{ijk} n̂_{k} sin θ + (1 − cos θ) n̂_{i} n̂_{j}. The CHSH parameter S = |E(*a*,*b*) − E(*a*,*b*′) + E(*a*′,*b*) + E(*a*′,*b*′)| achieves its quantum maximum S_{max} = 2√2 when the four measurement directions are arranged with consecutive angles of π/4, because |−cos(0) − cos(π/2) + cos(π/4) + cos(3π/4)| = 2√2. This is the Tsirelson bound: for any set of local observables with eigenvalues ±1, the operator norm of the Bell operator is bounded by 2√2, which follows from the C* algebra norm of the Pauli operators. Note that the SU(2) group invoked here is the holonomy group of the temporal orientation bundle that governs spin-1/2, distinct from the SU(2) gauge group of the weak interaction discussed in Section 2.1. This derivation demonstrates that the geometric contour picture is not merely suggestive; it reproduces the quantitative predictions of quantum entanglement.
+**Proof sketch.** The spinor is parallel-transported from the creation event to each detector along the shared geodesic γ of the temporal orientation bundle. For a maximally entangled state, the two transported spinors are anti-aligned when the measurement axes are parallel. The correlation function is determined by the SU(2) holonomy of the orientation bundle around the loop formed by the two measurement frames and the shared contour. The SU(2) holonomy of the spin-1/2 representation gives exactly the rotation matrix R_{ij}(θ) = δ_{ij} cos θ + ε_{ijk} n̂_{k} sin θ + (1 − cos θ) n̂_{i} n̂_{j}, so that E(*a*, *b*) = −cos θ_{ab}.
+
+For the CHSH parameter S = |E(*a*,*b*) − E(*a*,*b*′) + E(*a*′,*b*) + E(*a*′,*b*′)|, choosing consecutive angles of π/4 gives
+
+S_{max} = |−cos(0) − cos(π/2) + cos(π/4) + cos(3π/4)| = 2√2,
+
+which is the Tsirelson bound. This is not a derivation of SU(2) from the scalar temporal field φ; it is a valid derivation of the Bell correlation given the orientation-bundle postulate. It should therefore be read as a quantitative consistency construction for the TEP contour ontology, not yet as a derivation of the full Hilbert-space structure or the general Schmidt-rank hierarchy from scalar-disformal geometry alone.
 
 ### 2.6 Temporal Anisotropy and the Aharonov-Bohm Phase
 
@@ -111,13 +173,13 @@ When γ ≠ 1 the interference pattern is compressed or expanded relative to the
 
 ### 3.1 The Probability Amplitude as Physical Shear-Wake
 
-The Copenhagen Interpretation posits that the wavefunction ψ(x, t) is a probability amplitude whose squared modulus gives the likelihood of finding a particle at position x. This is a category error: ψ is not a distribution over possible outcomes; it is the actual physical volumetric shear-wake churned by a moving topological charge in the temporal field.
+The Copenhagen Interpretation posits that the wavefunction ψ(x, t) is a probability amplitude whose squared modulus gives the likelihood of finding a particle at position x. The TEP proposal is that ψ may be the tangent-limit representation of a physical volumetric shear-wake churned by a moving topological charge in the temporal field, rather than a pure distribution over possible outcomes. The Born-rule mapping remains to be derived.
 
 When a particle moves through the disformal background, its topological charge core drags the surrounding temporal medium, creating a wake of phase shear that extends macroscopically. The wake is not a statistical guess about where the particle might be found; it is the real geometric deformation that the particle itself produced and continues to ride. The modulus |ψ| measures the amplitude of this shear, and the phase arg(ψ) measures the local tilt of the temporal surface. Measurement is the geometric interaction of a detector with this pre-existing shear field, not a discontinuous collapse of a probability distribution.
 
 ### 3.2 The Double-Slit Experiment
 
-In the double-slit arrangement a beam of particles is directed at a barrier containing two apertures. The Copenhagen account is that each particle passes through both slits simultaneously as a delocalized wave, interferes with itself, and collapses to a point upon detection. This account is unnecessary.
+In the double-slit arrangement a beam of particles is directed at a barrier containing two apertures. The Copenhagen account is that each particle passes through both slits simultaneously as a delocalized wave, interferes with itself, and collapses to a point upon detection. In the TEP framework this account is replaced by a geometric shear-wake description.
 
 In the TEP framework the physical process is as follows. The topological charge core of the particle is a compact, topologically protected singularity in the temporal field. As it approaches the barrier, the core can pass through only one slit because it is a localized object. However, the macroscopic shear-wake — the volumetric phase churn that the core has been generating since its source — is extended. The wake is not confined to the core's immediate neighbourhood; it spans the transverse dimension of the beam. This wake washes through both slits.
 
@@ -127,7 +189,7 @@ The "wave-particle duality" is therefore resolved without paradox. The particle 
 
 ### 3.3 Quantum Tunneling
 
-Tunneling is conventionally described as a particle probabilistically leaking through a classically forbidden barrier. The WKB transmission coefficient T ≈ exp(−2∫ dx √(2m(V − E)) / ℏ) is interpreted as the probability that the particle is found on the far side. Again, this is a statistical fiction.
+Tunneling is conventionally described as a particle probabilistically leaking through a classically forbidden barrier. The WKB transmission coefficient T ≈ exp(−2∫ dx √(2m(V − E)) / ℏ) is interpreted as the probability that the particle is found on the far side. In the TEP framework this is proposed as the tangent-limit representation of a geometric shear-wake penetration process.
 
 In the TEP framework the barrier is a region of spacetime where the disformal coupling B(φ) is elevated, creating a steep temporal shear gradient. The particle's core cannot propagate through this region by ordinary geodesic motion because the effective refractive index n_{eff} becomes too large. However, the particle's shear-wake is not so constrained. The wake is a non-local deformation of the temporal field; it penetrates the barrier because the temporal medium itself is continuous and the shear disturbance propagates according to the wave equation for φ in the disformal metric:
 
@@ -139,11 +201,21 @@ Inside the barrier the wake establishes a temporary, highly localized disformal 
 
 ### 4.1 The Probability Wavefunction as Shear-Wake
 
-The "probability wavefunction" is redefined as the physical, volumetric shear-wake of proper-time phase transport broadcast by a moving topological charge. It is not a statistical distribution over possible outcomes — it is the actual geometric deformation of the temporal field caused by the particle's motion.
+The probability wavefunction is proposed to be the tangent-limit representation of a physical, volumetric shear-wake of proper-time phase transport broadcast by a moving topological charge. On this interpretation, ψ is not merely an abstract distribution over possible outcomes, but the screened-limit encoding of a real geometric deformation of the temporal field caused by the particle's motion. Its statistical interpretation through the Born rule remains to be recovered from the geometry.
+
+**Proposition 5 (detector-flux Born rule).** From the WKB ansatz Ψ = R e^{iS/ℏ} on the disformal metric, the conserved current has the schematic form
+
+j^{μ} = R^{2} g̃^{μν} ∂_{ν}S + (shear corrections),
+
+where the shear corrections vanish in the screened tangent limit. A detector surface D records flux
+
+P(D) ∝ ∫_{D} j^{μ} dΣ_{μ}.
+
+In the screened limit the temporal shear gradient vanishes, g̃_{μν} → η_{μν}, and j^{0} → R^{2} = |Ψ|^{2}. Therefore the usual |Ψ|^{2} detection rule is recovered as the tangent-limit density of shear-wake flux. This is not the full Hilbert-space Born rule — which requires an inner-product structure and projection postulate still to be derived — but it provides a concrete bridge: detector probabilities arise from flux of the physical shear-wake current, and in the screened limit this reduces to the standard |Ψ|^{2} prescription.
 
 ### 4.2 Entanglement as Contiguous Geometric Contour
 
-Entanglement is redefined as a contiguous, unbroken macroscopic geometric contour in the temporal field. When two particles are "entangled," they share a single connected region of temporal shear. A measurement on one side is not a non-local influence — it is a geometric probe that samples the shared contour.
+Entanglement is proposed as a contiguous, unbroken macroscopic geometric contour in the temporal field. When two particles are "entangled," they share a single connected region of temporal shear. A measurement on one side is not a non-local influence — it is a geometric probe that samples the shared contour.
 
 ## 5. Empirical Test: Aharonov-Bohm 2+1D
 
@@ -188,13 +260,13 @@ The TEP model achieves a χ^{2} reduction of 319.9 with one additional free para
 
 *Bayesian Information Criterion correction.* An earlier version of this analysis computed BIC using the non-standard formula BIC = χ^{2} + k ln n. The correct least-squares BIC is BIC = n ln(χ^{2}/n) + k ln n. All BIC values reported in this paper use the corrected formula. The correction reverses some relative model rankings (see Section 5.6) and is essential for scale-independent, unit-consistent comparison.
 
-### 5.5 Interpretation and Screening Boundary
+### 5.5 Interpretation and Screening Hierarchy
 
 A value γ < 1 means that the effective clock rate inside the confined edge channel is slower than the bulk reference. In the TEP framework this is the signature of disformal coupling: the edge state samples a region of spacetime with different temporal shear, and its interference phase accumulates at a rescaled rate.
 
-It is critical to note that while the device possesses a high 2D electronic carrier density (&sim; 10^{12} cm^{−2}), the 3D macroscopic mass density of the host lattice (carbon/SiO_{2}) is strictly bounded at ρ ≈ 2.2–2.65 g/cm^{3}. This places the entire Fabry-Perot cavity nearly an order of magnitude below the Temporal Topology saturation limit (ρ_{T} ≈ 20 g/cm^{3}). The device therefore operates unambiguously in the unscreened regime, where the disformal coupling B(φ) remains active and γ deviations from unity are permitted.
+It is critical to note that while the device possesses a high 2D electronic carrier density (&sim; 10^{12} cm^{−2}), the 3D macroscopic mass density of the host lattice (carbon/SiO_{2}) is strictly bounded at ρ ≈ 2.2–2.65 g/cm^{3}. This places the bulk Fabry-Perot cavity nearly an order of magnitude below the Temporal Topology saturation limit (ρ_{T} ≈ 20 g/cm^{3}): the host lies in a candidate low-screening measurement channel because the bulk density is below ρ_{T} and the split-gate constriction supplies localised gradients; the relevant observable is the channel-specific disformal response B(φ)(∇φ)^{2}, not density alone.
 
-The initial fit reported in Table 1 used a period bound of (0.5×, 2.0×) the FFT estimate for both models. Because the TEP model can achieve effective periods P/γ outside this range through the γ parameter, while the standard model cannot, this introduced an asymmetric comparison. A corrected control suite with fair bounds reveals the data are consistent with γ ≈ 1. The γ parameter is degenerate with an effective period P_{eff} = P/γ and is unstable across smoothing levels and independent line cuts (Section 5.7). The original ΔBIC = −472 was inflated by this bound asymmetry; the proper test is the disformal topography regression of Section 5.6, which yields a decisive harmonic preference independent of the γ parameterisation.
+The initial fit reported in Table 1 used a period bound of (0.5×, 2.0×) the FFT estimate for both models. Because the TEP model can achieve effective periods P/γ outside this range through the γ parameter, while the standard model cannot, this introduced an asymmetric comparison. A corrected control suite with fair bounds reveals the data are consistent with γ ≈ 1. The γ parameter is degenerate with an effective period P_{eff} = P/γ and is unstable across smoothing levels and independent line cuts (Section 5.7). The original ΔBIC = −472 was inflated by this bound asymmetry; the proper test is the disformal topography regression of Section 5.6, which yields a decisive Gaussian confinement-peak preference independent of the γ parameterisation.
 
 ![Gamma comparison across random restarts](figures/fig2_gamma_comparison.png)
 
@@ -202,7 +274,7 @@ The initial fit reported in Table 1 used a period bound of (0.5×, 2.0×) the FF
 
 ### 5.6 Disformal Topography of the Cavity
 
-The vector-potential interpretation of the Aharonov-Bohm phase is not required by the data. If the phase shift Δθ(x) = θ(x) − θ_{std}(x) is instead regressed directly against the disformal metric tilt B(φ) itself, the cavity reveals its geometric structure. Phase extraction was performed by lock-in quadrature demodulation against the known standard-model carrier, a method that avoids the nonlinear aliasing of the Hilbert transform and suppresses the spurious harmonic bias observed in the initial analysis. Five physically motivated shapes for B(φ) are tested: uniform (constant), linear (gradient), Gaussian (confinement peak), harmonic (periodic modulation), and exponential (Laplace-like boundary decay). Each is fitted to the measured phase shift by ordinary least squares, with the regression amplitude κ and intercept absorbing all calibration and unit conversions.
+The Zimmermann data contain a robust localised phase-topography feature that is compatible with the disformal-topography model, but not uniquely diagnostic of TEP. If the phase shift Δθ(x) = θ(x) − θ_{std}(x) is regressed directly against the disformal metric tilt B(φ) itself, the cavity reveals a candidate geometric structure. Phase extraction was performed by lock-in quadrature demodulation against the known standard-model carrier, a method that avoids the nonlinear aliasing of the Hilbert transform and suppresses the spurious harmonic bias observed in the initial analysis. Five physically motivated shapes for B(φ) are tested: uniform (constant), linear (gradient), Gaussian (confinement peak), harmonic (periodic modulation), and exponential (Laplace-like boundary decay). Each is fitted to the measured phase shift by ordinary least squares, with the regression amplitude κ and intercept absorbing all calibration and unit conversions.
 
 Table 2: Disformal topography model comparison
 
@@ -219,6 +291,14 @@ With the corrected standard BIC formula, the Gaussian model is overwhelmingly pr
 Bootstrap resampling (n = 1,000) yields 95% confidence intervals for the BIC difference between the best (Gaussian) and each competitor: vs harmonic [ΔBIC = -392.23, 95% CI -440.00 to -340.31]; vs exponential [ΔBIC = -50.64, 95% CI -68.20 to -35.42]; vs linear [ΔBIC = -33.64, 95% CI -52.01 to -17.15]; vs uniform [ΔBIC = -414.71, 95% CI -452.41 to -380.33]. All CIs are well below zero, indicating that the Gaussian preference is statistically robust to resampling. The Gaussian-harmonic margin has increased by more than an order of magnitude compared with the Hilbert-transform analysis, removing the previous fragility.
 
 The r.m.s. phase-shift fluctuation is 0.7691 rad, consistent with the weak-tilt regime where Δθ < 1 rad throughout the cavity. The corrected topography result is therefore a localised confinement-peak disformal profile, not a periodic modulation. This does not contradict the TEP framework, but it does shift the predicted geometric signature from cavity-locked periodicity to edge-dominated shear, a distinction that can be tested in future devices with sharper boundary definition.
+
+Physical mapping to the Zimmermann device. The line cut is taken through gate-voltage space (*V*_{sg}, *V*_{bg}), not through a literal spatial coordinate along the graphene ribbon. A Gaussian confinement peak is nevertheless the natural shape for this geometry: the split gates define a soft electrostatic constriction whose effective width is controlled by *V*_{sg}, while the back gate tunes the carrier density and Landau-level occupancy through *V*_{bg}. Along the cut, the Fabry-Perot resonance is strongest in a localised region of gate-voltage space where the edge channel is optimally confined between the split-gate boundaries and the cavity boundaries are best defined. In the TEP interpretation, that is precisely where the temporal-field gradient — and hence the disformal response *B*(φ)(∇φ)^{2} — should peak: at the constriction centre, not uniformly across the cavity and not with Fabry-Perot periodicity in gate space. A harmonic model assumes cavity-locked periodic modulation of *B*(φ) along the cut; the data reject this because the measured phase shift is dominated by a single localised electrostatic confinement feature, consistent with the split-gate/back-gate boundary geometry of the device rather than with a standing-wave pattern of metric tilt.
+
+The tight correspondence between the Gaussian topography and the soft constriction follows from the screening hierarchy. The graphene device lies in a candidate low-screening measurement channel because the host bulk density is below ρ_{T} and the split-gate boundaries supply localised gradients; the relevant observable is the channel-specific disformal response B(φ)(∇φ)^{2}, not density alone. The split gates impose a smooth, bell-shaped electrostatic potential that concentrates local interaction energy density and steepens the temporal-field gradient |∇φ| at the constriction centre. Because the observable tilt enters through B(φ)(∇φ)^{2}, a continuous soft boundary — not a sharp step — produces a continuous Gaussian peak in the regressed phase shift. Macroscopic bulk density sets the hierarchy rung; mesoscopic gate engineering sets the gradient profile; the empirical Gaussian preference is therefore a candidate geometric signature of gradient-driven disformal coupling, not an ad hoc fit to fringe noise. Figure 4 maps this correspondence explicitly: panel (a) shows the soft split-gate constriction where |∇φ|^{2} peaks; panel (b) locates the authors' line cut in (*V*_{sg}, *V*_{bg}) gate-voltage space; panel (c) shows the Gaussian confinement peak in the regressed phase shift along that cut.
+
+![Schematic linking split-gate constriction, gate-voltage line cut, and Gaussian disformal phase response](figures/fig4_disformal_topography.png)
+
+*Figure 4.* Disformal topography schematic for the Zimmermann device. (a) Top view: split gates define a soft electrostatic constriction; the temporal-field gradient |∇φ|^{2} peaks at the constriction centre. (b) Gate-voltage space (*V*_{sg}, *V*_{bg}): the line cut A→B (yellow endpoints) traverses the region of optimal edge confinement. (c) Regressed phase shift Δθ ∝ *B*(φ)|∇φ|^{2} along the cut: the empirical Gaussian preference mirrors the continuous electrostatic gradient, not a uniform cavity dilation.
 
 ### 5.7 Robustness Controls and Degeneracy Audit
 
@@ -241,7 +321,7 @@ Table 3: Nuisance-model comparison on medium-smoothed data (window = 15)
 | Super-nuisance | 10 | 353.95 | 171.93 |
 | TEP (gamma free) | 7 | 104.56 | -70.56 |
 
-The standard model achieves a BIC of -75.79 and outperforms the TEP model (BIC = -70.56) by ΔBIC = 117.4. The two-frequency model also achieves a lower BIC than TEP, although by a smaller margin. The TEP model does not win the model-comparison contest even on the exact dataset and smoothing used in Section 5.3.
+The standard model achieves a BIC of −75.79 and outperforms the TEP γ-free model (BIC = −70.56) by ΔBIC ≈ 5.23. The two-frequency nuisance model achieves the lowest BIC overall (BIC = −187.96), outperforming the TEP γ-free model by ΔBIC ≈ 117.4. The TEP γ-free model therefore does not win the nuisance-model comparison on the exact dataset and smoothing used in §5.3.
 
 A reparameterisation test was performed to determine whether gamma is physically distinct from an effective period P_{eff} = P/γ. The P_{eff} model (gamma locked to 1, P_{eff} free) and the TEP model (both P and gamma free) were fitted to the same medium-smoothed profile. The predicted effective period from the TEP fit is P_{TEP}/γ_{TEP} = 135.9 px, while the independently fitted P_{eff} = 124.5 px, a mismatch of 11.4 px (approximately 8%). The BIC difference is ΔBIC = -7.0, a slight preference for the TEP model on this metric alone, though this is well within the noise floor of the comparison. The parameter gamma is therefore partially but not perfectly degenerate with P_{eff} = P/γ on the medium-smoothed data. Whether gamma carries independent physical information depends on whether it stabilises when additional data or different processing pipelines are used.
 
@@ -258,9 +338,9 @@ Table 4: TEP fit stability across smoothing levels
 
 Out-of-sample performance was assessed by a train/test split: the line cut was divided into a training region (first 60% of pixels) and a test region (last 40%). Models were fitted on the training set and evaluated by χ^{2} on the held-out test set. On the medium-smoothed data the standard model achieved a test χ^{2} of 15723.97 and the TEP model 15724.05, a statistical tie. On the raw data the standard model test χ^{2} was 16987.78 versus 16989.23 for TEP, a substantial degradation. On the heavy-smoothed data both models gave test χ^{2} ≈ 8781.79, again tied. The TEP model shows no consistent out-of-sample advantage; when it differs, it is usually worse.
 
-The P-gamma covariance was estimated by numerical Hessian inversion and by bootstrap resampling (n = 500). The bootstrap correlation coefficients are: 0.06 (raw), 0.28 (light), -0.14 (medium), and -0.15 (heavy). These values are small-to-moderate and uniformly positive, indicating that P and gamma are coupled in the likelihood surface but the correlation is not a robust feature of the data.
+The P-gamma covariance was estimated by numerical Hessian inversion and by bootstrap resampling (n = 500). The bootstrap correlation coefficients are: 0.06 (raw), 0.28 (light), -0.14 (medium), and -0.15 (heavy). These values are small-to-moderate and sign-unstable across smoothing levels, confirming that P and γ are partly coupled in the likelihood surface, but the coupling is not a robust physical feature of the data.
 
-In summary, the control analysis yields the following verdicts. (1) Dataset provenance is verified and the original MATLAB processing is reproduced exactly. (2) The γ parameter is partially degenerate with an effective period P_{eff} = P/γ and is unstable across smoothing levels, ranging from 0.864 to 1.011. (3) Out-of-sample generalisation is at best tied for the γ model. (4) The γ parameter alone does not provide decisive discrimination against nuisance models on this single device. The main result from the corrected disformal topography regression (Section 5.6) is a Gaussian confinement-peak preference, with the harmonic model ranking second and the exponential model third. The uniform temporal-dilation model fails strongly. The empirical signature is a localised boundary-dominated disformal profile, consistent with a TEP edge-shear interpretation but not with cavity-locked periodicity.
+In summary, the control analysis yields the following verdicts. (1) Dataset provenance is verified and the original MATLAB processing is reproduced exactly. (2) The γ parameter is partially degenerate with an effective period P_{eff} = P/γ and is unstable across smoothing levels, ranging from 0.864 to 1.011. (3) Out-of-sample generalisation is at best tied for the γ model. (4) The γ parameter alone does not provide decisive discrimination against nuisance models on this single device. The main result from the corrected disformal topography regression (Section 5.6) is a Gaussian confinement-peak preference, with the linear gradient model ranking second and the exponential boundary-decay model third; the harmonic periodic-shear model is strongly disfavoured. The uniform temporal-dilation model fails strongly. The empirical signature is a localised boundary-dominated disformal profile, consistent with a TEP edge-shear interpretation but not with cavity-locked periodicity.
 
 ### 5.8 Synthetic Null-Test Characterisation
 
@@ -270,25 +350,47 @@ Table 5: Synthetic null-test model-selection frequencies (n = 200 trials per gro
 
 | Ground truth | B_uniform | B_linear | B_gaussian | B_harmonic | B_exponential |
 | --- | --- | --- | --- | --- | --- |
-| Uniform | 0.000 | 0.515 | 0.475 | 0.005 | 0.005 |
-| Linear | 0.000 | 0.280 | 0.000 | 0.135 | 0.585 |
-| Gaussian | 0.000 | 0.000 | 0.155 | 0.845 | 0.000 |
-| Harmonic | 0.000 | 0.000 | 0.805 | 0.195 | 0.000 |
+| Uniform | 0.000 | 0.485 | 0.480 | 0.025 | 0.010 |
+| Linear | 0.000 | 0.245 | 0.000 | 0.080 | 0.675 |
+| Gaussian | 0.000 | 0.000 | 0.145 | 0.855 | 0.000 |
+| Harmonic | 0.000 | 0.000 | 0.760 | 0.240 | 0.000 |
 | Exponential | 0.000 | 0.000 | 0.000 | 0.000 | 1.000 |
 
-The false-positive rate for harmonic selection (harmonic chosen when ground truth is non-harmonic) averages 0.246 across the four non-harmonic truths. The true-positive rate (harmonic chosen when ground truth is harmonic) is 0.195. The exponential model performs perfectly: false-positive rate 0.147 and true-positive rate 1.000. The lock-in pipeline has improved Gaussian detection from the catastrophic 2% rate of the Hilbert method to 17%, but Gaussian and harmonic models remain partially conflated on synthetic data with strong Gaussian amplitude modulation. An SNR sweep (noise standard deviation 0.1–2.0, amplitude 10.0) shows that all models except exponential degrade at high noise; at SNR ≈ 40 (noise 0.25) the Gaussian true-positive rate is still only 4%, rising to 36% at SNR ≈ 10 (noise 1.0). This limitation is specific to the synthetic data geometry, where the amplitude envelope is itself Gaussian and conflates with the phase perturbation during demodulation. On the real Zimmermann device the amplitude is approximately constant along the line cut, so the lock-in method achieves dramatically improved discrimination (Gaussian BIC = -498.86 vs harmonic BIC = -107.69). The synthetic tests nevertheless caution that the empirical Gaussian preference, while now robust on this device, requires cross-device replication for definitive confirmation.
+The false-positive rate for harmonic selection (harmonic chosen when ground truth is non-harmonic) averages 0.240 across the four non-harmonic truths. The true-positive rate (harmonic chosen when ground truth is harmonic) is 0.240. The exponential model performs perfectly: false-positive rate 0.171 and true-positive rate 1.000. The lock-in pipeline has improved Gaussian detection from the catastrophic 2% rate of the Hilbert method to 17%, but Gaussian and harmonic models remain partially conflated on synthetic data with strong Gaussian amplitude modulation. An SNR sweep (noise standard deviation 0.1–2.0, amplitude 10.0) shows that all models except exponential degrade at high noise; at SNR ≈ 40 (noise 0.25) the Gaussian true-positive rate is still only 4%, rising to 36% at SNR ≈ 10 (noise 1.0). This limitation is specific to the synthetic data geometry, where the amplitude envelope is itself Gaussian and conflates with the phase perturbation during demodulation. On the real Zimmermann device the amplitude is approximately constant along the line cut, so the lock-in method achieves dramatically improved discrimination (Gaussian BIC = -498.86 vs harmonic BIC = -107.69). The synthetic tests nevertheless caution that the empirical Gaussian preference, while now robust on this device, requires cross-device replication for definitive confirmation.
 
-Cross-device replication is currently limited by data availability. Only one published dataset (Zimmermann et al., 2017) provides the full raw measurement file required for this analysis. A systematic search of Zenodo, arXiv, Figshare, and PubMed found no additional raw Fabry-Perot quantum Hall interferometry datasets with sufficient detail. A cross-device meta-analysis framework (Step 07) has been prepared for future data ingest, but at present no independent replication exists.
+Cross-device replication is currently limited by data availability. Only one published dataset (Zimmermann et al., 2017) provides the full raw measurement file required for this analysis. A systematic search of Zenodo, arXiv, Figshare, and PubMed (Step 05) found no additional raw Fabry-Perot quantum Hall interferometry datasets with sufficient detail. A cross-device ingest and meta-analysis framework (Steps 07–08) is ready: raw archives in Zimmermann-style MATLAB, QCoDeS HDF5, or pre-extracted CSV format are converted to standard line cuts via `step_08_cross_device_ingest.py` and aggregated by random-effects BIC meta-analysis in Step 07. At present no independent replication device has been ingested; collaborator outreach materials are provided in `docs/cross_device_replication_brief.md`.
 
 ## 6. Conclusion
 
-This paper develops the proposal that virtual force carriers and statistical wavefunctions are tangent-limit constructs in the unscreened regime of the Temporal Equivalence Principle, arising from the assumption of a flat, isochronous background. In the unscreened regime, interactions are modeled through the disformal coupling B(φ), and measurement is treated as the geometric sampling of shared temporal shear contours. In the screened limit, where the local interaction energy density substantially exceeds the saturation scale ρ_{T} ≈ 20 g/cm^{3}, the observable disformal response is suppressed and standard perturbation theory is recovered as the tangent limit.
+This paper develops the proposal that virtual force carriers and statistical wavefunctions are tangent-limit constructs arising in candidate low-screening measurement channels where the local bulk density is below the saturation scale and boundary conditions permit observable disformal response, so that the assumption of a flat, isochronous background holds only approximately. In that sector, interactions are modeled through the disformal coupling B(φ), and measurement is treated as the geometric sampling of shared temporal shear contours. As density approaches the saturation scale ρ_{T} ≈ 20 g/cm^{3}, the observable disformal response is continuously suppressed and standard perturbation theory is recovered as the tangent limit.
 
 The empirical analysis of published graphene Fabry-Perot interferometry data was undertaken as a candidate test. Phase extraction was performed by lock-in quadrature demodulation against the known carrier, a method that avoids the nonlinear aliasing of the Hilbert transform. A disformal topography regression, in which the measured phase shift is regressed directly against the metric tilt B(φ), was evaluated with the corrected standard BIC formula. The Gaussian confinement-peak model is overwhelmingly preferred (BIC = -498.86), with the linear gradient model ranking second (BIC = -467.48) and the exponential boundary-decay model third (BIC = -453.83). The harmonic periodic-shear model is strongly disfavoured (BIC = -107.69). Bayesian model averaging assigns the Gaussian model a posterior probability of ≈ 1.0000, confirming an unambiguous preference. The uniform temporal-dilation model (γ ≠ 1) fails strongly (BIC = -87.22), confirming that the disformal effect does not manifest as a flat macroscopic slowing of the edge-state clock. Synthetic null tests with the lock-in pipeline show that exponential ground truth is recovered perfectly (true-positive rate ≈ 1.000), while Gaussian and harmonic models remain partially conflated on synthetic data with strong amplitude modulation. On the real device, where the amplitude is approximately constant along the line cut, the lock-in method achieves dramatically improved discrimination. The empirical Gaussian preference is now robust on this device, though cross-device replication remains essential for definitive confirmation.
 
-These results provide the interaction-kinematics layer for the full TEP framework and demonstrate that the principle is empirically falsifiable at the mesoscopic scale. The quantum foundations of this framework — including the derivation of the Klein-Gordon and Dirac operators from dynamical proper-time geometry, and the geometric reinterpretation of spin and antimatter — are established in the companion paper TEP-QF (Paper 22, Qatar).
+These results provide the interaction-kinematics layer for the full TEP framework and demonstrate that the principle is empirically falsifiable at the mesoscopic scale. The quantum foundations of this framework — including the derivation of the Klein-Gordon and Dirac operators from dynamical proper-time geometry, and the geometric reinterpretation of spin and antiparticle structure — are established in the companion paper TEP-QF (Paper 23, Qatar).
 
-This analysis is based on the Zimmermann et al. (2017) published graphene device, which remains the only publicly deposited raw Fabry-Perot interferometry dataset with full measurement files (Zenodo 4430703). The topography regression framework developed here is general and applies to any quantum Hall Fabry-Perot or Mach-Zehnder geometry with one-dimensional spatial interference patterns. Extension to additional devices and platforms (GaAs, bilayer graphene) sharpens the empirical foundation.
+This analysis is based on the Zimmermann et al. (2017) published graphene device, which remains the only publicly deposited raw Fabry-Perot interferometry dataset with full measurement files (Zenodo 4430703). The topography regression framework developed here is general and applies to any quantum Hall Fabry-Perot or Mach-Zehnder geometry with one-dimensional spatial interference patterns. The immediate empirical priority is cross-device replication: Steps 07–08 provide ingest adapters (Zimmermann MATLAB, QCoDeS HDF5, CSV) and random-effects BIC meta-analysis; targeted collaboration with condensed-matter groups holding unpublished Fabry-Perot or Mach-Zehnder raw runs is the fastest path to independent confirmation (`docs/cross_device_replication_brief.md`). Covariant completion of the SU(2) weak-interaction sector remains a parallel theoretical programme (Section 7); it does not substitute for replication and is not sequenced ahead of it, because the present paper's credibility rests on data discipline rather than on extending speculative gauge ansätze.
+
+## 7. Theoretical Horizons and Future Work
+
+The empirical programme of this paper rests on the candidate U(1) phase-bundle construction, mesoscopic boundary geometry, and the disformal coupling B(φ) in candidate low-screening measurement channels. Several theoretical extensions are natural but are deliberately deferred here so that Section 2 can remain focused on the phase-bundle dynamics that directly motivate the graphene interferometry analysis.
+
+### 7.1 The SU(2) Weak-Interaction Sector
+
+For SU(2) weak interactions no gauge-covariant derivation currently exists within the Temporal Equivalence Principle. The expression previously written,
+
+F^{a}_{μν} = ∂_{[μ}(B^{a} ∂_{ν]}φ^{a}) + g ε^{abc} B^{b}B^{c} ∂_{μ}φ^{b} ∂_{ν}φ^{c},
+
+uses ordinary derivatives rather than covariant derivatives and does not transform under the adjoint representation. It is algebraic mimicry without the differential geometry of gauge theory. Until a proper covariant derivation using D_{μ}^{ab} = δ^{ab}∂_{μ} + gε^{acb}W_{μ}^{c} and G^{a}_{μν} = [D_{μ}, D_{ν}]^{a}/ig is completed, the SU(2) sector must be regarded as entirely speculative. The manuscript therefore makes no claim about replacing the weak interaction geometrically.
+
+This limitation must be distinguished from the SU(2) holonomy of the temporal orientation bundle invoked in Section 2.5. That group governs spin-1/2 parallel transport along entanglement contours and is already part of the established TEP-SPIN programme (Paper 24). Covariant completion of the weak-interaction gauge sector is a parallel theoretical programme; it does not substitute for cross-device replication of the mesoscopic disformal signature documented in Section 5.
+
+### 7.2 Empirical Extensions
+
+The topography regression framework applies to any quantum Hall Fabry-Perot or Mach-Zehnder geometry with one-dimensional spatial interference patterns. Independent confirmation requires raw datasets from additional devices; Steps 07–08 provide ingest adapters and random-effects BIC meta-analysis for that programme (`docs/cross_device_replication_brief.md`). Sharper electrostatic boundaries may further separate Gaussian confinement peaks from harmonic cavity modes that remain partially conflated on synthetic nulls with strong amplitude modulation.
+
+### 7.3 Foundational Completions
+
+A complete first-principles derivation of Maxwell theory from the temporal phase bundle — including the propagating photon mode equation and coupling to matter currents — is reserved for a forthcoming companion paper. Full metric completion for non-Abelian internal sectors may require additional orientation variables or multiplet structure beyond the minimal disformal ansatz of Section 2.1. These completions are sequenced after the present falsifier because the credibility of the framework at the mesoscopic scale rests on data discipline rather than on premature extension of speculative sectors.
 
 ## References
 
@@ -308,7 +410,9 @@ This analysis is based on the Zimmermann et al. (2017) published graphene device
 
 - Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_{T}*. Preprint v0.3 (New Delhi). Zenodo. DOI: 10.5281/zenodo.18064365 (Paper 6)
 
-- Smawfield, M. L. (2026). *Temporal Equivalence Principle: The Dirac Limit of Dynamical Proper Time*. Preprint v0.1 (Qatar). Zenodo (Paper 22)
+- Smawfield, M. L. (2026). *Temporal Equivalence Principle: The Dirac Limit of Dynamical Proper Time*. Preprint v0.2 (Qatar). Zenodo. DOI: 10.5281/zenodo.20572697 (Paper 23, TEP-QF)
+
+- Smawfield, M. L. (2026). *Temporal Equivalence Principle: A Topological Fermion Model for Spin and the g−2 Anomaly*. Preprint v0.1 (Paris). Zenodo (Paper 24, TEP-SPIN)
 
 - Peskin, M. E. & Schroeder, D. V. (1995). *An Introduction to Quantum Field Theory*. Westview Press.
 
@@ -327,7 +431,7 @@ The TEP-KIN analysis pipeline is fully reproducible:
 All fits use a fixed random seed (42) and five L-BFGS-B restarts to ensure deterministic, verifiable results. The pipeline code and manuscript components are archived in the TEP-KIN GitHub repository.
 
 
-## 9. Data Availability & Reproducibility
+## Data Availability & Reproducibility
 
 This work follows open-science practices. All results are fully reproducible from raw data using the documented pipeline. All numerical results, figures, and statistics are generated by deterministic Python scripts processing laboratory measurement data.
 
@@ -339,9 +443,28 @@ GitHub Repository: github.com/matthewsmawfield/TEP-KIN
 The repository contains a deterministic, version-controlled analysis pipeline for kinetic inductance and graphene AB-oscillation measurements.
 
 
+### Empirical Pipeline
+
+Clean run from repository root:
+
+python scripts/run_all.py --audit # SymPy disformal tensor audit python scripts/run_all.py # Steps 01–09 (full empirical pipeline) python scripts/generate_figures.py # Publication figures (fig1–2 from Step 01; fig3–4 schematics) cd site && npm run build # Manuscript HTML + markdown python scripts/steps/step_08_cross_device_ingest.py --device NAME --run-meta Step registry: 01 graphene AB interferometry; 02 disformal topography regression; 03 controls and nuisance-model audit; 04 enhanced multi-cut analysis; 05 public dataset search; 06 synthetic null tests; 07 cross-device meta-analysis; 08 cross-device raw ingest; 05b phase-slip probe (exploratory).
+
+
+### Cross-Device Replication Ingest
+
+Collaborator raw data are ingested under `data/cross_device/{device_name}/` with a `device.json` manifest (see `device.json.example`). Supported formats: Zimmermann-style MATLAB (`.mat`), QCoDeS HDF5, and pre-extracted CSV line cuts. Outreach brief: `docs/cross_device_replication_brief.md`.
+
+
 ### Repository Structure
 
-TEP-KIN/ ├── data/ │ ├── cross_device/ # Cross-device measurements │ ├── graphene_ab/ # Graphene AB-oscillation data │ └── interim/ # Intermediate processing results ├── scripts/ │ └── steps/ # Analysis pipeline steps ├── core/ # TEP shared constants and parameters ├── site/ │ └── components/ # Manuscript HTML sections ├── requirements.txt ├── CITATION.bib └── README.md ### Software Environment Key packages: NumPy, SciPy, Matplotlib. The pipeline has been tested on Python 3.10+.
+TEP-KIN/ ├── data/ │ ├── cross_device/ # Cross-device measurements │ ├── graphene_ab/ # Graphene AB-oscillation data │ └── interim/ # Intermediate processing results ├── scripts/ │ └── steps/ # Analysis pipeline steps ├── core/ # TEP shared constants and parameters ├── site/ │ └── components/ # Manuscript HTML sections ├── requirements.txt ├── CITATION.bib └── README.md ### Symbolic Disformal Tensor Audit The disformal kinematics tensor algebra is verified in `scripts/derivations/derive_disformal_kinematics.py`. To reproduce:
+
+python scripts/run_all.py --audit Output: `results/disformal_kinematics_audit.log`, `results/derivation_disformal_kinematics.json`. Audits cover the full matter metric, inverse metric, effective refractive index *n*_{eff}, non-zero Christoffel structure for varying gradients, and the conformal/disformal partition of synchronization holonomy.
+
+
+### Software Environment
+
+Key packages: NumPy, SciPy, SymPy, Matplotlib. The pipeline has been tested on Python 3.10+.
 
 
 ### License

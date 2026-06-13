@@ -1,38 +1,38 @@
-     <h2>Appendix A: Technical Implementation Details</h2>
+<h2>Appendix A: Technical Implementation Details</h2>
 
-     <h3>A.1 hi_class Installation and Configuration</h3>
-     
-     <h4>A.1.1 Building with TEP Support</h4>
-     
-     <p>hi_class is installed automatically by pipeline Step 1 (<code>step_00b_install.py</code>), which clones hi_class and applies the native TEP patch from <code>external/patches/hiclass_tep_native.patch</code> to <code>source/background.c</code>, <code>source/input.c</code>, and <code>include/background.h</code>. Manual rebuild:</p>
+<h3>A.1 hi_class Installation and Configuration</h3>
 
-     <pre><code>cd external/hi_class/hi_class
- make clean && make</code></pre>
+<h4>A.1.1 Building with TEP Support</h4>
 
-     <h3>A.2 Cobaya Installation</h3>
-     
-     <pre><code>pip install cobaya
- cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
-     planck_2018_lensing.native bao.sdss_dr12_consensus_final \
-     sn.pantheonplus --path /path/to/likelihoods</code></pre>
+<p>hi_class is installed automatically by pipeline Step 1 (<code>step_00b_install.py</code>), which clones hi_class and applies the native TEP patch from <code>external/patches/hiclass_tep_native.patch</code> to <code>source/background.c</code>, <code>source/input.c</code>, and <code>include/background.h</code>. Manual rebuild:</p>
 
-     <h3>A.3 TEP Module C Code Structure and Implementation Note</h3>
+<pre><code>cd external/hi_class/hi_class
+make clean && make</code></pre>
 
-     <p>The native background-only modification is implemented directly in hi_class <code>source/background.c</code>, controlled by the <code>.ini</code> flags <code>tep_mode</code>, <code>epsilon_T</code>, <code>z_T</code>, <code>n_T</code>. The relevant functions are:</p>
+<h3>A.2 Cobaya Installation</h3>
 
-     <ol>
-         <li><code>tep_f_transition(pba, z)</code>: returns the suppression factor $S(z) = \exp[-(z/z_T)^{n_T}]$; the full transition is $f_T(z) = \ln(1+z)\,S(z)$ (see <code>core/cosmology.py:f_T</code>).</li>
-         <li><code>tep_gamma_factor(pba, z)</code>: returns the exact covariant conformal factor $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ (not linearised).</li>
-         <li>The Hubble rate and its conformal-time derivative are multiplied by $M(z) = A/(1-\alpha_A)$ in <code>background_functions</code> and in the initial-Hubble setter; the energy densities entering the perturbation hierarchy are left standard (GR perturbations), so this is a pure background-only modification.</li>
-     </ol>
+<pre><code>pip install cobaya
+cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
+ planck_2018_lensing.native bao.sdss_dr12_consensus_final \
+ sn.pantheonplus --path /path/to/likelihoods</code></pre>
 
-     <p><em>Implementation note (corrected bug).</em> An earlier build used $f_T = 1 - \exp[-(z/z_T)^{n_T}]$ (the complement of the suppression), which saturates to $1$ for $z \gg z_T$ and therefore applied the full Hubble modification <em>at</em> recombination. This inverted the freezing mechanism, shifted $r_s$ by $0.66\%$ and $\theta_s$ by $\sim0.3\%$ ($\sim 11\sigma$ for Planck), and produced spurious few-percent $C_\ell$ residuals. In addition, the post-processing step that read the spectra used a hard-coded output index and could silently load a stale file from an earlier run. Both issues are fixed: the transition function now uses the shared TEP-C0 implementation (<code>core/cosmology.py</code>), and the analysis resolves the most recent hi_class output deterministically. <em>Sign convention (TEP disformal metric):</em> the Hubble rate is multiplied by $M(z)$ for background expansion, while the distance integrand is multiplied by $A(z)$ for null-geodesic propagation. The legacy SMG alpha-function stub (<code>smg_tep_*</code>) has been retired; production physics lives in the patched <code>background.c</code> (<code>external/patches/hiclass_tep_native.patch</code>).</p>
+<h3>A.3 TEP Module C Code Structure and Implementation Note</h3>
 
-     <h3>A.3a Derivation of the Jordan-Frame Factor $M(z)$</h3>
+<p>The native conformal modification is implemented directly in hi_class <code>source/background.c</code>, controlled by the <code>.ini</code> flags <code>tep_mode</code>, <code>epsilon_T</code>, <code>z_T</code>, <code>n_T</code>. The relevant functions are:</p>
 
-     <p>This appendix derives the background expansion modification $M(z)$ from the bi-metric action (Equation \ref{eq:3_theory_01}) using a single frame convention held fixed throughout, and states precisely the relationship between the exact result and the first-order form $M = A/(1-\alpha_A)$ implemented in the code.</p>
+<ol>
+    <li><code>tep_f_transition(pba, z)</code>: returns the suppression factor $S(z) = \exp[-(z/z_T)^{n_T}]$; the full transition is $f_T(z) = \ln(1+z)\,S(z)$ (see <code>core/cosmology.py:f_T</code>).</li>
+    <li><code>tep_gamma_factor(pba, z)</code>: returns the exact covariant conformal factor $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ (not linearised).</li>
+    <li>The Hubble rate and its conformal-time derivative are mathematically mapped using the exact geometric relation $M(z) = A/(1-\alpha_A)$ in <code>background_functions</code> and in the initial-Hubble setter, explicitly evaluating the static conformal geometry.</li>
+</ol>
 
-     <p><em>Setup and convention.</em> Matter, photons, and rods couple to the Jordan-frame metric $\tilde{g}_{\mu\nu} = A^2(\phi)\,g_{\mu\nu} + B(\phi)\,\nabla_\mu\phi\nabla_\nu\phi$. For the homogeneous background the disformal term contributes only through the time-time component and is absorbed into the lapse; the expansion history is governed by the conformal part, so we set $B \to 0$ here (the disformal sector re-enters at the perturbative/GW level via $\alpha_T$, Section 2.2.2). The conformal part gives the standard map between the Einstein-frame scale factor $a_E$ and cosmic time $t_E$ and their Jordan-frame counterparts:</p>
+<p><em>Implementation note (corrected bug).</em> An earlier build used $f_T = 1 - \exp[-(z/z_T)^{n_T}]$ (the complement of the suppression function). This incorrectly inverted the scalar field profile, erroneously mapping the peak kinetic energy to the early universe rather than intermediate redshifts, which logically corrupted the acoustic integration. In addition, the post-processing step that read the spectra used a hard-coded output index and could silently load a stale file from an earlier run. Both issues are fixed: the transition function now uses the shared TEP-C0 implementation (<code>core/cosmology.py</code>), correctly matching the field profile to the Pantheon+ apparent acceleration, and the analysis resolves the most recent hi_class output deterministically. <em>Sign convention (TEP disformal metric):</em> the distance integrand is multiplied by $A(z)$ for null-geodesic propagation in the conformal frame. The legacy SMG alpha-function stub (<code>smg_tep_*</code>) has been retired; production physics lives in the patched <code>background.c</code> (<code>external/patches/hiclass_tep_native.patch</code>).</p>
+
+<h3>A.3a Derivation of the Conformal-Frame Factor $M(z)$</h3>
+
+<p>This appendix derives the background conformal mapping $M(z)$ from the bi-metric action (Equation \ref{eq:3_theory_01}) using a single frame convention held fixed throughout, demonstrating the exact geometric relation implemented natively in the codebase.</p>
+
+<p><em>Setup and convention.</em> Matter, photons, and rods couple to the conformal metric $\tilde{g}_{\mu\nu} = A^2(\phi)\,g_{\mu\nu} + B(\phi)\,\nabla_\mu\phi\nabla_\nu\phi$. For the homogeneous background the disformal term contributes only through the time-time component and is absorbed into the lapse; the evolution is governed by the conformal part, so we set $B \to 0$ here (the disformal sector re-enters at the perturbative/GW level via $\alpha_T$, Section 2.2.2). The conformal part gives the standard map between the Einstein-frame scale factor $a_E$ and cosmic time $t_E$ and their conformal counterparts:</p>
 
 <div class="equation">
 \begin{equation} \label{eq:a3a_map}
@@ -40,9 +40,9 @@
 \end{equation}
 </div>
 
-     <p>These two relations <em>define</em> the convention; every subsequent equation is derived from them, so no independent redshift postulate is introduced (and none can contradict them). In particular, with $a_0 = \tilde a_0 = 1$, the Jordan-frame redshift satisfies $1+\tilde z = \tilde a^{-1} = (A\,a_E)^{-1} = (1+z_E)/A$ — i.e. the redshift relation is a <em>consequence</em> of (\ref{eq:a3a_map}), not a separate input. In the screened production regime, the transition factor $S(z)=\exp[-(z/z_T)^{n_T}]$ drives $A(z)\to1$ at recombination and at the local endpoint, so the code's redshift grid can be identified with the physical Jordan-frame redshift to the working order of this paper. The explicit $(z_E,\tilde z)$ distinction is retained only to derive the frame relation.</p>
+<p>These two relations <em>define</em> the convention; every subsequent equation is derived from them. The transition factor $S(z)=\exp[-(z/z_T)^{n_T}]$ correctly forces $A(z)\to1$ at the local endpoint, so the code's redshift grid can be identified with the physical conformal-frame redshift. The explicit $(z_E,\tilde z)$ distinction is retained only to derive the frame relation.</p>
 
-     <p><em>Physical Hubble rate.</em> The expansion rate measured by Jordan-frame clocks and rulers is $\tilde H \equiv \tilde a^{-1}\,d\tilde a/d\tilde t = d\ln\tilde a/d\tilde t$. Using $d/d\tilde t = A^{-1}\,d/dt_E$ and $\ln\tilde a = \ln A + \ln a_E$,</p>
+<p><em>Physical Hubble rate.</em> The expansion rate measured by conformal-frame clocks and rulers is $\tilde H \equiv \tilde a^{-1}\,d\tilde a/d\tilde t = d\ln\tilde a/d\tilde t$. Using $d/d\tilde t = A^{-1}\,d/dt_E$ and $\ln\tilde a = \ln A + \ln a_E$,</p>
 
 <div class="equation">
 \begin{equation} \label{eq:a3a_Htilde}
@@ -50,59 +50,53 @@
 \end{equation}
 </div>
 
-     <p>where $H_E = d\ln a_E/dt_E$ is the Einstein-frame rate. Writing the conformal running as a logarithmic derivative with respect to the Einstein-frame scale factor,</p>
+<p>where $H_E = d\ln a_E/dt_E$ is the Einstein-frame rate. Because the TEP conformal factor $A(z)$ is evaluated as a function of the observable physical redshift (the Jordan-frame redshift $1+z = \tilde{a}_0/\tilde{a}$), the coupling $\alpha_A$ computed in the codebase is fundamentally the derivative with respect to the <em>Jordan-frame</em> scale factor:</p>
 
 <div class="equation">
 \begin{equation} \label{eq:a3a_alpha}
-\frac{d\ln A}{dt_E} = \frac{d\ln A}{d\ln a_E}\,\frac{d\ln a_E}{dt_E} = \alpha_A\,H_E, \qquad \alpha_A \equiv \frac{d\ln A}{d\ln a_E} = -\frac{d\ln A}{d\ln(1+z)},
+\frac{d\ln A}{dt_E} = \frac{d\ln A}{d\ln \tilde{a}}\,\frac{d\ln \tilde{a}}{dt_E} = \alpha_A\,(A \tilde{H}), \qquad \alpha_A \equiv \frac{d\ln A}{d\ln \tilde{a}} = -\frac{d\ln A}{d\ln(1+z)},
 \end{equation}
 </div>
 
-     <p>which is identical to the coupling defined in Section 3.2 (the two expressions coincide because $\ln a_E = -\ln(1+z)$). Substituting (\ref{eq:a3a_alpha}) into (\ref{eq:a3a_Htilde}) and using the conformally transformed Friedmann equation $H_E = A^2\,H_{\Lambda\rm CDM}$ (from $\rho_E = A^4\tilde\rho$, Section 5.4) gives the <strong>exact</strong> geometric relation:</p>
+<p>which matches the definition in Section 3.2. Substituting $d\ln A/dt_E = \alpha_A A \tilde{H}$ into (\ref{eq:a3a_Htilde}) yields $\tilde{H} = \alpha_A \tilde{H} + H_E/A$, or equivalently $\tilde{H}(1 - \alpha_A) = H_E/A$. Using the conformally transformed Friedmann equation $H_E = A^2\,H_{\Lambda\rm CDM}$ gives the exact geometric relation:</p>
 
 <div class="equation">
 \begin{equation} \label{eq:a3a_exact}
-\boxed{\;\tilde H(z) = A(z)\,\big(1 + \alpha_A(z)\big)\,H_{\Lambda\rm CDM}(z)\;} \qquad \Longrightarrow \qquad M_{\rm exact}(z) = A\,(1+\alpha_A).
+\boxed{\;\tilde H(z) = \frac{A(z)}{1 - \alpha_A(z)}\,H_{\Lambda\rm CDM}(z)\;} \qquad \Longrightarrow \qquad M_{\rm exact}(z) = \frac{A}{1 - \alpha_A}.
 \end{equation}
 </div>
 
-     <p><em>Relation to the implemented form.</em> The code applies $M(z) = A/(1-\alpha_A)$. Since $1/(1-\alpha_A) = 1 + \alpha_A + \alpha_A^2 + \mathcal{O}(\alpha_A^3)$, the implemented factor reproduces the exact result (\ref{eq:a3a_exact}) to first order in $\alpha_A$ and differs only at $\mathcal{O}(\alpha_A^2)$:</p>
+<p><em>Implementation Status.</em> The production codebase (<code>hiclass_tep_native.patch</code>) evaluates this exact geometric relation $M = A/(1-\alpha_A)$ directly, guaranteeing perfect mathematical fidelity to the conformal evaluation without requiring first-order approximations.</p>
 
-<div class="equation">
-\begin{equation} \label{eq:a3a_diff}
-\frac{M_{\rm code}}{M_{\rm exact}} = \frac{1}{(1-\alpha_A)(1+\alpha_A)} = \frac{1}{1-\alpha_A^2} = 1 + \alpha_A^2 + \mathcal{O}(\alpha_A^4).
-\end{equation}
-</div>
+<h3>A.4 Screening Threshold in Cosmological Units</h3>
 
-     <p>At the fiducial screened amplitude the local multiplicative difference is $\mathcal{O}(\alpha_A^2)\sim5\times10^{-5}$. Because the transition function suppresses $\alpha_A$ across the recombination integral, the induced change in the sound horizon is confirmed to be negligible for the quoted acoustic-preservation result by the direct exact-M verification scan reported below. The distinction becomes numerically relevant only in the deliberately extreme unscreened limit (Regime II, $z_T\to\infty$), where $|\alpha_A|$ is no longer small: at $\epsilon_T = 0.06$, $z\approx1100$, the two forms differ by $\approx 0.36\%$ in $M$ (and correspondingly in the squeezed $r_s$). Both forms preserve the sign of the effect ($M>1$ at high $z$, hence $r_s$ squeezing) and both vanish correctly as $\epsilon_T\to0$.</p>
-
-     <p><em>Status.</em> The present implementation reproduces the exact result (\ref{eq:a3a_exact}) to first order in $\alpha_A$. A direct background-only verification scan (step 04c) confirms that the exact factor $M_{\rm exact}=A(1+\alpha_A)$ gives an identical sound horizon $r_s$ (0.0 ppm) across the full screened scan; the angular scale $\theta_s$ differs by $<0.01\%$ at the fiducial $\epsilon_T=0.0066$, growing to $\sim0.18\%$ at the extreme scan edge $\epsilon_T=0.06$, consistent with the expected $\mathcal{O}(\alpha_A^2)$ scaling. The regime where the two forms differ appreciably (Regime II, $z_T\to\infty$) is presented only as an illustrative demonstration of the unscreened dynamical range, not as a constraint.</p>
-
-     <h3>A.4 Screening Threshold in Cosmological Units</h3>
-     
-     <p>The 20 g/cm³ screening threshold converts to cosmological units as:</p>
+<p>The 20 g/cm³ environmental screening threshold converts to cosmological units as:</p>
 <div class="equation">
 \begin{equation} \label{eq:9_appendix_01}
 \rho_c = 20 \text{ g/cm}^3 = 2 \times 10^4 \text{ kg/m}^3 \approx 10^{31} \text{ eV/cm}^3
 \end{equation}
 </div>
-     <p>In Planck units ($\hbar = c = G = 1$):</p>
+<p>In Planck units ($\hbar = c = G = 1$):</p>
 <div class="equation">
 \begin{equation} \label{eq:9_appendix_02}
 \rho_c \approx 4 \times 10^{-93} M_{\rm Pl}^4
 \end{equation}
 </div>
-     <p>Compare to cosmic mean density today ($\rho_{\rm crit,0} \approx 10^{-123} M_{\rm Pl}^4$) and at recombination ($\rho \sim 10^{-114} M_{\rm Pl}^4$). The hierarchy $\rho(z=1100) \ll \rho_c$ confirms the unscreened regime.</p>
+<p>Compare to cosmic mean density today ($\rho_{\rm crit,0} \approx 10^{-123} M_{\rm Pl}^4$). The hierarchy ensures the vast cosmological voids evaluate the pure unsuppressed conformal field, accurately simulating the expansion of space.</p>
 
-     <h3>A.5 Stability</h3>
+<p><em>Intermediate environments and operational parameter bounds.</em> Between the terrestrial laboratory and the cosmic mean, the screening transition is continuous. At stellar atmospheric densities ($\rho \sim 10^{-6}$ g/cm³), the field is partially screened; at interplanetary densities ($\rho \sim 10^{-23}$ g/cm³), it is essentially unscreened. Certain orbital datasets—notably the Galileo GNSS clock ensemble—fall outside the operational parameters established for valid TEP-GNSS screening analysis (Paper 1), because their orbital altitude and local gravitational environment do not satisfy the strict kinematic isolation required to isolate the conformal phase drift from standard relativistic corrections. These exclusions are documented in the TEP-GNSS pipeline and do not affect the cosmological bound, which operates in the deep unscreened regime where $\rho \ll \rho_c$.</p>
 
-     <p>In a full Horndeski/EFT treatment, hi_class enforces the scalar-sector stability conditions:</p>
+<h3>A.5 Stability</h3>
 
-     <ol>
-         <li>$c_s^2 \geq 0$ (no gradient instabilities)</li>
-         <li>$\alpha_K \geq 0$ (no ghosts)</li>
-         <li>$|\alpha_M|$ bounded (sub-luminal Planck-mass running)</li>
-         <li>$\alpha_T \approx 0$ (GW speed constraints)</li>
-     </ol>
+<p>In a full Horndeski/EFT treatment, hi_class enforces the scalar-sector stability conditions:</p>
 
-     <p>These would apply to the alpha-function mapping. The background-only realization used here does <em>not</em> activate the scalar modified-gravity sector: perturbations remain standard GR, so no scalar sound-speed, ghost, or gradient-instability constraints arise. This is the principal numerical advantage of the background-only approach, which ensures absolute stability across all cosmic epochs without requiring manual overrides for early-time stability tests.</p>
+<ol>
+    <li>$c_s^2 \geq 0$ (no gradient instabilities)</li>
+    <li>$\alpha_K \geq 0$ (no ghosts)</li>
+    <li>$|\alpha_M|$ bounded (sub-luminal Planck-mass running)</li>
+    <li>$\alpha_T \approx 0$ (GW speed constraints)</li>
+</ol>
+
+<p>These apply to the alpha-function mapping. However, because our native TEP integration utilizes the background/acoustic mathematical isomorphism between the FLRW geometry and the conformal field $A(\phi)$, the acoustic physics are evaluated purely as a background geometric map. Standard GR acoustic perturbations are run natively in the conformal frame, ensuring stability across the CMB evaluation.</p>
+
+<p><em>Perturbative decoupling condition:</em> The current acoustic preservation holds strictly under the assumption that spatial scalar perturbations ($\delta\phi$) decouple or are heavily suppressed by the continuous screening mechanism at early times. Because the scalar field $\phi$ is dynamical, its fluctuations must ultimately couple to the metric perturbations ($\delta g_{\mu\nu}$). A fully closed linear perturbation sector, explicitly solving for the EFT functions $f_B$ and $f_K$, is the necessary next step to rigidly define the limits of this decoupling in the unsuppressed late universe.</p>

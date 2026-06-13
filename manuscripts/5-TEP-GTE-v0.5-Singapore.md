@@ -1861,6 +1861,20 @@ predicting global path-dependent synchronization. GW170817 constrains only
 the disformal sector; the conformal sector responsible for clock-rate
 modulation remains unconstrained by multi-messenger observations.
 
+## 7.2a Predicted vs Fitted Coefficients across Probes
+
+| Probe | Predicted in advance (sign/shape/ordering) | Fitted (amplitude) | Coefficient |
+| --- | --- | --- | --- |
+| GNSS λ (Papers 1–3, 14) | Exponential decay; EW>NS polarity; orbital-velocity sign | Decay length (metric-dependent, 1396–4549 km) | λ_T |
+| Cepheid H₀ (Paper 11) | Sign of potential-depth correlation | Response amplitude | κ_Cep ≈ 1.05×10⁶ |
+| MSP spin-down (Paper 10) | Suppression direction vs Newtonian; field-binary null | Response amplitude | κ_MSP ~ 10⁶ |
+| LLR (Paper 17) | Synodic phase; sideband structure | η = −3.91×10⁻⁴ | η (Solar-System ORC) |
+| Wide binaries (Paper 13) | Transition existence; environmental ordering (high-|Z| | α_sat = 0.366; R_s = 2646 AU | α_sat, M_screen |
+| Flybys (Paper 15) | Geometry correlation; null/anomaly pattern | β per flyby 1.0–5.3×10⁻³ | β_A,eff |
+| Refsdal (Paper 19) | Residual sign (6/7, 7/7 blind) | Amplitude underpredicted; kernel open | Transfer kernel |
+
+TEP's amplitudes are currently measured, not predicted: each sector carries its own Observable Response Coefficient, and deriving their hierarchy from a single coupling function A(φ) with continuous Temporal Topology screening is the framework's central open theoretical problem. Two quantitative coincidences mark the target: κ_Cep and κ_MSP independently land at ~10⁶, and the saturation scale satisfies ρ_T ≈ α^{4/3}m_e⁴c³/ħ³ to ~12% (equivalently Λ ≈ α^{1/3}m_ec², 3%) with no derivation yet selecting either exponent. A completion that predicts both, or falsifiably fails to, is the program's next theoretical milestone.
+
 ## 7.3 Cosmological Implications
 
 If validated through independent replication, TEP predicts that part of the phenomenology attributed to
@@ -2002,7 +2016,7 @@ Smawfield, M. L. (2025). *Temporal-Spatial Coupling in Gravitational Lensing: A 
 
 Smawfield, M. L. (2025). *Global Time Echoes: Empirical Synthesis*. Preprint v0.4 (Singapore). Zenodo. DOI: [10.5281/zenodo.18004832](https://doi.org/10.5281/zenodo.18004832) (Paper 5 — this work)
 
-Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.3 (New Delhi). Zenodo. DOI: [10.5281/zenodo.18064365](https://doi.org/10.5281/zenodo.18064365) (Paper 6)
+Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.6 (New Delhi). Zenodo. DOI: [10.5281/zenodo.18064365](https://doi.org/10.5281/zenodo.18064365) (Paper 6)
 
 Smawfield, M. L. (2025). *The Soliton Wake: Exploring RBH-1 as a Temporal Topology Candidate*. Preprint v0.3 (Blantyre). Zenodo. DOI: [10.5281/zenodo.18059250](https://doi.org/10.5281/zenodo.18059250) (Paper 7)
 

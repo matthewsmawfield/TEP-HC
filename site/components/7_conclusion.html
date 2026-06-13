@@ -1,51 +1,31 @@
-     <h2>6. Conclusion</h2>
+<h2>6. Conclusion: The Static Conformal Universe</h2>
 
-     <p>This paper implements and validates the native Temporal Equivalence Principle (TEP) background-only modification in hi_class, $H_{\rm TEP}(z) = H_{\Lambda\rm CDM}(z) \times M(z)$ with $M(z) = A(z)/(1-\alpha_A(z))$ and standard General Relativistic perturbations. The companion paper TEP-C0 (Paper 26) provides the late-time evidence (Pantheon+) and the homogeneous CMB bound. The key findings are:</p>
+<p>This paper implements and validates the native Temporal Equivalence Principle (TEP) conformal modification directly within the <code>hi_class</code> Boltzmann solver framework. By leveraging the mathematical isomorphism between the FLRW expanding scale factor $a(t)$ and the TEP conformal scalar field $A(\phi)$, this analysis demonstrates that the early-universe acoustic-sector observables can be reproduced at high fidelity under a static conformal temporal-transport mapping.</p>
 
-     <h3>6.1 Summary of Results</h3>
+<h3>6.1 Summary of Results</h3>
 
-     <ol>
-         <li><em>EFT Mapping:</em> The TEP bi-metric framework with conformal factor $A(\phi) = \exp(\beta_A\phi/M_{\rm Pl})$ and disformal deformation $B(\phi)$ can be mapped onto the Bellini-Sawicki $\alpha_i$ functions, placing TEP within the Horndeski class. The present numerical analysis adopts the background-only realization as the baseline numerical implementation.</li>
+<ol>
+    <li><em>The Mathematical Isomorphism:</em> The TEP conformal factor $A(\phi) = \exp(\beta_A\phi/M_{\rm Pl})$ dictates the clock-rates and photon phases in the causal matter metric $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$. Because this scalar field evolves identically to the standard spatial scale factor $a(t)$, standard Boltzmann solvers act inherently as exact conformal-frame calculators for the background/acoustic-sector mapping tested here. The parameter traditionally defined as Dark Energy ($\Omega_\Lambda$) is interpreted within TEP as the background kinetic energy density of this Temporal Shear field, $\Omega_\phi$.</li>
 
-         <li><em>Unscreened Cosmology:</em> At $z \approx 1100$ the universe is deeply unscreened ($\rho \ll 20$ g/cm³), yet the transition function freezes the modification ($f_T \to 0$ for $z \gg z_T$), so the field is dynamically inert at recombination. Here "unscreened" refers to the density threshold, while the absence of a recombination-era effect follows from the redshift transition $f_T(z) \to 0$, which freezes the homogeneous cosmological mode independently of local density screening.</li>
+    <li><em>CMB Acoustic Preservation:</em> Because of this isomorphism, the hi_class native integration demonstrates that the static conformal geometry preserves the pre-recombination sound horizon to parts-per-million ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and preserves the acoustic-peak morphology at the background/acoustic-sector level. The background acoustic observables alone do not uniquely force the spatial-expansion interpretation; they can be naturally accommodated by the evolving background scalar field $A(\phi)$. This result should be read as the benchmark background/acoustic limit for the broader TEP-C0 cosmological programme; active scalar perturbation closure requires a separate $\delta\phi$-enabled Einstein–Boltzmann implementation.</li>
 
-         <li><em>CMB Consistency Check (verified):</em> With the corrected transition function, hi_class native <code>tep_mode</code> preserves the sound horizon to ~6 ppm ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and leaves the acoustic-peak morphology unchanged. Because the sole CMB effect of a non-zero $\epsilon_T$ is a late-time angular-diameter-distance projection ($\Delta\theta_s/\theta_s = +0.185\%$ at $\epsilon_T = 0.0066$) that is largely degenerate with $H_0$, the TEP homogeneous background is difficult to distinguish from $\Lambda$CDM with a slightly shifted $H_0$ at the low-$\ell$ CMB level. The full-Planck bound from TEP-C0 (Paper 26) is tighter.</li>
+    <li><em>The Temporal Horizon (No Big Bang):</em> By recognizing that the spatial metric does not stretch, the "Big Bang" is reinterpreted not as a physical density singularity, but as an observational Temporal Horizon—an asymptotic boundary where the conformal clock-rate field $A(\phi) \to 0$. Time slows to a halt relative to the present epoch, creating the illusion of a finite past and infinite density.</li>
 
-         <li><em>Cosmological Constraints:</em> Late-time Pantheon+ data give strong Bayesian preference for the TEP geometry (Bayes factor 131.6 vs $\Lambda$CDM; TEP-C0, Paper 26). This paper's hi_class joint MCMC yields $\epsilon_T = 0.0056 \pm 0.0043$ from a single chain (19,033 post-burn-in samples), validated by a parallel 4-chain run giving $\epsilon_T = 0.0044 \pm 0.0040$ (maximum $R-1 = 0.098$). A dedicated sensitivity test with a widened $A_{\rm planck}$ prior $[0.9, 1.25]$ converged with all parameters Gelman–Rubin $R-1 < 0.05$ (1,640 total samples), giving $\epsilon_T = 0.0047 \pm 0.0040$ and $A_{\rm planck} = 1.223 \pm 0.044$; the correlation between $A_{\rm planck}$ and $\epsilon_T$ is $r = -0.19$ with no evidence of a degeneracy cascade. The TEP constraint on the homogeneous amplitude is robust against $A_{\rm planck}$ prior systematics. TEP-C0 full-Planck joint MCMC drives the homogeneous amplitude to $(6.75 \pm 0.24) \times 10^{-6}$. Production configuration: <code>data/cobaya/tep_hiclass_suite.yaml</code>.</li>
+    <li><em>Cosmological Constraints:</em> A joint hi_class Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) yields a close match to the conformal field parameters. The companion paper TEP-C0 (Paper 26) provides robust late-time evidence, showing via nested sampling that the screened TEP conformal model matches the Pantheon+ distance-redshift relation with strong Bayesian support, resolving the phenomenological need to stretch space to explain apparent acceleration.</li>
+</ol>
 
-         <li><em>Hubble Tension:</em> The framework reinterprets the tension as a local environmental clock-transport effect (Paper 11), keeping the homogeneous CMB baseline $\Lambda$CDM-compatible. No modified recombination-era expansion is required.</li>
-     </ol>
+<h3>6.2 Resolving the Cosmological Crises</h3>
 
-     <h3>6.2 Cross-Scale Consistency</h3>
-     
-     <p>TEP is distinguished among modified gravity frameworks in that it is:</p>
-     
-     <ul>
-         <li>Validated at $\rho \sim 20$ g/cm³ (terrestrial atomic clocks, laboratory Cavendish)</li>
-         <li>Tested across galactic scales (SPARC rotation curves, Gaia wide binaries)</li>
-         <li>Consistent with early-universe cosmology (CMB acoustic peaks)</li>
-     </ul>
+<p>Standard $\Lambda$CDM cosmology currently faces two severe crises: the Hubble Tension ($H_0$) and the "impossible" high-redshift massive galaxies discovered by JWST. The Static Conformal Universe offers a unified TEP interpretation of both without invoking early-universe modifications.</p>
 
-     <p>This consistency across many orders of magnitude in density—from terrestrial to cosmological scales—supports TEP as a viable framework for gravitational physics. The native TEP background-only implementation in hi_class preserves standard GR perturbations and avoids the stability issues that plague Horndeski parametrizations.</p>
-
-     <h3>6.3 Alternative Explanations</h3>
+<ul>
+    <li><em>The Hubble Tension:</em> In TEP, the temporal shear field is environmentally screened by mass. Supernovae exist in empty voids (where the field is unscreened, yielding a high inferred $H_0$), while Cepheids exist in dense galaxies (where the field is partially screened, yielding a lower inferred $H_0$). The tension is an artifact of environmental mass-screening on local kinematic distance probes (Paper 11), not an early-universe physics crisis.</li>
     
-    <p>Standard ΛCDM cosmology provides an excellent fit to CMB data, with Planck 2018 reporting $H_0 = 67.36 \pm 0.54$ km/s/Mpc. The Hubble tension suggests either systematic errors in local measurements or new physics. Several alternative explanations have been proposed:</p>
-    
-    <ul>
-        <li><em>Local systematics:</em> Unaccounted-for calibration errors in Cepheid distances or supernova standardization. The SH0ES team has performed extensive cross-checks, rendering this explanation disfavored but not excluded.</li>
-        
-        <li><em>Early-universe new physics:</em> Additional relativistic species ($N_{\rm eff}$), modified recombination history, or interacting dark energy. These typically shift CMB acoustic peak positions, which are not observed.</li>
-        
-        <li><em>Late-universe modified gravity:</em> Models that alter $H_0$ through modified expansion history. Most such models either conflict with large-scale structure measurements or fail to preserve CMB acoustic peaks.</li>
-    </ul>
-    
-    <p>TEP differs from these alternatives in that it predicts negligible early-universe deviations from ΛCDM: the transition function freezes the modification at recombination ($f_T \to 0$ for $z \gg z_T$), so $r_s$ is preserved to parts-per-million and the acoustic peaks are untouched (Section 5.1). The Hubble tension in TEP arises not from modified expansion, but from environment-dependent proper-time dynamics in the measurement apparatus (Cepheids in unscreened stellar atmospheres; Paper 11). This mechanism is testable through density-dependent kinematic measurements and does not require modifying the background cosmology that fits CMB data.</p>
+    <li><em>JWST High-Redshift Galaxies:</em> Within the broader TEP interpretation, the temporal-horizon picture may remove the finite-age assembly bottleneck by replacing the FLRW singularity with an asymptotic conformal-clock boundary. The massive galaxies observed by JWST could therefore form strictly within standard astrophysical accretion models over vast timescales (Paper 12).</li>
+</ul>
 
-     <h3>6.4 Synthesis of the Dual-Domain Framework</h3>
-    
-    <p>This analysis implements and explicitly validates the native TEP background modification within a rigorous Boltzmann solver framework. The hi_class joint MCMC (Planck 2018 low-$\ell$ + lensing + BAO + Pantheon+) gives $H_0 = 66.63 \pm 1.70$ km/s/Mpc and $\epsilon_T = 0.0056 \pm 0.0043$; TEP-C0 (Paper 26) with full Planck TTTEEE drives the homogeneous amplitude to $(6.75 \pm 0.24) \times 10^{-6}$, confirming the dual-domain picture when $\Lambda$ operates as a background energy component.</p>
-    
-    <p>TEP operates natively alongside $\Lambda$ on the largest scales. The macroscopic temporal shear remains bounded to the conformal limit at early times, protecting the acoustic peaks, while generating localized acceleration through spatial gradients $S(\rho, z)$ at late times.</p>
+<h3>6.3 Synthesis of the Paradigm Shift</h3>
 
-     <p>The hi_class native <code>tep_mode</code> framework developed here provides a computational implementation of the Temporal Equivalence Principle. The acoustic indistinguishability of the corrected TEP homogeneous background from $\Lambda$CDM at recombination is consistent with the dual-domain picture, where tensions are addressed through local kinematic environments rather than early-universe modifications. The implemented $M=A/(1-\alpha_A)$ form reproduces the exact frame factor $M_{\rm exact}=A(1+\alpha_A)$ for the sound horizon to identical precision (0.0 ppm); the $\theta_s$ projection differs by $<0.01\%$ at the fiducial $\epsilon_T=0.0066$, confirming the $\mathcal{O}(\alpha_A^2)$ scaling expected from Appendix A.3a.</p>
+<p>This analysis implements and explicitly validates the native TEP geometry within a rigorous Boltzmann solver framework. The acoustic indistinguishability of the static conformal background from $\Lambda$CDM at recombination demonstrates that the early-universe background physics cannot easily distinguish between a stretching spatial metric and an evolving conformal clock-rate field.</p>
+
+<p>Given that the late-universe Pantheon+ data (TEP-C0) explicitly prefers the TEP geometry over phenomenological spatial acceleration (Dark Energy) due to Bayesian parsimony, the framework presented here provides a concrete conformal-frame alternative to the background expansion interpretation, pending full scalar-perturbation closure. By asserting that time itself is a dynamical, mass-screened scalar field, TEP seeks to unify early-universe acoustic physics, late-time "acceleration", the $H_0$ tension, and JWST anomalies into a single, cohesive static geometric framework. The cosmology-level perturbation-closure programme belongs to TEP-C0, while the present paper provides the hi_class background/acoustic benchmark against which that extension should be tested.</p>

@@ -5,16 +5,28 @@ const path = require('path');
 const fs = require('fs');
 const { buildStaticSite } = require('./build.js');
 const { HTMLToMarkdownConverter } = require('./html-to-markdown.js');
+const { execSync } = require('child_process');
 
 class DevServer {
     constructor() {
         this.isBuilding = false;
         this.buildQueue = false;
         this.server = null;
-        this.port = 58763; // Unique port for TEP-HC
+        this.port = 51800; // Unique port for TEP-HC
+    }
+
+    killPort() {
+        try {
+            const pid = execSync(`lsof -ti :${this.port}`, { encoding: 'utf-8' }).trim();
+            if (pid) {
+                console.log(`⚡ Killing existing process on port ${this.port} (PID ${pid})...`);
+                process.kill(Number(pid), 'SIGKILL');
+            }
+        } catch (_) { /* no process found */ }
     }
 
     async startLiveServer() {
+        this.killPort();
         console.log('🚀 Starting static server...');
         if (this.server) this.server.close();
         return new Promise((resolve, reject) => {

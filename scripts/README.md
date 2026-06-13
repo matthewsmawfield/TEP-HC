@@ -22,7 +22,7 @@ The production physics is the native `tep_mode` background modification patched 
 cd site && npm ci && npm run build:markdown
 ```
 
-Generates `18-TEP-HC-v0.1-Cambridge.md` at the repository root.
+Generates `18-TEP-HC-v0.2-Cambridge.md` at the repository root.
 
 ## Figure generation
 

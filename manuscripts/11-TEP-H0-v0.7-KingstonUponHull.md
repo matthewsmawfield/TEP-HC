@@ -52,7 +52,7 @@ earlier phenomenological $\log_{10}\sigma$ scalings.
 Out-of-sample validation (train/test splits and LOOCV) shows that the
 fitted response coefficient is stable and removes the residual environmental
 trend in held-out hosts. A differential analysis within M31 yields an
-"Inner Fainter" signal in HST photometry. Within the TEP v0.8 framework,
+"Inner Fainter" signal in HST photometry. Within the TEP framework,
 this sign is consistent with continuous shear suppression: the
 dense M31 bulge experiences progressive attenuation of Temporal
 Shear (suppression factor $S \approx 0.05$ at $R < 1$ kpc), while the
@@ -303,7 +303,7 @@ potential depth $|\Phi|$:
 
 $P_{\rm obs} = P_{\rm true} \cdot A(\phi)^{k_{\rm clock}/2}$
 where $A(\phi) = \exp(\beta_A\phi/M_{\rm Pl})$ is the conformal factor to
-which matter couples (Jakarta v0.8). In the unscreened regime, the scalar
+which matter couples (Paper 0). In the unscreened regime, the scalar
 field tracks the gravitational potential as $\phi/M_{\rm Pl} \approx
 2\beta_A \Phi/c^2$, yielding a clock rate $d\tau/dt = \exp(2\beta_A^2 \Phi/c^2)$.
 The fitted coefficient $\kappa_{\rm Cep}$ is an observable Cepheid
@@ -330,7 +330,7 @@ leading to underestimated distances. Invoking the virial relation
 $|\Phi| \propto \sigma^2$ converts the potential depth into an observable
 velocity dispersion, yielding a correction that is linear in $\sigma^2/c^2$.
 
-In the TEP v0.8 framework, the scalar field gradient (Temporal Shear) is
+In the TEP framework, the scalar field gradient (Temporal Shear) is
 progressively suppressed by ambient matter density through a continuous
 spatial profile, rather than switching at a discrete
 threshold. The suppression is quantified by a dimensionless
@@ -1284,7 +1284,7 @@ is not driven by this edge case.
 
 ![Four-panel figure showing continuous shear-suppression framework: sigma vs density colored by S, suppression curve with host rug marks, response coefficient vs sigma, and correction magnitude vs S](public/figures/figure_08_shear_suppression.png)
 
-Figure 8: The TEP v0.8 continuous shear-suppression framework applied to
+Figure 8: The TEP continuous shear-suppression framework applied to
 the 29 SH0ES host galaxies. Panel (a): Velocity dispersion versus local
 stellar density, color-coded by suppression factor $S(\rho)$; the
 horizontal line marks the half-suppression density $\rho_{\rm half} =
@@ -1315,7 +1315,7 @@ both the null and the continuous suppression model. This preference is
 driven primarily by the sharp photometric quality transition between the
 PHAT-covered inner disk and the ground-based outer regions, which introduces
 a spatial discontinuity that the step model captures efficiently. The
-continuous model (C), while theoretically motivated by TEP v0.8 Temporal
+continuous model (C), while theoretically motivated by TEP Temporal
 Topology, is penalized for attempting to fit a smooth gradient across a data
 set with strong spatially correlated systematics.
 
@@ -1510,7 +1510,7 @@ M31, LMC) show no significant $\sigma$-dependence ($\kappa_{\rm Cep, anchor}\app
 fails to explain this: NGC 4258 has low disk density ($\rho \approx
 0.03\,M_\odot/\text{pc}^3$) yet shows no TEP bias. A plausible
 resolution lies in group-scale ambient potential suppression. In the TEP
-v0.8 framework, Temporal Shear—the scalar field gradient that drives the
+framework, Temporal Shear—the scalar field gradient that drives the
 response—is suppressed not only by high local baryon density
 but also by the ambient gravitational potential of the surrounding
 environment. A galaxy embedded in a massive group halo sits in a deeper
@@ -2237,7 +2237,7 @@ Smawfield, M. L. (2025). *Temporal-Spatial Coupling in Gravitational Lensing: A 
 
 Smawfield, M. L. (2025). *Global Time Echoes: Empirical Synthesis*. Preprint v0.4 (Singapore). Zenodo. DOI: [10.5281/zenodo.18004832](https://doi.org/10.5281/zenodo.18004832) (Paper 5)
 
-Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.3 (New Delhi). Zenodo. DOI: [10.5281/zenodo.18064365](https://doi.org/10.5281/zenodo.18064365) (Paper 6)
+Smawfield, M. L. (2025). *Universal Critical Density: Cross-Scale Consistency of ρ_T*. Preprint v0.6 (New Delhi). Zenodo. DOI: [10.5281/zenodo.18064365](https://doi.org/10.5281/zenodo.18064365) (Paper 6)
 
 Smawfield, M. L. (2025). *The Soliton Wake: Exploring RBH-1 as a Temporal Topology Candidate*. Preprint v0.3 (Blantyre). Zenodo. DOI: [10.5281/zenodo.18059250](https://doi.org/10.5281/zenodo.18059250) (Paper 7)
 
@@ -2380,7 +2380,7 @@ assumed here.
 
 ### A.4 Terminology Synchronization
 
-This study adopts the Jakarta v0.8 response-coefficient nomenclature. The
+This study adopts the Paper 0 response-coefficient nomenclature. The
 mechanism previously referred to as "Temporal Shear" (v0.5) is now
 standardized as Temporal Shear, referring to the
 gradient-based suppression of scalar field activity in dense

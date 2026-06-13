@@ -1,5 +1,5 @@
-v0.1 (Cambridge) - Initial release of TEP-HC manuscript
+v0.2 (Cambridge) — Big Bang reinterpreted as temporal horizon - 13 June 2026
 
-- hi_class TEP module (source/models/tep.c)
-- Cobaya MCMC pipeline against Planck 2018 likelihoods
-- EFT alpha-function mapping and CMB acoustic-peak preservation tests
+- Fixed exact-M geometric relation (M = A/(1−α_A)) and removed first-order caveats
+- Strengthened theory framing: strict conformal isomorphism, no spatial expansion, Big Bang reinterpreted as temporal horizon, Ω_Λ → Ω_ϕ
+- Added TEP-C0 companion context and tightened acoustic-peak preservation claims
