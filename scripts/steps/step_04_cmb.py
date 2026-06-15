@@ -38,76 +38,80 @@ class Step04CMB:
     def run(self) -> dict:
         """Execute CMB spectra generation via C-engine."""
         print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
-        
+
         results = {
             "step": self.STEP_NAME,
             "timestamp": datetime.now().isoformat(),
             "spectra": {},
             "status": "RUNNING"
         }
-        
+
         try:
             # 1. Generate .ini files for hi_class (using relative paths for root)
             print_status("Preparing hi_class input configurations...", "PROCESS")
             lcdm_ini = self.results_dir / "lcdm_baseline.ini"
-            tep_ini = self.results_dir / "tep_model.ini"
+            tep_bg_ini = self.results_dir / "tep_background_only.ini"
+            tep_pert_ini = self.results_dir / "tep_perturbations.ini"
 
             # IMPORTANT: hi_class appends an auto-incrementing suffix (_00, _01, ...)
-            # to the `root` on every run and never overwrites existing files. If we
-            # leave old outputs in place, a later run writes _0N while a hardcoded
-            # read of _00 silently returns a STALE spectrum from an earlier build.
-            # Remove previous outputs so the fresh run is unambiguously *_00_*.
+            # to the `root` on every run and never overwrites existing files.
             self._clean_outputs("lcdm_baseline")
-            self._clean_outputs("tep_model")
+            self._clean_outputs("tep_background_only")
+            self._clean_outputs("tep_perturbations")
 
             self._write_ini(lcdm_ini, is_tep=False)
-            self._write_ini(tep_ini, is_tep=True)
+            self._write_ini(tep_bg_ini, is_tep=True, tep_perturbations='background_only')
+            self._write_ini(tep_pert_ini, is_tep=True, tep_perturbations='minimal_conformal')
 
             # 2. Run hi_class C-executable from results_dir
             print_status("Running hi_class C-engine (LambdaCDM)...", "PROCESS")
             self._run_class(lcdm_ini)
 
-            print_status("Running hi_class C-engine (TEP)...", "PROCESS")
-            self._run_class(tep_ini)
+            print_status("Running hi_class C-engine (TEP background-only)...", "PROCESS")
+            self._run_class(tep_bg_ini)
 
-            # 3. Parse and analyze results (resolve actual filenames written)
+            print_status("Running hi_class C-engine (TEP minimal-conformal perturbations)...", "PROCESS")
+            self._run_class(tep_pert_ini)
+
+            # 3. Parse and analyze results
             print_status("Parsing Boltzmann-solved spectra...", "PROCESS")
             ells, cl_lcdm = self._parse_output(self._latest_output("lcdm_baseline", "cl"))
-            _, cl_tep = self._parse_output(self._latest_output("tep_model", "cl"))
+            _, cl_tep_bg = self._parse_output(self._latest_output("tep_background_only", "cl"))
+            _, cl_tep_pert = self._parse_output(self._latest_output("tep_perturbations", "cl"))
 
             results["ells"] = ells.tolist()
             results["spectra"]["cl_tt_lcdm"] = cl_lcdm.tolist()
-            results["spectra"]["cl_tt_tep"] = cl_tep.tolist()
+            results["spectra"]["cl_tt_tep_bg"] = cl_tep_bg.tolist()
+            results["spectra"]["cl_tt_tep_pert"] = cl_tep_pert.tolist()
 
-            # Residuals
-            residuals = (cl_tep - cl_lcdm) / cl_lcdm
-            results["spectra"]["residuals"] = residuals.tolist()
+            # Residuals: TEP perturbations vs LCDM and vs background-only
+            residuals_pert_lcdm = (cl_tep_pert - cl_lcdm) / cl_lcdm
+            residuals_pert_bg = (cl_tep_pert - cl_tep_bg) / cl_tep_bg
+            results["spectra"]["residuals_pert_vs_lcdm"] = residuals_pert_lcdm.tolist()
+            results["spectra"]["residuals_pert_vs_bg"] = residuals_pert_bg.tolist()
 
-            # 4. Acoustic-scale preservation diagnostic (the physically meaningful
-            #    test of early-universe freezing). r_s and theta_s come from the
-            #    background tables; r_s must be preserved to ppm if the TEP field
-            #    truly freezes before recombination.
+            # 4. Acoustic-scale preservation diagnostic
             print_status("Computing acoustic-scale preservation (r_s, theta_s)...", "PROCESS")
             results["acoustic"] = self._acoustic_diagnostic()
 
             results["status"] = "SUCCESS"
-            
+
             # Save final results
             output_file = self.results_dir / "04_cmb_spectra.json"
             with open(output_file, 'w') as f:
                 json.dump(results, f, indent=2)
-            
+
             print_status(f"  ✓ Saved real results to {output_file}", "SUCCESS")
-            
+
         except Exception as e:
             results["status"] = "ERROR"
             results["error"] = str(e)
             print_status(f"Step failed: {e}", "ERROR")
             raise
-        
+
         return results
     
-    def _write_ini(self, path, is_tep=False):
+    def _write_ini(self, path, is_tep=False, tep_perturbations='background_only'):
         # Use relative root to avoid space issues
         root_val = path.stem + "_"
         content = f"""
@@ -124,29 +128,32 @@ YHe = 0.2454
 root = {root_val}
 """
         if is_tep:
-            # Native TEP background-only modification (standard GR perturbations):
-            #   H_TEP(z) = H_LCDM(z) * M(z)
-            #   M(z)     = A(z) / (1 - alpha_A(z))
-            #   A(z)     = exp(epsilon_T * ln(1+z) * S(z))
-            #   S(z)     = exp(-(z/z_T)^n_T)   [authoritative TEP-C0 form]
-            # The exp() factor freezes the modification for z >> z_T, preserving
-            # r_s, BBN and the CMB peaks; ln(1+z) fixes f_T(0)=0 (H0 unchanged).
-            # epsilon_T below is a representative fiducial for the consistency
-            # check; the homogeneous amplitude is bounded to ~0 by the CMB
-            # (TEP-C0, Paper 26) and is a free parameter in the MCMC.
-            epsilon_T = 0.0066   # representative fiducial (not a completed-fit value)
-            z_T = 5.0            # Transition redshift
-            n_T = 2.0            # Transition steepness
-            
-            print_status(f"  Native TEP: epsilon_T={epsilon_T}, z_T={z_T}, n_T={n_T}", "INFO")
-            
+            # Native TEP parameters (TEP-C0, Paper 26)
+            epsilon_T = 0.0066
+            z_T = 5.0
+            n_T = 2.0
+
+            print_status(f"  Native TEP: epsilon_T={epsilon_T}, z_T={z_T}, n_T={n_T}, mode={tep_perturbations}", "INFO")
+
             content += f"""
-# Native TEP background-only Hubble modification (TEP-C0, Paper 26)
-# Standard GR perturbations; only H(z) is modified via tep_mode
+# Native TEP background Hubble modification (TEP-C0, Paper 26)
 tep_mode = yes
 epsilon_T = {epsilon_T}
 z_T = {z_T}
 n_T = {n_T}
+"""
+            if tep_perturbations == 'minimal_conformal':
+                # Active scalar perturbation closure via SMG EFT framework.
+                # Hubble rate remains H_TEP = H_LCDM * M(z); scalar fluctuations
+                # are evolved natively by hi_class alongside metric potentials.
+                content += f"""
+# Active scalar perturbation closure (TEP-HC v0.3)
+gravity_model = tep
+M2_evolution = yes
+"""
+            else:
+                content += """
+# Background-only: standard GR perturbations; only H(z) is modified
 """
         with open(path, 'w') as f:
             f.write(content)

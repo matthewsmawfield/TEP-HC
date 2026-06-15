@@ -190,6 +190,95 @@ output: results/mcmc_chains/lcdm_comparison
 resume: false
 """
 
+COBAYA_CONFIG_TEP_PERT = """# TEP-HC Active Perturbation Configuration
+# ========================================
+# TEP minimal-conformal perturbation closure (TEP-HC v0.3).
+# H_TEP(z) = H_LCDM(z) * M(z)  [background]
+# Scalar fluctuations evolved via hi_class SMG EFT (gravity_model = tep).
+# Likelihoods: Planck 2018 low-l TT/EE + lensing + BAO + Pantheon+
+
+theory:
+  classy:
+    path: __HICLASS_PATH__
+    ignore_obsolete: true
+    extra_args:
+      output: tCl,pCl,lCl,mPk
+      lensing: yes
+      modes: s,t
+      non_linear: halofit
+      # Native TEP background Hubble modification
+      tep_mode: 'yes'
+      z_T: 5.0
+      n_T: 2.0
+      # Active scalar perturbation closure
+      gravity_model: 'tep'
+      M2_evolution: 'yes'
+
+likelihood:
+  planck_2018_lowl.TT: null
+  planck_2018_lowl.EE: null
+  planck_2018_lensing.native: null
+  bao.sdss_dr12_consensus_final: null
+  sn.pantheonplus: null
+
+params:
+  logA:
+    prior: {min: 2.5, max: 3.5}
+    ref: {dist: norm, loc: 3.044, scale: 0.014}
+    proposal: 0.01
+    drop: true
+  A_s:
+    value: 'lambda logA: 1e-10*np.exp(logA)'
+  n_s:
+    prior: {min: 0.94, max: 1.0}
+    ref: {dist: norm, loc: 0.966, scale: 0.004}
+    proposal: 0.004
+  H0:
+    prior: {min: 40, max: 100}
+    ref: {dist: norm, loc: 67.4, scale: 0.5}
+    proposal: 1.5
+  omega_b:
+    prior: {min: 0.005, max: 0.1}
+    ref: {dist: norm, loc: 0.0224, scale: 0.0002}
+    proposal: 0.0003
+  omega_cdm:
+    prior: {min: 0.01, max: 0.99}
+    ref: {dist: norm, loc: 0.12, scale: 0.001}
+    proposal: 0.0015
+  tau_reio:
+    prior: {min: 0.01, max: 0.8}
+    ref: {dist: norm, loc: 0.054, scale: 0.007}
+    proposal: 0.01
+  A_planck:
+    prior: {min: 0.9, max: 1.1}
+    ref: {dist: norm, loc: 1.0, scale: 0.0025}
+    proposal: 0.005
+  epsilon_T:
+    prior: {min: -1.0, max: 1.0}
+    ref: {dist: norm, loc: 0.006, scale: 0.005}
+    proposal: 0.0005
+    latex: '\\epsilon_T'
+  sigma8:
+    latex: '\\sigma_8'
+
+sampler:
+  mcmc:
+    burn_in: 0
+    max_tries: 10000
+    max_samples: 500000
+    Rminus1_stop: 0.05
+    Rminus1_cl_stop: 0.2
+    output_every: 10
+    learn_proposal: true
+    learn_proposal_Rminus1_max_early: 100.0
+    fallback_covmat_scale: 3
+    drag: true
+    seed: 44
+
+output: results/mcmc_chains/tep_hiclass_perturbations
+resume: false
+"""
+
 
 def _inject_hiclass_path(template: str) -> str:
     return template.replace(_HICLASS_PATH_PLACEHOLDER, HICLASS_REL_PATH)
@@ -197,50 +286,58 @@ def _inject_hiclass_path(template: str) -> str:
 
 class Step05Cobaya:
     """Step 05: Cobaya MCMC configuration (Full Suite)."""
-    
+
     STEP_NAME = "05_cobaya"
     STEP_DESCRIPTION = "Cobaya MCMC Setup (Full Suite)"
-    
+
     def __init__(self):
         self.root_dir = PROJECT_ROOT
         self.cobaya_dir = self.root_dir / "data" / "cobaya"
         self.cobaya_dir.mkdir(parents=True, exist_ok=True)
-        
+
         log_file = self.root_dir / "logs" / f"step_{self.STEP_NAME}_full.log"
         self.logger = TEPLogger(f"step_{self.STEP_NAME}_full", log_file)
         set_step_logger(self.logger)
-    
+
     def run(self) -> dict:
         """Execute Cobaya setup for full suite."""
         print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
-        
+
         results = {
             "step": self.STEP_NAME,
             "timestamp": datetime.now().isoformat(),
             "status": "RUNNING"
         }
-        
+
         try:
-            # Native TEP config is self-contained in the template
+            # 1. Native TEP background-only config
             config_path = self.cobaya_dir / "tep_hiclass_suite.yaml"
             with open(config_path, 'w') as f:
                 f.write(_inject_hiclass_path(COBAYA_CONFIG_TEMPLATE))
-            
-            print_status(f"  ✓ Created {config_path} (native TEP background-only)", "SUCCESS")
-            
-            # Also generate LCDM comparison config
+            print_status(f"  Created {config_path} (TEP background-only)", "SUCCESS")
+
+            # 2. LCDM comparison config
             lcdm_path = self.cobaya_dir / "lcdm_comparison.yaml"
             with open(lcdm_path, 'w') as f:
                 f.write(_inject_hiclass_path(COBAYA_CONFIG_LCDM))
-            print_status(f"  ✓ Created {lcdm_path} (ΛCDM comparison)", "SUCCESS")
-            
+            print_status(f"  Created {lcdm_path} (LCDM comparison)", "SUCCESS")
+
+            # 3. TEP active perturbation closure config
+            pert_path = self.cobaya_dir / "tep_hiclass_perturbations.yaml"
+            with open(pert_path, 'w') as f:
+                f.write(_inject_hiclass_path(COBAYA_CONFIG_TEP_PERT))
+            print_status(f"  Created {pert_path} (TEP active perturbations)", "SUCCESS")
+
+            results["configs_written"] = [
+                str(config_path), str(lcdm_path), str(pert_path)
+            ]
             results["status"] = "SUCCESS"
-            
+
         except Exception as e:
             results["status"] = "ERROR"
             results["error"] = str(e)
             raise
-        
+
         return results
 
 

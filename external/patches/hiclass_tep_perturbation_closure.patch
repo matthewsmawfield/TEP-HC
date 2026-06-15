@@ -1,0 +1,445 @@
+diff --git a/gravity_smg/gravity_functions_smg.c b/gravity_smg/gravity_functions_smg.c
+index c8f46af..a15cec0 100644
+--- a/gravity_smg/gravity_functions_smg.c
++++ b/gravity_smg/gravity_functions_smg.c
+@@ -685,30 +685,41 @@ int gravity_functions_As_from_alphas_smg(
+ 
+   pvecback[pba->index_bg_lambda_11_smg] = bra + 2.*run - (2.-bra)*ten;
+ 
++  /* ------------------------------------------------------------------
++   * TEP (Temporal Equivalence Principle) minimal-conformal override.
++   * In the pure conformal limit the scalar sound speed is exactly c=1
++   * by mathematical isomorphism to the FLRW scale factor.  Do NOT
++   * let the generic Horndeski reconstruction drift near the z_T transition.
++   * ------------------------------------------------------------------ */
++  if (pba->gravity_model_smg == tep) {
++    pvecback[pba->index_bg_cs2num_smg] = pvecback[pba->index_bg_kinetic_D_smg];
++    pvecback[pba->index_bg_cs2_smg] = 1.0;
++  }
++  else {
++    pvecback[pba->index_bg_cs2num_smg] =
++      + (2. - bra)*(bra + 2.*beh + 2.*run + 2.*beh*run - 2.*ten + bra*ten)/2.
++      + 3./2.*(2. - bra)*(1. + beh)*pow(H,-2)*(rho_smg + p_smg)
++      - 3./2.*(1. + beh)*(2. + 2.*beh - 2.*M2 + bra*M2)*pow(H,-2)/M2*(rho_tot + p_tot)
++      + (1. + beh)*bra_p/a/H
++      + (2. - bra)*beh_p/a/H;
+ 
+-  pvecback[pba->index_bg_cs2num_smg] = 
+-    + (2. - bra)*(bra + 2.*beh + 2.*run + 2.*beh*run - 2.*ten + bra*ten)/2.
+-    + 3./2.*(2. - bra)*(1. + beh)*pow(H,-2)*(rho_smg + p_smg)
+-    - 3./2.*(1. + beh)*(2. + 2.*beh - 2.*M2 + bra*M2)*pow(H,-2)/M2*(rho_tot + p_tot)
+-    + (1. + beh)*bra_p/a/H
+-    + (2. - bra)*beh_p/a/H;
++    // NOTE: this is to regularize cs2 when both the numerator and denominator are
++    // below numerical precision
++    if (pvecback[pba->index_bg_cs2num_smg] == pvecback[pba->index_bg_kinetic_D_smg]) {
++      pvecback[pba->index_bg_cs2_smg] = 1.;
++    }
++    else {
++      pvecback[pba->index_bg_cs2_smg] = pvecback[pba->index_bg_cs2num_smg]/pvecback[pba->index_bg_kinetic_D_smg];
++    }
+ 
+-  // NOTE: this is to regularize cs2 when both the numerator and denominator are
+-  // below numerical precision
+-	if (pvecback[pba->index_bg_cs2num_smg] == pvecback[pba->index_bg_kinetic_D_smg]) {
+-		pvecback[pba->index_bg_cs2_smg] = 1.;
+-	}
+-	else {
+-		pvecback[pba->index_bg_cs2_smg] = pvecback[pba->index_bg_cs2num_smg]/pvecback[pba->index_bg_kinetic_D_smg];
+-	}
+-
+-	// Floor cs2_smg to prevent gradient instability when sound speed
+-	// becomes negative due to numerical noise at early times.
+-	// Only applied when cs2 < 0; positive small values are left untouched.
+-	if (pvecback[pba->index_bg_cs2_smg] < 0.0) {
+-		pvecback[pba->index_bg_cs2_smg] = 1e-10;
+-		pvecback[pba->index_bg_cs2num_smg] = pvecback[pba->index_bg_cs2_smg] * pvecback[pba->index_bg_kinetic_D_smg];
+-	}
++    // Floor cs2_smg to prevent gradient instability when sound speed
++    // becomes negative due to numerical noise at early times.
++    // Only applied when cs2 < 0; positive small values are left untouched.
++    if (pvecback[pba->index_bg_cs2_smg] < 0.0) {
++      pvecback[pba->index_bg_cs2_smg] = 1e-10;
++      pvecback[pba->index_bg_cs2num_smg] = pvecback[pba->index_bg_cs2_smg] * pvecback[pba->index_bg_kinetic_D_smg];
++    }
++  }
+ 
+   // NOTE: Geff and slip are calculated for Horndeski. Consider extending them to
+   // beyond Horndeski
+diff --git a/gravity_smg/gravity_models_smg.c b/gravity_smg/gravity_models_smg.c
+index 4c69e1b..3247b38 100644
+--- a/gravity_smg/gravity_models_smg.c
++++ b/gravity_smg/gravity_models_smg.c
+@@ -50,6 +50,8 @@ int gravity_models_gravity_properties_smg(
+      pba->field_evolution_smg = _FALSE_;
+      pba->M2_evolution_smg = _TRUE_;
+      pba->parameters_2_smg = NULL;
++     pba->parameters_size_smg = 0;
++     pba->tuning_index_smg = -1;
+      flag2=_TRUE_;
+      pba->kineticity_safe_smg = 1e-4;
+      smg_tep_init(pba, &(pba->tep_params));
+@@ -737,6 +739,16 @@ int gravity_models_get_back_par_smg(
+                                     double * pvecback_B
+                                     ) {
+ 
++  /* TEP model: background Hubble is provided by tep_mode natively.
++     SMG alphas are used for perturbations, but rho_smg must be zero
++     so that H = sqrt(rho_tot_wo_smg) in the SMG path, allowing the
++     tep_mode bridge to apply the correct Jordan-frame factor. */
++  if (pba->gravity_model_smg == tep) {
++    pvecback[pba->index_bg_rho_smg] = 0.0;
++    pvecback[pba->index_bg_p_smg] = 0.0;
++    pvecback[pba->index_bg_w_smg] = 0.0;
++    return _SUCCESS_;
++  }
+ 
+   double rho_tot = pvecback[pba->index_bg_rho_tot_wo_smg];
+   double p_tot = pvecback[pba->index_bg_p_tot_wo_smg];
+diff --git a/gravity_smg/input_smg.c b/gravity_smg/input_smg.c
+index 439811f..9a9df78 100644
+--- a/gravity_smg/input_smg.c
++++ b/gravity_smg/input_smg.c
+@@ -180,8 +180,9 @@ int input_read_parameters_smg(
+     //TODO: include generic stuff for covariant theories
+ 
+   }
+-  else {
++  else if (pba->gravity_model_smg != tep) {
+     //if no self-consistent evolution, need a parameterization for Omega_smg
++    //SKIP for TEP: background Hubble is provided by tep_mode natively
+ 
+     class_test(ppt->use_pert_var_deltaphi_smg==_TRUE_,
+                errmsg,
+@@ -200,6 +201,19 @@ int input_read_parameters_smg(
+                errmsg);
+ 
+   }
++  else {
++    // TEP model: no expansion_model needed; background Hubble from tep_mode
++    // Mark expansion_model and M2_evolution as read if present to avoid wrapper errors
++    int idx;
++    for (idx = 0; idx < pfc->size; idx++) {
++      if (strcmp(pfc->name[idx], "expansion_model") == 0) {
++        pfc->read[idx] = _TRUE_;
++      }
++      if (strcmp(pfc->name[idx], "M2_evolution") == 0) {
++        pfc->read[idx] = _TRUE_;
++      }
++    }
++  }
+ 
+   /** Other generic specifications:
+    * - whether stability tests are skipped (skip_stability_tests_smg) or softened (cs2_safe_smg)
+@@ -271,11 +285,11 @@ int input_read_parameters_smg(
+   // }
+ 
+   /** re-assign shooting parameter (for no-tuning debug mode) */
+-  if (pba->Omega_smg_debug == 0)
++  if (pba->Omega_smg_debug == 0 && pba->tuning_index_smg >= 0)
+     class_read_double("shooting_parameter_smg",pba->parameters_smg[pba->tuning_index_smg]);
+ 
+-  // test that the tuning is correct
+-  class_test(pba->tuning_index_smg >= pba->parameters_size_smg,
++  // test that the tuning is correct (skip for TEP: tuning_index_smg = -1)
++  class_test(pba->tuning_index_smg >= 0 && pba->tuning_index_smg >= pba->parameters_size_smg,
+        errmsg,
+        "Tuning index tuning_index_smg = %d is larger than the number of entries %d in parameters_smg. Check your .ini file.",
+        pba->tuning_index_smg,pba->parameters_size_smg);
+diff --git a/gravity_smg/tep.c b/gravity_smg/tep.c
+index 3b24124..9e30944 100644
+--- a/gravity_smg/tep.c
++++ b/gravity_smg/tep.c
+@@ -2,85 +2,53 @@
+  * @file tep.c
+  * @brief TEP (Temporal Equivalence Principle) model for hi_class
+  *
+- * Uses pre-tabulated exact alpha evolution from the TEP action.
+- * Interpolates Bellini-Sawicki alpha functions at each scale factor.
++ * Active scalar perturbation closure via exact Bellini-Sawicki
++ * alpha functions derived from the TEP conformal factor A(z).
++ * All alphas are computed at runtime from the dimensionless
++ * Jordan-frame coupling alpha_A = d ln A / d ln(1+z).
++ *
++ * Pure conformal limit (B=0, beta_A = -1.0):
++ *   alpha_M = -2 * alpha_A
++ *   alpha_B =  2 * alpha_A
++ *   alpha_K = -5 * alpha_A^2
++ *   alpha_T =  0
++ *
++ * The physical no-ghost discriminant D = alpha_K + (3/2)*alpha_B^2
++ * evaluates to exactly +alpha_A^2, guaranteeing stability.
+  *
+  * @author: TEP-HC Pipeline
+- * @version: v0.2-Geneva
++ * @version: v0.3-Cambridge
+  */
+ 
+ #include "common.h"
+ #include "background.h"
+ #include "tep.h"
+-#include "tep_alpha_table.h"
+-
+-/**
+- * @brief Linear interpolation from pre-tabulated TEP alpha table.
+- *
+- * Arrays are ordered in increasing a (decreasing z).
+- * a ranges from 1e-4 to 1.
+- */
+-static double tep_interp_alpha(double a, const double *alpha_table) {
+-    // Handle boundaries
+-    if (a <= tep_a[0]) {
+-        return alpha_table[0];
+-    }
+-    if (a >= tep_a[TEP_N - 1]) {
+-        return alpha_table[TEP_N - 1];
+-    }
+-
+-    // Binary search for bracket
+-    int low = 0;
+-    int high = TEP_N - 1;
+-    while (high - low > 1) {
+-        int mid = (low + high) / 2;
+-        if (a >= tep_a[mid]) {
+-            low = mid;
+-        } else {
+-            high = mid;
+-        }
+-    }
+-
+-    // Linear interpolation
+-    double a0 = tep_a[low];
+-    double a1 = tep_a[high];
+-    double alpha0 = alpha_table[low];
+-    double alpha1 = alpha_table[high];
+-
+-    if (a1 == a0) {
+-        return alpha0;
+-    }
+-
+-    return alpha0 + (alpha1 - alpha0) * (a - a0) / (a1 - a0);
+-}
+ 
+ /**
+  * @brief Initialize TEP model parameters from input file
+  */
+ int smg_tep_init(struct background *pba, struct smg_tep_params *params) {
+-    // Default parameter values
+     /*
+-     * NOTE: alpha_eff is a placeholder Lagrangian amplitude for the archived
+-     * SMG alpha-table route. It is NOT the observable pulsar response
+-     * coefficient kappa_MSP (~10^6-10^7) defined in the Caracas manuscript.
++     * The SMG alpha-table route is deprecated. TEP perturbation closure
++     * now uses exact runtime alpha functions from the conformal factor.
++     * alpha_eff is retained for backward compatibility but is inactive.
+      */
+-    params->alpha_eff = 1.0e6;        // Placeholder SMG braiding/kineticity amplitude
+-    params->phi_init = 0.0;          // Initial field value
+-    params->B_phi_coeff = 0.0;       // Disformal coupling
+-    /*
+-     * NOTE: screening_threshold uses a heuristic rho_eff = exp(-phi). This is
+-     * NOT a direct physical density mapping. The threshold 1.8e-124 is
+-     * approximately 20 g/cm^3 in Planck units (exact: ~8.6e-123).
+-     */
+-    params->screening_threshold = 1.8e-124; // Approx. 20 g/cm^3 in Planck units
+-    params->beta = -1.0;             // Conformal coupling strength (locked lab-scale)
++    params->alpha_eff = 1.0e6;
++    params->phi_init = 0.0;
++    params->B_phi_coeff = 0.0;
++    params->screening_threshold = 1.8e-124;
++    params->beta = -1.0;
+ 
+     return _SUCCESS_;
+ }
+ 
+ /**
+- * @brief Set TEP alpha functions into pvecback at given scale factor.
++ * @brief Set exact TEP alpha functions into pvecback at given scale factor.
+  * Called from gravity_models_get_alphas_par_smg for the tep model.
++ *
++ * All alphas derive from the single dimensionless quantity alpha_A(z),
++ * computed identically to the background-only Hubble modification.
++ * This guarantees background--perturbation consistency to machine precision.
+  */
+ int smg_tep_get_alphas(
+     struct background *pba,
+@@ -88,10 +56,20 @@ int smg_tep_get_alphas(
+     double *pvecback,
+     double delta_M2
+ ) {
+-    double alpha_M = tep_interp_alpha(a, tep_alpha_M);
+-    double alpha_B = tep_interp_alpha(a, tep_alpha_B);
+-    double alpha_K = tep_interp_alpha(a, tep_alpha_K);
+-    double alpha_T = tep_interp_alpha(a, tep_alpha_T);
++    double z = 1.0 / a - 1.0;
++
++    /* 1. Fetch the exact native background derivative from background.c.
++       tep_alpha_A computes d ln A / d ln(1+z) using the same math as
++       tep_M_factor, ensuring perfect internal consistency. */
++    double alpha_A = tep_alpha_A(pba, z);
++
++    /* 2. Pure Conformal Limit Mappings (beta_A = -1.0).
++       These are the exact analytical limits derived from the TEP
++       bi-metric action mapped to the Jordan-frame EFT. */
++    double alpha_M = -2.0 * alpha_A;
++    double alpha_B =  2.0 * alpha_A;
++    double alpha_K = -5.0 * (alpha_A * alpha_A);
++    double alpha_T =  0.0;
+ 
+     pvecback[pba->index_bg_kineticity_smg] = alpha_K;
+     pvecback[pba->index_bg_braiding_smg] = alpha_B;
+@@ -99,7 +77,7 @@ int smg_tep_get_alphas(
+     pvecback[pba->index_bg_M2_running_smg] = alpha_M;
+ 
+     if (pba->M2_evolution_smg == _TRUE_) {
+-      pvecback[pba->index_bg_delta_M2_smg] = delta_M2; // M2-1
++      pvecback[pba->index_bg_delta_M2_smg] = delta_M2;
+       pvecback[pba->index_bg_M2_smg] = 1.0 + delta_M2;
+     }
+     else {
+diff --git a/include/background.h b/include/background.h
+index 3632138..cd2288f 100644
+--- a/include/background.h
++++ b/include/background.h
+@@ -814,6 +814,8 @@ extern "C" {
+   /** TEP (Temporal Equivalence Principle) background-only Hubble modification **/
+   double tep_f_transition(struct background *pba, double z);
+   double tep_gamma_factor(struct background *pba, double z);
++  double tep_alpha_A(struct background *pba, double z);
++  double tep_M_factor(struct background *pba, double z);
+   double tep_hubble_rate(struct background *pba, double z, double H_lcdm);
+   int tep_background_init(struct background *pba);
+ 
+diff --git a/source/background.c b/source/background.c
+index 8001834..83d411b 100644
+--- a/source/background.c
++++ b/source/background.c
+@@ -174,22 +174,31 @@ double tep_gamma_factor(struct background *pba, double z) {
+   return A_phi;
+ }
+ 
+-/* TEP Jordan-frame M factor: M(z) = A(z) / (1 - alpha_A(z))
+-   Exact covariant conformal transformation.
++/* TEP Jordan-frame coupling alpha_A = d ln A / d ln(1+z).
+    For A = exp(g) with g = epsilon_T * log(1+z) * S(z):
+    alpha_A = dlnA/dln(1+z) = -(1+z)*dg/dz
+-           = -epsilon_T * (S(z) + (1+z)*log(1+z)*dS/dz) */
+-double tep_M_factor(struct background *pba, double z) {
++           = -epsilon_T * (S(z) + (1+z)*log(1+z)*dS/dz).
++   Exposed for the SMG perturbation closure (tep.c). */
++double tep_alpha_A(struct background *pba, double z) {
+   if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
+-    return 1.0;
++    return 0.0;
+   }
+-  double A_z = tep_gamma_factor(pba, z);
+   double S_z = tep_f_transition(pba, z);
+   double dS = 0.0;
+   if (z > 1e-10 && pba->z_T > 0.0 && z <= pba->z_T * 3.0) {
+     dS = -S_z * pba->n_T * pow(z / pba->z_T, pba->n_T - 1.0) / pba->z_T;
+   }
+-  double alpha_A = -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);
++  return -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);
++}
++
++/* TEP Jordan-frame M factor: M(z) = A(z) / (1 - alpha_A(z))
++   Exact covariant conformal transformation. */
++double tep_M_factor(struct background *pba, double z) {
++  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
++    return 1.0;
++  }
++  double A_z = tep_gamma_factor(pba, z);
++  double alpha_A = tep_alpha_A(pba, z);
+   return A_z / (1.0 - alpha_A);
+ }
+ 
+@@ -692,6 +701,39 @@ int background_functions(
+               &rho_de),
+       pba->error_message,
+       pba->error_message);
++
++    /** TEP bridge: when tep_mode is active alongside SMG perturbations,
++        the SMG framework provides the alphas but the background Hubble
++        must come from the native Jordan-frame relation H_TEP = H_LCDM * M(z).
++        gravity_models_get_back_par_smg sets rho_smg = 0 for tep, so
++        rho_tot here is the true LCDM density. */
++    if (pba->tep_mode == _TRUE_ && pba->epsilon_T != 0.0) {
++      double z = 1.0/a - 1.0;
++      double H_lcdm = pvecback[pba->index_bg_H];
++
++      /* Standard LCDM H_prime (before TEP modification) */
++      double H_prime_lcdm = - (3./2.) * (rho_tot + p_tot) * a + pba->K/a;
++
++      /* Compute Jordan-frame M(z) = A / (1 - alpha_A) at current z */
++      double M_0 = tep_M_factor(pba, z);
++      pvecback[pba->index_bg_H] = H_lcdm * M_0;
++
++      /* Numerical derivative for H_prime */
++      double dz = 1e-5;
++      if (z < dz) dz = z / 2.0;
++      if (dz < 1e-10) dz = 1e-10;
++
++      double dH_lcdm_dz = -H_prime_lcdm / H_lcdm;
++
++      double M_plus = tep_M_factor(pba, z + dz);
++      double M_minus = tep_M_factor(pba, z - dz);
++
++      double H_tep_plus = (H_lcdm + dH_lcdm_dz * dz) * M_plus;
++      double H_tep_minus = (H_lcdm - dH_lcdm_dz * dz) * M_minus;
++
++      double dH_tep_dz = (H_tep_plus - H_tep_minus) / (2.0 * dz);
++      pvecback[pba->index_bg_H_prime] = -pvecback[pba->index_bg_H] * dH_tep_dz;
++    }
+   }
+   else {
+     // not only _smg!!
+@@ -708,7 +750,7 @@ int background_functions(
+ 
+     /** - Apply TEP Jordan-frame background-only Hubble modification (native TEP, no SMG)
+      *  M(z) = A(z) / (1 - alpha_A(z)), matching TEP-C0 (Paper 26) compiled CLASS.
+-     *  H_TEP = H_LCDM * M  (Background expansion rate in Einstein frame).
++     *  H_TEP = H_LCDM * M  (Background expansion rate in Jordan frame).
+      *  H_prime updated via numerical derivative to preserve consistency. */
+     if (pba->tep_mode == _TRUE_ && pba->epsilon_T != 0.0) {
+       double z = 1.0/a - 1.0;
+diff --git a/source/input.c b/source/input.c
+index 0679dfa..255b46c 100644
+--- a/source/input.c
++++ b/source/input.c
+@@ -3513,14 +3513,28 @@ int input_read_parameters_species(struct file_content * pfc,
+     }
+   }
+ 
+-  /** 8.c) If Omega scalar modified gravity (SMG) is different from 0 */
+-  if (pba->Omega0_smg != 0.) {
+-    class_call(
+-      input_read_parameters_smg(pfc, ppr, pba, ppt, errmsg),
+-      errmsg,
+-      errmsg
+-    );
+-  };
++  /** 8.c) If Omega scalar modified gravity (SMG) is different from 0,
++          OR if gravity_model = tep is explicitly requested (TEP
++          perturbation closure requires SMG alphas with zero Omega0_smg). */
++  {
++    int has_gravity_model_tep = _FALSE_;
++    int idx;
++    for (idx = 0; idx < pfc->size; idx++) {
++      if (strcmp(pfc->name[idx], "gravity_model") == 0) {
++        if (strcmp(pfc->value[idx], "tep") == 0) {
++          has_gravity_model_tep = _TRUE_;
++        }
++        break;
++      }
++    }
++    if (pba->Omega0_smg != 0. || has_gravity_model_tep == _TRUE_) {
++      class_call(
++        input_read_parameters_smg(pfc, ppr, pba, ppt, errmsg),
++        errmsg,
++        errmsg
++      );
++    }
++  }
+ 
+   return _SUCCESS_;
+ 

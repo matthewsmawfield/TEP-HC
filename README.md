@@ -1,19 +1,27 @@
-# Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation
+# Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20572722.svg)](https://doi.org/10.5281/zenodo.20572722)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20682752.svg)](https://doi.org/10.5281/zenodo.20682752)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-![TEP-HC: hi_class Background Implementation and CMB Acoustic Peak Preservation](site/public/image.webp)
+![TEP-HC: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation](site/public/image.webp)
 
 **Author:** Matthew Lukin Smawfield  
-**Version:** v0.2 (Cambridge)  
+**Version:** v0.3 (Cambridge)  
 **First published:** 8 June 2026  
 **Website:** [https://mlsmawfield.com/tep/hc](https://mlsmawfield.com/tep/hc)  
 **Paper Series:** TEP Series: Paper 18 (hi_class Cosmology)
 
 ## Abstract
 
-Standard cosmology relies on spatial expansion and a Big Bang singularity to explain the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN). This paper demonstrates that these early-universe successes are natively preserved under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP). The Jordan-frame factor $M(z) = A/(1-\alpha_A)$ modifies $H(z)$ via `tep_mode` while standard General Relativistic perturbations are preserved. Direct Boltzmann integration confirms sound-horizon preservation to parts-per-million ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and unchanged acoustic-peak morphology. The exact geometric relation $M = A/(1-\alpha_A)$ is evaluated directly in the production implementation (Appendix A.3). The sole CMB effect of a non-zero homogeneous amplitude $\epsilon_T$ is a late-time angular-diameter-distance projection largely degenerate with $H_0$. A joint Cobaya MCMC against Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+ yields $\epsilon_T = 0.0056 \pm 0.0043$ and $H_0 = 66.63 \pm 1.70$ km/s/Mpc. The Bellini–Sawicki EFT mapping is retained as an archived theoretical reference.
+Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a Big Bang singularity. This paper demonstrates that the CMB acoustic-sector and conformal thermal/sound-horizon scalings are preserved with high fidelity under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP).
+
+In the TEP framework, matter clocks and photon phases evolve in a causal matter metric defined by a conformal scalar field $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$. Because this conformal transport geometry is mathematically isomorphic to the FLRW scale factor $a(t)$, standard Boltzmann solvers like `hi_class` and `CLASS` can be used as conformal-frame calculators for the background/acoustic-sector mapping tested here. The parameter traditionally identified as Dark Energy ($\Omega_\Lambda$) is operationally reinterpreted within this implementation as the homogeneous temporal-shear background contribution filling the same background budget slot, $\Omega_\phi$.
+
+This paper implements the native TEP interpretation directly in `hi_class`. Within the broader TEP interpretation, by recognizing that the spatial metric does not stretch, the "Big Bang" is reinterpreted not as a physical density singularity, but as an observational Temporal Horizon—an asymptotic boundary where the conformal clock-rate field $A(\phi) \to 0$. Direct Boltzmann integration verifies this background/acoustic mathematical isomorphism, confirming that the static conformal geometry preserves the pre-recombination sound horizon to parts-per-million and leaves the acoustic-peak morphology intact without invoking early-universe spatial expansion.
+
+Beyond the background mapping, the paper closes the linear pure-conformal scalar perturbation sector by deriving the runtime Bellini–Sawicki functions $\alpha_M=-2\alpha_A$, $\alpha_B=2\alpha_A$, $\alpha_K=-5\alpha_A^2$, and $\alpha_T=0$, for which the physical no-ghost discriminant satisfies $D=\alpha_K+\frac{3}{2}\alpha_B^2=\alpha_A^2$. An active-perturbation hi_class run evolving $\delta\phi$ through the full Einstein–Boltzmann hierarchy produces posteriors statistically indistinguishable from the background-only chain, demonstrating that the implemented linear pure-conformal scalar perturbation sector is stable and observationally negligible at the current homogeneous-amplitude bound.
+
+A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with a Bayes factor of 131.6 in favour of TEP M1, without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
 
 ## Key Results
 
@@ -31,7 +39,7 @@ Standard cosmology relies on spatial expansion and a Big Bang singularity to exp
 | **Paper 0** | [TEP](https://github.com/matthewsmawfield/TEP) | Temporal Equivalence Principle: Dynamic Time & Emergent Light Speed | [10.5281/zenodo.16921911](https://doi.org/10.5281/zenodo.16921911) |
 | **Paper 15** | [TEP-EFA](https://github.com/matthewsmawfield/TEP-EFA) | Temporal Shear in the Earth Flyby Anomaly | [10.5281/zenodo.19454863](https://doi.org/10.5281/zenodo.19454863) |
 | **Paper 17** | [TEP-LLR](https://github.com/matthewsmawfield/TEP-LLR) | Lunar Laser Ranging and the Nordtvedt Effect | [10.5281/zenodo.19446029](https://doi.org/10.5281/zenodo.19446029) |
-| **Paper 18** | **TEP-HC** (This repo) | hi_class Background Implementation and CMB Acoustic Peak Preservation | [10.5281/zenodo.20572722](https://doi.org/10.5281/zenodo.20572722) |
+| **Paper 18** | **TEP-HC** (This repo) | Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation | [10.5281/zenodo.20682752](https://doi.org/10.5281/zenodo.20682752) |
 | **Paper 26** | [TEP-C0](https://github.com/matthewsmawfield/TEP-C0) | Covariant Alternative to Cosmic Expansion (Pantheon+ + full Planck) | [10.5281/zenodo.20370144](https://doi.org/10.5281/zenodo.20370144) |
 | **Paper 19** | [TEP-LENS](https://github.com/matthewsmawfield/TEP-LENS) | Geometric Route-Closure Test in Multiply-Imaged Supernovae | — |
 
@@ -87,7 +95,7 @@ python scripts/generate_figures.py
 
 # Build manuscript from HTML
 cd site && npm ci && npm run build:markdown
-# Output: 18-TEP-HC-v0.2-Cambridge.md
+# Output: 18-TEP-HC-v0.3-Cambridge.md
 
 # Build static site (figures copied from results/figures/)
 cd site && npm ci && npm run build
@@ -116,10 +124,10 @@ Figures are generated separately via `python scripts/generate_figures.py` and co
 
 ```bibtex
 @article{tep_hc_paper,
-  title={Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation},
+  title={Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation},
   author={Smawfield, Matthew Lukin},
   year={2026},
-  note={Preprint v0.2 (Cambridge)},
+  note={Preprint v0.3 (Cambridge)},
   url={https://mlsmawfield.com/tep/hc}
 }
 ```

@@ -15,6 +15,8 @@ This script executes the scientific workflow in strict sequential order:
 7. MCMC execution
 8. Posterior analysis
 9. Results synthesis
+10. Perturbation closure verification
+11. Scalar perturbation stability audit
 
 Usage:
     python scripts/run_all.py
@@ -24,7 +26,7 @@ Usage:
 
 Author: Matthew Lukin Smawfield
 Date: April 2026
-Version: v0.2-Cambridge
+Version: v0.3-Cambridge
 License: CC-BY-4.0
 """
 
@@ -87,6 +89,8 @@ from scripts.steps.step_05_cobaya import Step05Cobaya
 from scripts.steps.step_06_mcmc import Step06MCMC
 from scripts.steps.step_07_posteriors import Step07Posteriors
 from scripts.steps.step_08_synthesis import Step08Synthesis
+from scripts.steps.step_09_perturbation_closure import Step09PerturbationClosure
+from scripts.steps.step_10_stability_audit import Step10StabilityAudit
 
 # Step registry
 STEP_REGISTRY = {
@@ -100,6 +104,8 @@ STEP_REGISTRY = {
     7: ("06_mcmc", Step06MCMC, "MCMC Execution"),
     8: ("07_posteriors", Step07Posteriors, "Posterior Analysis"),
     9: ("08_synthesis", Step08Synthesis, "Results Synthesis"),
+    10: ("09_perturbation_closure", Step09PerturbationClosure, "Perturbation Closure Verification"),
+    11: ("10_stability_audit", Step10StabilityAudit, "Scalar Perturbation Stability Audit"),
 }
 
 
@@ -134,7 +140,7 @@ def run_pipeline(args: argparse.Namespace) -> dict:
     
     # Determine step range
     start_step = args.start_step if args.start_step is not None else 0
-    stop_step = args.stop_step if args.stop_step is not None else 9
+    stop_step = args.stop_step if args.stop_step is not None else 11
     skip_steps = set(args.skip_steps) if args.skip_steps else set()
     
     print_status(f"Pipeline Configuration:", "TITLE")

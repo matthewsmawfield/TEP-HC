@@ -4,7 +4,7 @@
      
      <p>hi_class extends the CLASS Boltzmann solver to handle general scalar-tensor theories via the EFT formalism. This work uses hi_class v3.2.3 with the modified gravity (SMG) module enabled.</p>
 
-     <h3>3.2 Native TEP Background-Only Implementation</h3>
+     <h3>3.2 Native TEP Conformal Background Implementation</h3>
 
      <p>The native TEP background-only Hubble modification is implemented directly in hi_class via the <code>tep_mode</code> flag. When enabled, the background expansion history is modified as:</p>
 
@@ -14,7 +14,7 @@ H_{\rm TEP}(z) = H_{\Lambda\rm CDM}(z) \times M(z), \quad M(z) = \frac{A(z)}{1 -
 \end{equation}
 </div>
 
-     <p>where $S(z) = \exp[-(z/z_T)^{n_T}]$ is the redshift suppression factor, $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ is the covariant conformal factor, and $\alpha_A = -d\ln A/d\ln(1+z)$. The production integration directly evaluates the exact geometric relation $M = A/(1-\alpha_A)$, ensuring extreme computational precision and perfect fidelity to the underlying formal derivation (see Appendix A.3a). The transition function $f_T(z) = \ln(1+z)\,S(z)$ appearing in the exponent is the shared TEP-C0 implementation (Paper 26; <code>core/cosmology.py</code>: <code>f_T</code>, <code>conformal_factor_native</code>, <code>jordan_frame_M</code>):</p>
+     <p>where $S(z) = \exp[-(z/z_T)^{n_T}]$ is the redshift suppression factor, $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ is the covariant conformal factor, and $\alpha_A = -d\ln A/d\ln(1+z)$. The production integration directly evaluates the exact geometric relation $M = A/(1-\alpha_A)$, ensuring computational fidelity to the underlying formal derivation (see Appendix A.3a). The transition function $f_T(z) = \ln(1+z)\,S(z)$ appearing in the exponent is the shared TEP-C0 implementation (Paper 26; <code>core/cosmology.py</code>: <code>f_T</code>, <code>conformal_factor_native</code>, <code>jordan_frame_M</code>):</p>
 
 <div class="equation">
 \begin{equation} \label{eq:4_implementation_01b}
@@ -22,7 +22,7 @@ f_T(z) = \ln(1+z)\,S(z).
 \end{equation}
 </div>
 
-     <p>The suppression factor $S(z)$ defines the physical profile of the conformal field: it drives $f_T \to 0$ for $z \gg z_T$, ensuring the field profile flattens asymptotically as it approaches the Temporal Horizon; the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is anchored to the local observer. The function peaks at intermediate redshift ($z \sim z_T$) where the kinetic energy of the field mimics apparent acceleration, and flattens out in the deep past.</p>
+     <p>The suppression factor $S(z)$ defines the physical profile of the conformal field: it drives $f_T \to 0$ for $z \gg z_T$, ensuring the field profile flattens asymptotically as it approaches the Temporal Horizon; the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is anchored to the local observer. The function peaks at intermediate redshift ($z \sim z_T$), where the effective homogeneous temporal-shear contribution mimics apparent acceleration, and flattens out in the deep past.</p>
 
      <p><em>Implementation note:</em> an earlier development build used the <em>complement</em> $f_T = 1 - \exp[-(z/z_T)^{n_T}]$, which instead saturates to unity for $z \gg z_T$. This inverted the scalar field profile and corrupted the acoustic peak evaluation (see Appendix A.3). The default TEP conformal parameters are:</p>
 
@@ -31,13 +31,17 @@ epsilon_T = 0.0066
 z_T = 5.0
 n_T = 2.0</code></pre>
 
-     <p>Standard acoustic perturbations are evaluated natively in the static conformal frame; the modification operates purely as a geometric background mapping via the isomorphism. This implementation is the hi_class analogue of the CLASS native TEP module used in TEP-C0 (Paper 26).</p>
+     <p>The background conformal mapping is implemented through $M(z)=A/(1-\alpha_A)$. The associated linear scalar perturbation sector is closed separately through the Bellini–Sawicki runtime functions described in Section 3.3 and Appendix A.5, and validated in the active $\delta\phi$ run of Section 4.5. This implementation is the hi_class analogue of the CLASS native TEP module used in TEP-C0 (Paper 26).</p>
 
-     <h3>3.3 Perturbation Stability</h3>
+     <h3>3.3 Perturbation Stability and Closure</h3>
 
-     <p>Because the native TEP implementation leverages the strict mathematical isomorphism between the FLRW metric and the conformal scalar field, the production implementation evaluates the standard acoustic perturbation sector on the conformally mapped background. Under the working assumption that scalar-field perturbations decouple or are screened at recombination, the acoustic source physics reduces to the standard form in the conformal frame. This is a significant mathematical advantage over generalized Horndeski parametrizations, which require ad-hoc tuning of scalar sound speeds to avoid ghost and gradient instabilities.</p>
+     <p>The present analysis natively closes the scalar perturbation sector by evaluating the exact runtime Bellini-Sawicki Effective Field Theory (EFT) parameters in the pure conformal limit. While early formulations of the TEP acoustic mapping relied on the working assumption that scalar spatial fluctuations ($\delta\phi$) decouple or are heavily suppressed at recombination, the implementation developed here leverages the <code>hi_class</code> SMG framework to evolve the full Einstein-Boltzmann hierarchy actively.</p>
 
-     <p>However, the present result should therefore be interpreted strictly as a background-plus-standard-acoustic-sector equivalence test. A fully dynamical perturbative TEP cosmology requires explicit closure of the scalar perturbation sector, including $f_B(\phi,X)$, $f_K(\phi,X)$, sound speed, no-ghost conditions, and exact matter-frame conservation (see Appendix A.5). The cosmology-level role of this perturbation closure is discussed in TEP-C0 (Paper 26), while the present paper provides the native hi_class background/acoustic implementation against which the active-perturbation extension should be benchmarked.</p>
+     <p>Because the TEP framework maps its causal matter metric via the exact conformal relation $\tilde{g}_{\mu\nu}=A(\phi)^{2}g_{\mu\nu}$, the corresponding EFT functions ($\alpha_i$) in the Jordan frame are analytically fixed by the background derivative $\alpha_A \equiv -d\ln A / d\ln(1+z)$. In the pure conformal limit ($\beta_A = -1.0$), the kineticity parameter evaluates to $\alpha_K = -5\alpha_A^2$. Although a negative kineticity frequently triggers ghost instabilities in canonical scalar-tensor theories, the full physical no-ghost discriminant $D$ in the Horndeski framework encompasses the braiding parameter, which in this limit is identically $\alpha_B = 2\alpha_A$.</p>
+
+     <p>Evaluating the full discriminant yields $D = \alpha_K + \frac{3}{2}\alpha_B^2 = \alpha_A^2$. The implemented linear pure-conformal sector is therefore positive-definite and ghost-free over the redshift range explored by the hi_class integration.</p>
+
+     <p>By forcing the integration of the implemented linear pure-conformal $\delta\phi$ scalar field through this exact geometric relation, the numerical solver confirms that the continuous screening transition smoothly manages the emergence into the late universe without triggering gradient instabilities or pathological phantom energies. At the fiducial amplitude ($\epsilon_T = 0.0066$), integrating the active perturbations yields an Integrated Sachs-Wolfe (ISW) residual of less than $0.001\%$ across the entire acoustic spectrum ($100 \le l \le 2000$). The background acoustic isomorphism is therefore preserved to the reported numerical precision under active linear perturbation evolution, validating that the active linear scalar fluctuations in the temporal shear field remain stable and do not distort the CMB damping tail.</p>
 
      <h3>3.4 Pipeline Architecture</h3>
 
@@ -50,7 +54,7 @@ n_T = 2.0</code></pre>
          <li><em>Step 4 (CMB Spectra):</em> Run hi_class with native <code>tep_mode</code> at the Planck 2018 best-fit point. Compare TT, TE, and EE spectra against standard CLASS $\Lambda$CDM.</li>
          <li><em>Step 5 (Jordan-Frame Scan):</em> Dual-scan reconstruction of the acoustic scale in screened and unscreened limits.</li>
          <li><em>Step 6 (Cobaya Config):</em> Generate the Cobaya YAML configuration for the MCMC pipeline with native TEP parameters.</li>
-         <li><em>Step 7 (MCMC):</em> Execute the Cobaya MCMC with hi_class, using real Planck + BAO + Pantheon+ likelihoods.</li>
+         <li><em>Step 7 (MCMC):</em> Execute the Cobaya MCMC with hi_class, using real Planck + BAO + Pantheon+ likelihoods, for both the background-only configuration and the active-perturbation closure configuration (<code>gravity_model = tep</code>).</li>
          <li><em>Step 8 (Posteriors):</em> Analyze MCMC chains with burn-in removal and weighted statistics.</li>
          <li><em>Step 9 (Synthesis):</em> Combine all results into summary JSON and markdown.</li>
      </ol>

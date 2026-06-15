@@ -18,7 +18,7 @@ The framework culminates in a preregistered empirical testing program targeting 
 
 Code Availability: All data and analysis code required to reproduce the results presented in this work are available in the public repository at https://github.com/matthewsmawfield/TEP-C0.
 
-Keywords: temporal equivalence principle, static universe, cosmology, dark energy, supernovae, Bayesian inference, modified gravity, temporal shear
+Keywords: temporal equivalence principle, static conformal geometry, cosmology, dark energy, supernovae, Bayesian inference, modified gravity, temporal shear
 
 # 1. Introduction: The Geometry of Time
 
@@ -325,11 +325,11 @@ Because the geometric transport of the conformal scalar field is mathematically 
 
 ## 7.3 Resolving the Major Cosmological Crises
 
-The Static Universe paradigm natively resolves the two most severe observational crises in modern cosmology without invoking new physics or breaking standard calibration.
+The Static Conformal paradigm natively resolves the two most severe observational crises in modern cosmology without invoking new physics or breaking standard calibration.
 
 **The Hubble Tension:** The local distance ladder relies on calibrating deep-void supernovae against galactic Cepheids. In TEP, the temporal shear field is environmentally screened by mass. Supernovae exist in empty voids (where the field is unscreened, yielding a high $H_0 \approx 73$), while Cepheids exist in dense galaxies (where the field is partially screened, yielding a lower $H_0 \approx 69$). The TEP conformal transport correction natively shifts the SH0ES local measurement down to match the global background, formally resolving the $5\sigma$ tension simply as an artifact of environmental screening (Paper 11).
 
-**The JWST "Impossible" Galaxies:** Standard $\Lambda$CDM severely restricts the available proper time for galaxy assembly at $z > 7$, creating a crisis when JWST discovered massive, mature galaxies at early epochs. In the TEP Static Universe, because there is no physical spatial expansion, the "age" of the universe is an observational artifact of the Temporal Horizon. There was no physical bottleneck or singularity; there was infinite proper time available for galaxy assembly. The massive galaxies formed strictly within standard astrophysical accretion models over vast timescales that $\Lambda$CDM simply failed to account for (Paper 12).
+**The JWST "Impossible" Galaxies:** Standard $\Lambda$CDM severely restricts the available proper time for galaxy assembly at $z > 7$, creating a crisis when JWST discovered massive, mature galaxies at early epochs. In the TEP Static Conformal geometry, because there is no physical spatial expansion, the "age" of the universe is an observational artifact of the Temporal Horizon. There was no physical bottleneck or singularity; there was infinite proper time available for galaxy assembly. The massive galaxies formed strictly within standard astrophysical accretion models over vast timescales that $\Lambda$CDM simply failed to account for (Paper 12).
 
 ## 7.4 Cross-Scale Consistency: Cosmology to Wide Binaries
 

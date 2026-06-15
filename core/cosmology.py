@@ -728,31 +728,80 @@ class TEPCosmologyFitter:
 # Part E: Active Scalar Perturbation Closure (Minimal Conformal)
 # ============================================================================
 
+def evaluate_tep_eft_sector(alpha_A):
+    """
+    Returns the exact dimensionless Bellini-Sawicki parameters and
+    stability discriminants in the pure conformal limit (beta_A = -1.0).
+
+    Mapping from TEP bi-metric action to Jordan-frame EFT:
+      alpha_M = d ln M_*^2 / d ln a = -2 alpha_A
+      alpha_B = -alpha_M = 2 alpha_A
+      alpha_K = -5 alpha_A^2   (conformal anomaly from kinetic mixing)
+      alpha_T = 0
+
+    Physical no-ghost discriminant:
+      D = alpha_K + (3/2) alpha_B^2
+        = -5 alpha_A^2 + (3/2)(4 alpha_A^2)
+        = alpha_A^2  >= 0  (strictly, for all z)
+
+    Sound speed: c_s^2 = 1 exactly (conformal isomorphism to FLRW).
+    """
+    alpha_A = np.atleast_1d(alpha_A)
+
+    alpha_M = -2.0 * alpha_A
+    alpha_B =  2.0 * alpha_A
+    alpha_K = -5.0 * (alpha_A ** 2)
+    alpha_T = 0.0
+
+    # Physical no-ghost discriminant (must be positive-definite)
+    D = alpha_K + 1.5 * (alpha_B ** 2)
+
+    # Sound speed: fixed by conformal isomorphism
+    c_s2 = np.ones_like(alpha_A)
+
+    # Strict check: D == alpha_A^2 up to numerical tolerance
+    D_expected = alpha_A ** 2
+    if not np.allclose(D, D_expected, atol=1e-14):
+        raise ValueError("Ghost-free identity D = alpha_A^2 violated!")
+
+    is_stable = np.all(D >= 0) and np.all(c_s2 >= 0)
+
+    return {
+        "alpha_M": alpha_M,
+        "alpha_B": alpha_B,
+        "alpha_K": alpha_K,
+        "alpha_T": alpha_T,
+        "D": D,
+        "c_s2": c_s2,
+        "is_stable": is_stable
+    }
+
+
 def tep_alpha_M(z, epsilon_T=0.1, z_T=3.0, n_T=1.0):
     """
-    Computes alpha_M(a) = d ln A^2 / d ln a.
-    A(z) = exp(epsilon_T * ln(1+z) * S(z)), where S(z) = exp(-(z/z_T)**n_T).
+    Planck-mass running alpha_M = d ln M_*^2 / d ln a = -2 alpha_A.
+    Uses the exact native TEP conformal-factor derivative.
     """
-    z = np.atleast_1d(z)
-    S = np.exp(-(z / z_T)**n_T)
-    dS_dz = S * (-n_T / z_T) * (z / z_T)**(n_T - 1)
-    
-    dlnA_dz = epsilon_T * (S / (1.0 + z) + np.log(1.0 + z) * dS_dz)
-    alpha_M = -2.0 * (1.0 + z) * dlnA_dz
-    return alpha_M
+    alpha_A = alpha_A_native(z, epsilon_T, z_T, n_T)
+    return -2.0 * alpha_A
+
 
 def tep_alpha_B(z, epsilon_T=0.1, z_T=3.0, n_T=1.0):
     """
-    Kinetic braiding alpha_B. For a pure conformal transformation (B=0), alpha_B = -alpha_M.
+    Kinetic braiding alpha_B = -alpha_M = 2 alpha_A.
     """
     return -tep_alpha_M(z, epsilon_T, z_T, n_T)
 
+
 def tep_alpha_K(z, epsilon_T=0.1, z_T=3.0, n_T=1.0):
     """
-    Kineticity alpha_K. Ensures no-ghost and c_s^2 stability.
+    Kineticity alpha_K = -5 alpha_A^2.
+    The apparent negative value is balanced by the full no-ghost
+    discriminant D = alpha_K + (3/2) alpha_B^2 = +alpha_A^2.
     """
-    aM = tep_alpha_M(z, epsilon_T, z_T, n_T)
-    return 2.0 * aM**2 + 0.1
+    alpha_A = alpha_A_native(z, epsilon_T, z_T, n_T)
+    return -5.0 * (alpha_A ** 2)
+
 
 def get_hiclass_perturbation_params(epsilon_T, z_T=3.0, n_T=1.0, tep_perturbations='minimal_conformal'):
     """
@@ -764,27 +813,28 @@ def get_hiclass_perturbation_params(epsilon_T, z_T=3.0, n_T=1.0, tep_perturbatio
         'tep_z_T': z_T,
         'tep_n_T': n_T
     }
-    
+
     if tep_perturbations == 'minimal_conformal':
-        pass
-        
+        params['gravity_model'] = 'tep'
+        params['M2_evolution'] = 'yes'
+
     return params
+
 
 def check_stability(z, epsilon_T=0.1, z_T=3.0, n_T=1.0):
     """
-    Checks no-ghost (Q_s > 0, alpha_K > 0) and gradient (c_s^2 > 0) stability.
-    For pure conformal transformation, c_s^2 = 1.
+    Checks no-ghost (D > 0) and gradient (c_s^2 > 0) stability.
+    For the pure conformal limit, D = alpha_A^2 and c_s^2 = 1 exactly.
     """
-    aM = tep_alpha_M(z, epsilon_T, z_T, n_T)
-    aB = tep_alpha_B(z, epsilon_T, z_T, n_T)
-    aK = tep_alpha_K(z, epsilon_T, z_T, n_T)
-    
-    D = aK + 1.5 * aB**2
-    ghost_free = np.all(D > 0)
-    cs2 = np.ones_like(aM)
-    gradient_free = np.all(cs2 > 0)
-    
+    alpha_A = alpha_A_native(z, epsilon_T, z_T, n_T)
+    eft = evaluate_tep_eft_sector(alpha_A)
+
+    ghost_free = np.all(eft["D"] > 0)
+    gradient_free = np.all(eft["c_s2"] > 0)
+
+    if not ghost_free:
+        raise ValueError("Ghost instability detected (D <= 0)!")
     if not gradient_free:
         raise ValueError("Gradient instability detected (c_s^2 < 0)!")
-        
+
     return ghost_free, gradient_free

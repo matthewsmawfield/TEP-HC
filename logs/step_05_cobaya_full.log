@@ -225,3 +225,7 @@ Step 06 completed in 0.0s
 2026-06-06 19:31:28 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
 2026-06-06 19:31:28 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (native TEP background-only)
 2026-06-06 19:31:28 [SUCCESS]   ✓ Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (ΛCDM comparison)
+2026-06-15 01:28:21 [INFO] STEP 05_cobaya: Cobaya MCMC Setup (Full Suite)
+2026-06-15 01:28:21 [SUCCESS]   Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml (TEP background-only)
+2026-06-15 01:28:21 [SUCCESS]   Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/lcdm_comparison.yaml (LCDM comparison)
+2026-06-15 01:28:21 [SUCCESS]   Created /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_perturbations.yaml (TEP active perturbations)

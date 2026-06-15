@@ -1,0 +1,16 @@
+{
+  "step": "11_mpi_mcmc",
+  "timestamp": "2026-06-15T23:41:37.491087",
+  "status": "SUCCESS",
+  "note": "Ad-hoc run integrated post-hoc via step_11b",
+  "wall_time_hours": 0.0,
+  "n_chains": 4,
+  "chain_files": [
+    "tep_hiclass_perturbations_mpi.1.txt",
+    "tep_hiclass_perturbations_mpi.2.txt",
+    "tep_hiclass_perturbations_mpi.3.txt",
+    "tep_hiclass_perturbations_mpi.4.txt"
+  ],
+  "final_Rminus1": 0.05001,
+  "yaml_config": "data/cobaya/tep_hiclass_perturbations_mpi.yaml"
+}

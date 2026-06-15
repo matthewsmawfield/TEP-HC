@@ -1,0 +1,332 @@
+[0 : output] Output to be read-from/written-into folder 'results/mcmc_chains', with prefix 'tep_hiclass_perturbations_mpi'
+[0 : classy] `classy` module loaded successfully from /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/external/hi_class/hi_class/python/build/lib.macosx-11.1-arm64-cpython-313
+[0 : classy] *WARNING* Detected an old CLASS version (<3.3). Please update: support for this will be deprecated soon.
+[3 : classy] *WARNING* Detected an old CLASS version (<3.3). Please update: support for this will be deprecated soon.
+[1 : classy] *WARNING* Detected an old CLASS version (<3.3). Please update: support for this will be deprecated soon.
+[0 : bao.sdss_dr12_consensus_final] Initialized.
+[2 : classy] *WARNING* Detected an old CLASS version (<3.3). Please update: support for this will be deprecated soon.
+[1 : bao.sdss_dr12_consensus_final] Initialized.
+[3 : bao.sdss_dr12_consensus_final] Initialized.
+[2 : bao.sdss_dr12_consensus_final] Initialized.
+[0 : mcmc] *WARNING* This run has been SEEDED with seed 45
+[2 : mcmc] Getting initial point... (this may take a few seconds)
+[3 : mcmc] Getting initial point... (this may take a few seconds)
+[1 : mcmc] Getting initial point... (this may take a few seconds)
+[0 : mcmc] Getting initial point... (this may take a few seconds)
+[2 : mcmc] Initial point: logA:3.031981, n_s:0.9667491, H0:67.39563, omega_b:0.0223957, omega_cdm:0.1196651, tau_reio:0.05383665, A_planck:0.9998732, epsilon_T:0.01258672
+[1 : mcmc] Initial point: logA:3.052457, n_s:0.9625578, H0:68.06165, omega_b:0.022215, omega_cdm:0.1193874, tau_reio:0.06053643, A_planck:1.003356, epsilon_T:0.00356751
+[3 : mcmc] Initial point: logA:3.044145, n_s:0.9705149, H0:67.77218, omega_b:0.02241348, omega_cdm:0.1202081, tau_reio:0.05110284, A_planck:1.001049, epsilon_T:0.002788076
+[0 : mcmc] Initial point: logA:3.059998, n_s:0.9623798, H0:66.97824, omega_b:0.02228256, omega_cdm:0.1206986, tau_reio:0.05149908, A_planck:0.993983, epsilon_T:0.01258814
+[0 : model] Measuring speeds... (this may take a few seconds)
+[0 : model] Setting measured speeds (per sec): {planck_2018_lowl.TT: 33.7, planck_2018_lowl.EE: 159.0, planck_2018_lensing.native: 87.0, bao.sdss_dr12_consensus_final: 22.0, sn.pantheonplus: 17.9, classy: 0.142}
+[0 : mcmc] *WARNING* Dragging disabled: speed ratio and fast-to-slow ratio not large enough.
+[0 : mcmc] Oversampling with factors:
+[0 : mcmc] * 1 : ['logA', 'n_s', 'H0', 'omega_b', 'omega_cdm', 'tau_reio', 'epsilon_T']
+[0 : mcmc] * 7 : ['A_planck']
+[0 : mcmc] Covariance matrix not present. We will start learning the covariance of the proposal earlier: R-1 = 100 (would be 2 if all params loaded).
+[0 : mcmc] Sampling!
+[1 : mcmc] Learn + convergence test @ 280 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 280 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 280 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 280 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.480 = avg([0.4510, 0.5299, 0.5054, 0.4307])
+[0 : mcmc]  - Convergence of means: R-1 = 29.411255 after 1345 accepted steps = sum([322, 389, 280, 354])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 560 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 560 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 560 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 560 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.486 = avg([0.4492, 0.5102, 0.4844, 0.4967])
+[0 : mcmc]  - Convergence of means: R-1 = 9.347503 after 2745 accepted steps = sum([689, 748, 560, 748])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 840 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 840 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 840 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 840 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.472 = avg([0.4914, 0.4911, 0.4636, 0.4431])
+[0 : mcmc]  - Convergence of means: R-1 = 0.984991 after 3890 accepted steps = sum([970, 1045, 840, 1035])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 1120 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 1120 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 1120 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 1120 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.444 = avg([0.4573, 0.4195, 0.4659, 0.4386])
+[0 : mcmc]  - Convergence of means: R-1 = 0.775165 after 5117 accepted steps = sum([1296, 1307, 1120, 1394])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 1400 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 1400 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 1400 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 1400 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.429 = avg([0.4250, 0.4074, 0.4651, 0.4243])
+[0 : mcmc]  - Convergence of means: R-1 = 0.403537 after 6180 accepted steps = sum([1570, 1584, 1400, 1626])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 1680 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 1680 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 1680 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 1680 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.427 = avg([0.4294, 0.4059, 0.4461, 0.4287])
+[0 : mcmc]  - Convergence of means: R-1 = 0.284997 after 7308 accepted steps = sum([1861, 1856, 1680, 1911])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 1960 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 1960 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 1960 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 1960 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.433 = avg([0.4360, 0.4087, 0.4426, 0.4454])
+[0 : mcmc]  - Convergence of means: R-1 = 0.165679 after 8139 accepted steps = sum([1996, 2063, 1960, 2120])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 2240 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 2240 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 2240 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 2240 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.431 = avg([0.4236, 0.4355, 0.4204, 0.4440])
+[0 : mcmc]  - Convergence of means: R-1 = 0.290084 after 9362 accepted steps = sum([2240, 2409, 2271, 2442])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 2520 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 2520 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 2520 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 2520 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.431 = avg([0.4128, 0.4616, 0.4113, 0.4367])
+[0 : mcmc]  - Convergence of means: R-1 = 0.275938 after 10565 accepted steps = sum([2520, 2730, 2571, 2744])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 2800 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 2800 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 2800 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 2800 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.433 = avg([0.4151, 0.4584, 0.4068, 0.4494])
+[0 : mcmc]  - Convergence of means: R-1 = 0.336988 after 11802 accepted steps = sum([2800, 3064, 2886, 3052])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 3080 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 3080 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 3080 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 3080 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.437 = avg([0.4281, 0.4557, 0.4179, 0.4446])
+[0 : mcmc]  - Convergence of means: R-1 = 0.290772 after 12906 accepted steps = sum([3080, 3316, 3170, 3340])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 3360 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 3360 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 3360 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 3360 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.431 = avg([0.4200, 0.4495, 0.4129, 0.4418])
+[0 : mcmc]  - Convergence of means: R-1 = 0.189383 after 14090 accepted steps = sum([3360, 3631, 3491, 3608])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 3640 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 3640 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 3640 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 3640 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.432 = avg([0.4154, 0.4370, 0.4230, 0.4530])
+[0 : mcmc]  - Convergence of means: R-1 = 0.141559 after 15257 accepted steps = sum([3640, 3874, 3833, 3910])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[3 : mcmc] Learn + convergence test @ 3920 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 3920 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 3920 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 4200 samples accepted.
+[0 : mcmc] Learn + convergence test @ 3920 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.429 = avg([0.4229, 0.4198, 0.4315, 0.4413])
+[0 : mcmc]  - Convergence of means: R-1 = 0.120941 after 16461 accepted steps = sum([3920, 4162, 4136, 4243])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 4200 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 4200 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 4480 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 4200 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.425 = avg([0.4224, 0.4075, 0.4289, 0.4400])
+[0 : mcmc]  - Convergence of means: R-1 = 0.125549 after 17554 accepted steps = sum([4200, 4460, 4405, 4489])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 4480 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 4480 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 4480 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 4760 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.427 = avg([0.4368, 0.3974, 0.4386, 0.4363])
+[0 : mcmc]  - Convergence of means: R-1 = 0.091468 after 18635 accepted steps = sum([4520, 4673, 4682, 4760])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[2 : mcmc] Learn + convergence test @ 4760 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 4760 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 4760 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 5040 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.425 = avg([0.4324, 0.3983, 0.4307, 0.4400])
+[0 : mcmc]  - Convergence of means: R-1 = 0.075878 after 19721 accepted steps = sum([4797, 4932, 4952, 5040])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 5040 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 5040 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 5040 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 5320 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.427 = avg([0.4377, 0.3998, 0.4397, 0.4309])
+[0 : mcmc]  - Convergence of means: R-1 = 0.069791 after 20774 accepted steps = sum([5056, 5226, 5172, 5320])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 5320 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 5320 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 5320 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 5600 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.428 = avg([0.4438, 0.4000, 0.4342, 0.4332])
+[0 : mcmc]  - Convergence of means: R-1 = 0.070644 after 21857 accepted steps = sum([5336, 5481, 5440, 5600])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 5600 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 5600 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 5880 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 5600 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.426 = avg([0.4405, 0.4040, 0.4347, 0.4261])
+[0 : mcmc]  - Convergence of means: R-1 = 0.043895 after 23058 accepted steps = sum([5600, 5756, 5751, 5951])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 5880 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 5880 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 5880 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 6160 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.425 = avg([0.4387, 0.4030, 0.4328, 0.4244])
+[0 : mcmc]  - Convergence of means: R-1 = 0.051986 after 23971 accepted steps = sum([5886, 6000, 5925, 6160])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[1 : mcmc] Learn + convergence test @ 6160 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] Learn + convergence test @ 6160 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 6440 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 6160 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.419 = avg([0.4333, 0.3963, 0.4217, 0.4233])
+[0 : mcmc]  - Convergence of means: R-1 = 0.047386 after 25116 accepted steps = sum([6259, 6245, 6160, 6452])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[0 : mcmc] Learn + convergence test @ 6440 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 6440 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 6720 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 6440 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.421 = avg([0.4355, 0.4014, 0.4219, 0.4239])
+[0 : mcmc]  - Convergence of means: R-1 = 0.057286 after 26307 accepted steps = sum([6575, 6552, 6440, 6740])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[0 : mcmc] Learn + convergence test @ 6720 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 6720 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 6720 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 7000 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.423 = avg([0.4359, 0.4061, 0.4249, 0.4236])
+[0 : mcmc]  - Convergence of means: R-1 = 0.050010 after 27488 accepted steps = sum([6892, 6829, 6767, 7000])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[0 : mcmc] Learn + convergence test @ 7000 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 7000 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[2 : mcmc] Learn + convergence test @ 7000 samples accepted.
+[2 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[3 : mcmc] Learn + convergence test @ 7280 samples accepted.
+[3 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[0 : mcmc] All chains are ready to check convergence and learn a new proposal covmat
+[0 : mcmc]  - Acceptance rate: 0.423 = avg([0.4389, 0.4017, 0.4247, 0.4263])
+[0 : mcmc]  - Convergence of means: R-1 = 0.048097 after 28746 accepted steps = sum([7216, 7176, 7074, 7280])
+[0 : mcmc]  - Updated covariance matrix of proposal pdf.
+[0 : mcmc] Learn + convergence test @ 7280 samples accepted.
+[0 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)
+[1 : mcmc] Learn + convergence test @ 7280 samples accepted.
+[1 : mcmc] Ready to check convergence and learn a new proposal covmat (waiting for the rest...)

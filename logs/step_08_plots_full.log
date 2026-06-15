@@ -1,0 +1,27 @@
+14:11:33 [INFO] STEP 08_plots: Posterior Visualization (GetDist)
+14:11:33 [PROCESS] Loading MCMC chains for GetDist visualization...
+14:11:39 [INFO]   Background: 13104 post-burn-in samples
+14:11:39 [INFO]   Perturbation: 13440 post-burn-in samples
+Removed no burn in
+Removed no burn in
+14:11:39 [PROCESS] Generating triangle plot...
+14:11:43 [SUCCESS]   ✓ Saved triangle plot: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/tep_perturbation_triangle.png
+SUCCESS:step_08_plots_full:  ✓ Saved triangle plot: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/tep_perturbation_triangle.png
+14:11:43 [PROCESS] Generating 2D constraint panels...
+PROCESS:step_08_plots_full:Generating 2D constraint panels...
+Removed no burn in
+Removed no burn in
+14:11:44 [SUCCESS]   ✓ Saved S8 triangle plot: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/tep_perturbation_S8_triangle.png
+SUCCESS:step_08_plots_full:  ✓ Saved S8 triangle plot: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/tep_perturbation_S8_triangle.png
+14:11:44 [SUCCESS] Step completed.
+SUCCESS:step_08_plots_full:Step completed.
+d.
+2026-06-15 23:42:09 [INFO] STEP 08_plots: Posterior Visualization (GetDist)
+2026-06-15 23:42:09 [PROCESS] Loading MCMC chains for GetDist visualization...
+2026-06-15 23:42:14 [INFO]   Background: 13104 post-burn-in samples
+2026-06-15 23:42:14 [INFO]   Perturbation: 13440 post-burn-in samples
+2026-06-15 23:42:14 [PROCESS] Generating triangle plot...
+2026-06-15 23:42:15 [SUCCESS]   ✓ Saved triangle plot: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/tep_perturbation_triangle.png
+2026-06-15 23:42:15 [PROCESS] Generating 2D constraint panels...
+2026-06-15 23:42:16 [SUCCESS]   ✓ Saved S8 triangle plot: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/figures/tep_perturbation_S8_triangle.png
+2026-06-15 23:42:16 [SUCCESS] Step completed.

@@ -141,7 +141,7 @@ class Step07Posteriors:
     def run(self) -> dict:
         """Execute rigorous posterior analysis on ALL chain files."""
         print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
-        print_status("SCOPE: hi_class with native TEP background-only implementation.", "INFO")
+        print_status("SCOPE: hi_class with native TEP background-only + active-perturbation.", "INFO")
         print_status("Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.", "INFO")
         
         results = {
@@ -149,23 +149,26 @@ class Step07Posteriors:
             "timestamp": datetime.now().isoformat(),
             "status": "RUNNING",
             "tep": {},
-            "lcdm": {},
-            "comparison": {}
+            "tep_perturbation": {},
+            "comparison": {},
+            "lcdm": {}
         }
         
         try:
-            # Load all TEP chains matching tep_hiclass_suite prefix
+            # ---- Load background-only TEP chains ----
             tep_combined, tep_chains, tep_cols = self._load_chains("tep_hiclass_suite")
             if tep_combined is None:
-                # Fallback to single-chain production run
                 tep_combined, tep_chains, tep_cols = self._load_chains("tep_hiclass_chain")
             if tep_combined is None:
-                raise FileNotFoundError("No TEP MCMC chains found.")
+                raise FileNotFoundError("No TEP background MCMC chains found.")
             
-            # LCDM comparison skipped: existing lcdm_comparison chain uses
-            # Planck high-l Plik (different likelihoods), making comparison
-            # methodologically invalid. TEP constraints are reported standalone
-            # against published Planck 2018 values in the manuscript.
+            # ---- Load active-perturbation TEP chains ----
+            pert_combined, pert_chains, pert_cols = self._load_chains("tep_hiclass_perturbations")
+            if pert_combined is None:
+                print_status("  ! No perturbation chains found; proceeding with background-only.", "WARNING")
+                pert_combined = None
+            
+            # LCDM comparison skipped
             lcdm_available = False
             
             # Map parameter names to column indices dynamically from headers
@@ -174,7 +177,6 @@ class Step07Posteriors:
             def _get_idx(col_map, name):
                 if name in col_map:
                     return col_map[name]
-                # Fallback: logA maps to A_s via lambda, but we want A_s if available
                 if name == "A_s" and "logA" in col_map:
                     return col_map["logA"]
                 raise KeyError(f"Parameter {name} not found in chain header")
@@ -262,6 +264,74 @@ class Step07Posteriors:
             if internal_r is not None:
                 print_status(f"  Cobaya internal sampler R-1: {internal_r:.4f}", "INFO")
             
+            # ---- Active-perturbation analysis ----
+            if pert_combined is not None:
+                print_status("Active-perturbation constraints:", "INFO")
+                
+                pert_burn = int(0.3 * pert_combined.shape[0])
+                pert_post = pert_combined[pert_burn:]
+                
+                # Compute S8 for perturbation chain
+                p_sigma8 = pert_post[:, _get_idx(pert_cols, "sigma8")]
+                p_ocdm = pert_post[:, _get_idx(pert_cols, "omega_cdm")]
+                p_ob = pert_post[:, _get_idx(pert_cols, "omega_b")]
+                p_h0 = pert_post[:, _get_idx(pert_cols, "H0")]
+                p_Om = (p_ocdm + p_ob) / (p_h0 / 100.0)**2
+                p_S8 = p_sigma8 * np.sqrt(p_Om / 0.3)
+                pert_post = np.column_stack((pert_post, p_S8))
+                pert_cols["S8"] = pert_post.shape[1] - 1
+                
+                pert_n_chains = len(pert_chains)
+                pert_r_minus_1 = {}
+                pert_max_r = None
+                if pert_n_chains >= 2:
+                    for name in param_names:
+                        idx = _get_idx(pert_cols, name)
+                        r1 = self._gelman_rubin(pert_chains, idx)
+                        pert_r_minus_1[name] = r1
+                        if pert_max_r is None or r1 > pert_max_r:
+                            pert_max_r = r1
+                    print_status(f"  Max R-1 across parameters: {pert_max_r:.4f}", "INFO")
+                
+                for name in param_names + ["S8"]:
+                    idx = _get_idx(pert_cols, name)
+                    st = _stats(pert_post, idx)
+                    st["R_minus_1"] = pert_r_minus_1.get(name, None)
+                    results["tep_perturbation"][name] = st
+                    fmt = "{:.3e}" if abs(st["mean"]) < 0.001 else "{:.5f}"
+                    print_status(f"    {name}: " + fmt.format(st["mean"]) + f" ± {st['std']:.5f}", "INFO")
+                
+                results["tep_perturbation"]["n_samples"] = pert_post.shape[0]
+                results["tep_perturbation"]["n_chains"] = pert_n_chains
+                results["tep_perturbation"]["max_R_minus_1"] = pert_max_r
+                
+                # ---- Comparison: background vs perturbation ----
+                print_status("Comparison (perturbation - background):", "INFO")
+                comp = results["comparison"]
+                
+                bg_chi2_min = float(np.min(tep_post[:, _get_idx(tep_cols, "chi2")]))
+                pert_chi2_min = float(np.min(pert_post[:, _get_idx(pert_cols, "chi2")]))
+                comp["delta_chi2"] = pert_chi2_min - bg_chi2_min
+                print_status(f"    Δχ² = {comp['delta_chi2']:.3f}", "INFO")
+                
+                for name in param_names + ["S8"]:
+                    bg_st = results["tep"][name]
+                    pert_st = results["tep_perturbation"][name]
+                    dmu = pert_st["mean"] - bg_st["mean"]
+                    joint = np.sqrt(bg_st["std"]**2 + pert_st["std"]**2)
+                    sigma = dmu / joint if joint > 0 else 0.0
+                    comp[name] = {
+                        "delta_mean": dmu,
+                        "sigma_joint": joint,
+                        "delta_sigma": sigma
+                    }
+                    print_status(f"    Δ{name}: {dmu:.6f} (joint σ = {joint:.5f}, Δ/σ = {sigma:.2f})", "INFO")
+                
+                # Summary: max disagreement
+                max_disagree = max(comp[n]["delta_sigma"] for n in param_names + ["S8"])
+                comp["max_disagreement_sigma"] = float(max_disagree)
+                print_status(f"  Maximum parameter disagreement: {max_disagree:.2f}σ", "INFO")
+            
             if lcdm_available:
                 print_status("LCDM constraints:", "INFO")
                 for name in param_names:
@@ -293,6 +363,11 @@ class Step07Posteriors:
                 json.dump(results, f, indent=2)
             
             print_status(f"  ✓ Saved summary to {output_file}", "SUCCESS")
+            
+            # Print key take-away
+            if pert_combined is not None:
+                eps_diff = results["comparison"]["epsilon_T"]["delta_sigma"]
+                print_status(f"Key result: background vs perturbation ε_T agrees to {eps_diff:.2f}σ", "SUCCESS")
             
         except Exception as e:
             results["status"] = "ERROR"

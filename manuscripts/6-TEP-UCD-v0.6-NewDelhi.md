@@ -2058,7 +2058,7 @@ Smawfield, M. L. (2026). *Temporal Equivalence Principle: A Unified Resolution t
 
 Smawfield, M. L. (2026). *Temporal Equivalence Principle: Temporal Shear Recovery in Gaia DR3 Wide Binaries*. Preprint v0.4 (Kilifi). Zenodo. DOI: [10.5281/zenodo.19102061](https://doi.org/10.5281/zenodo.19102061) (Paper 13)
 
-Smawfield, M. L. (2026). *Temporal Equivalence Principle: hi_class Background Implementation and CMB Acoustic Peak Preservation*. Preprint v0.1 (Cambridge). Zenodo. (Paper 18)
+Smawfield, M. L. (2026). *Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation*. Preprint v0.1 (Cambridge). Zenodo. (Paper 18)
 
 ## Contact Information
 
