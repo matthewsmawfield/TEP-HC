@@ -6,7 +6,7 @@
 ![TEP-HC: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation](site/public/image.webp)
 
 **Author:** Matthew Lukin Smawfield  
-**Version:** v0.3 (Cambridge)  
+**Version:** v0.4 (Cambridge)  
 **First published:** 8 June 2026  
 **Website:** [https://mlsmawfield.com/tep/hc](https://mlsmawfield.com/tep/hc)  
 **Paper Series:** TEP Series: Paper 18 (hi_class Cosmology)
@@ -21,7 +21,7 @@ This paper implements the native TEP interpretation directly in `hi_class`. With
 
 Beyond the background mapping, the paper closes the linear pure-conformal scalar perturbation sector by deriving the runtime Bellini–Sawicki functions $\alpha_M=-2\alpha_A$, $\alpha_B=2\alpha_A$, $\alpha_K=-5\alpha_A^2$, and $\alpha_T=0$, for which the physical no-ghost discriminant satisfies $D=\alpha_K+\frac{3}{2}\alpha_B^2=\alpha_A^2$. An active-perturbation hi_class run evolving $\delta\phi$ through the full Einstein–Boltzmann hierarchy produces posteriors statistically indistinguishable from the background-only chain, demonstrating that the implemented linear pure-conformal scalar perturbation sector is stable and observationally negligible at the current homogeneous-amplitude bound.
 
-A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with a Bayes factor of 131.6 in favour of TEP M1, without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
+A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with Bayesian evidence statistically indistinguishable from CPL (BF $\sim 32$--$36$ depending on the fixed or free-$z_T$ branch), without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
 
 ## Key Results
 
@@ -95,7 +95,7 @@ python scripts/generate_figures.py
 
 # Build manuscript from HTML
 cd site && npm ci && npm run build:markdown
-# Output: 18-TEP-HC-v0.3-Cambridge.md
+# Output: 18-TEP-HC-v0.4-Cambridge.md
 
 # Build static site (figures copied from results/figures/)
 cd site && npm ci && npm run build
@@ -127,7 +127,7 @@ Figures are generated separately via `python scripts/generate_figures.py` and co
   title={Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation},
   author={Smawfield, Matthew Lukin},
   year={2026},
-  note={Preprint v0.3 (Cambridge)},
+  note={Preprint v0.4 (Cambridge)},
   url={https://mlsmawfield.com/tep/hc}
 }
 ```

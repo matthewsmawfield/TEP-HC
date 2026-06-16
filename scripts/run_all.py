@@ -26,7 +26,7 @@ Usage:
 
 Author: Matthew Lukin Smawfield
 Date: April 2026
-Version: v0.3-Cambridge
+Version: v0.4-Cambridge
 License: CC-BY-4.0
 """
 

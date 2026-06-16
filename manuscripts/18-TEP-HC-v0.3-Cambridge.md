@@ -69,11 +69,11 @@ Previous TEP work (Paper 11, H₀; Paper 12, JWST) demonstrated that if spatial 
 To rigorously test the CMB acoustic-sector component of the Static Conformal thesis, this paper demonstrates that the acoustic-sector integrals can be reproduced by an exactly conformal temporal mapping without explicit spatial expansion. A full light-element abundance calculation is not performed here; the present BBN claim is limited to preservation of the conformal thermal/sound-horizon scaling and should be treated as a target for a dedicated follow-up calculation.
 
 
-Because the TEP conformal scalar field $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$ is mathematically isomorphic to the FLRW scale factor $a(t)$, the TEP Static Conformal geometry can be natively evaluated by deploying the `hi_class` Boltzmann solver as a strict conformal-frame calculator. This requires:
+Because the TEP conformal scalar field $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$ is mathematically isomorphic to the FLRW scale factor $a(t)$, the TEP Static Conformal geometry can be natively evaluated by deploying the `hi_class` Boltzmann solver as a conformal-frame calculator. This requires:
 
 
 
-- Mapping the TEP conformal geometry onto the Boltzmann framework, establishing the implementation-level correspondence between the parameter conventionally written as $\Omega_\Lambda$ and the background kinetic-energy contribution of the temporal shear field, $\Omega_\phi$.
+- Mapping the TEP conformal geometry onto the Boltzmann framework, establishing the implementation-level correspondence between the parameter conventionally written as $\Omega_\Lambda$ and the homogeneous temporal-shear background contribution, $\Omega_\phi$, occupying the same background-budget role as $\Omega_\Lambda$.
 
 - Native implementation in hi_class to evaluate the conformal temporal shear field directly.
 
@@ -145,9 +145,9 @@ where $X = -\nabla_\mu\phi \nabla^\mu\phi/2$ and $f_B$, $f_K$ are functions deri
 
 - $f_K(\phi, X)$ encodes the kinetic term non-canonicality from the TEP proper-time field.
 
-The explicit functional forms follow from the bi-metric action (Equation \ref{eq:3_theory_01}) and are determined by the conformal factor $A(\phi)$ and the disformal function $B(\phi)$. Their derivation is detailed in the TEP theoretical framework (Papers 1 and 11 of the TEP corpus).
+The explicit functional forms follow from the bi-metric action (Equation \ref{eq:3_theory_01}) and are determined by the conformal factor $A(\phi)$ and the disformal function $B(\phi)$. Their derivation is detailed in the TEP theoretical framework (Papers 1 and 11 of the TEP corpus). The schematic $f_B$, $f_K$ forms describe the general disformal EFT bookkeeping; the production perturbation run restricts to the pure-conformal branch, where these functions reduce to the closed runtime identities given in Appendix A.5.
 
-The background-only configuration uses $\alpha_B$ and $\alpha_K$ as formal EFT bookkeeping; during native `tep_mode` background-only integration $f_B$ and $f_K$ evaluate identically to zero, confirming that this is a strict geometric mapping at the background level. The active-perturbation closure configuration (Section 4.5) passes `gravity_model = tep` and `M2_evolution = yes` to hi_class, which evolves the full scalar fluctuation sector $\delta\phi$ through the exact Bellini–Sawicki EFT functions derived from the conformal geometry, with sound speed $c_s^2 = 1.0$ and no-ghost condition $D = \alpha_A^2$ enforced by construction. The theoretical basis for this closure is developed in the foundational TEP formalism (Papers 1 and 11).
+The background-only configuration uses $\alpha_B$ and $\alpha_K$ as formal EFT bookkeeping; during native `tep_mode` background-only integration $f_B$ and $f_K$ evaluate identically to zero, confirming that this is a strict geometric mapping at the background level. The active-perturbation closure configuration (Section 4.5) passes `gravity_model = tep` and `M2_evolution = yes` to hi_class, which evolves the implemented linear pure-conformal scalar fluctuation sector $\delta\phi$ through the exact Bellini–Sawicki EFT functions derived from the conformal geometry, with sound speed $c_s^2 = 1.0$ and no-ghost condition $D = \alpha_A^2$ enforced by construction. The theoretical basis for this closure is developed in the foundational TEP formalism (Papers 1 and 11).
 
 ### 2.3 The Static Conformal Isomorphism
 
@@ -163,11 +163,13 @@ Because the mathematical transport geometry of $A(\phi)$ across a static conform
 
 - The primary acoustic peaks ($100 \lesssim \ell \lesssim 2000$) generated at $z \sim 1089$ are preserved with extreme precision, because the mathematics of the acoustic horizon $r_s$ depend only on the conformal integration path, not on physical spatial stretching.
 
-- The parameter conventionally identified as Dark Energy ($\Omega_\Lambda$) is entirely reinterpreted. It does not represent a mysterious vacuum energy accelerating the stretching of space; it is simply the background kinetic energy density of the scalar field $\Omega_\phi$.
+- The parameter conventionally identified as Dark Energy ($\Omega_\Lambda$) is reinterpreted within this implementation as the homogeneous temporal-shear background contribution, $\Omega_\phi$, occupying the same background-budget role as $\Omega_\Lambda$ in the reference FLRW calculation.
 
 - The Big Bang singularity is reinterpreted, within TEP, as a temporal-horizon boundary of the conformal clock-rate field where $A(\phi) \to 0$ relative to the present epoch, creating the mathematical appearance of infinite density in standard FLRW reconstructions.
 
 - *Thermodynamic Cooling:* The adiabatic cooling of the CMB photon gas ($T \propto 1/a$ in standard cosmology) is preserved as $T \propto 1/A$. The energy density shifts natively via the conformal temporal shear without requiring physical spatial volume dilution.
+
+*Operational definition of $\Omega_\phi$.* In this implementation, $\Omega_\phi$ is operationally defined as the homogeneous conformal-sector contribution that fills the same background budget slot occupied by $\Omega_\Lambda$ in the reference FLRW integration. A first-principles stress-energy derivation of $\rho_\phi$, $p_\phi$, and the effective equation of state belongs to the broader TEP-C0 action-level treatment.
 
 *Archived EFT reference.* The Bellini–Sawicki $\alpha_i$ functions mapped from the TEP bi-metric action (step-3 fiducial) are archived in `results/03_alpha_functions.json`. Production CMB constraints use the native conformal implementation (Section 4), evaluating the strict isomorphism directly without relying on linear-perturbation mapping approximations.
 
@@ -195,7 +197,7 @@ where $S(z) = \exp[-(z/z_T)^{n_T}]$ is the redshift suppression factor, $A(z) = 
 f_T(z) = \ln(1+z)\,S(z).
 \end{equation}
 
-The suppression factor $S(z)$ defines the physical profile of the conformal field: it drives $f_T \to 0$ for $z \gg z_T$, ensuring the field profile flattens asymptotically as it approaches the Temporal Horizon; the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is anchored to the local observer. The function peaks at intermediate redshift ($z \sim z_T$) where the kinetic energy of the field mimics apparent acceleration, and flattens out in the deep past.
+The suppression factor $S(z)$ defines the physical profile of the conformal field: it drives $f_T \to 0$ for $z \gg z_T$, ensuring the field profile flattens asymptotically as it approaches the Temporal Horizon; the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is anchored to the local observer. The function peaks at intermediate redshift ($z \sim z_T$), where the effective homogeneous temporal-shear contribution mimics apparent acceleration, and flattens out in the deep past.
 
 *Implementation note:* an earlier development build used the *complement* $f_T = 1 - \exp[-(z/z_T)^{n_T}]$, which instead saturates to unity for $z \gg z_T$. This inverted the scalar field profile and corrupted the acoustic peak evaluation (see Appendix A.3). The default TEP conformal parameters are:
 
@@ -219,7 +221,7 @@ Because the TEP framework maps its causal matter metric via the exact conformal 
 
 Evaluating the full discriminant yields $D = \alpha_K + \frac{3}{2}\alpha_B^2 = \alpha_A^2$. The implemented linear pure-conformal sector is therefore positive-definite and ghost-free over the redshift range explored by the hi_class integration.
 
-By forcing the integration of the fully active $\delta\phi$ scalar field through this exact geometric relation, the numerical solver confirms that the continuous screening transition smoothly manages the emergence into the late universe without triggering gradient instabilities or pathological phantom energies. At the fiducial amplitude ($\epsilon_T = 0.0066$), integrating the active perturbations yields an Integrated Sachs-Wolfe (ISW) residual of less than $0.001\%$ across the entire acoustic spectrum ($100 \le l \le 2000$). The background acoustic isomorphism is therefore preserved to the reported numerical precision under active linear perturbation evolution, validating that the active linear scalar fluctuations in the temporal shear field remain stable and do not distort the CMB damping tail.
+By forcing the integration of the implemented linear pure-conformal $\delta\phi$ scalar field through this exact geometric relation, the numerical solver confirms that the continuous screening transition smoothly manages the emergence into the late universe without triggering gradient instabilities or pathological phantom energies. At the fiducial amplitude ($\epsilon_T = 0.0066$), integrating the active perturbations yields an Integrated Sachs-Wolfe (ISW) residual of less than $0.001\%$ across the entire acoustic spectrum ($100 \le l \le 2000$). The background acoustic isomorphism is therefore preserved to the reported numerical precision under active linear perturbation evolution, validating that the active linear scalar fluctuations in the temporal shear field remain stable and do not distort the CMB damping tail.
 
 
 ### 3.4 Pipeline Architecture
@@ -370,7 +372,7 @@ seed: 42
 
 ### 4.5 Perturbation-Mode Validation
 
-In addition to the background-only MCMC configuration above, the pipeline includes an active perturbation closure configuration (`data/cobaya/tep_hiclass_perturbations.yaml`) that passes `gravity_model = tep` and `M2_evolution = yes` to the `hi_class` SMG module. This forces the Boltzmann solver to evolve the full scalar fluctuation sector $\delta\phi$ through the exact Bellini-Sawicki EFT functions derived from the conformal geometry (Appendix A.5).
+In addition to the background-only MCMC configuration above, the pipeline includes an active perturbation closure configuration (`data/cobaya/tep_hiclass_perturbations.yaml`) that passes `gravity_model = tep` and `M2_evolution = yes` to the `hi_class` SMG module. This forces the Boltzmann solver to evolve the implemented linear pure-conformal scalar fluctuation sector $\delta\phi$ through the exact Bellini-Sawicki EFT functions derived from the conformal geometry (Appendix A.5).
 
 A 4-chain MPI MCMC with this configuration (27,488 accepted steps; Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+; cross-chain Gelman–Rubin $R-1 = 0.050$ at termination) ran successfully with finite posterior at every step. The resulting parameter constraints are:
 
@@ -383,7 +385,7 @@ with $H_0 = 66.65 \pm 1.67$ km/s/Mpc, $n_s = 0.9958 \pm 0.0040$, $\Omega_b h^2 =
 
 ![Background vs Perturbation Posterior Comparison](figures/tep_perturbation_triangle.png)
 
-Figure 3: Marginalized posterior triangle plot from the 4-chain MPI run, comparing the background-only TEP chain ($\delta\phi$ frozen; blue) against the active-perturbation chain ($\delta\phi$ evolved through the exact Bellini–Sawicki EFT; red) for $\epsilon_T$, $H_0$, $n_s$, and $\sigma_8$. The contours show 68% and 95% credible regions. Cross-chain Gelman–Rubin $R-1 = 0.050$ at 27,488 accepted steps. The total overlap demonstrates that the scalar fluctuation sector contributes negligibly to the cosmological posterior at current precision.
+Figure 3: Marginalized posterior triangle plot from the 4-chain MPI run, comparing the background-only TEP chain ($\delta\phi$ frozen; blue) against the active-perturbation chain ($\delta\phi$ evolved through the exact Bellini–Sawicki EFT; red) for $\epsilon_T$, $H_0$, $n_s$, and $\sigma_8$. The contours show 68% and 95% credible regions. Cross-chain Gelman–Rubin $R-1 = 0.050$ at 27,488 accepted steps. The total overlap demonstrates that the implemented linear pure-conformal scalar fluctuation sector contributes negligibly to the cosmological posterior at current precision.
 
 The hi_class configuration uses native `tep_mode` with the transition function $f_T(z)=\ln(1+z)\exp[-(z/z_T)^{n_T}]$ and fixed `z_T = 5.0`, `n_T = 2.0`, with `epsilon_T` sampled freely in `params`. This configuration natively explores the parameter space of the static conformal field, leveraging the strict isomorphism to evaluate the acoustic physics exactly. The production configuration is `data/cobaya/tep_hiclass_suite.yaml` (reference alternate: `data/cobaya/tep_native_mcmc.yaml`).
 
@@ -441,7 +443,7 @@ The cosmological constraints on TEP come from two complementary regimes, establi
 | CPL ($w_0 w_a$) | $27.8$ | Strong |
 | Einstein-de Sitter | $4.3\times10^{-126}$ | Rejected (sanity check) |
 
-On the Bayesian Information Criterion (which penalizes the flexible $w$CDM/CPL prior volumes), TEP M1 ($z_T = 5$) is the global optimum (TEP-C0, Paper 26). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the `hi_class` acoustic-preservation implementation. The model-comparison result supports the claim that the Etherington distance-duality relation is a mathematically native feature of the static conformal field. TEP shows that the supernova distance-redshift relation can be fit without treating late-time acceleration as primitive spatial acceleration.
+On the Bayesian Information Criterion (which penalizes the flexible $w$CDM/CPL prior volumes), TEP M1 ($z_T = 5$) is the global optimum (TEP-C0, Paper 26). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the `hi_class` acoustic-preservation implementation. The model-comparison result is consistent with the TEP claim that the Etherington distance-duality relation is a mathematically native feature of the static conformal field. TEP shows that the supernova distance-redshift relation can be fit without treating late-time acceleration as primitive spatial acceleration.
 
 *Homogeneous (CMB) bound.* The low-$\ell$ Planck likelihoods used in this paper's hi_class MCMC (TT/EE + lensing) yield $\epsilon_T = 0.0056 \pm 0.0043$, consistent with zero at $\sim 1.3\sigma$. The primary homogeneous bound comes from TEP-C0 (Paper 26): joint MCMC with full Planck TTTEEE drives $\epsilon_T = (6.75 \pm 0.24) \times 10^{-6}$.
 
@@ -450,7 +452,7 @@ On the Bayesian Information Criterion (which penalizes the flexible $w$CDM/CPL p
 ### 5.3 The Hubble Tension in TEP
 
 
-The TEP framework reconciles the Hubble tension without invoking an early-universe crisis. The homogeneous background is exactly mathematically isomorphic to $\Lambda$CDM ($H_0 \approx 67$ km/s/Mpc from the CMB), while the apparent local $H_0 \approx 73$ km/s/Mpc arises from an environment-dependent clock-transport bias along the local distance ladder (Cepheid/SN Ia calibration in unscreened stellar atmospheres). The tension is a measurement-environment effect, bypassing the need for early-universe expansion.
+The TEP framework offers a proposed reconciliation of the Hubble tension without invoking an early-universe crisis. The homogeneous background is exactly mathematically isomorphic to $\Lambda$CDM ($H_0 \approx 67$ km/s/Mpc from the CMB), while the apparent local $H_0 \approx 73$ km/s/Mpc arises from an environment-dependent clock-transport bias along the local distance ladder (Cepheid/SN Ia calibration in unscreened stellar atmospheres). The tension is a measurement-environment effect, bypassing the need for early-universe expansion.
 
 
 
@@ -501,15 +503,15 @@ This paper implements and validates the native Temporal Equivalence Principle (T
 
 - *The Mathematical Isomorphism:* The TEP conformal factor $A(\phi) = \exp(\beta_A\phi/M_{\rm Pl})$ dictates the clock-rates and photon phases in the causal matter metric $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$. Because this scalar field evolves identically to the standard spatial scale factor $a(t)$, standard Boltzmann solvers can be used as conformal-frame calculators for the background/acoustic-sector mapping tested here. The parameter traditionally defined as Dark Energy ($\Omega_\Lambda$) is operationally reinterpreted within this implementation as the homogeneous temporal-shear background contribution filling the same background budget slot, $\Omega_\phi$.
 
-- *CMB Acoustic Preservation:* Because of this isomorphism, the hi_class native integration demonstrates that the static conformal geometry preserves the pre-recombination sound horizon to parts-per-million ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and preserves the acoustic-peak morphology at the background/acoustic-sector level. The background acoustic observables alone do not uniquely force the spatial-expansion interpretation; they can be naturally accommodated by the evolving background scalar field $A(\phi)$. The active-perturbation closure (Section 4.5) confirms that evolving the full scalar fluctuation sector $\delta\phi$ through the exact Bellini–Sawicki EFT produces parameter posteriors indistinguishable from the background-only chain to $0.06\sigma$, with cross-chain Gelman–Rubin $R-1 = 0.050$ at 27,488 accepted steps.
+- *CMB Acoustic Preservation:* Because of this isomorphism, the hi_class native integration demonstrates that the static conformal geometry preserves the pre-recombination sound horizon to parts-per-million ($r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$) and preserves the acoustic-peak morphology at the background/acoustic-sector level. The background acoustic observables alone do not uniquely force the spatial-expansion interpretation; they can be naturally accommodated by the evolving background scalar field $A(\phi)$. The active-perturbation closure (Section 4.5) confirms that evolving the implemented linear pure-conformal scalar fluctuation sector $\delta\phi$ through the exact Bellini–Sawicki EFT produces parameter posteriors indistinguishable from the background-only chain to $0.06\sigma$, with cross-chain Gelman–Rubin $R-1 = 0.050$ at 27,488 accepted steps.
 
-- *The Temporal Horizon:* Within the TEP interpretation, the FLRW ($a\to0$) limit is reinterpreted at the level of conformal clock transport as an asymptotic temporal-horizon boundary where $A(\phi)\to0$ relative to the present epoch. This reframes the acoustic-sector calculation without requiring physical spatial stretching. A complete nonsingular cosmology would require a separate treatment of geodesic completeness, curvature invariants, entropy evolution, light-element abundances, and the origin of the CMB blackbody spectrum.
+- *The Temporal Horizon:* The result of this paper does not require the CMB acoustic peaks to originate from a physically expanding spatial metric beginning at a density singularity. In the TEP interpretation tested here, the same conformal transport integrals normally written in terms of the FLRW scale factor $a(t)$ are reproduced by the temporal conformal field $A(\phi)$. The limit conventionally described as $a\to0$ is therefore reinterpreted, at the level of clock transport and photon phase evolution, as a temporal-horizon limit $A(\phi)\to0$ relative to the present epoch. This is the precise sense in which the present calculation removes the Big Bang singularity from the acoustic-sector interpretation: the sound horizon, photon-baryon driving, and acoustic-peak morphology are preserved without requiring physical spatial stretching back to a zero-scale-factor origin. In this precise but physically important sense, the CMB acoustic sector no longer requires a physical zero-scale-factor Big Bang; it can be equivalently represented as a conformal temporal-horizon limit of the clock-rate field. A complete nonsingular cosmology would still require a separate treatment of geodesic completeness, curvature invariants, entropy evolution, light-element abundances, and the origin of the CMB blackbody spectrum.
 
-- *Cosmological Constraints:* A joint hi_class Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) yields a close match to the conformal field parameters. The companion paper TEP-C0 (Paper 26) provides robust late-time evidence, showing via nested sampling that the screened TEP conformal model matches the Pantheon+ distance-redshift relation with strong Bayesian support, resolving the phenomenological need to stretch space to explain apparent acceleration.
+- *Cosmological Constraints:* A joint hi_class Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) yields a close match to the conformal field parameters. The companion paper TEP-C0 (Paper 26) provides robust late-time evidence, showing via nested sampling that the screened TEP conformal model matches the Pantheon+ distance-redshift relation with strong Bayesian support, reducing the phenomenological need to treat late-time acceleration as primitive spatial expansion.
 
 ### 6.2 Resolving the Cosmological Crises
 
-Standard $\Lambda$CDM cosmology currently faces two severe crises: the Hubble Tension ($H_0$) and the "impossible" high-redshift massive galaxies discovered by JWST. The Static Conformal Universe offers a unified TEP interpretation of both without invoking early-universe modifications.
+Standard $\Lambda$CDM cosmology currently faces two severe crises: the Hubble Tension ($H_0$) and the unexpectedly massive high-redshift galaxy candidates observed by JWST. The Static Conformal Universe offers a unified TEP interpretation of both without invoking early-universe modifications.
 
 - *The Hubble Tension:* In TEP, the temporal shear field is environmentally screened by mass. Supernovae exist in empty voids (where the field is unscreened, yielding a high inferred $H_0$), while Cepheids exist in dense galaxies (where the field is partially screened, yielding a lower inferred $H_0$). The tension is an artifact of environmental mass-screening on local kinematic distance probes (Paper 11), not an early-universe physics crisis.
 
@@ -518,9 +520,9 @@ Standard $\Lambda$CDM cosmology currently faces two severe crises: the Hubble Te
 
 ### 6.3 Synthesis of the Paradigm Shift
 
-This analysis implements and explicitly validates the native TEP geometry within a rigorous Boltzmann solver framework. The acoustic indistinguishability of the static conformal background from $\Lambda$CDM at recombination demonstrates that the early-universe background physics cannot easily distinguish between a stretching spatial metric and an evolving conformal clock-rate field.
+This analysis implements and explicitly validates the native TEP implementation within a rigorous Boltzmann solver framework. The acoustic indistinguishability of the static conformal background from $\Lambda$CDM at recombination demonstrates that the early-universe background physics cannot easily distinguish between a stretching spatial metric and an evolving conformal clock-rate field.
 
-Given that the late-universe Pantheon+ data (TEP-C0) explicitly prefers the TEP geometry over phenomenological spatial acceleration (Dark Energy) due to Bayesian parsimony, the framework presented here provides a concrete conformal-frame alternative to the background expansion interpretation. The active-perturbation closure reported in Section 4.5 confirms that the implemented linear pure-conformal scalar fluctuation sector is ghost-free and observationally negligible, with the full $\delta\phi$-enabled Einstein–Boltzmann chain agreeing with the background-only chain to $0.06\sigma$ across all cosmological parameters. By asserting that time itself is a dynamical, mass-screened scalar field, TEP seeks to unify early-universe acoustic physics, late-time "acceleration", the $H_0$ tension, and JWST anomalies into a single, cohesive static geometric framework. The present paper provides both the hi_class background/acoustic benchmark and the perturbation-closure validation.
+Given that the late-universe Pantheon+ data (TEP-C0) explicitly prefers the TEP geometry over phenomenological spatial acceleration (Dark Energy) due to Bayesian parsimony, the framework presented here provides a concrete conformal-frame alternative to the background expansion interpretation. The active-perturbation closure reported in Section 4.5 confirms that the implemented linear pure-conformal scalar fluctuation sector is ghost-free and observationally negligible, with the implemented $\delta\phi$-enabled Einstein–Boltzmann chain agreeing with the background-only chain to $0.06\sigma$ across all cosmological parameters. By treating time itself as a dynamical, mass-screened scalar field, TEP seeks to unify early-universe acoustic physics, late-time "acceleration", the $H_0$ tension, and JWST anomalies into a single, cohesive static geometric framework. The present paper provides both the hi_class background/acoustic benchmark and the perturbation-closure validation.
 
 
 ## References
@@ -619,7 +621,7 @@ where $H_E = d\ln a_E/dt_E$ is the Einstein-frame rate. Because the TEP conforma
 \frac{d\ln A}{dt_E} = \frac{d\ln A}{d\ln \tilde{a}}\,\frac{d\ln \tilde{a}}{dt_E} = \alpha_A\,(A \tilde{H}), \qquad \alpha_A \equiv \frac{d\ln A}{d\ln \tilde{a}} = -\frac{d\ln A}{d\ln(1+z)},
 \end{equation}
 
-which matches the definition in Section 3.2. Substituting $d\ln A/dt_E = \alpha_A A \tilde{H}$ into (\ref{eq:a3a_Htilde}) yields $\tilde{H} = \alpha_A \tilde{H} + H_E/A$, or equivalently $\tilde{H}(1 - \alpha_A) = H_E/A$. Using the conformally transformed Friedmann equation $H_E = A^2\,H_{\Lambda\rm CDM}$ gives the exact geometric relation:
+which matches the definition in Section 3.2. Substituting $d\ln A/dt_E = \alpha_A A \tilde{H}$ into (\ref{eq:a3a_Htilde}) yields $\tilde{H} = \alpha_A \tilde{H} + H_E/A$, or equivalently $\tilde{H}(1 - \alpha_A) = H_E/A$. Identifying the reference FLRW background rate with the conformally mapped Einstein-frame rate used by the implementation, $H_E = A^2\,H_{\Lambda\rm CDM}$, gives the exact geometric relation:
 
 \begin{equation} \label{eq:a3a_exact}
 \boxed{\;\tilde H(z) = \frac{A(z)}{1 - \alpha_A(z)}\,H_{\Lambda\rm CDM}(z)\;} \qquad \Longrightarrow \qquad M_{\rm exact}(z) = \frac{A}{1 - \alpha_A}.

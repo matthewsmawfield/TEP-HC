@@ -15,9 +15,9 @@ abstract: |
 
   Beyond the background mapping, the paper closes the linear pure-conformal scalar perturbation sector by deriving the runtime Bellini–Sawicki functions $\alpha_M=-2\alpha_A$, $\alpha_B=2\alpha_A$, $\alpha_K=-5\alpha_A^2$, and $\alpha_T=0$, for which the physical no-ghost discriminant satisfies $D=\alpha_K+\frac{3}{2}\alpha_B^2=\alpha_A^2$. An active-perturbation hi_class run evolving $\delta\phi$ through the full Einstein–Boltzmann hierarchy produces posteriors statistically indistinguishable from the background-only chain, demonstrating that the implemented linear pure-conformal scalar perturbation sector is stable and observationally negligible at the current homogeneous-amplitude bound.
 
-  A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with a Bayes factor of 131.6 in favour of TEP M1, without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
-version: v0.3 (Cambridge)
-date-released: 2026-06-15
+  A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with Bayesian evidence statistically indistinguishable from CPL (BF $\sim 32$--$36$ depending on the fixed or free-$z_T$ branch), without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
+version: v0.4 (Cambridge)
+date-released: 2026-06-16
 url: https://mlsmawfield.com/tep/hc
 repository-code: https://github.com/matthewsmawfield/TEP-HC
 doi: 10.5281/zenodo.20682752
@@ -49,4 +49,4 @@ preferred-citation:
   year: 2026
   journal: Zenodo
   url: https://mlsmawfield.com/tep/hc
-  notes: Preprint v0.3 (Cambridge)
+  notes: Preprint v0.4 (Cambridge)

@@ -147,7 +147,7 @@ n_T = {n_T}
                 # Hubble rate remains H_TEP = H_LCDM * M(z); scalar fluctuations
                 # are evolved natively by hi_class alongside metric potentials.
                 content += f"""
-# Active scalar perturbation closure (TEP-HC v0.3)
+# Active scalar perturbation closure (TEP-HC v0.4)
 gravity_model = tep
 M2_evolution = yes
 """

@@ -1,9 +1,9 @@
-v0.3 (Cambridge) — scalar perturbation sector closed - 15 June 2026
+v0.4 (Cambridge) — TEP-C0 sync and manuscript refinement - 16 June 2026
 
-- Native hi_class SMG patch enforces exact conformal limit c_s^2 = 1.0 and the ghost-free identity D = alpha_A^2 at runtime
-- Pipeline now runs background-only and full-perturbation modes in parallel, with a dedicated closure step confirming Hubble consistency to machine precision and acoustic-peak residuals within 1e-3
-- 4-chain MPI MCMC with active perturbations converges at R-1 = 0.05001 and agrees with the background-only chain to within 0.06 sigma
-- Formal stability audit across the full redshift range confirms no ghosts, bounded Planck-mass running, and smooth transition behaviour
-- Sections 3.3 and A.5 derive the exact EFT parameter mapping and prove the no-ghost identity analytically
-- Section 4.5 formally reports the MPI MCMC results
-- New posterior-triangle figures (Figure 3) demonstrate total overlap between background-only and active-perturbation chains
+- C0 Bayes factors updated (~32.1 / ~36.2); old 131.6/96.1 removed
+- z_T distinction added: HC acoustic (z_T=5) vs C0 SN transport (z_T=100)
+- C0 high-ℓ epsilon_T claim removed; softened to implementation-test framing
+- Spatial-distance wording aligned with C0
+- "Bayesian parsimony" replaced with "statistically indistinguishable from CPL"
+- Linear pure-conformal closure framing enforced
+- BBN narrowed to thermal/sound-horizon scaling; full closure deferred to TEP-TH

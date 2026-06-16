@@ -1,6 +1,6 @@
 # Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation
 **Matthew Lukin Smawfield**
-Version: v0.3 (Cambridge)
+Version: v0.4 (Cambridge)
 First published: 8 June 2026 · Last updated: 16 June 2026
 Paper Series: TEP Series Paper 18 (hi_class Cosmology)
 
@@ -25,7 +25,7 @@ Beyond the background mapping, the paper closes the linear pure-conformal scalar
 
 
 
-A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with a Bayes factor of 131.6 in favour of TEP M1, without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
+A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with Bayesian evidence statistically indistinguishable from CPL (BF $\sim 32$--$36$ depending on the fixed or free-$z_T$ branch), without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
 
 
 
@@ -153,7 +153,7 @@ The background-only configuration uses $\alpha_B$ and $\alpha_K$ as formal EFT b
 
 The defining feature of the TEP framework is that it recasts the role normally played by a physically expanding spatial metric in the background/acoustic sector. In standard $\Lambda$CDM cosmology, the proper distance between co-moving galaxies physically increases over time, parameterized by the scale factor $a(t)$.
 
-In the TEP interpretation tested here, the underlying spatial metric is treated as static. The spatial distance between co-moving galaxies remains rigidly constant. However, the causal matter metric $\tilde{g}_{\mu\nu}$ is modulated by the conformal clock-rate field $A(\phi)$. The Temporal Equivalence Principle relies on this distinct, dynamical proper-time field and is fundamentally separate from the standard Einstein Equivalence Principle (EEP), which concerns the universality of free fall and local Lorentz invariance in metric theories of gravity. Photons propagating through this gradient experience a shift in phase and frequency, leading to the exact geometric relation:
+In the static conformal interpretation tested here, intergalactic separations are not treated as primitively expanding; the apparent expansion is reconstructed through temporal transport. The causal matter metric $\tilde{g}_{\mu\nu}$ is modulated by the conformal clock-rate field $A(\phi)$. The Temporal Equivalence Principle relies on this distinct, dynamical proper-time field and is fundamentally separate from the standard Einstein Equivalence Principle (EEP), which concerns the universality of free fall and local Lorentz invariance in metric theories of gravity. Photons propagating through this gradient experience a shift in phase and frequency, leading to the exact geometric relation:
 
 \begin{equation} \label{eq:3_theory_06}
 1+z = \frac{A_0}{A_{\text{em}}}
@@ -397,13 +397,13 @@ The hi_class configuration uses native `tep_mode` with the transition function $
 
 with $H_0 = 66.63 \pm 1.70$ km/s/Mpc, $\Omega_b h^2 = 0.0212 \pm 0.0025$, $\Omega_{\rm cdm} h^2 = 0.1154 \pm 0.0042$, $\tau = 0.049 \pm 0.007$, $A_{\rm planck} = 1.088 \pm 0.012$, and $S_8 = 0.870 \pm 0.028$. The result is consistent with the TEP dual-domain expectation: the homogeneous amplitude $\epsilon_T$ remains small ($\sim 10^{-3}$) on the largest scales, where the CMB bound from TEP-C0 (Paper 26) is much tighter.
 
-The low-$\ell$+lensing+BAO+Pantheon+ runs therefore serve as implementation and robustness tests of the native hi_class module, while the high-$\ell$ TTTEEE likelihoods in TEP-C0 provide the decisive homogeneous-amplitude bound. Accordingly, this paper does not present the low-$\ell$ chain as the final acoustic-peak likelihood constraint; the acoustic claim rests on the direct TT/TE/EE spectrum comparison and the high-$\ell$ TTTEEE bound reported in TEP-C0.
+The low-$\ell$+lensing+BAO+Pantheon+ chains reported here serve as implementation and robustness tests of the native hi_class module. A decisive high-$\ell$ acoustic likelihood constraint requires a dedicated full TTTEEE production run and is not claimed as the central result of the present paper. Accordingly, the acoustic claim rests on the direct TT/TE/EE spectrum comparison at the background/acoustic-sector level.
 
 *Multi-chain validation.* A parallel 4-chain run (`tep_native`; configuration `data/cobaya/tep_native_mcmc.yaml`) using a Gaussian $A_{\rm planck}$ prior (loc = 1.0, scale = 0.0025) produced 2,993 post-burn-in samples with maximum Gelman–Rubin $R-1 = 0.098$ ($R-1$ for $\epsilon_T = 0.098$; all other parameters $R-1 < 0.05$). This yields $\epsilon_T = 0.0044 \pm 0.0040$ and $H_0 = 66.89 \pm 1.35$ km/s/Mpc, consistent with the primary chain at $0.21\sigma$ and $0.12\sigma$ respectively. While this consistency run reaches $R-1 = 0.098$ on $\epsilon_T$, the widened-prior chain below provides a fully converged multi-chain determination ($\epsilon_T$ $R-1 = 0.013$, all parameters $R-1 < 0.05$), and the two agree to $0.06\sigma$. Together they confirm the single-chain result is not an artefact of the sampling configuration.
 
 *Planck calibration prior sensitivity.* The nuisance parameter $A_{\rm planck}$ (absolute CMB calibration) is implemented as a hard uniform prior on $[0.9, 1.1]$ in the primary chain. The posterior mean is $A_{\rm planck} = 1.088 \pm 0.012$ with maximum sampled value $1.1000$, indicating saturation against the upper prior bound. To test whether this truncation biases the cosmological inference, a dedicated 4-chain sensitivity test was executed with the prior widened to $[0.9, 1.25]$ (configuration `data/cobaya/tep_hiclass_aplanck_sens.yaml`). The converged run (1,640 total samples; all parameters Gelman–Rubin $R-1 < 0.05$; maximum $R-1 = 0.044$ for $\Omega_{\rm cdm} h^2$) yields $A_{\rm planck} = 1.223 \pm 0.044$, confirming the old posterior was truncated by approximately $3.0\sigma$. The TEP amplitude from the widened run is $\epsilon_T = 0.0047 \pm 0.0040$ ($R-1 = 0.013$), consistent with the primary chain at $0.15\sigma$ and with the multi-chain validation at $0.06\sigma$. The correlation between $A_{\rm planck}$ and $\epsilon_T$ is $r = -0.19$, and splitting at $A_{\rm planck} = 1.15$ gives a difference in $\epsilon_T$ of only $-0.21\sigma$. Even a $0.1$ upward shift in $A_{\rm planck}$ would move $H_0$ by only $\sim 0.2$ km s$^{-1}$ Mpc$^{-1}$, well below its posterior width. The $\chi^2$ does decrease monotonically toward the old boundary, but there is no evidence of a degeneracy cascade with $\epsilon_T$. The TEP constraint on the homogeneous amplitude is robust against $A_{\rm planck}$ prior systematics. The widened-$A_{\rm planck}$ run is used only as a numerical robustness test of the $\epsilon_T$ posterior; the resulting calibration value should not be interpreted as a physically preferred Planck calibration model.
 
-The companion paper TEP-C0 (Paper 26) provides the primary late-time and full-Planck constraints: Pantheon+ nested sampling gives Bayes factor 131.6 vs $\Lambda$CDM for TEP M1 ($z_T=5$), and joint MCMC with full Planck TTTEEE drives the homogeneous shear amplitude to $\epsilon_T = (6.75 \pm 0.24) \times 10^{-6}$. Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the `hi_class` acoustic-preservation implementation. This dramatic tightening of the bound is driven by the extreme sensitivity of the high-$\ell$ damping tail and acoustic oscillation fine-structure to the exact conformal projection of the static background.
+The companion paper TEP-C0 (Paper 26) provides the primary late-time constraints: Pantheon+ nested sampling favors the physical no-$\Lambda$ TEP M1 branch over baseline $\Lambda$CDM with Bayesian evidence statistically indistinguishable from CPL (BF $\sim 32$--$36$ depending on the fixed or free-$z_T$ branch). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the `hi_class` acoustic-preservation implementation.
 
 ## 5. Results and Cosmological Constraints
 
@@ -437,15 +437,17 @@ The cosmological constraints on TEP come from two complementary regimes, establi
 
 | Model | Bayes factor vs $\Lambda$CDM | Interpretation |
 | --- | --- | --- |
-| TEP M1 ($z_T = 5$) | $131.6$ | Strong |
-| TEP M1 (free $z_T$) | $96.1$ | Strong |
-| $w$CDM | $26.6$ | Strong |
-| CPL ($w_0 w_a$) | $27.8$ | Strong |
+| TEP M1 fixed ($z_T = 100$) | $\sim 32.1$ | Strong |
+| TEP M1 free ($z_T \in [0.1, 150]$) | $\sim 36.2$ | Strong |
+| $w$CDM | $\sim 21.1$ | Strong |
+| CPL ($w_0 w_a$) | $\sim 35.2$ | Strong |
 | Einstein-de Sitter | $4.3\times10^{-126}$ | Rejected (sanity check) |
 
-On the Bayesian Information Criterion (which penalizes the flexible $w$CDM/CPL prior volumes), TEP M1 ($z_T = 5$) is the global optimum (TEP-C0, Paper 26). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the `hi_class` acoustic-preservation implementation. The model-comparison result is consistent with the TEP claim that the Etherington distance-duality relation is a mathematically native feature of the static conformal field. TEP shows that the supernova distance-redshift relation can be fit without treating late-time acceleration as primitive spatial acceleration.
+The TEP M1 branch improves the Pantheon+ likelihood relative to baseline $\Lambda$CDM and achieves Bayesian evidence statistically indistinguishable from CPL (TEP-C0, Paper 26). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the `hi_class` acoustic-preservation implementation. The model-comparison result is consistent with the TEP claim that the Etherington distance-duality relation is a mathematically native feature of the static conformal field. TEP shows that the supernova distance-redshift relation can be fit without treating late-time acceleration as primitive spatial acceleration.
 
-*Homogeneous (CMB) bound.* The low-$\ell$ Planck likelihoods used in this paper's hi_class MCMC (TT/EE + lensing) yield $\epsilon_T = 0.0056 \pm 0.0043$, consistent with zero at $\sim 1.3\sigma$. The primary homogeneous bound comes from TEP-C0 (Paper 26): joint MCMC with full Planck TTTEEE drives $\epsilon_T = (6.75 \pm 0.24) \times 10^{-6}$.
+*$z_T$ distinction.* The $z_T = 5$ profile used in this paper is the homogeneous acoustic-sector benchmark for the hi_class conformal implementation. It should not be confused with the C0 supernova-sector transport benchmark ($z_T = 100$), where $z_T$ parameterizes the effective line-of-sight temporal-shear transition in the Pantheon+ distance law. The C0 free-$z_T$ robustness test uses $z_T \in [0.1, 150]$.
+
+*Homogeneous (CMB) bound.* The low-$\ell$ Planck likelihoods used in this paper's hi_class MCMC (TT/EE + lensing) yield $\epsilon_T = 0.0056 \pm 0.0043$, consistent with zero at $\sim 1.3\sigma$. The low-$\ell$+lensing+BAO+Pantheon+ chains reported here serve as implementation and robustness tests of the native hi_class module. A decisive high-$\ell$ acoustic likelihood constraint requires a dedicated full TTTEEE production run and is not claimed as the central result of the present paper.
 
 *Native-TEP joint MCMC.* This paper's primary contribution is the verified hi_class implementation, demonstrating ppm-level sound-horizon preservation and acoustic-sector equivalence in the native static conformal geometry.
 
@@ -522,7 +524,7 @@ Standard $\Lambda$CDM cosmology currently faces two severe crises: the Hubble Te
 
 This analysis implements and explicitly validates the native TEP implementation within a rigorous Boltzmann solver framework. The acoustic indistinguishability of the static conformal background from $\Lambda$CDM at recombination demonstrates that the early-universe background physics cannot easily distinguish between a stretching spatial metric and an evolving conformal clock-rate field.
 
-Given that the late-universe Pantheon+ data (TEP-C0) explicitly prefers the TEP geometry over phenomenological spatial acceleration (Dark Energy) due to Bayesian parsimony, the framework presented here provides a concrete conformal-frame alternative to the background expansion interpretation. The active-perturbation closure reported in Section 4.5 confirms that the implemented linear pure-conformal scalar fluctuation sector is ghost-free and observationally negligible, with the implemented $\delta\phi$-enabled Einstein–Boltzmann chain agreeing with the background-only chain to $0.06\sigma$ across all cosmological parameters. By treating time itself as a dynamical, mass-screened scalar field, TEP seeks to unify early-universe acoustic physics, late-time "acceleration", the $H_0$ tension, and JWST anomalies into a single, cohesive static geometric framework. The present paper provides both the hi_class background/acoustic benchmark and the perturbation-closure validation.
+Late-universe Pantheon+ data in TEP-C0 favor the physical no-$\Lambda$ TEP branch over baseline $\Lambda$CDM and yield Bayesian evidence statistically indistinguishable from CPL, providing a concrete conformal-frame alternative to the background expansion interpretation. The active-perturbation closure reported in Section 4.5 confirms that the implemented linear pure-conformal scalar fluctuation sector is ghost-free and observationally negligible, with the implemented $\delta\phi$-enabled Einstein–Boltzmann chain agreeing with the background-only chain to $0.06\sigma$ across all cosmological parameters. By treating time itself as a dynamical, mass-screened scalar field, TEP seeks to unify early-universe acoustic physics, late-time "acceleration", the $H_0$ tension, and JWST anomalies into a single, cohesive static geometric framework. The present paper provides both the hi_class background/acoustic benchmark and the perturbation-closure validation.
 
 
 ## References

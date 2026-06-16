@@ -164,7 +164,7 @@ Figure 5. TEP joint-fit posterior *P*(*H*0, *&phi;*0, *n*, *&beta;* | GW data) f
 
 The strongest support for the lab-fixed TEP interpretation comes from directional stability across resampling tests, but the current evidence remains weak. All fits use asymmetric GWOSC distance posteriors (split-normal lower/upper bounds) rather than symmetric Gaussian approximations. The redshift split between low-z (z < 0.1) and high-z (z > 0.1) events shows the predicted growth of |*A*(*z*) &minus; 1| with *z*, although the statistical uncertainty is large. Bootstrap resampling, leave-one-out tests, adversarial controls, host-prior ablation, and synthetic injection tests all confirm the stability of the fit, but the current sample does not yet reach discovery-level significance. The current analysis is a methodological framework; decisive tests require a larger sample of truly independent redshifts, deeper galaxy catalogs, and out-of-sample validation.
 
-![Four-panel robustness diagnostic showing Planck alignment gain, resampling support, redshift split, and fixed-reference H0 residuals for lab-fixed TEP](public/figures/fig_06_tep_robustness.png)
+![Four-panel robustness diagnostic showing conformal scaling A(z) by event quality, model comparison by redshift subset, per-event chi2 contributions, and distance residuals for lab-fixed TEP](public/figures/fig_06_tep_robustness.png)
 
 Figure 6. Robustness diagnostics for the lab-fixed TEP signal. Positive &Delta;&chi;&sup2; values favor lab-fixed TEP. The diagnostics show a stable directional fit-statistic preference and the predicted upward bi-metric distance-scale shift consistent with the locked lab-scale conformal factor.
 
@@ -179,10 +179,6 @@ Figure 7. Adversarial controls. The locked TEP sign passes the sign-direction te
 ## 5.8 Host-Prior Ablation
 
 The dark-siren evidence was re-evaluated under six host priors applied to all merged galaxy candidates within the skymap cone (not just a distance-window pre-filter): uniform, sky-position, distance, luminosity, sky &times; distance, and sky &times; luminosity. Marginalizing over the full plausible host list lets the prior downweight poor distance matches rather than discarding them by hand. Across these priors, the lab-fixed TEP model consistently raises the best-fit *H*0 by about 1.0–1.4 km/s/Mpc relative to &Lambda;CDM. This expanded-candidate robustness check shows directional TEP preference for all six tested priors. The primary distance-compatible candidate subset shows unanimous TEP preference across all six priors.
-
-![Two-panel host-prior ablation showing likelihood preference and H0 shift across host-prior choices](public/figures/fig_08_host_prior_ablation.png)
-
-Figure 8. Host-prior ablation using the expanded candidate list. The distance-scale shift is upward across plausible host-prior choices; TEP is directionally favored for all six tested priors. The primary distance-compatible subset shows unanimous TEP preference.
 
 ## 6. Discussion
 

@@ -1,6 +1,6 @@
 # TEP-HC Active Perturbation Configuration
 # ========================================
-# TEP minimal-conformal perturbation closure (TEP-HC v0.3).
+# TEP minimal-conformal perturbation closure (TEP-HC v0.4).
 # H_TEP(z) = H_LCDM(z) * M(z)  [background]
 # Scalar fluctuations evolved via hi_class SMG EFT (gravity_model = tep).
 # Likelihoods: Planck 2018 low-l TT/EE + lensing + BAO + Pantheon+
