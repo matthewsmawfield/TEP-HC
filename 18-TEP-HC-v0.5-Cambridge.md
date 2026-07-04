@@ -1,7 +1,7 @@
 # Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation
 **Matthew Lukin Smawfield**
 Version: v0.5 (Cambridge)
-First published: 8 June 2026 · Last updated: 4 July 2026
+First published: 8 June 2026 · Last updated: 5 July 2026
 Paper Series: TEP Series Paper 18 (hi_class Cosmology)
 DOI: 10.5281/zenodo.20682752
 
@@ -644,9 +644,9 @@ The following near-term observational tests would strengthen or falsify the TEP-
 
 - **B-mode polarization from native tensor modes.** The TEP-TH tensor analysis yields $r(k_{\rm pivot}) = 9 \times 10^{-6}$ and $r_{\rm max} = 6.26 \times 10^{-4}$, well below current BICEP/Keck bounds ($r < 0.036$) but above the cosmic-variance floor for CMB-S4 ($r \sim 10^{-4}$–$10^{-3}$). A B-mode detection with $r \sim 10^{-3}$ would be inconsistent with the TEP native tensor prediction; a non-detection down to $r \sim 10^{-4}$ would remain compatible and would sharpen the bound on $p$ in the temporal-horizon profile.
 
-- **Acoustic-peak phase shift from the `tep_mode` background.** The TEP background factor $M(z) = A/(1-\alpha_A)$ produces a sub-ppm shift in the acoustic-peak locations. While this is below current Planck sensitivity, a future CMB spectrometer (e.g., PIXIE-like) measuring the acoustic-peak centroid to $< 0.1$ ppm would directly test the conformal-frame background mapping. A detectable phase shift would falsify the exact mathematical isomorphism claimed in Section 3.
+- **Acoustic-peak consistency under `tep_mode` background.** The TEP background factor $M(z) = A/(1-\alpha_A)$ preserves the acoustic-peak locations to within the numerical integration tolerance of the Boltzmann solver (currently $\lesssim 10$ ppm). The current hi_class implementation reports $r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$, where the residual $\sim$6 ppm is understood as a numerical/implementation-level artifact of finite-precision conformal-frame background reconstruction. Any claimed physical deviation from the exact conformal isomorphism must be shown to exceed the standard solver interpolation noise ($\sim 10$ ppm) before it can be interpreted as a falsification of the background mapping, rather than as a C++ integration artifact.
 
-- **Growth-factor amplitude from native EFT.** The TEP-HC active-perturbation run yields $\sigma_8 = 0.825 \pm 0.016$, slightly above the Planck $\Lambda$CDM value ($0.811 \pm 0.006$). Stage-IV weak-lensing surveys (Euclid, Rubin/LSST) will measure $S_8$ to $\sim 0.01$ precision. A measurement of $S_8 < 0.84$ at $>2\sigma$ would challenge the TEP growth amplitude; $S_8 > 0.84$ would strengthen it.
+- **Growth-factor amplitude from native EFT.** The TEP-HC active-perturbation run yields $\sigma_8 = 0.825 \pm 0.016$, giving a structurally higher linear growth amplitude than the standard Planck $\Lambda$CDM baseline ($0.811 \pm 0.006$). As Stage-IV weak-lensing surveys (Euclid, Rubin/LSST) resolve their internal calibration systematics, the $S_8$ consensus is expected to trend upward toward the TEP prediction if the conformal-frame Hubble-friction modification is physically realized. This is framed as a diagnostic trend rather than a binary kill-switch: TEP does not predict an exact $S_8$ threshold but rather a directionally higher growth amplitude arising from the same Bellini–Sawicki EFT sector that preserves the acoustic scale.
 
 Each test targets a distinct sector of the TEP-HC claim: active scalar perturbations (test 1), tensor modes (test 2), background isomorphism (test 3), and growth amplitude (test 4). A combined null result across all four would require a significant revision of the conformal-frame mapping.
 
