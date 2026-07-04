@@ -17,6 +17,8 @@
     <li>$\phi$ is the dynamical proper-time field</li>
 </ul>
 
+<p>Following TEP-TH (Paper 27), two distinct projections of the temporal field are distinguished in cosmology: $A_{\rm clock}(z)$ is the exact observational clock/redshift mapping that generates the apparent distance-redshift relation, while $A_{\rm dyn}(z)$ is the screened physical dynamical response that modifies expansion, BBN, recombination, and perturbations. In the homogeneous background limit evaluated here, the hi_class conformal-frame mapping corresponds to $A_{\rm clock}$; the screened $A_{\rm dyn}$ response is parameterized by $\epsilon_T$ and is driven to unity during the pre-recombination acoustic sector.</p>
+
 <p><em>Metric signature convention:</em> $(+, -, -, -)$ throughout.</p>
 
 <h3>2.2 Formal Bellini-Sawicki Alpha Correspondence</h3>
@@ -29,7 +31,7 @@
 
 <div class="equation">
 \begin{equation} \label{eq:3_theory_02}
-\alpha_M \equiv \frac{d \ln M_{\rm eff}^2}{d \ln a} = \frac{d \ln A^2(\phi)}{d \ln a} = \frac{2\beta_A}{M_{\rm Pl}} \frac{\phi'}{\mathcal{H}}
+\alpha_M \equiv \frac{d \ln M_{\rm eff}^2}{d \ln a} = - \frac{d \ln A^2(\phi)}{d \ln a} = - \frac{2\beta_A}{M_{\rm Pl}} \frac{\phi'}{\mathcal{H}}
 \end{equation}
 </div>
 
@@ -72,7 +74,7 @@
 
 <p>The explicit functional forms follow from the bi-metric action (Equation \ref{eq:3_theory_01}) and are determined by the conformal factor $A(\phi)$ and the disformal function $B(\phi)$. Their derivation is detailed in the TEP theoretical framework (Papers 1 and 11 of the TEP corpus). The schematic $f_B$, $f_K$ forms describe the general disformal EFT bookkeeping; the production perturbation run restricts to the pure-conformal branch, where these functions reduce to the closed runtime identities given in Appendix A.5.</p>
 
-<p>The background-only configuration uses $\alpha_B$ and $\alpha_K$ as formal EFT bookkeeping; during native <code>tep_mode</code> background-only integration $f_B$ and $f_K$ evaluate identically to zero, confirming that this is a strict geometric mapping at the background level. The active-perturbation closure configuration (Section 4.5) passes <code>gravity_model = tep</code> and <code>M2_evolution = yes</code> to hi_class, which evolves the implemented linear pure-conformal scalar fluctuation sector $\delta\phi$ through the exact Bellini–Sawicki EFT functions derived from the conformal geometry, with sound speed $c_s^2 = 1.0$ and no-ghost condition $D = \alpha_A^2$ enforced by construction. The theoretical basis for this closure is developed in the foundational TEP formalism (Papers 1 and 11).</p>
+<p>The background-only configuration uses $\alpha_B$ and $\alpha_K$ as formal EFT bookkeeping; during native <code>tep_mode</code> background-only integration $f_B$ and $f_K$ evaluate identically to zero, verifying that this is a strict geometric mapping at the background level. The active-perturbation closure configuration (Section 4.5) passes <code>gravity_model = tep</code> and <code>M2_evolution = yes</code> to hi_class, which evolves the implemented linear pure-conformal scalar fluctuation sector $\delta\phi$ through the exact Bellini–Sawicki EFT functions derived from the conformal geometry, with sound speed $c_s^2 = 1.0$ and no-ghost condition $D = \alpha_A^2$ enforced by construction. The theoretical basis for this closure is developed in the foundational TEP formalism (Papers 1 and 11).</p>
 
 <h3>2.3 The Static Conformal Isomorphism</h3>
 
@@ -82,16 +84,16 @@
 
 <div class="equation">
 \begin{equation} \label{eq:3_theory_06}
-1+z = \frac{A_0}{A_{\text{em}}}
+1+z = \frac{A_0}{A_{\text{em}}} = A_{\text{clock}}^{-1}(z)
 \end{equation}
 </div>
 
-<p>Because the mathematical transport geometry of $A(\phi)$ across a static conformal geometry is formally isomorphic to the transport geometry of a photon in an expanding FLRW metric with scale factor $a(t)$, standard cosmological integrators (like <code>hi_class</code> and <code>CLASS</code>) can be deployed natively as conformal-frame calculators for the background/acoustic-sector mapping tested here.</p>
+<p>The exact observational clock map $A_{\text{clock}}(z)=(1+z)^{-1}$ defines the redshift–distance relation in the static conformal geometry. Because the mathematical transport geometry of $A_{\text{clock}}$ across a static background is formally isomorphic to the transport geometry of a photon in an expanding FLRW metric with reconstructed scale factor $a_{\text{eff}}(z)$, standard cosmological integrators (like <code>hi_class</code> and <code>CLASS</code>) can be deployed natively as conformal-frame calculators for the background/acoustic-sector mapping tested here. The screened physical dynamical response $A_{\text{dyn}}(z)$ modifies the Hubble parameter and acoustic observables at late times while approaching unity during the early thermal epochs (TEP-TH, Paper 27; TEP-C0, Paper 26).</p>
 
 <ul>
     <li>The primary acoustic peaks ($100 \lesssim \ell \lesssim 2000$) generated at $z \sim 1089$ are preserved with extreme precision, because the mathematics of the acoustic horizon $r_s$ depend only on the conformal integration path, not on physical spatial stretching.</li>
     <li>The parameter conventionally identified as Dark Energy ($\Omega_\Lambda$) is reinterpreted within this implementation as the homogeneous temporal-shear background contribution, $\Omega_\phi$, occupying the same background-budget role as $\Omega_\Lambda$ in the reference FLRW calculation.</li>
-    <li>The Big Bang singularity is reinterpreted, within TEP, as a temporal-horizon boundary of the conformal clock-rate field where $A(\phi) \to 0$ relative to the present epoch, creating the mathematical appearance of infinite density in standard FLRW reconstructions.</li>
+    <li>The Big Bang singularity is reinterpreted, within TEP, as a temporal-horizon boundary of the conformal clock-rate field where $A_{\text{clock}} \to 0$ relative to the present epoch, driving the reconstructed scale factor $a_{\text{eff}} \to 0$ and creating the mathematical appearance of infinite density in standard FLRW reconstructions. The full nonsingular closure—finite curvature invariants, geodesic completeness, and the origin of the CMB blackbody spectrum—is developed in TEP-TH (Paper 27), where the non-exact covariance/topology correction $C_T$ provides the transport closure beyond exact conformal shear.</li>
     <li><em>Thermodynamic Cooling:</em> The adiabatic cooling of the CMB photon gas ($T \propto 1/a$ in standard cosmology) is preserved as $T \propto 1/A$. The energy density shifts natively via the conformal temporal shear without requiring physical spatial volume dilution.</li>
 </ul>
 

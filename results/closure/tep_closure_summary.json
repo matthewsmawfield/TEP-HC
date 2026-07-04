@@ -1,0 +1,10 @@
+{
+  "sigma8_lcdm": 0.8233761492292199,
+  "sigma8_tep": 0.8246971648347677,
+  "sigma8_ratio": 1.0016043889621826,
+  "sigma8_delta": 0.0013210156055478706,
+  "tep_k_t": 0.5,
+  "tep_n_t": 2.0,
+  "Pk_fractional_min_pct": -9.033230130772797,
+  "Pk_fractional_max_pct": 0.3648932765359877
+}

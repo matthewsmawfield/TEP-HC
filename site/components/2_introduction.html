@@ -5,7 +5,7 @@
      <p>The Temporal Equivalence Principle (TEP) has been constrained across many orders of magnitude in mass density, from terrestrial laboratory scales ($\rho \sim 20$ g/cm³) to the cosmological mean ($\rho \sim 10^{-29}$ g/cm³). Previous papers in this series have established:</p>
      
      <ul>
-         <li><em>Terrestrial scales (Paper 1):</em> Terrestrial atomic clock networks show 4,200 km phase correlations consistent with the 20 g/cm³ screening threshold.</li>
+         <li><em>Terrestrial scales (Paper 1):</em> Terrestrial atomic clock networks show 4,200 km phase correlations consistent with the candidate Temporal Topology saturation scale ρ_T ≈ 20 g/cm³.</li>
          <li><em>Galactic scales (Paper 6, UCD):</em> SPARC rotation curves validate the potential-dependent proper-time mapping.</li>
          <li><em>Stellar scales (Paper 13, WB):</em> Gaia DR3 wide binaries exhibit the predicted environment-dependent kinematic transition.</li>
          <li><em>Cosmological scales (Paper 12, JWST):</em> High-redshift anomalies align with environment-dependent time dilation.</li>
@@ -13,20 +13,26 @@
 
      <h3>1.2 The Cosmological Horizon</h3>
      
-     <p>The Hubble tension and the JWST high-redshift galaxy anomalies represent the two most persistent challenges in modern cosmology. Standard $\Lambda$CDM relies on a stretching spatial metric, which forces the universe to begin in a Big Bang singularity and tightly restricts the available proper time for early galaxy assembly.</p>
+     <p>The Hubble tension and the JWST high-redshift galaxy anomalies represent the two most persistent challenges in modern cosmology. Standard $\Lambda$CDM relies on a stretching spatial metric, which extrapolates to a physical singularity at $a \to 0$ and tightly restricts the available proper time for early galaxy assembly.</p>
      
-     <p>Previous TEP work (Paper 11, H₀; Paper 12, JWST) demonstrated that if spatial expansion is a conformal-frame effect, these anomalies may be resolved. The temporal-horizon picture replaces the FLRW singularity with an asymptotic boundary, potentially removing the finite-age assembly bottleneck, and the $H_0$ tension is addressed as a local environmental mass-screening effect on kinematic distance probes.</p>
+     <p>Previous TEP work (Paper 11, H₀; Paper 12, JWST) argued that these anomalies are resolved within the TEP framework. The TEP temporal-horizon picture replaces the FLRW singularity with an asymptotic boundary, removing the finite-age assembly bottleneck, and the $H_0$ tension is addressed as a local environmental mass-screening effect on kinematic distance probes.</p>
 
      <h3>1.3 Purpose of This Paper</h3>
      
-     <p>To rigorously test the CMB acoustic-sector component of the Static Conformal thesis, this paper demonstrates that the acoustic-sector integrals can be reproduced by an exactly conformal temporal mapping without explicit spatial expansion. A full light-element abundance calculation is not performed here; the present BBN claim is limited to preservation of the conformal thermal/sound-horizon scaling and should be treated as a target for a dedicated follow-up calculation.</p>
+     <p>To rigorously test the CMB acoustic-sector component of the Static Conformal thesis, this paper demonstrates that the acoustic-sector integrals can be reproduced by an exactly conformal temporal mapping without explicit spatial expansion. A full light-element abundance and nonsingular thermal-history calculation is not performed in HC; it is supplied by TEP-TH v0.2 (Paper 27). The present HC claim is limited to conformal thermal/sound-horizon scaling, acoustic preservation, and the native <code>hi_class</code> perturbation implementation.</p>
      
      <p>Because the TEP conformal scalar field $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$ is mathematically isomorphic to the FLRW scale factor $a(t)$, the TEP Static Conformal geometry can be natively evaluated by deploying the <code>hi_class</code> Boltzmann solver as a conformal-frame calculator. This requires:</p>
      
      <ol>
          <li>Mapping the TEP conformal geometry onto the Boltzmann framework, establishing the implementation-level correspondence between the parameter conventionally written as $\Omega_\Lambda$ and the homogeneous temporal-shear background contribution, $\Omega_\phi$, occupying the same background-budget role as $\Omega_\Lambda$.</li>
          <li>Native implementation in hi_class to evaluate the conformal temporal shear field directly.</li>
-         <li>A joint MCMC parameter estimation ($H_0$, $\Omega_b h^2$, $\Omega_{\rm cdm} h^2$, $n_s$, $A_s$, $\tau$, $A_{\rm planck}$, $\epsilon_T$) against Planck 2018, BAO, and Pantheon+ data to quantitatively demonstrate that the acoustic peaks are preserved to parts-per-million accuracy in a static conformal geometry.</li>
+         <li>A joint MCMC parameter estimation ($H_0$, $\Omega_b h^2$, $\Omega_{\rm cdm} h^2$, $n_s$, $A_s$, $\tau$, $A_{\rm planck}$, $\epsilon_T$) against Planck 2018, BAO, and Pantheon+ data to quantitatively demonstrate that the acoustic peaks are preserved with sound-horizon ratio $r_s^{
+m TEP}/r_s^{
+m \Lambda CDM}=0.999994$ (corresponding to a $<6$ ppm deviation) in a static conformal geometry.</li>
      </ol>
      
+<p>This work does not independently analyse Pantheon+ supernovae or derive the full nonsingular temporal-horizon closure; those are addressed in companion papers TEP-C0 (Paper 26) and TEP-TH (Paper 27).</p>
+
 <p>The critical question: Can a static conformal geometry mathematically reproduce the CMB acoustic peaks?</p>
+
+<p>The claim-discipline framework for the TEP corpus, including the scope limitations of canonical precision tests, is established in TEP-EXP (Paper 9).</p>

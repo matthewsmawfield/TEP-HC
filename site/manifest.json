@@ -20,12 +20,18 @@
   "title": "Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation",
   "short_title": "TEP-HC: hi_class Cosmology",
   "author": "Matthew Lukin Smawfield",
-  "version": "v0.4",
+  "version": "v0.5",
   "codename": "Cambridge",
-  "date": "2026-06-16",
+  "date": "2026-07-03",
   "first_published": "8 June 2026",
   "doi": "10.5281/zenodo.20682752",
   "sections": [
+    {
+      "id": "section-parameter-dictionary",
+      "title": "Unified TEP Parameter Dictionary",
+      "file": "9a_parameter_dictionary.html",
+      "order": 9.5
+    },
     {
       "id": "section-abstract",
       "title": "Abstract",
@@ -61,6 +67,12 @@
       "title": "5. Results and Constraints",
       "file": "6_results.html",
       "order": 6
+    },
+    {
+      "id": "section-falsifiable-predictions",
+      "title": "6.1 Falsifiable Predictions",
+      "file": "6a_falsifiable_predictions.html",
+      "order": 6.5
     },
     {
       "id": "section-conclusion",

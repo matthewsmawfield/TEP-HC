@@ -1,0 +1,163 @@
+{
+  "step": "12_post_analysis",
+  "timestamp": "2026-07-04T19:45:07.753641",
+  "status": "SUCCESS",
+  "acoustic_metrics": {
+    "global_r_s_ratio": 0.9999940894770135,
+    "global_theta_s_frac_shift": 0.00185104323898444,
+    "table": [
+      {
+        "multipole_range": "100 \u2264 \u2113 \u2264 500",
+        "l_centroid_lcdm": 266.26,
+        "l_centroid_tep_bg": 266.2,
+        "delta_l": -0.058,
+        "expected_delta_l": -0.493,
+        "r_s_ratio": 0.99999409,
+        "max_res_bg_vs_lcdm_percent": 0.6656,
+        "max_res_pert_vs_lcdm_percent": 0.6656,
+        "max_res_pert_vs_bg_percent": 0.0
+      },
+      {
+        "multipole_range": "500 \u2264 \u2113 \u2264 1000",
+        "l_centroid_lcdm": 731.94,
+        "l_centroid_tep_bg": 731.58,
+        "delta_l": -0.358,
+        "expected_delta_l": -1.355,
+        "r_s_ratio": 0.99999409,
+        "max_res_bg_vs_lcdm_percent": 1.3377,
+        "max_res_pert_vs_lcdm_percent": 1.3377,
+        "max_res_pert_vs_bg_percent": 0.0
+      },
+      {
+        "multipole_range": "1000 \u2264 \u2113 \u2264 2000",
+        "l_centroid_lcdm": 1362.85,
+        "l_centroid_tep_bg": 1362.21,
+        "delta_l": -0.635,
+        "expected_delta_l": -2.523,
+        "r_s_ratio": 0.99999409,
+        "max_res_bg_vs_lcdm_percent": 1.8187,
+        "max_res_pert_vs_lcdm_percent": 1.8187,
+        "max_res_pert_vs_bg_percent": 0.0
+      }
+    ]
+  },
+  "stability_posterior": {
+    "eps_T_range_95": {
+      "lower": 3.3518649e-06,
+      "upper": 0.015673973765123653
+    },
+    "n_samples": 200,
+    "z_range": {
+      "z_min": 1e-06,
+      "z_max": 1100.0
+    },
+    "D_min_global": 1.7110879666046682e-19,
+    "all_positive_definite": true,
+    "alpha_M_max_global": 0.04106216105817902,
+    "sampled_edge_table": [
+      {
+        "epsilon_T": 3e-06,
+        "D_min": 0.0,
+        "D_max": 0.0,
+        "alpha_M_max": 9e-06
+      },
+      {
+        "epsilon_T": 0.001745,
+        "D_min": 0.0,
+        "D_max": 5.22e-06,
+        "alpha_M_max": 0.00457
+      },
+      {
+        "epsilon_T": 0.003486,
+        "D_min": 0.0,
+        "D_max": 2.085e-05,
+        "alpha_M_max": 0.009132
+      },
+      {
+        "epsilon_T": 0.005227,
+        "D_min": 0.0,
+        "D_max": 4.688e-05,
+        "alpha_M_max": 0.013693
+      },
+      {
+        "epsilon_T": 0.006968,
+        "D_min": 1e-12,
+        "D_max": 8.331e-05,
+        "alpha_M_max": 0.018255
+      },
+      {
+        "epsilon_T": 0.008709,
+        "D_min": 1e-12,
+        "D_max": 0.00013014,
+        "alpha_M_max": 0.022816
+      },
+      {
+        "epsilon_T": 0.01045,
+        "D_min": 2e-12,
+        "D_max": 0.00018738,
+        "alpha_M_max": 0.027378
+      },
+      {
+        "epsilon_T": 0.012192,
+        "D_min": 2e-12,
+        "D_max": 0.00025503,
+        "alpha_M_max": 0.031939
+      },
+      {
+        "epsilon_T": 0.013933,
+        "D_min": 3e-12,
+        "D_max": 0.00033307,
+        "alpha_M_max": 0.036501
+      },
+      {
+        "epsilon_T": 0.015674,
+        "D_min": 4e-12,
+        "D_max": 0.00042153,
+        "alpha_M_max": 0.041062
+      }
+    ],
+    "note": "D(z) = alpha_A^2 > 0 for all z in (0,1100) and all epsilon_T in the 95% posterior."
+  },
+  "polarization": {
+    "residual_table": [
+      {
+        "multipole_range": "100 \u2264 \u2113 \u2264 500",
+        "max_res_te_percent": 1.1634,
+        "max_res_ee_percent": 1.6241
+      },
+      {
+        "multipole_range": "500 \u2264 \u2113 \u2264 1000",
+        "max_res_te_percent": 2.1429,
+        "max_res_ee_percent": 2.455
+      },
+      {
+        "multipole_range": "1000 \u2264 \u2113 \u2264 2000",
+        "max_res_te_percent": 3.1911,
+        "max_res_ee_percent": 3.6224
+      }
+    ]
+  },
+  "growth": {
+    "LCDM": {
+      "sigma8": 0.823,
+      "D_z05": 0.769272,
+      "f_z05": 0.6469,
+      "fsigma8_z0": 0.823,
+      "fsigma8_z05": 0.4096
+    },
+    "TEP_background_only": {
+      "sigma8": 0.8242,
+      "D_z05": 0.767439,
+      "f_z05": 0.6528,
+      "fsigma8_z0": 0.8242,
+      "fsigma8_z05": 0.4129
+    },
+    "TEP_active_perturbations": {
+      "sigma8": 0.8242,
+      "D_z05": 0.767439,
+      "f_z05": 0.6528,
+      "fsigma8_z0": 0.8242,
+      "fsigma8_z05": 0.4129
+    }
+  }
+}

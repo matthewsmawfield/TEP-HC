@@ -9,6 +9,8 @@
 <pre><code>cd external/hi_class/hi_class
 make clean && make</code></pre>
 
+<p><strong>Screening projection notice.</strong> Screening in TEP is represented at theory level by the environmental operator S_Σ(E). Quantities such as ρ_T, R_T(M), S_⊕(r), compactness Φ/c^2, local stellar density, thermal epoch, coherence length, proximity, and boundary geometry are domain-specific projections of E, not independent screening mechanisms and not interchangeable universal thresholds.</p>
+
 <h3>A.2 Cobaya Installation</h3>
 
 <pre><code>pip install cobaya
@@ -50,7 +52,7 @@ cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
 \end{equation}
 </div>
 
-<p>where $H_E = d\ln a_E/dt_E$ is the Einstein-frame rate. Because the TEP conformal factor $A(z)$ is evaluated as a function of the observable physical redshift (the Jordan-frame redshift $1+z = \tilde{a}_0/\tilde{a}$), the coupling $\alpha_A$ computed in the codebase is fundamentally the derivative with respect to the <em>Jordan-frame</em> scale factor:</p>
+<p>where $H_E = d\ln a_E/dt_E$ is the Einstein-frame rate. Because the TEP conformal factor $A(z)$ is evaluated as a function of the observable physical redshift (the matter-frame redshift $1+z = \tilde{a}_0/\tilde{a}$), the coupling $\alpha_A$ computed in the codebase is fundamentally the derivative with respect to the <em>matter-frame</em> scale factor:</p>
 
 <div class="equation">
 \begin{equation} \label{eq:a3a_alpha}
@@ -68,23 +70,23 @@ cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
 
 <p><em>Implementation Status.</em> The production codebase (<code>hiclass_tep_native.patch</code>) evaluates this exact geometric relation $M = A/(1-\alpha_A)$ directly, guaranteeing mathematical fidelity to the conformal evaluation without requiring first-order approximations.</p>
 
-<h3>A.4 Screening Threshold in Cosmological Units</h3>
+<h3>A.4 Saturation Scale in Cosmological Units</h3>
 
-<p>The 20 g/cm³ environmental screening threshold converts to cosmological units as:</p>
+<p>The candidate Temporal Topology saturation scale ρ_T ≈ 20 g/cm³ converts to cosmological units as:</p>
 <div class="equation">
 \begin{equation} \label{eq:9_appendix_01}
-\rho_c = 20 \text{ g/cm}^3 = 2 \times 10^4 \text{ kg/m}^3 \approx 1.1 \times 10^{34} \text{ eV/cm}^3
+\rho_T = 20 \text{ g/cm}^3 = 2 \times 10^4 \text{ kg/m}^3 \approx 1.1 \times 10^{34} \text{ eV/cm}^3
 \end{equation}
 </div>
 <p>In Planck units ($\hbar = c = G = 1$):</p>
 <div class="equation">
 \begin{equation} \label{eq:9_appendix_02}
-\rho_c \approx 4 \times 10^{-93} M_{\rm Pl}^4
+\rho_T \approx 4 \times 10^{-93} M_{\rm Pl}^4
 \end{equation}
 </div>
 <p>Compare to cosmic mean density today ($\rho_{\rm crit,0} \approx 10^{-123} M_{\rm Pl}^4$). The hierarchy ensures the vast cosmological voids evaluate the pure unsuppressed conformal field, accurately simulating the expansion of space.</p>
 
-<p><em>Intermediate environments and operational parameter bounds.</em> Between the terrestrial laboratory and the cosmic mean, the screening transition is continuous. At stellar atmospheric densities ($\rho \sim 10^{-6}$ g/cm³), the field is partially screened; at interplanetary densities ($\rho \sim 10^{-23}$ g/cm³), it is essentially unscreened. Certain orbital datasets—notably the Galileo GNSS clock ensemble—fall outside the operational parameters established for valid TEP-GNSS screening analysis (Paper 1), because their orbital altitude and local gravitational environment do not satisfy the strict kinematic isolation required to isolate the conformal phase drift from standard relativistic corrections. These exclusions are documented in the TEP-GNSS pipeline and do not affect the cosmological bound, which operates in the deep unscreened regime where $\rho \ll \rho_c$.</p>
+<p><em>Intermediate environments and operational parameter bounds.</em> Between the terrestrial laboratory and the cosmic mean, the screening transition is continuous. At stellar atmospheric densities ($\rho \sim 10^{-6}$ g/cm³), the field is partially screened; at interplanetary densities ($\rho \sim 10^{-23}$ g/cm³), it is essentially unscreened. Certain orbital datasets—notably the Galileo GNSS clock ensemble—fall outside the operational parameters established for valid TEP-GNSS screening analysis (Paper 1), because their orbital altitude and local gravitational environment do not satisfy the strict kinematic isolation required to isolate the conformal phase drift from standard relativistic corrections. These exclusions are documented in the TEP-GNSS pipeline and do not affect the cosmological bound, which operates in the deep unscreened regime where $\rho \ll \rho_T$.</p>
 
 <h3>A.5 Stability Sector Closure</h3>
 

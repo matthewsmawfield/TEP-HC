@@ -2,9 +2,10 @@ theory:
   classy:
     ignore_obsolete: true
     extra_args:
-      output: tCl,pCl,lCl
+      output: tCl,pCl,lCl,mPk
       lensing: 'yes'
-      non_linear: none
+      modes: s,t
+      non_linear: halofit
       l_max_scalars: 2700
       tep_mode: 'yes'
       z_T: 5.0
@@ -93,20 +94,27 @@ params:
     latex: A_{planck}
   epsilon_T:
     prior:
-      min: 0.0
-      max: 0.02
+      min: -1.0
+      max: 1.0
     ref:
       dist: norm
-      loc: 0.002
-      scale: 0.002
-    proposal: 0.0007
+      loc: 0.006
+      scale: 0.005
+    proposal: 0.0005
     latex: \epsilon_T
+  sigma8:
+    latex: \sigma_8
 sampler:
   mcmc:
-    max_samples: 100000
-    Rminus1_stop: 0.1
+    burn_in: 0
+    max_tries: 10000
+    max_samples: 1000000
+    Rminus1_stop: 0.05
     Rminus1_cl_stop: 0.2
+    output_every: 10
     learn_proposal: true
-    output_every: 60s
+    learn_proposal_Rminus1_max_early: 100.0
+    fallback_covmat_scale: 3
+    drag: true
+    seed: 42
 output: tep_native
-packages_path: data/external/cobaya_packages

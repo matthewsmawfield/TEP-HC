@@ -97,7 +97,7 @@ sampler:
   mcmc:
     burn_in: 0
     max_tries: 10000
-    max_samples: 500000
+    max_samples: 1000000
     Rminus1_stop: 0.05
     Rminus1_cl_stop: 0.2
     output_every: 10

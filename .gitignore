@@ -28,6 +28,7 @@ Thumbs.db
 *.temp
 
 .devin/
+feedback
 results/mcmc_chains/
 data/interim/
 results/jordan_*.ini

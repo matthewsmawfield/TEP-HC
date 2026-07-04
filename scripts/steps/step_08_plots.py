@@ -153,87 +153,12 @@ class Step08Plots:
         g.export(str(output_file))
         print_status(f"  ✓ Saved triangle plot: {output_file}", "SUCCESS")
 
-        # Also generate 2D ε_T vs H0 and ε_T vs S8 plots
-        print_status("Generating 2D constraint panels...", "PROCESS")
-
-        # Compute S8 for both chains
-        def _compute_S8(data, names):
-            s8_idx = names.index("sigma8")
-            ocdm_idx = names.index("omega_cdm")
-            ob_idx = names.index("omega_b")
-            h0_idx = names.index("H0")
-            s8 = data[:, s8_idx]
-            ocdm = data[:, ocdm_idx]
-            ob = data[:, ob_idx]
-            h0 = data[:, h0_idx]
-            Om = (ocdm + ob) / (h0 / 100.0)**2
-            return s8 * np.sqrt(Om / 0.3)
-
-        bg_S8 = _compute_S8(bg_post, bg_names)
-        pert_S8 = _compute_S8(pert_post, pert_names)
-
-        # Create S8 samples
-        bg_s8_params = np.column_stack([
-            bg_params[:, 0],  # epsilon_T
-            bg_params[:, 1],  # H0
-            bg_S8
-        ])
-        pert_s8_params = np.column_stack([
-            pert_params[:, 0],
-            pert_params[:, 1],
-            pert_S8
-        ])
-
-        bg_s8_samples = MCSamples(
-            samples=bg_s8_params,
-            weights=bg_post[:, 0],
-            loglikes=bg_post[:, 1],
-            names=["epsilon_T", "H0", "S8"],
-            labels=[r"\epsilon_T", r"H_0", r"S_8"],
-            sampler="mcmc",
-            name_tag="bg"
-        )
-        pert_s8_samples = MCSamples(
-            samples=pert_s8_params,
-            weights=pert_post[:, 0],
-            loglikes=pert_post[:, 1],
-            names=["epsilon_T", "H0", "S8"],
-            labels=[r"\epsilon_T", r"H_0", r"S_8"],
-            sampler="mcmc",
-            name_tag="pert"
-        )
-
-        g2 = plots.get_subplot_plotter()
-        g2.settings.figure_legend_frame = False
-        g2.settings.legend_fontsize = 12
-        g2.settings.axes_fontsize = 10
-        g2.settings.lab_fontsize = 12
-
-        g2.triangle_plot(
-            [bg_s8_samples, pert_s8_samples],
-            ["epsilon_T", "H0", "S8"],
-            filled=True,
-            legend_labels=[
-                r"Background-only",
-                r"Active-perturbation"
-            ],
-            legend_loc="upper right",
-            colors=["#1f77b4", "#d62728"],
-            line_args=[{"lw": 1.5, "color": "#1f77b4"}, {"lw": 1.5, "color": "#d62728"}],
-            contour_colors=["#1f77b4", "#d62728"],
-        )
-
-        output_s8 = self.fig_dir / "tep_perturbation_S8_triangle.png"
-        g2.export(str(output_s8))
-        print_status(f"  ✓ Saved S8 triangle plot: {output_s8}", "SUCCESS")
-
         results = {
             "step": self.STEP_NAME,
             "timestamp": datetime.now().isoformat(),
             "status": "SUCCESS",
             "figures": [
-                str(output_file.relative_to(self.root_dir)),
-                str(output_s8.relative_to(self.root_dir))
+                str(output_file.relative_to(self.root_dir))
             ],
             "n_samples_bg": int(bg_post.shape[0]),
             "n_samples_pert": int(pert_post.shape[0])

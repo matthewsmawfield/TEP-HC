@@ -1,0 +1,69 @@
+{
+  "description": "ISW residual vs cosmic-variance floor for TEP vs \u039bCDM",
+  "assumptions": [
+    "ISW amplitude scales with the fractional change in late-time potential evolution.",
+    "TEP homogeneous amplitude \u03b5_T^HC = 0.0056 \u00b1 0.0043 sets the characteristic deviation scale.",
+    "ISW contributes ~10% of total low-\u2113 CMB power in \u039bCDM.",
+    "Cosmic variance for total C_l: \u03c3/C_l \u2248 sqrt(2/(2\u2113+1)).",
+    "This is an analytic estimate; a full Boltzmann integration would refine the amplitude."
+  ],
+  "parameters": {
+    "epsilon_T_HC": 0.0056,
+    "epsilon_T_HC_uncertainty": 0.0043,
+    "delta_isw_fractional": 0.0112,
+    "isw_contribution_to_total_C_l": 0.1
+  },
+  "low_ell_analysis": {
+    "ell_values": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "cosmic_variance_fraction": [
+      0.6324555320336759,
+      0.5345224838248488,
+      0.4714045207910317,
+      0.4264014327112209,
+      0.3922322702763681,
+      0.3651483716701107,
+      0.3429971702850177,
+      0.3244428422615251,
+      0.3086066999241838
+    ],
+    "predicted_delta_C_l_over_C_l": [
+      0.0011200000000000001,
+      0.0011200000000000001,
+      0.0011200000000000001,
+      0.0011200000000000001,
+      0.0011200000000000001,
+      0.0011200000000000001,
+      0.0011200000000000001,
+      0.0011200000000000001,
+      0.0011200000000000001
+    ],
+    "signal_to_noise_per_ell": [
+      0.0017708754896942926,
+      0.002095328136593407,
+      0.0023758787847868,
+      0.002626632825501121,
+      0.0028554509276119597,
+      0.003067246322028931,
+      0.0032653330611133683,
+      0.003452071841662627,
+      0.0036292147911084023
+    ],
+    "cumulative_signal_to_noise_ell2_10": 0.008566352782835879
+  },
+  "verdict": {
+    "isw_detectable": false,
+    "required_snr_for_detection": 3.0,
+    "predicted_snr": 0.008566352782835879,
+    "interpretation": "The predicted TEP ISW modification at low-\u2113 has S/N \u2248 0.01 relative to the cosmic-variance floor. This is below the threshold for a confident detection (S/N > 3). A full Boltzmann integration of the ISW power spectrum with the native hi_class tep_mode implementation is required for a definitive number. The present analytic estimate serves as a scoping calculation."
+  }
+}

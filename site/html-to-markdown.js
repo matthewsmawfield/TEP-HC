@@ -13,6 +13,32 @@ class HTMLToMarkdownConverter {
             .replace(/&nbsp;/g, ' ')
             .replace(/&mdash;/g, '—')
             .replace(/&ndash;/g, '–')
+            .replace(/&Sigma;/g, 'Σ')
+            .replace(/&sigma;/g, 'σ')
+            .replace(/&oplus;/g, '⊕')
+            .replace(/&Epsilon;/g, 'Ε')
+            .replace(/&epsilon;/g, 'ε')
+            .replace(/&Phi;/g, 'Φ')
+            .replace(/&phi;/g, 'φ')
+            .replace(/&radic;/g, '√')
+            .replace(/&times;/g, '×')
+            .replace(/&plusmn;/g, '±')
+            .replace(/&infin;/g, '∞')
+            .replace(/&alpha;/g, 'α')
+            .replace(/&beta;/g, 'β')
+            .replace(/&gamma;/g, 'γ')
+            .replace(/&delta;/g, 'δ')
+            .replace(/&eta;/g, 'η')
+            .replace(/&theta;/g, 'θ')
+            .replace(/&lambda;/g, 'λ')
+            .replace(/&mu;/g, 'μ')
+            .replace(/&nu;/g, 'ν')
+            .replace(/&pi;/g, 'π')
+            .replace(/&rho;/g, 'ρ')
+            .replace(/&tau;/g, 'τ')
+            .replace(/&chi;/g, 'χ')
+            .replace(/&omega;/g, 'ω')
+            .replace(/&Omega;/g, 'Ω')
             .replace(/&#10004;/g, '✔')
             .replace(/&#10008;/g, '✘');
     }
@@ -24,7 +50,9 @@ class HTMLToMarkdownConverter {
                 .replace(/<(em|i)[^>]*>([\s\S]*?)<\/(em|i)>/gi, '*$2*')
                 .replace(/<code[^>]*>([\s\S]*?)<\/code>/gi, '`$1`')
                 .replace(/<br\s*\/?>/gi, ' ')
-                .replace(/<\/?[a-zA-Z][^>]*>/g, '')
+                .replace(/<sub[^>]*>([\s\S]*?)<\/sub>/gi, '<sub>$1</sub>')
+                .replace(/<sup[^>]*>([\s\S]*?)<\/sup>/gi, '<sup>$1</sup>')
+                .replace(/<\/?(?!sub|sup)[a-zA-Z][^>]*>/g, '')
         )
             .replace(/\s+/g, ' ')
             .trim();
@@ -106,7 +134,9 @@ class HTMLToMarkdownConverter {
         html = html.replace(/<br\s*\/?>/gi, '\n');
         html = html.replace(/<hr\s*\/?>/gi, '\n---\n');
 
-        html = html.replace(/<\/?[a-zA-Z][^>]*>/g, '');
+        html = html.replace(/<sub[^>]*>([\s\S]*?)<\/sub>/gi, '<sub>$1</sub>');
+        html = html.replace(/<sup[^>]*>([\s\S]*?)<\/sup>/gi, '<sup>$1</sup>');
+        html = html.replace(/<\/?(?!sub|sup)[a-zA-Z][^>]*>/g, '');
         html = this.decodeEntities(html);
         html = html.replace(/@@@CODEBLOCK_START:([^@]*)@@@[\r\n]+([\s\S]*?)[\r\n]+@@@CODEBLOCK_END@@@/g, (match, lang, code) => {
             const language = lang.trim();
@@ -145,14 +175,14 @@ class HTMLToMarkdownConverter {
             const firstPublished = '8 June 2026';
             const lastUpdated = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
             
-            const header = `# ${markdownTitle}\n**${author}**\nVersion: ${version} (${codename})\nFirst published: ${firstPublished} · Last updated: ${lastUpdated}\nPaper Series: TEP Series Paper 18 (hi_class Cosmology)\n\n---\n\n`;
+            const header = `# ${markdownTitle}\n**${author}**\nVersion: ${version} (${codename})\nFirst published: ${firstPublished} · Last updated: ${lastUpdated}\nPaper Series: TEP Series Paper 18 (hi_class Cosmology)\nDOI: 10.5281/zenodo.20682752\n\n---\n\n`;
             
             let markdown = this.htmlToMarkdown(allHtml);
             // Remove leading indentation from all lines
             markdown = markdown.split('\n').map(line => line.replace(/^\s+/, '')).join('\n').trim();
             
             const fullMarkdown = header + markdown;
-            const outputPath = path.join(__dirname, '..', '18-TEP-HC-v0.4-Cambridge.md');
+            const outputPath = path.join(__dirname, '..', `18-TEP-HC-${version}-${codename}.md`);
             fs.writeFileSync(outputPath, fullMarkdown, 'utf8');
             console.log(`✅ Markdown saved to: ${outputPath} (${(markdown.length / 1024).toFixed(1)} KB)`);
         } catch (error) {
