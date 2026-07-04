@@ -6,14 +6,15 @@
 ![TEP-HC: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation](site/public/image.webp)
 
 **Author:** Matthew Lukin Smawfield  
-**Version:** v0.4 (Cambridge)  
+**Version:** v0.5 (Cambridge)  
 **First published:** 8 June 2026  
 **Website:** [https://mlsmawfield.com/tep/hc](https://mlsmawfield.com/tep/hc)  
-**Paper Series:** TEP Series: Paper 18 (hi_class Cosmology)
+**Paper Series:** TEP Series: Paper 18 (hi_class Cosmology)  
+**DOI:** [10.5281/zenodo.20682752](https://doi.org/10.5281/zenodo.20682752)
 
 ## Abstract
 
-Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a Big Bang singularity. This paper demonstrates that the CMB acoustic-sector and conformal thermal/sound-horizon scalings are preserved with high fidelity under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP).
+Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to standard nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a physical singularity. This paper demonstrates that the CMB acoustic-sector and conformal thermal/sound-horizon scalings are preserved with high fidelity under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP).
 
 In the TEP framework, matter clocks and photon phases evolve in a causal matter metric defined by a conformal scalar field $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$. Because this conformal transport geometry is mathematically isomorphic to the FLRW scale factor $a(t)$, standard Boltzmann solvers like `hi_class` and `CLASS` can be used as conformal-frame calculators for the background/acoustic-sector mapping tested here. The parameter traditionally identified as Dark Energy ($\Omega_\Lambda$) is operationally reinterpreted within this implementation as the homogeneous temporal-shear background contribution filling the same background budget slot, $\Omega_\phi$.
 
@@ -40,7 +41,7 @@ A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + P
 | **Paper 15** | [TEP-EFA](https://github.com/matthewsmawfield/TEP-EFA) | Temporal Shear in the Earth Flyby Anomaly | [10.5281/zenodo.19454863](https://doi.org/10.5281/zenodo.19454863) |
 | **Paper 17** | [TEP-LLR](https://github.com/matthewsmawfield/TEP-LLR) | Lunar Laser Ranging and the Nordtvedt Effect | [10.5281/zenodo.19446029](https://doi.org/10.5281/zenodo.19446029) |
 | **Paper 18** | **TEP-HC** (This repo) | Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation | [10.5281/zenodo.20682752](https://doi.org/10.5281/zenodo.20682752) |
-| **Paper 26** | [TEP-C0](https://github.com/matthewsmawfield/TEP-C0) | Covariant Alternative to Cosmic Expansion (Pantheon+ + full Planck) | [10.5281/zenodo.20370144](https://doi.org/10.5281/zenodo.20370144) |
+| **Paper 26** | [TEP-C0](https://github.com/matthewsmawfield/TEP-C0) | Covariant Alternative to Cosmic Expansion (Pantheon+ + full Planck) | [10.5281/zenodo.20370143](https://doi.org/10.5281/zenodo.20370143) |
 | **Paper 19** | [TEP-LENS](https://github.com/matthewsmawfield/TEP-LENS) | Geometric Route-Closure Test in Multiply-Imaged Supernovae | — |
 
 ## Repository Structure
@@ -95,7 +96,7 @@ python scripts/generate_figures.py
 
 # Build manuscript from HTML
 cd site && npm ci && npm run build:markdown
-# Output: 18-TEP-HC-v0.4-Cambridge.md
+# Output: 18-TEP-HC-v0.5-Cambridge.md
 
 # Build static site (figures copied from results/figures/)
 cd site && npm ci && npm run build
@@ -127,7 +128,7 @@ Figures are generated separately via `python scripts/generate_figures.py` and co
   title={Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation},
   author={Smawfield, Matthew Lukin},
   year={2026},
-  note={Preprint v0.4 (Cambridge)},
+  note={Preprint v0.5 (Cambridge)},
   url={https://mlsmawfield.com/tep/hc}
 }
 ```

@@ -40,19 +40,19 @@ def load_citation_metadata():
 
     if not citation_file.exists():
         print("⚠️  CITATION.cff not found, using defaults")
-        return {'version': 'v0.4', 'codename': DEFAULT_CODENAME, 'title': REPO_NAME}
+        return {'version': 'v0.5', 'codename': DEFAULT_CODENAME, 'title': REPO_NAME}
 
     try:
         if yaml:
             with open(citation_file, 'r') as f:
                 data = yaml.safe_load(f)
-            version_str = data.get('version', 'v0.4')
+            version_str = data.get('version', 'v0.5')
         else:
             # Parse manually if yaml not available
             with open(citation_file, 'r') as f:
                 content = f.read()
             version_match = re.search(r'version:\s*"?([^"\n]+)"?', content)
-            version_str = version_match.group(1).strip() if version_match else 'v0.4'
+            version_str = version_match.group(1).strip() if version_match else 'v0.5'
 
         # Parse version string like 'v0.1 (Athens)'
         pattern = r'^(v?[\d.]+)(?:\s*\(([^)]+)\))?$'
@@ -69,7 +69,7 @@ def load_citation_metadata():
 
     except Exception as e:
         print(f"⚠️  Error parsing CITATION.cff: {e}, using defaults")
-        return {'version': 'v0.4', 'codename': DEFAULT_CODENAME, 'title': REPO_NAME}
+        return {'version': 'v0.5', 'codename': DEFAULT_CODENAME, 'title': REPO_NAME}
 
 
 def build_static_site():
@@ -179,6 +179,16 @@ async def generate_pdf(quality: str = 'high', wait_time: float = 5.0, skip_build
     if not html_file.exists():
         print(f"❌ HTML file not found: {html_file}")
         return False
+
+    # Create PDF-specific HTML with synchronous MathJax loading
+    pdf_html_file = dist_dir / 'index_pdf.html'
+    html_content = html_file.read_text(encoding='utf8')
+    html_content = html_content.replace(
+        'id="MathJax-script" async',
+        'id="MathJax-script"'
+    )
+    pdf_html_file.write_text(html_content, encoding='utf8')
+    html_file = pdf_html_file
 
     # Output path (temp, will be copied to docs)
     output_pdf = dist_dir / 'manuscript.pdf'

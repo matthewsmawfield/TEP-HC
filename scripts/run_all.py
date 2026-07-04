@@ -26,7 +26,7 @@ Usage:
 
 Author: Matthew Lukin Smawfield
 Date: April 2026
-Version: v0.4-Cambridge
+Version: v0.5-Cambridge
 License: CC-BY-4.0
 """
 
@@ -91,6 +91,7 @@ from scripts.steps.step_07_posteriors import Step07Posteriors
 from scripts.steps.step_08_synthesis import Step08Synthesis
 from scripts.steps.step_09_perturbation_closure import Step09PerturbationClosure
 from scripts.steps.step_10_stability_audit import Step10StabilityAudit
+from scripts.steps.step_12b_isw_residual import Step12bISWResidual
 
 # Step registry
 STEP_REGISTRY = {
@@ -106,6 +107,7 @@ STEP_REGISTRY = {
     9: ("08_synthesis", Step08Synthesis, "Results Synthesis"),
     10: ("09_perturbation_closure", Step09PerturbationClosure, "Perturbation Closure Verification"),
     11: ("10_stability_audit", Step10StabilityAudit, "Scalar Perturbation Stability Audit"),
+    12: ("12b_isw_residual", Step12bISWResidual, "ISW Residual vs Cosmic-Variance Floor (optional)"),
 }
 
 
