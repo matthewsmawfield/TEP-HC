@@ -1,0 +1,30 @@
+{
+  "description": "CAMB scoping test for future TEP high-\u2113 production run",
+  "camb_basic": {
+    "status": "OK",
+    "tt_2": 1022.6366603243141,
+    "tt_100": 2702.104781265758,
+    "tt_500": 2447.6491691739457,
+    "tt_1000": 1060.9940025678948,
+    "tt_2000": 230.44693075355914,
+    "has_nan": false,
+    "has_inf": false
+  },
+  "plik_lite_loads": {
+    "status": "OK",
+    "likelihood_class": "<class 'cobaya.likelihoods.planck_2018_highl_plik.TTTEEE_lite.TTTEEE_lite'>"
+  },
+  "tep_in_camb": {
+    "status": "OK",
+    "lcdm_tt_2": 1029.038984526342,
+    "wcdm_tt_2": 1047.7605507031033,
+    "fractional_diff": 0.01819325259613828,
+    "note": "CAMB can vary w but cannot exactly reproduce the TEP conformal factor M(z). A source-code modification is required for an exact TEP implementation."
+  },
+  "path_forward": {
+    "option_a": "Patch hi_class clipy interface to handle tep_mode Cls. Requires C/Python debugging of the binning matrices.",
+    "option_b": "Implement tep_mode in CAMB Fortran source. Requires modifying the Friedmann equation and perturbation equations to include the conformal factor M(z). Estimated 1-2 weeks.",
+    "option_c": "Use alternate high-\u2113 likelihood (ACT DR6, SPT) with different interface layer that may not have the same NaN issue.",
+    "recommended": "Option (b) \u2014 CAMB re-implementation \u2014 is the most robust long-term path. CAMB is actively maintained, widely used, and its Python interface is cleaner than CLASS for custom modifications. The present low-\u2113 result remains the primary constraint until high-\u2113 is ready."
+  }
+}

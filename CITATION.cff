@@ -17,7 +17,7 @@ abstract: |
 
   A joint `hi_class` Cobaya MCMC (Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+) tests the screened TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) nested sampling over Pantheon+ provides robust quantitative evidence that the screened TEP conformal geometry matches the Pantheon+ distance-redshift relation with Bayesian evidence statistically indistinguishable from CPL (BF $\sim 32$--$36$ depending on the fixed or free-$z_T$ branch), without treating late-time acceleration as primitive spatial acceleration. Within the TEP framework, the Hubble tension is interpreted as a late-time, environment-dependent clock-transport effect (Paper 11) caused by the mass-screening of the scalar field, rather than through a crisis in early-universe physics.
 version: v0.5 (Cambridge)
-date-released: 2026-06-08
+date-released: 2026-07-05
 url: https://mlsmawfield.com/tep/hc
 repository-code: https://github.com/matthewsmawfield/TEP-HC
 doi: 10.5281/zenodo.20682752

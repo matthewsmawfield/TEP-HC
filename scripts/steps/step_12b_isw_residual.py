@@ -18,15 +18,20 @@ predicted difference to the cosmic-variance floor at low-ℓ.
 Required deliverable: JSON with ISW amplitude comparison and testability verdict.
 """
 
+import sys
 import json
 import numpy as np
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_PATH = PROJECT_ROOT / "results" / "step_12b_isw_residual.json"
+LOG_PATH = PROJECT_ROOT / "logs" / "step_12b_isw_residual.log"
+
+sys.path.insert(0, str(PROJECT_ROOT))
+from scripts.utils.logger import TEPLogger, set_step_logger, print_status
 
 
-def tep_isw_estimate():
+def tep_isw_estimate(logger):
     """
     Analytic estimate of the ISW difference between TEP and ΛCDM.
 
@@ -46,6 +51,7 @@ def tep_isw_estimate():
     change in the late-time growth rate, using the TEP-HC homogeneous amplitude
     ε_T^HC = 0.0056 ± 0.0043 as the characteristic deviation scale.
     """
+    logger.process("Computing ISW residual vs cosmic-variance floor...")
 
     # TEP homogeneous amplitude (from TEP-HC joint MCMC)
     epsilon_T = 0.0056
@@ -131,44 +137,39 @@ def tep_isw_estimate():
 
 
 def main():
-    print("=" * 60)
-    print("ISW Residual vs Cosmic-Variance Floor")
-    print("=" * 60)
+    logger = TEPLogger("step_12b_isw_residual", LOG_PATH)
+    set_step_logger(logger)
 
-    results = tep_isw_estimate()
+    print_status("=" * 60, "TITLE")
+    print_status("ISW Residual vs Cosmic-Variance Floor", "TITLE")
+    print_status("=" * 60, "TITLE")
 
-    print(f"\nTEP homogeneous amplitude: ε_T^HC = {results['parameters']['epsilon_T_HC']}")
-    print(f"Predicted fractional ISW change: {results['parameters']['delta_isw_fractional']:.4f}")
-    print(f"\nLow-ℓ cosmic variance and predicted signal:")
+    results = tep_isw_estimate(logger)
+
+    logger.info(f"TEP homogeneous amplitude: ε_T^HC = {results['parameters']['epsilon_T_HC']}")
+    logger.info(f"Predicted fractional ISW change: {results['parameters']['delta_isw_fractional']:.4f}")
+    logger.info("Low-ℓ cosmic variance and predicted signal:")
     for i, ell in enumerate(results["low_ell_analysis"]["ell_values"]):
         cv = results["low_ell_analysis"]["cosmic_variance_fraction"][i]
         sn = results["low_ell_analysis"]["signal_to_noise_per_ell"][i]
-        print(f"  ℓ = {ell:2d}: cosmic-var frac = {cv:.3f}, S/N = {sn:.3f}")
+        logger.info(f"  ℓ = {ell:2d}: cosmic-var frac = {cv:.3f}, S/N = {sn:.3f}")
 
-    print(f"\nCumulative S/N (ℓ = 2–10): {results['low_ell_analysis']['cumulative_signal_to_noise_ell2_10']:.3f}")
-    print(f"\nVerdict: {results['verdict']['interpretation']}")
+    logger.info(f"Cumulative S/N (ℓ = 2–10): {results['low_ell_analysis']['cumulative_signal_to_noise_ell2_10']:.3f}")
+    logger.info(f"Verdict: {results['verdict']['interpretation']}")
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_PATH, "w") as f:
         json.dump(results, f, indent=2)
 
-    print(f"\nResults written to {OUTPUT_PATH}")
-
-
-
-def run() -> dict:
-    """Pipeline-compatible entry point."""
-    results = tep_isw_estimate()
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_PATH, "w") as f:
-        json.dump(results, f, indent=2)
-    return results
+    logger.success(f"Results written to {OUTPUT_PATH}")
 
 
 class Step12bISWResidual:
     """Wrapper for pipeline integration."""
     def run(self) -> dict:
-        return run()
+        main()
+        with open(OUTPUT_PATH) as f:
+            return json.load(f)
 
 
 if __name__ == "__main__":

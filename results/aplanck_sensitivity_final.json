@@ -56,7 +56,8 @@
     "new_prior_A_planck_std": 0.04373712712811086,
     "shift_in_A_planck_sigma": 2.949,
     "shift_in_A_planck_sigma_method": "(new_mean - old_mean) / sqrt(old_std^2 + new_std^2)",
-    "epsilon_T_consistency_with_main_chain_sigma": -0.1486687046244869,
-    "epsilon_T_consistency_with_tep_native_sigma": 0.05771301893855249
+    "epsilon_T_consistency_with_main_chain_sigma": -0.1944,
+    "epsilon_T_consistency_with_tep_native_sigma": -0.3004,
+    "note": "Consistency recomputed against extended tep_native chain (8,960 samples, eps_T = 0.0066 \u00b1 0.0049). Original computation used pre-extension tep_native."
   }
 }

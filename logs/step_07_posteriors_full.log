@@ -50,3 +50,145 @@
 2026-06-15 12:55:00 [INFO]   Maximum parameter disagreement: 0.06σ
 2026-06-15 12:55:00 [SUCCESS]   ✓ Saved summary to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/07_mcmc_summary_full.json
 2026-06-15 12:55:00 [SUCCESS] Key result: background vs perturbation ε_T agrees to -0.08σ
+2026-07-05 12:43:06 [INFO] STEP 07_posteriors: Posterior Analysis (Rigorous Audit)
+2026-07-05 12:43:06 [INFO] SCOPE: hi_class with native TEP background-only + active-perturbation.
+2026-07-05 12:43:06 [INFO] Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.
+2026-07-05 12:43:06 [SUCCESS]   ✓ Loaded 18,720 samples from 1 chains (tep_hiclass_suite)
+2026-07-05 12:43:07 [SUCCESS]   ✓ Loaded 58,180 samples from 5 chains (tep_hiclass_perturbations)
+2026-07-05 12:43:07 [INFO] Gelman-Rubin R-1: N/A (1 chain loaded; requires >= 2 chains)
+2026-07-05 12:43:07 [INFO] TEP constraints (combined, 1 chain):
+2026-07-05 12:43:07 [INFO]     A_s: 2.314e-09 ± 0.00000
+2026-07-05 12:43:07 [INFO]     n_s: 0.99547 ± 0.00448
+2026-07-05 12:43:07 [INFO]     H0: 66.67714 ± 1.81662
+2026-07-05 12:43:07 [INFO]     omega_b: 0.02135 ± 0.00271
+2026-07-05 12:43:07 [INFO]     omega_cdm: 0.11504 ± 0.00421
+2026-07-05 12:43:07 [INFO]     tau_reio: 0.05024 ± 0.00777
+2026-07-05 12:43:07 [INFO]     A_planck: 1.08821 ± 0.01220
+2026-07-05 12:43:07 [INFO]     epsilon_T: 0.00602 ± 0.00493
+2026-07-05 12:43:07 [INFO]     sigma8: 0.85748 ± 0.01622
+2026-07-05 12:43:07 [INFO]     S8: 0.86722 ± 0.02571
+2026-07-05 12:43:07 [INFO] Active-perturbation constraints:
+2026-07-05 12:43:07 [ERROR] Step failed: 'Step07Posteriors' object has no attribute '_gelman_rubin'
+2026-07-05 12:43:19 [INFO] STEP 07_posteriors: Posterior Analysis (Rigorous Audit)
+2026-07-05 12:43:19 [INFO] SCOPE: hi_class with native TEP background-only + active-perturbation.
+2026-07-05 12:43:19 [INFO] Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.
+2026-07-05 12:43:19 [SUCCESS]   ✓ Loaded 18,720 samples from 1 chains (tep_hiclass_suite)
+2026-07-05 12:43:19 [SUCCESS]   ✓ Loaded 58,180 samples from 5 chains (tep_hiclass_perturbations)
+2026-07-05 12:43:19 [INFO] Gelman-Rubin R-1: N/A (1 chain loaded; requires >= 2 chains)
+2026-07-05 12:43:19 [INFO] TEP constraints (combined, 1 chain):
+2026-07-05 12:43:19 [INFO]     A_s: 2.314e-09 ± 0.00000
+2026-07-05 12:43:19 [INFO]     n_s: 0.99547 ± 0.00448
+2026-07-05 12:43:19 [INFO]     H0: 66.67714 ± 1.81662
+2026-07-05 12:43:19 [INFO]     omega_b: 0.02135 ± 0.00271
+2026-07-05 12:43:19 [INFO]     omega_cdm: 0.11504 ± 0.00421
+2026-07-05 12:43:19 [INFO]     tau_reio: 0.05024 ± 0.00777
+2026-07-05 12:43:19 [INFO]     A_planck: 1.08821 ± 0.01220
+2026-07-05 12:43:19 [INFO]     epsilon_T: 0.00602 ± 0.00493
+2026-07-05 12:43:19 [INFO]     sigma8: 0.85748 ± 0.01622
+2026-07-05 12:43:19 [INFO]     S8: 0.86722 ± 0.02571
+2026-07-05 12:43:19 [INFO] Active-perturbation constraints:
+2026-07-05 12:43:19 [ERROR] Step failed: index 23 is out of bounds for axis 1 with size 23
+2026-07-05 12:44:24 [INFO] STEP 07_posteriors: Posterior Analysis (Rigorous Audit)
+2026-07-05 12:44:24 [INFO] SCOPE: hi_class with native TEP background-only + active-perturbation.
+2026-07-05 12:44:24 [INFO] Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.
+2026-07-05 12:44:24 [SUCCESS]   ✓ Loaded 18,720 samples from 1 chains (tep_hiclass_suite)
+2026-07-05 12:44:24 [SUCCESS]   ✓ Loaded 58,180 samples from 5 chains (tep_hiclass_perturbations)
+2026-07-05 12:44:24 [INFO] Gelman-Rubin R-1: N/A (1 chain loaded; requires >= 2 chains)
+2026-07-05 12:44:24 [INFO] TEP constraints (combined, 1 chain):
+2026-07-05 12:44:24 [INFO]     A_s: 2.314e-09 ± 0.00000
+2026-07-05 12:44:24 [INFO]     n_s: 0.99547 ± 0.00448
+2026-07-05 12:44:24 [INFO]     H0: 66.67714 ± 1.81662
+2026-07-05 12:44:24 [INFO]     omega_b: 0.02135 ± 0.00271
+2026-07-05 12:44:24 [INFO]     omega_cdm: 0.11504 ± 0.00421
+2026-07-05 12:44:24 [INFO]     tau_reio: 0.05024 ± 0.00777
+2026-07-05 12:44:24 [INFO]     A_planck: 1.08821 ± 0.01220
+2026-07-05 12:44:24 [INFO]     epsilon_T: 0.00602 ± 0.00493
+2026-07-05 12:44:24 [INFO]     sigma8: 0.85748 ± 0.01622
+2026-07-05 12:44:24 [INFO]     S8: 0.86722 ± 0.02571
+2026-07-05 12:44:24 [INFO] Active-perturbation constraints:
+2026-07-05 12:44:24 [INFO]   DEBUG: A_s -> idx=10, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: n_s -> idx=3, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: H0 -> idx=4, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: omega_b -> idx=5, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: omega_cdm -> idx=6, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: tau_reio -> idx=7, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: A_planck -> idx=8, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: epsilon_T -> idx=9, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: sigma8 -> idx=11, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [INFO]   DEBUG: S8 -> idx=23, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:24 [ERROR] Step failed: index 23 is out of bounds for axis 1 with size 23
+2026-07-05 12:44:27 [INFO] STEP 07_posteriors: Posterior Analysis (Rigorous Audit)
+2026-07-05 12:44:27 [INFO] SCOPE: hi_class with native TEP background-only + active-perturbation.
+2026-07-05 12:44:27 [INFO] Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.
+2026-07-05 12:44:27 [SUCCESS]   ✓ Loaded 18,720 samples from 1 chains (tep_hiclass_suite)
+2026-07-05 12:44:28 [SUCCESS]   ✓ Loaded 58,180 samples from 5 chains (tep_hiclass_perturbations)
+2026-07-05 12:44:28 [INFO] Gelman-Rubin R-1: N/A (1 chain loaded; requires >= 2 chains)
+2026-07-05 12:44:28 [INFO] TEP constraints (combined, 1 chain):
+2026-07-05 12:44:28 [INFO]     A_s: 2.314e-09 ± 0.00000
+2026-07-05 12:44:28 [INFO]     n_s: 0.99547 ± 0.00448
+2026-07-05 12:44:28 [INFO]     H0: 66.67714 ± 1.81662
+2026-07-05 12:44:28 [INFO]     omega_b: 0.02135 ± 0.00271
+2026-07-05 12:44:28 [INFO]     omega_cdm: 0.11504 ± 0.00421
+2026-07-05 12:44:28 [INFO]     tau_reio: 0.05024 ± 0.00777
+2026-07-05 12:44:28 [INFO]     A_planck: 1.08821 ± 0.01220
+2026-07-05 12:44:28 [INFO]     epsilon_T: 0.00602 ± 0.00493
+2026-07-05 12:44:28 [INFO]     sigma8: 0.85748 ± 0.01622
+2026-07-05 12:44:28 [INFO]     S8: 0.86722 ± 0.02571
+2026-07-05 12:44:28 [INFO] Active-perturbation constraints:
+2026-07-05 12:44:28 [INFO]   DEBUG: A_s -> idx=10, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: n_s -> idx=3, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: H0 -> idx=4, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: omega_b -> idx=5, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: omega_cdm -> idx=6, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: tau_reio -> idx=7, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: A_planck -> idx=8, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: epsilon_T -> idx=9, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: sigma8 -> idx=11, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [INFO]   DEBUG: S8 -> idx=23, pert_cols keys=['chi2__planck_2018_lowl.EE', 'chi2__planck_2018_lensing.native', 'chi2__bao.sdss_dr12_consensus_final', 'chi2__sn.pantheonplus', 'S8']
+2026-07-05 12:44:28 [ERROR] Step failed: index 23 is out of bounds for axis 1 with size 23
+2026-07-05 12:47:23 [INFO] STEP 07_posteriors: Posterior Analysis (Rigorous Audit)
+2026-07-05 12:47:23 [INFO] SCOPE: hi_class with native TEP background-only + active-perturbation.
+2026-07-05 12:47:23 [INFO] Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.
+2026-07-05 12:47:23 [SUCCESS]   ✓ Loaded 18,720 samples from 1 chains (tep_hiclass_suite)
+2026-07-05 12:47:23 [SUCCESS]   ✓ Loaded 58,180 samples from 5 chains (tep_hiclass_perturbations)
+2026-07-05 12:47:23 [INFO] Gelman-Rubin R-1: N/A (1 chain loaded; requires >= 2 chains)
+2026-07-05 12:47:23 [INFO] TEP constraints (combined, 1 chain):
+2026-07-05 12:47:23 [INFO]     A_s: 2.314e-09 ± 0.00000
+2026-07-05 12:47:23 [INFO]     n_s: 0.99547 ± 0.00448
+2026-07-05 12:47:23 [INFO]     H0: 66.67714 ± 1.81662
+2026-07-05 12:47:23 [INFO]     omega_b: 0.02135 ± 0.00271
+2026-07-05 12:47:23 [INFO]     omega_cdm: 0.11504 ± 0.00421
+2026-07-05 12:47:23 [INFO]     tau_reio: 0.05024 ± 0.00777
+2026-07-05 12:47:23 [INFO]     A_planck: 1.08821 ± 0.01220
+2026-07-05 12:47:23 [INFO]     epsilon_T: 0.00602 ± 0.00493
+2026-07-05 12:47:23 [INFO]     sigma8: 0.85748 ± 0.01622
+2026-07-05 12:47:23 [INFO]     S8: 0.86722 ± 0.02571
+2026-07-05 12:47:23 [INFO] Active-perturbation constraints:
+2026-07-05 12:47:23 [INFO]   Max R-1 across parameters: 0.0068
+2026-07-05 12:47:23 [INFO]     A_s: 2.309e-09 ± 0.00000
+2026-07-05 12:47:23 [INFO]     n_s: 0.99556 ± 0.00428
+2026-07-05 12:47:24 [INFO]     H0: 66.77147 ± 1.72568
+2026-07-05 12:47:24 [INFO]     omega_b: 0.02144 ± 0.00257
+2026-07-05 12:47:24 [INFO]     omega_cdm: 0.11547 ± 0.00422
+2026-07-05 12:47:24 [INFO]     tau_reio: 0.04975 ± 0.00752
+2026-07-05 12:47:24 [INFO]     A_planck: 1.08750 ± 0.01274
+2026-07-05 12:47:24 [INFO]     epsilon_T: 0.00547 ± 0.00429
+2026-07-05 12:47:24 [INFO]     sigma8: 0.85800 ± 0.01593
+2026-07-05 12:47:24 [INFO]     S8: 0.86812 ± 0.02488
+2026-07-05 12:47:24 [INFO]     S8: 0.86812 ± 0.02488
+2026-07-05 12:47:24 [INFO] Comparison (perturbation - background):
+2026-07-05 12:47:24 [INFO]     Δχ² = -0.459
+2026-07-05 12:47:24 [INFO]     ΔA_s: -0.000000 (joint σ = 0.00000, Δ/σ = -0.08)
+2026-07-05 12:47:24 [INFO]     Δn_s: 0.000094 (joint σ = 0.00619, Δ/σ = 0.02)
+2026-07-05 12:47:24 [INFO]     ΔH0: 0.094328 (joint σ = 2.50561, Δ/σ = 0.04)
+2026-07-05 12:47:24 [INFO]     Δomega_b: 0.000086 (joint σ = 0.00374, Δ/σ = 0.02)
+2026-07-05 12:47:24 [INFO]     Δomega_cdm: 0.000430 (joint σ = 0.00596, Δ/σ = 0.07)
+2026-07-05 12:47:24 [INFO]     Δtau_reio: -0.000495 (joint σ = 0.01082, Δ/σ = -0.05)
+2026-07-05 12:47:24 [INFO]     ΔA_planck: -0.000709 (joint σ = 0.01764, Δ/σ = -0.04)
+2026-07-05 12:47:24 [INFO]     Δepsilon_T: -0.000550 (joint σ = 0.00653, Δ/σ = -0.08)
+2026-07-05 12:47:24 [INFO]     Δsigma8: 0.000515 (joint σ = 0.02273, Δ/σ = 0.02)
+2026-07-05 12:47:24 [INFO]     ΔS8: 0.000898 (joint σ = 0.03577, Δ/σ = 0.03)
+2026-07-05 12:47:24 [INFO]     ΔS8: 0.000898 (joint σ = 0.03577, Δ/σ = 0.03)
+2026-07-05 12:47:24 [INFO]   Maximum parameter disagreement: 0.07σ
+2026-07-05 12:47:24 [SUCCESS]   ✓ Saved summary to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/07_mcmc_summary_full.json
+2026-07-05 12:47:24 [SUCCESS] Key result: background vs perturbation ε_T agrees to -0.08σ

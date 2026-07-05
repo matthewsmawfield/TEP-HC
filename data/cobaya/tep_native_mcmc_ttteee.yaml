@@ -2,7 +2,7 @@
 # Native TEP full TTTEEE Cobaya MCMC configuration (TEP-HC, Paper 18)
 # =============================================================================
 # Full high-ℓ acoustic likelihood production run.
-# Adds planck_2018_highl_plik.TTTEEE to the low-ℓ + lensing + BAO + SNe baseline.
+# Adds planck_2018_highl_pliklite.TTTEEE to the low-ℓ + lensing + BAO + SNe baseline.
 #
 # Run with:
 #   export PYTHONPATH=external/hi_class/hi_class/python:$PYTHONPATH
@@ -26,7 +26,7 @@ theory:
 likelihood:
   planck_2018_lowl.TT: null
   planck_2018_lowl.EE: null
-  planck_2018_highl_plik.TTTEEE: null
+  planck_2018_highl_plik.TTTEEE_lite: null
   planck_2018_lensing.native: null
   bao.sdss_dr12_consensus_final: null
   sn.pantheonplus: null

@@ -1,0 +1,33 @@
+{
+  "run_name": "tep_hiclass_aplanck_sens",
+  "description": "A_planck widened-prior sensitivity test (step_20)",
+  "timestamp": "2026-07-05T16:59:27.484536Z",
+  "n_chains": 4,
+  "samples_per_chain": 4080,
+  "total_samples": 16320,
+  "converged": true,
+  "max_Rminus1": 0.036,
+  "parameters": {
+    "epsilon_T": {
+      "mean": 0.006273907078470141,
+      "std": 0.00484118052639506,
+      "median": 0.0053048558,
+      "min": 2.0406645e-06,
+      "max": 0.029402285
+    },
+    "A_planck": {
+      "mean": 1.229125784822304,
+      "std": 0.02549364411497514,
+      "median": 1.2360077,
+      "min": 1.0072342,
+      "max": 1.249999
+    },
+    "H0": {
+      "mean": 66.86280146531863,
+      "std": 1.7017166592636341,
+      "median": 66.737133,
+      "min": 62.219411,
+      "max": 73.067366
+    }
+  }
+}

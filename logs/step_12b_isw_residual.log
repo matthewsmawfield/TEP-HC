@@ -1,0 +1,19 @@
+2026-07-05 13:52:49 [INFO] ============================================================
+2026-07-05 13:52:49 [INFO] ISW Residual vs Cosmic-Variance Floor
+2026-07-05 13:52:49 [INFO] ============================================================
+2026-07-05 13:52:49 [PROCESS] Computing ISW residual vs cosmic-variance floor...
+2026-07-05 13:52:49 [INFO] TEP homogeneous amplitude: ε_T^HC = 0.0056
+2026-07-05 13:52:49 [INFO] Predicted fractional ISW change: 0.0112
+2026-07-05 13:52:49 [INFO] Low-ℓ cosmic variance and predicted signal:
+2026-07-05 13:52:49 [INFO]   ℓ =  2: cosmic-var frac = 0.632, S/N = 0.002
+2026-07-05 13:52:49 [INFO]   ℓ =  3: cosmic-var frac = 0.535, S/N = 0.002
+2026-07-05 13:52:49 [INFO]   ℓ =  4: cosmic-var frac = 0.471, S/N = 0.002
+2026-07-05 13:52:49 [INFO]   ℓ =  5: cosmic-var frac = 0.426, S/N = 0.003
+2026-07-05 13:52:49 [INFO]   ℓ =  6: cosmic-var frac = 0.392, S/N = 0.003
+2026-07-05 13:52:49 [INFO]   ℓ =  7: cosmic-var frac = 0.365, S/N = 0.003
+2026-07-05 13:52:49 [INFO]   ℓ =  8: cosmic-var frac = 0.343, S/N = 0.003
+2026-07-05 13:52:49 [INFO]   ℓ =  9: cosmic-var frac = 0.324, S/N = 0.003
+2026-07-05 13:52:49 [INFO]   ℓ = 10: cosmic-var frac = 0.309, S/N = 0.004
+2026-07-05 13:52:49 [INFO] Cumulative S/N (ℓ = 2–10): 0.009
+2026-07-05 13:52:49 [INFO] Verdict: The predicted TEP ISW modification at low-ℓ has S/N ≈ 0.01 relative to the cosmic-variance floor. This is below the threshold for a confident detection (S/N > 3). A full Boltzmann integration of the ISW power spectrum with the native hi_class tep_mode implementation is required for a definitive number. The present analytic estimate serves as a scoping calculation.
+2026-07-05 13:52:49 [SUCCESS] Results written to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_12b_isw_residual.json

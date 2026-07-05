@@ -73,7 +73,6 @@ sampler:
     fallback_covmat_scale: 3
     drag: true
     seed: 99
-    covmat: results/mcmc_chains/tep_hiclass_suite.covmat
 
 output: results/mcmc_chains/tep_hiclass_aplanck_sens
 resume: false

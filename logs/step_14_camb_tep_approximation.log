@@ -1,0 +1,36 @@
+2026-07-05 12:32:02 [INFO] ============================================================
+2026-07-05 12:32:02 [INFO] CAMB TEP Approximation via Effective w(a)
+2026-07-05 12:32:02 [INFO] ============================================================
+2026-07-05 12:32:02 [INFO] 
+--- ΛCDM Baseline ---
+2026-07-05 12:32:02 [INFO]   tt_2: 1022.6367
+2026-07-05 12:32:02 [INFO]   tt_100: 2702.1048
+2026-07-05 12:32:02 [INFO]   tt_1000: 1060.9940
+2026-07-05 12:32:02 [INFO] 
+--- TEP Parameters ---
+2026-07-05 12:32:02 [INFO]   epsilon_T = 0.0056
+2026-07-05 12:32:02 [INFO]   z_T = 5.0
+2026-07-05 12:32:02 [INFO]   n_T = 2.0
+2026-07-05 12:32:02 [PROCESS] 
+--- Computing CAMB TEP spectra ---
+2026-07-05 12:32:02 [PROCESS] Computing TEP effective w(a) and CAMB Cls...
+2026-07-05 12:32:03 [INFO]   TT[2] = 1024.8126
+2026-07-05 12:32:03 [INFO]   TT[100] = 2738.2496
+2026-07-05 12:32:03 [INFO]   TT[500] = 2561.3668
+2026-07-05 12:32:03 [INFO]   TT[1000] = 1094.6304
+2026-07-05 12:32:03 [PROCESS] 
+--- Computing LCDM with same params ---
+2026-07-05 12:32:03 [INFO] 
+--- Fractional differences (TEP - LCDM)/LCDM ---
+2026-07-05 12:32:03 [INFO]   l=   2: -0.5367%
+2026-07-05 12:32:03 [INFO]   l=  10: 0.0405%
+2026-07-05 12:32:03 [INFO]   l= 100: 0.1916%
+2026-07-05 12:32:03 [INFO]   l= 500: 0.2551%
+2026-07-05 12:32:03 [INFO]   l=1000: -0.4487%
+2026-07-05 12:32:03 [INFO]   l=1500: -0.8824%
+2026-07-05 12:32:03 [INFO]   l=2000: -0.0159%
+2026-07-05 12:32:03 [INFO] 
+  Has NaN: False
+2026-07-05 12:32:03 [INFO]   Has Inf: False
+2026-07-05 12:32:03 [SUCCESS] 
+Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_14_camb_tep_approximation.json

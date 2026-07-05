@@ -1,0 +1,11 @@
+2026-07-05 12:31:56 [INFO] ============================================================
+2026-07-05 12:31:56 [INFO] CAMB Exploratory Test for TEP High-ℓ Compatibility
+2026-07-05 12:31:56 [INFO] ============================================================
+2026-07-05 12:31:56 [PROCESS] Testing CAMB basic ΛCDM run...
+2026-07-05 12:31:57 [SUCCESS]   CAMB basic: OK, TT[2]=1022.64
+2026-07-05 12:31:57 [PROCESS] Testing Planck plik_lite module load...
+2026-07-05 12:32:01 [SUCCESS]   plik_lite load: OK
+2026-07-05 12:32:01 [PROCESS] Testing TEP approximation in CAMB...
+2026-07-05 12:32:01 [SUCCESS]   TEP approximation: works but not exact (frac_diff=0.0182)
+2026-07-05 12:32:01 [SUCCESS] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_13_camb_exploratory.json
+2026-07-05 12:32:01 [INFO] All tests complete.

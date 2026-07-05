@@ -1,4 +1,4 @@
-v0.5 (Cambridge) — Manuscript polish and terminology alignment - 3 July 2026
+v0.5 (Cambridge) — Manuscript polish and terminology alignment - 5 July 2026
 
 - TEP terminology aligned across corpus: matter-frame, temporal horizon, Temporal Shear
 - Jordan frame → matter-frame throughout; standard cosmology phrasing preserved accurately

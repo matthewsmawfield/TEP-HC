@@ -115,6 +115,7 @@ class Step07Posteriors:
             return None
         return None
     
+    def _gelman_rubin(self, chains, idx):
         """Compute Gelman-Rubin R-1 for a given parameter index across chains."""
         m = len(chains)
         if m < 2:
@@ -287,6 +288,9 @@ class Step07Posteriors:
                 if pert_n_chains >= 2:
                     for name in param_names:
                         idx = _get_idx(pert_cols, name)
+                        # Skip S8 for R-1 (derived parameter, not in original chains)
+                        if name == "S8":
+                            continue
                         r1 = self._gelman_rubin(pert_chains, idx)
                         pert_r_minus_1[name] = r1
                         if pert_max_r is None or r1 > pert_max_r:

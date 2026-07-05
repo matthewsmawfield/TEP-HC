@@ -1,0 +1,23 @@
+2026-07-05 12:32:12 [INFO] ============================================================
+2026-07-05 12:32:12 [INFO] Full plik_lite Evaluation with CAMB TEP
+2026-07-05 12:32:12 [INFO] ============================================================
+2026-07-05 12:32:12 [INFO] 
+1. LCDM baseline...
+2026-07-05 12:32:12 [PROCESS] Evaluating plik_lite with LCDM Cls...
+2026-07-05 12:32:17 [SUCCESS]   loglike=-704.77, chi2=1409.53
+2026-07-05 12:32:17 [INFO]    status: OK
+2026-07-05 12:32:17 [INFO]    loglike: -704.7672181996832
+2026-07-05 12:32:17 [INFO]    chi2: 1409.5344363993663
+2026-07-05 12:32:17 [INFO] 
+2. Generating TEP Cls with CAMB...
+2026-07-05 12:32:17 [INFO]    Cls shape: (2551, 4)
+2026-07-05 12:32:17 [INFO] 
+3. Evaluating plik_lite with TEP Cls...
+2026-07-05 12:32:17 [SUCCESS]   loglike=-624.78, chi2=1249.57
+2026-07-05 12:32:17 [INFO]    status: OK
+2026-07-05 12:32:17 [INFO]    loglike: -624.7845583619629
+2026-07-05 12:32:17 [INFO]    chi2: 1249.5691167239258
+2026-07-05 12:32:17 [INFO] 
+4. Delta chi2 (TEP - LCDM): -159.97
+2026-07-05 12:32:17 [SUCCESS] 
+Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_17_camb_plik_full_eval.json
