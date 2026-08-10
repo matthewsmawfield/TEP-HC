@@ -175,7 +175,7 @@ class HTMLToMarkdownConverter {
             const firstPublished = '8 June 2026';
             const lastUpdated = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
             
-            const header = `# ${markdownTitle}\n**${author}**\nVersion: ${version} (${codename})\nFirst published: ${firstPublished} · Last updated: ${lastUpdated}\nPaper Series: TEP Series Paper 18 (hi_class Cosmology)\nDOI: 10.5281/zenodo.20682752\n\n---\n\n`;
+            const header = `# ${markdownTitle}\n**${author}**\nVersion: ${version} (${codename})\nFirst published: ${firstPublished} · Last updated: ${lastUpdated}\nDOI: 10.5281/zenodo.20572722\n\n---\n\n`;
             
             let markdown = this.htmlToMarkdown(allHtml);
             // Remove leading indentation from all lines

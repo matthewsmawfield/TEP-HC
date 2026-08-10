@@ -1,4 +1,4 @@
-     <h2>3. Software Implementation: hi_class and the Unscreened Regime</h2>
+     <h2>3. Software Implementation: hi_class and the Finite-Turnover Conformal Regime</h2>
 
      <h3>3.1 The hi_class Architecture</h3>
      
@@ -14,7 +14,7 @@ H_{\rm TEP}(z) = H_{\Lambda\rm CDM}(z) \times M(z), \quad M(z) = \frac{A(z)}{1 -
 \end{equation}
 </div>
 
-     <p>where $S(z) = \exp[-(z/z_T)^{n_T}]$ is the redshift suppression factor, $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ is the covariant conformal factor, and $\alpha_A = -d\ln A/d\ln(1+z)$. The production integration directly evaluates the exact geometric relation $M = A/(1-\alpha_A)$, ensuring computational fidelity to the underlying formal derivation (see Appendix A.3a). The transition function $f_T(z) = \ln(1+z)\,S(z)$ appearing in the exponent is the shared TEP-C0 implementation (Paper 26; <code>core/cosmology.py</code>: <code>f_T</code>, <code>conformal_factor_native</code>, <code>jordan_frame_M</code>):</p>
+     <p>where $S(z) = \exp[-(z/z_T)^{n_T}]$ is the redshift suppression factor, $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ is the covariant conformal factor, and $\alpha_A = -d\ln A/d\ln(1+z)$. The production integration directly evaluates the exact HC conformal-frame mapping $M = A/(1-\alpha_A)$, ensuring computational fidelity to the underlying formal derivation (see Appendix A.3a). The transition function $f_T(z) = \ln(1+z)\,S(z)$ appearing in the exponent is the shared TEP-C0 implementation (Paper 26; <code>core/cosmology.py</code>: <code>f_T</code>, <code>conformal_factor_native</code>, <code>jordan_frame_M</code>):</p>
 
 <div class="equation">
 \begin{equation} \label{eq:4_implementation_01b}
@@ -24,7 +24,7 @@ f_T(z) = \ln(1+z)\,S(z).
 
      <p>The suppression factor $S(z)$ defines the physical profile of the conformal field: it drives $f_T \to 0$ for $z \gg z_T$, ensuring the field profile flattens asymptotically as it approaches the TEP temporal horizon; the $\ln(1+z)$ factor enforces $f_T(0)=0$, fixing the local reference frame so $H_0$ is anchored to the local observer. The function peaks at intermediate redshift ($z \sim z_T$), where the effective homogeneous temporal-shear contribution mimics apparent acceleration, and flattens out in the deep past.</p>
 
-     <p><em>Implementation note:</em> an earlier development build used the <em>complement</em> $f_T = 1 - \exp[-(z/z_T)^{n_T}]$, which instead saturates to unity for $z \gg z_T$. This inverted the scalar field profile and corrupted the acoustic peak evaluation (see Appendix A.3). The default TEP conformal parameters are:</p>
+     <p><em>Implementation note:</em> an earlier development build used the <em>complement</em> $f_T = 1 - \exp[-(z/z_T)^{n_T}]$, which instead saturates to unity for $z \gg z_T$. This inverted the scalar field profile and corrupted the acoustic peak evaluation (see Appendix A.3a). The default TEP conformal parameters are:</p>
 
      <pre><code>tep_mode = yes
 epsilon_T = 0.0066
@@ -33,94 +33,63 @@ n_T = 2.0</code></pre>
 
      <div class="parameter-convention" style="border: 1px solid #ccc; padding: 1em; margin: 1.5em 0; background: #f9f9f9;">
         <h4>Parameter-Scale and Amplitude Convention</h4>
-        <p><strong>Turnover scales.</strong> $z_T^{\rm HC}$ denotes the homogeneous/acoustic <code>hi_class</code> profile scale used here. $z_T^{\rm los}$ denotes the C0 line-of-sight supernova transport turnover. $z_t^{\rm th}$ denotes the TH thermal-screening transition associated with $T_{\rm lock}=0.03$ eV. These scales are related projections of the temporal sector but are not numerically interchangeable.</p>
-        <p><strong>Amplitudes.</strong> $\epsilon_T^{\rm HC}$ denotes the native <code>hi_class</code> homogeneous conformal amplitude reported here ($0.0059 \pm 0.0047$). $\epsilon_T^{\rm los}$ denotes the late-time line-of-sight transport amplitude fitted in TEP-C0. $\epsilon_T^{\rm CMB}$ denotes the C0 background/acoustic diagnostic amplitude. $\epsilon_{\rm dyn}(z)$ and $\epsilon_{\rm eff}(z)$ denote the screened dynamical temporal-horizon response in TEP-TH, while $\epsilon_{\rm field}=0.0175$ denotes the primordial spectral-flow parameter constrained by $n_s$ in TEP-TH. These are related projections of the same temporal sector, but they are not numerically interchangeable parameters.</p>
+        <p><strong>Turnover scales.</strong> $z_T^{\rm HC}$ denotes the homogeneous/acoustic <code>hi_class</code> profile scale used here. $z_T^{\rm los}$ denotes the C0 line-of-sight supernova transport turnover. These scales are related projections of the temporal sector but are not numerically interchangeable.</p>
+        <p><strong>Amplitudes.</strong> $\epsilon_T^{\rm HC}$ denotes the native <code>hi_class</code> homogeneous conformal amplitude reported here ($0.00547 \pm 0.00429$ from the 5-chain active posterior). $\epsilon_T^{\rm los}$ denotes the late-time line-of-sight transport amplitude fitted in TEP-C0. $\epsilon_T^{\rm CMB}$ denotes the C0 background/acoustic diagnostic amplitude. $\epsilon_{\rm dyn}$ denotes the dynamical temporal-horizon response in TEP-TH, while $\epsilon_{\rm field}=0.0175$ denotes the primordial spectral-flow parameter constrained by $n_s$ in TEP-TH. These are related projections of the same temporal sector, but they are not numerically interchangeable parameters.</p>
     </div>
 
      <p>The background conformal mapping is implemented through $M(z)=A/(1-\alpha_A)$. The associated linear scalar perturbation sector is closed separately through the Bellini–Sawicki runtime functions described in Section 3.3 and Appendix A.5, and validated in the active $\delta\phi$ run of Section 4.5. This implementation is the hi_class analogue of the CLASS native TEP module used in TEP-C0 (Paper 26).</p>
 
      <h3>3.3 Perturbation Stability and Closure</h3>
 
-     <p>The present analysis natively closes the scalar perturbation sector by evaluating the exact runtime Bellini-Sawicki Effective Field Theory (EFT) parameters in the pure conformal limit. While early formulations of the TEP acoustic mapping relied on the working assumption that scalar spatial fluctuations ($\delta\phi$) decouple or are heavily suppressed at recombination, the implementation developed here leverages the <code>hi_class</code> SMG framework to evolve the full Einstein-Boltzmann hierarchy actively.</p>
+     <p>The present analysis natively closes the scalar perturbation sector by evaluating the adopted runtime Bellini–Sawicki Effective Field Theory (EFT) parameters in the pure conformal limit. While early formulations of the TEP acoustic mapping relied on the working assumption that scalar spatial fluctuations ($\delta\phi$) decouple or are heavily suppressed at recombination, the implementation developed here leverages the <code>hi_class</code> SMG framework to evolve the full Einstein-Boltzmann hierarchy actively.</p>
 
-     <p>Because the TEP framework maps its causal matter metric via the exact conformal relation $\tilde{g}_{\mu\nu}=A(\phi)^{2}g_{\mu\nu}$, the corresponding EFT functions ($\alpha_i$) in the Jordan frame are analytically fixed by the background derivative $\alpha_A \equiv -d\ln A / d\ln(1+z)$. In the pure conformal limit ($\beta_A = -1.0$), the kineticity parameter evaluates to $\alpha_K = -5\alpha_A^2$. Although a negative kineticity frequently triggers ghost instabilities in canonical scalar-tensor theories, the full physical no-ghost discriminant $D$ in the Horndeski framework encompasses the braiding parameter, which in this limit is identically $\alpha_B = 2\alpha_A$.</p>
+     <p>Because the TEP framework maps its causal matter metric via the exact conformal relation $\tilde{g}_{\mu\nu}=A(\phi)^{2}g_{\mu\nu}$, the corresponding EFT functions ($\alpha_i$) in the Jordan frame are determined by the background derivative $\alpha_A \equiv -d\ln A / d\ln(1+z)$. For the implemented pure-conformal branch, we adopt the luminal EFT closure $\alpha_B=2\alpha_A$, $\alpha_K=-5\alpha_A^2$, and $c_s^2=1$. The background conformal mapping $M = A/(1-\alpha_A)$ is geometrically derived from the bi-metric action (Appendix A.3a); the perturbative completion specified by these EFT coefficients is adopted as the pure-conformal branch of the Horndeski EFT, consistent with the conformal structure of the action. Although a negative kineticity frequently triggers ghost instabilities in canonical scalar-tensor theories, the full physical no-ghost discriminant $D$ in the Horndeski framework encompasses the braiding parameter, which in this closure is $\alpha_B = 2\alpha_A$.</p>
 
-     <p>Evaluating the full discriminant yields $D = \alpha_K + \frac{3}{2}\alpha_B^2 = \alpha_A^2$. The no-ghost discriminant remains positive-definite ($D = \alpha_A^2 > 0$) for all redshifts $0 < z < 1100$ and for $\epsilon_T$ values within the 95% posterior from the MCMC run ($0 < \epsilon_T \lesssim 0.016$). Across the full sampled posterior, $D_{\rm min} = 1.7\times10^{-19}$ and $|\alpha_M|_{\rm max} = 0.041$, confirming that the scalar sector is ghost-free and gradient-stable throughout the observationally viable parameter space.</p>
+     <p>Evaluating the full discriminant yields $D = \alpha_K + \frac{3}{2}\alpha_B^2 = \alpha_A^2$. The no-ghost discriminant is non-negative, $D = \alpha_A^2 \ge 0$. Because the finite-turnover profile $f_T(z)$ has a single extremum, $\alpha_A = -\epsilon_T\,df_T/d\ln(1+z)$ vanishes at the turnover. For $z_T = 5$ and $n_T = 2$, this occurs at $z_\star \simeq 2.64785$. Consequently, the discriminant $D = \alpha_A^2$ touches zero at $z_\star$ for every nonzero $\epsilon_T$. The relevant stability question is therefore whether $z_\star$ is a regular scalar-decoupling point, rather than whether $D$ remains bounded away from zero. Away from this point, $D > 0$; at the turnover all adopted EFT modification functions vanish and the implemented system reaches the GR/conformal decoupling limit. The decoupling limit occurs both at $\epsilon_T = 0$ and instantaneously at extrema of the finite-turnover conformal profile.</p>
 
-     <table class="results-table">
+     <p>In the Bellini–Sawicki EFT used by <code>hi_class</code>, the scalar kinetic coefficient is $Q_s = 2M_\star^2\,D/(2-\alpha_B)^2$. At $z_\star$, all adopted EFT functions vanish ($\alpha_A = \alpha_B = \alpha_K = \alpha_M = 0$), so $D = Q_s = 0$ and the propagating scalar description reaches a degenerate GR/conformal limit. The linear solver completes the crossing without numerical divergence. Table 1 displays the analytic behavior of the EFT coefficients, while the finite spectra and completed active-perturbation chains provide the numerical regularity check. This establishes numerical regularity of the crossing within the adopted linear EFT closure. Whether the vanishing kinetic normalization represents exact constraint reduction or a strong-coupling limit at the level of the fully nonlinear action requires a separate canonical/nonlinear analysis and is not needed for the present linear acoustic-sector result. The <code>hi_class</code> SMG solver evaluates the EFT coefficients at each redshift step; no numerical regulator or tolerance threshold is applied, and the crossing is continuous in the neighbourhood of $\alpha_A = 0$.</p>
+
+     <table class="results-table" style="margin: 1rem auto; font-size: 0.9em;">
+         <caption style="caption-side: bottom; font-style: italic; padding-top: 0.5rem;">Table 1: $D = 0$ crossing diagnostic at $z_\star \simeq 2.64785$ (fiducial $\epsilon_T = 0.0066$, $z_T = 5$, $n_T = 2$). $Q_s = 2M_\star^2 D/(2-\alpha_B)^2$ with $M_\star^2 = 1$ in reduced Planck units. The displayed EFT coefficients remain finite or vanish continuously through the turnover; $D$ and $Q_s$ vanish at $z_\star$, where the propagating scalar description becomes degenerate.</caption>
          <thead>
-             <tr>
-                 <th scope="col">$\epsilon_T$ (95% range)</th>
-                 <th scope="col">$D_{\rm min}$</th>
-                 <th scope="col">$|\alpha_M|_{\rm max}$</th>
-             </tr>
+             <tr><th>$z - z_\star$</th><th>$z$</th><th>$\alpha_A$</th><th>$\alpha_B$</th><th>$D = \alpha_A^2$</th><th>$Q_s$</th><th>Linear solver status</th></tr>
          </thead>
          <tbody>
-             <tr><td>$3.4\times10^{-6}$</td><td>$1.7\times10^{-19}$</td><td>$9.0\times10^{-6}$</td></tr>
-             <tr><td>$0.007$</td><td>$1.0\times10^{-12}$</td><td>$0.018$</td></tr>
-             <tr><td>$0.016$</td><td>$4.0\times10^{-12}$</td><td>$0.041$</td></tr>
+             <tr><td>$-10^{-3}$</td><td>$2.646848$</td><td>$-4.31 \times 10^{-6}$</td><td>$-8.61 \times 10^{-6}$</td><td>$1.85 \times 10^{-11}$</td><td>$9.27 \times 10^{-12}$</td><td>Finite</td></tr>
+             <tr><td>$-10^{-4}$</td><td>$2.647748$</td><td>$-4.31 \times 10^{-7}$</td><td>$-8.61 \times 10^{-7}$</td><td>$1.85 \times 10^{-13}$</td><td>$9.27 \times 10^{-14}$</td><td>Finite</td></tr>
+             <tr><td>$-10^{-5}$</td><td>$2.647838$</td><td>$-4.30 \times 10^{-8}$</td><td>$-8.61 \times 10^{-8}$</td><td>$1.85 \times 10^{-15}$</td><td>$9.26 \times 10^{-16}$</td><td>Finite</td></tr>
+             <tr><td>$0$</td><td>$2.647848$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>Finite</td></tr>
+             <tr><td>$+10^{-5}$</td><td>$2.647858$</td><td>$+4.29 \times 10^{-8}$</td><td>$+8.58 \times 10^{-8}$</td><td>$1.84 \times 10^{-15}$</td><td>$9.20 \times 10^{-16}$</td><td>Finite</td></tr>
+             <tr><td>$+10^{-4}$</td><td>$2.647948$</td><td>$+4.31 \times 10^{-7}$</td><td>$+8.62 \times 10^{-7}$</td><td>$1.86 \times 10^{-13}$</td><td>$9.28 \times 10^{-14}$</td><td>Finite</td></tr>
+             <tr><td>$+10^{-3}$</td><td>$2.648848$</td><td>$+4.31 \times 10^{-6}$</td><td>$+8.61 \times 10^{-6}$</td><td>$1.85 \times 10^{-11}$</td><td>$9.27 \times 10^{-12}$</td><td>Finite</td></tr>
          </tbody>
      </table>
 
-     <p>By forcing the integration of the implemented linear pure-conformal $\delta\phi$ scalar field through this exact geometric relation, the numerical solver verifies that the continuous screening transition smoothly manages the emergence into the late universe without triggering gradient instabilities or pathological phantom energies. At the fiducial amplitude ($\epsilon_T = 0.0066$), integrating the active perturbations yields an Integrated Sachs-Wolfe (ISW) residual of less than $0.001\%$ across the entire acoustic spectrum ($100 \le l \le 2000$). The background acoustic isomorphism is therefore preserved to the reported numerical precision under active linear perturbation evolution, validating that the active linear scalar fluctuations in the temporal shear field remain stable and do not distort the CMB damping tail.</p>
+     <p>By evolving the implemented linear pure-conformal $\delta\phi$ scalar field through this adopted EFT closure, the numerical solver verifies that the continuous conformal transition smoothly manages the emergence into the late universe without triggering gradient instabilities or pathological phantom energies. At the fiducial amplitude ($\epsilon_T = 0.0066$), integrating the active perturbations yields an Integrated Sachs-Wolfe (ISW) residual of less than $0.001\%$ across the entire acoustic spectrum ($100 \le l \le 2000$). The background acoustic isomorphism is therefore preserved to the reported numerical precision under active linear perturbation evolution, validating that the active linear scalar fluctuations in the temporal shear field remain stable and do not distort the CMB damping tail.</p>
 
      <h3>3.3b Covariant Frame Alignment: Matter-Frame Hubble Friction</h3>
 
-     <p>The TEP action defines the causal metric for matter particles as $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$. Under this conformal rescaling, the matter-frame conformal Hubble rate acquires the exact relation</p>
+     <p>The TEP action defines the causal metric for matter particles as $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$. Under this conformal rescaling, the matter-frame conformal Hubble rate is related to the Einstein-frame rate by the exact derivation of Appendix A.3a. Using explicit frame-labelled variables, the matter-frame conformal Hubble rate satisfies</p>
 
 <div class="equation">
 \begin{equation}
-\tilde{\mathcal{H}} = \mathcal{H} - \frac{\dot{A}}{A} = \mathcal{H}(1 - \alpha_A),
+\widetilde{\mathcal{H}} = \mathcal{H}_E + \frac{A'}{A}, \qquad \frac{A'}{A} = \alpha_A\,\widetilde{\mathcal{H}},
 \end{equation}
 </div>
 
-     <p>where $\alpha_A \equiv -d\ln A/d\ln(1+z)$. In the Jordan-frame EFT, matter particles follow geodesics of $\tilde{g}_{\mu\nu}$, so their Euler equations must be evaluated with $\tilde{\mathcal{H}}$ rather than the Einstein-frame rate $\mathcal{H}$. The standard hi_class implementation uses $\mathcal{H}$ for all species, which is appropriate for Einstein-frame observers (photons and neutrinos) but does not include the conformal-frame distinction for collisionless matter. We implement this distinction as follows.</p>
-
-     <p>A new background index <code>index_bg_H_conformal</code> is defined in <code>include/background.h</code> and populated in <code>source/background.c</code> after the TEP Hubble modification:</p>
-
-     <pre><code>/* TEP matter-frame conformal Hubble rate */
-if (pba->tep_mode &#61;&#61; TRUE && pba->epsilon_T != 0.0) {
-  double z = 1.0/a - 1.0;
-  double alpha_A = tep_alpha_A(pba, z);
-  pvecback[pba->index_bg_H_conformal] = pvecback[pba->index_bg_H] * (1.0 - alpha_A);
-}
-else {
-  pvecback[pba->index_bg_H_conformal] = pvecback[pba->index_bg_H];
-}</code></pre>
-
-     <p>In <code>source/perturbations.c</code>, we compute a new local variable <code>a_prime_over_a_matter = pvecback[index_bg_H_conformal] * a</code> and substitute it for <code>a_prime_over_a</code> in the Euler friction terms of CDM, baryons, interacting dark matter, and decaying cold dark matter. Photons, neutrinos, and metric equations retain the Einstein-frame rate, preserving the CMB acoustic physics. The modification is minimal and upstream: a single background quantity and a single local variable replacement in the fluid velocity derivatives.</p>
-
-     <h3>3.3c Scale-Dependent Bellini-Sawicki Mapping</h3>
-
-     <p>The gradient-screening envelope $f(g) = [1 + (g/g_t)^n]^{-1}$ governs the suppression of the temporal-shear coupling in regions of steep gravitational potential. In the cosmological context, the gradient operator translates to the Fourier wavenumber $k$ through the Poisson equation $\nabla^2 \Phi \sim k^2 \Phi_k$, so the envelope becomes</p>
+     <p>where $\mathcal{H}_E = a_E H_E$ is the Einstein-frame conformal rate, primes denote derivatives with respect to Einstein-frame conformal time, and $\alpha_A \equiv -d\ln A/d\ln(1+z)$. Solving for $\widetilde{\mathcal{H}}$ yields</p>
 
 <div class="equation">
-\begin{equation}
-\mathcal{S}_\Sigma(k) = \frac{(k/k_t)^{n_t}}{1 + (k/k_t)^{n_t}},
+\begin{equation} \label{eq:3_3b_Htilde}
+\widetilde{\mathcal{H}} = \frac{\mathcal{H}_E}{1 - \alpha_A},
 \end{equation}
 </div>
 
-     <p>where $k_t$ is the screening threshold scale and $n_t$ the steepness. The Bellini-Sawicki parameter $\alpha_M$, which controls the running of the effective Planck mass and therefore the strength of the scalar fifth force, must acquire this $k$-dependence:</p>
+     <p>consistent with the exact background relation $\tilde{H} = A\,H_{\Lambda\rm CDM}/(1-\alpha_A)$ derived in Appendix A.3a (Eq. \ref{eq:a3a_exact}). In the Jordan-frame EFT, matter particles follow geodesics of $\tilde{g}_{\mu\nu}$, so their Euler equations must be evaluated with $\widetilde{\mathcal{H}}$ rather than the Einstein-frame rate $\mathcal{H}_E$.</p>
 
-<div class="equation">
-\begin{equation}
-\alpha_M(k,a) = \alpha_M^{\rm bg}(a) \times \bigl[1 - \mathcal{S}_\Sigma(k)\bigr].
-\end{equation}
-</div>
+     <p>The variable <code>index_bg_H</code> in the patched hi_class code stores the TEP-mapped Hubble rate $H_{\rm TEP}(z) = M(z)\,H_{\Lambda\rm CDM}(z)$, which already incorporates the full conformal-frame factor $M = A/(1-\alpha_A)$ (Section 3.2). This is the matter-frame rate $\widetilde{H}$, not the Einstein-frame rate $H_E$. The conformal-time counterpart <code>index_bg_H_conformal</code> is therefore $\widetilde{\mathcal{H}} = a\,\widetilde{H}$, which is already the full matter-frame conformal rate. No additional multiplication by $(1-\alpha_A)$ is applied; the displayed code in earlier drafts that showed such a multiplication was a documentation error and has been corrected. The production codebase evaluates $M = A/(1-\alpha_A)$ in the background Hubble setter, and <code>index_bg_H</code> stores the resulting mapped rate directly.</p>
 
-     <p>This is implemented by modifying the function <code>get_gravity_coefficients_smg</code> in <code>gravity_smg/perturbations_smg.c</code> to accept the mode wavenumber $k$ as an argument. The screening is applied to the local <code>run</code> variable (carrying $\alpha_M$) immediately after it is extracted from the background workspace:</p>
-
-     <pre><code>if (pba->tep_mode &#61;&#61; TRUE && pba->tep_k_t > 0.0 && k > 0.0) {
-  double S_Sigma = tep_screening_factor(k, pba->tep_k_t, pba->tep_n_t);
-  double alpha_M_bg = *run;
-  if (alpha_M_bg != 0.0) {
-    *run = alpha_M_bg * (1.0 - S_Sigma);
-  }
-}</code></pre>
-
-     <p>The screening function <code>tep_screening_factor</code> is defined in <code>source/background.c</code> and exposed in <code>include/background.h</code>. Two new parameters, <code>tep_k_t</code> and <code>tep_n_t</code>, are added to the <code>background</code> structure and parsed in <code>source/input.c</code>. The function signature of <code>get_gravity_coefficients_smg</code> is updated in <code>gravity_smg/include/perturbations_smg.h</code>, and all three call sites (in <code>perturbations_einstein_scalar_smg</code>, <code>perturbations_qs_functions_at_tau_and_k_qs_smg</code>, and <code>get_x_x_prime_qs_smg</code>) pass the mode wavenumber $k$.</p>
-
-     <p>At cosmic scales ($k \to 0$), $\mathcal{S}_\Sigma \to 0$ and $\alpha_M(k) \to \alpha_M^{\rm bg}$, preserving the background expansion. At structure scales ($k \gg k_t$), $\mathcal{S}_\Sigma \to 1$ and $\alpha_M(k) \to 0$, stripping the scalar fifth force and yielding $G_{\rm eff} \to G_N$ inside collapsing halos. Both the conformal friction and the scale-dependent screening use only the background parameters already constrained by the distance data ($\epsilon_T$, $z_T$, $n_T$); $k_t$ and $n_t$ are physical parameters of the gradient envelope with no additional tuning required for $\sigma_8$.</p>
+     <p>Because null geodesics are conformally invariant, photons and neutrinos (while relativistic) propagate using the same mapped conformal rate; the photon and collision terms use the conformal-time scale factor $\tilde{a} = A\,a_E$ and its derivative, which are the quantities stored in the mapped background. This is a direct consequence of conformal invariance of null trajectories under $g_{\mu\nu} \to A^2 g_{\mu\nu}$, not a separate frame assignment. The metric equations retain the mapped background consistently, preserving the CMB acoustic physics. The modification is minimal and upstream: the background Hubble setter applies the exact $M = A/(1-\alpha_A)$ factor, and all species natively use the resulting mapped conformal rate.</p>
 
      <h3>3.4 Pipeline Architecture</h3>
 
@@ -129,9 +98,9 @@ else {
          <li><em>Step 0 (Setup):</em> Environment configuration and dependency check.</li>
          <li><em>Step 1 (Install):</em> Install Cobaya, Planck 2018 likelihoods, and hi_class with the native TEP patch (<code>external/patches/hiclass_tep_native.patch</code>).</li>
          <li><em>Step 2 (Background):</em> Compute the TEP-modified background expansion history $H(z)$ and density evolution.</li>
-         <li><em>Step 3 (Alpha Functions):</em> Compute Bellini-Sawicki coefficients from the TEP theoretical mapping (archived for reference).</li>
+         <li><em>Step 3 (Alpha Functions):</em> Compute Bellini–Sawicki coefficients from the TEP theoretical mapping (archived for reference).</li>
          <li><em>Step 4 (CMB Spectra):</em> Run hi_class with native <code>tep_mode</code> at the Planck 2018 best-fit point. Compare TT, TE, and EE spectra against standard CLASS $\Lambda$CDM.</li>
-         <li><em>Step 5 (Matter-Frame Scan):</em> Dual-scan reconstruction of the acoustic scale in screened and unscreened limits.</li>
+         <li><em>Step 5 (Matter-Frame Scan):</em> Dual-scan reconstruction of the acoustic scale in finite-turnover and power-law diagnostic limits.</li>
          <li><em>Step 6 (Cobaya Config):</em> Generate the Cobaya YAML configuration for the MCMC pipeline with native TEP parameters.</li>
          <li><em>Step 7 (MCMC):</em> Execute the Cobaya MCMC with hi_class, using real Planck + BAO + Pantheon+ likelihoods, for both the background-only configuration and the active-perturbation closure configuration (<code>gravity_model = tep</code>).</li>
          <li><em>Step 8 (Posteriors):</em> Analyze MCMC chains with burn-in removal and weighted statistics.</li>
@@ -139,4 +108,4 @@ else {
      </ol>
      <p>Publication figures are generated separately via <code>python scripts/generate_figures.py</code> (not part of <code>run_all.py</code>). Both figures are written to <code>results/figures/</code> with filenames matching their publication numbering. Figure 3 requires step 04b. Include them in the static site with <code>cd site &amp;&amp; npm run build</code>.</p>
 
-     <p>The perturbation-level screening implemented via the effective $\alpha$-functions in the Boltzmann hierarchy represents the linear cosmological realization of the abstract environmental operator $\mathcal{S}_\Sigma(\mathcal{E})$. The continuous running of these parameters dynamically enforces the spatial flattening of the Temporal Topology across structure formation epochs without committing to a specific microphysical scalar potential.</p>
+     <p>The running EFT $\alpha$-functions provide the linear cosmological realization of the dynamical temporal response $A_{\rm dyn}$. Their continuous evolution produces the required conformal perturbation behaviour across cosmological epochs without introducing a separate phenomenological epoch-screening function.</p>

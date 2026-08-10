@@ -6,7 +6,7 @@ Generates marginalized posterior triangle plots comparing background-only
 and active-perturbation MCMC chains.
 
 Outputs:
-    - results/figures/tep_perturbation_triangle.png
+    - results/figures/figure_1_perturbation_triangle.png
     - logs/step_08_plots_full.log
 """
 
@@ -149,7 +149,7 @@ class Step08Plots:
             contour_lws=1.5,
         )
 
-        output_file = self.fig_dir / "tep_perturbation_triangle.png"
+        output_file = self.fig_dir / "figure_1_perturbation_triangle.png"
         g.export(str(output_file))
         print_status(f"  ✓ Saved triangle plot: {output_file}", "SUCCESS")
 

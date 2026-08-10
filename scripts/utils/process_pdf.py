@@ -149,7 +149,12 @@ def build_metadata(cff_data):
 
     if date_pdf:
         metadata['CreationDate'] = f'{date_pdf} 00:00:00'
-        metadata['ModifyDate'] = f'{date_pdf} 00:00:00'
+        # ModifyDate should reflect the last-updated date, not the original release date
+        # Use today's date as the modification date
+        from datetime import date as _date
+        today = _date.today()
+        mod_date_str = today.strftime('%Y:%m:%d')
+        metadata['ModifyDate'] = f'{mod_date_str} 00:00:00'
 
     metadata['XMP-dc:Creator'] = author_name
     metadata['XMP-dc:Title'] = title

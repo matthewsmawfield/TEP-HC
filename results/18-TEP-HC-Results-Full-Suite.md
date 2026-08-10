@@ -12,18 +12,18 @@ This report documents the TEP-HC analysis using the native TEP background-only i
 
 | Parameter | TEP Posterior (68% CL) | Planck 2018 |
 |-----------|------------------------|-------------|
-| $H_0$ (km/s/Mpc) | 66.63 ± 1.70 | 67.36 ± 0.54 |
-| $n_s$ | 0.9956 ± 0.0042 | 0.966 ± 0.004 |
-| $\omega_b$ | 0.02118 ± 0.00251 | 0.0224 ± 0.0002 |
-| $\omega_{\rm cdm}$ | 0.1154 ± 0.0042 | 0.12 ± 0.001 |
-| $\epsilon_T$ | 0.0056 ± 0.0043 | (6.75 ± 0.24) × 10⁻⁶ (TEP-C0 full Planck) |
-| $S_8$ | 0.870 ± 0.028 | — |
+| $H_0$ (km/s/Mpc) | 66.68 ± 1.82 | 67.36 ± 0.54 |
+| $n_s$ | 0.9955 ± 0.0045 | 0.966 ± 0.004 |
+| $\omega_b$ | 0.0214 ± 0.0027 | 0.0224 ± 0.0002 |
+| $\omega_{\rm cdm}$ | 0.1150 ± 0.0042 | 0.12 ± 0.001 |
+| $\epsilon_T$ | 0.00602 ± 0.00493 | (6.75 ± 0.24) × 10⁻⁶ (TEP-C0 full Planck) |
+| $S_8$ | 0.867 ± 0.026 | — |
 
 ## 3. Native TEP Joint MCMC (hi_class)
 
 - **Configuration:** `data/cobaya/tep_hiclass_suite.yaml` → `results/mcmc_chains/tep_hiclass_suite`
-- **Samples:** 19033 post-burn-in (single chain; Gelman–Rubin N/A)
-- **Interpretation:** low-ℓ Planck run gives $\epsilon_T = 0.0056 \pm 0.0043$; authoritative homogeneous bound from TEP-C0 full Planck
+- **Samples:** 13,104 post-burn-in (18,720 accepted; single chain; sampler-internal R-1 = 0.045)
+- **Interpretation:** low-ℓ Planck run gives $\epsilon_T = 0.00602 \pm 0.00493$; authoritative homogeneous bound from TEP-C0 full Planck
 
 ## 4. Jordan-Frame No-Dark-Energy Reconstruction
 

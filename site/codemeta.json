@@ -2,7 +2,7 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "name": "TEP-HC",
-  "description": "hi_class integration and Cobaya MCMC pipeline mapping the Temporal Equivalence Principle into Bellini-Sawicki EFT and constraining CMB acoustic peaks with Planck 2018 data.",
+  "description": "Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a physical singularity. This paper demonstrates that the CMB acoustic-sector and conformal thermal/sound-horizon scalings are preserved with high fidelity under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP).\n\n\n\nIn the TEP framework, matter clocks and photon phases evolve in a causal matter metric defined by a conformal scalar field ~g_μν = A(φ)² g_μν. Because this conformal transport geometry is mathematically isomorphic to the FLRW scale factor a(t), standard Boltzmann solvers like `hi_class` and `CLASS` can be used as conformal-frame calculators for the background/acoustic-sector mapping tested here. The parameter traditionally identified as Dark Energy (Ω_Λ) is operationally reinterpreted within this implementation as the homogeneous temporal-shear background contribution filling the same background budget slot, Ω_φ.\n\n\n\nThis paper implements the native TEP interpretation directly in `hi_class`. Within the broader TEP interpretation, by recognizing that the spatial metric does not stretch, the \"Big Bang\" is reinterpreted not as a physical density singularity, but as a TEP temporal horizon—an asymptotic boundary where the observational clock map A_clock → 0. Direct Boltzmann integration verifies this background/acoustic mathematical isomorphism, verifying the internal conformal-frame preservation of the acoustic sector — the pre-recombination sound-horizon ratio is r_s^TEP/r_s^ΛCDM = 0.999994m deviation) and the acoustic-peak morphology remains intact without invoking early-universe spatial expansion.\n\n\n\nBeyond the background mapping, the paper closes the linear pure-conformal scalar perturbation sector by adopting the luminal EFT closure α_M = -2α_A, α_B = 2α_A, α_K = -5α_A², and α_T = 0, for which the physical no-ghost discriminant satisfies D = α_K + 3/2 α_B² = α_A² ≥ 0. An active-perturbation `hi_class` run evolving δφ through the full Einstein–Boltzmann hierarchy produces posteriors statistically indistinguishable from the background-only chain, demonstrating that the implemented linear pure-conformal scalar perturbation sector is numerically stable within the adopted linear EFT closure and observationally negligible at the current homogeneous-amplitude bound.\n\n\n\nA joint `hi_class` Cobaya MCMC (Planck 2018 low-ℓ TT/EE + lensing + BAO + Pantheon+) tests the finite-turnover TEP conformal background within the native hi_class implementation, while companion TEP-C0 (Paper 26) reports Pantheon+ nested-sampling evidence for the physical no-Λ temporal-shear branch: Bayes factor approximately 4.6 for the conservative z_los = 5 branch, approximately 61.8 for the fixed z_los = 100 benchmark, and approximately 40.3 for the broad free-z_los branch. These late-time model-comparison results are not re-derived in HC; HC supplies the native `hi_class` acoustic and perturbation closure. Within the broader TEP corpus, Paper 11 interprets the Hubble tension as a late-time, environment-dependent clock-transport effect caused by the environmental screening of the scalar field, rather than through a crisis in early-universe physics. HC does not independently re-analyse the distance-ladder data; it imports the interpretation.",
   "author": [
     {
       "@type": "Person",
@@ -11,11 +11,12 @@
       "@id": "https://orcid.org/0009-0003-8219-3159"
     }
   ],
-  "version": "v0.5",
+  "version": "v0.6",
   "datePublished": "2026-06-08",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "codeRepository": "https://github.com/matthewsmawfield/TEP-HC",
   "url": "https://mlsmawfield.com/tep/hc/",
+  "identifier": "https://doi.org/10.5281/zenodo.20572722",
   "keywords": [
     "hi_class",
     "Horndeski",

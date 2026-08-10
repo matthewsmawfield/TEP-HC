@@ -1,6 +1,6 @@
 {
   "name": "tep-hc-site",
-  "version": "0.2.0",
+  "version": "0.6.0",
   "description": "Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation",
   "main": "index.html",
   "scripts": {

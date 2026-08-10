@@ -13,24 +13,29 @@
     </p>
     <p>
         The repository contains a deterministic, version-controlled cosmological analysis pipeline
-        for CMB acoustic peak preservation tests and MCMC parameter estimation with TEP screening.
+        for CMB acoustic peak preservation tests and MCMC parameter estimation with the TEP conformal background.
     </p>
     <p>
-        All MCMC chains, hi_class patch files, posterior samples, and the exact <code>cobaya</code> YAML configuration files are released in the Zenodo repository (<a href="https://doi.org/10.5281/zenodo.20682752" target="_blank">DOI: 10.5281/zenodo.20682752</a>) under CC-BY 4.0. The <code>run_all.py</code> orchestration script and all step scripts are provided in the GitHub repository.
+        All MCMC chains, hi_class patch files, posterior samples, and the exact <code>cobaya</code> YAML configuration files are released in the Zenodo repository (<a href="https://doi.org/10.5281/zenodo.20572722" target="_blank">DOI: 10.5281/zenodo.20572722</a>) under CC-BY 4.0. The <code>run_all.py</code> orchestration script and all step scripts are provided in the GitHub repository.
     </p>
 
     <h3>Repository Structure</h3>
     <pre>
 TEP-HC/
 ├── data/
-│   ├── cobaya/              # Cobaya MCMC chains
-│   ├── external/             # hi_class submodule
-│   └── hi_class/             # TEP-CLASS implementation
+│   ├── cobaya/              # Cobaya MCMC configurations
+│   ├── external/            # Cobaya packages (likelihoods, data)
+│   └── hi_class/            # TEP-CLASS implementation
+├── external/
+│   ├── hi_class/            # hi_class submodule
+│   └── patches/             # TEP patch files
 ├── scripts/
-│   └── steps/                # Analysis pipeline steps
-├── core/                     # TEP shared constants and parameters
+│   └── steps/               # Analysis pipeline steps
+├── core/                    # TEP shared constants and parameters
+├── results/                 # Pipeline outputs, figures, MCMC chains
 ├── site/
-│   └── components/           # Manuscript HTML sections
+│   └── components/          # Manuscript HTML sections
+├── tests/                   # Verification tests
 ├── requirements.txt
 ├── CITATION.bib
 └── README.md

@@ -1,7 +1,7 @@
 {
   "run_name": "tep_hiclass_aplanck_sens",
   "description": "A_planck widened-prior sensitivity test (step_20)",
-  "timestamp": "2026-07-05T16:59:27.484536Z",
+  "timestamp": "2026-08-07T16:59:27.484536Z",
   "n_chains": 4,
   "samples_per_chain": 4080,
   "total_samples": 16320,

@@ -9,7 +9,7 @@
 <pre><code>cd external/hi_class/hi_class
 make clean && make</code></pre>
 
-<p><strong>Screening projection notice.</strong> Screening in TEP is represented at theory level by the environmental operator S_Σ(E). Quantities such as ρ_T, R_T(M), S_⊕(r), compactness Φ/c^2, local stellar density, thermal epoch, coherence length, proximity, and boundary geometry are domain-specific projections of E, not independent screening mechanisms and not interchangeable universal thresholds.</p>
+<p><strong>Screening projection notice.</strong> Screening in TEP is represented at theory level by the environmental operator S_Σ(E). Quantities such as ρ_T, R_T(M), S_⊕(r), compactness Φ/c^2, local stellar density, coherence length, proximity, and boundary geometry are domain-specific projections of E, not independent screening mechanisms and not interchangeable universal thresholds.</p>
 
 <h3>A.2 Cobaya Installation</h3>
 
@@ -25,14 +25,14 @@ cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
 <ol>
     <li><code>tep_f_transition(pba, z)</code>: returns the suppression factor $S(z) = \exp[-(z/z_T)^{n_T}]$; the full transition is $f_T(z) = \ln(1+z)\,S(z)$ (see <code>core/cosmology.py:f_T</code>).</li>
     <li><code>tep_gamma_factor(pba, z)</code>: returns the exact covariant conformal factor $A(z) = \exp[\epsilon_T \ln(1+z)\,S(z)]$ (not linearised).</li>
-    <li>The Hubble rate and its conformal-time derivative are mathematically mapped using the exact geometric relation $M(z) = A/(1-\alpha_A)$ in <code>background_functions</code> and in the initial-Hubble setter, explicitly evaluating the static conformal geometry.</li>
+    <li>The Hubble rate and its conformal-time derivative are mathematically mapped using the exact HC conformal-frame mapping $M(z) = A/(1-\alpha_A)$ in <code>background_functions</code> and in the initial-Hubble setter, explicitly evaluating the static conformal geometry.</li>
 </ol>
 
 <p><em>Implementation note (corrected bug).</em> An earlier build used $f_T = 1 - \exp[-(z/z_T)^{n_T}]$ (the complement of the suppression function). This incorrectly inverted the scalar field profile, erroneously mapping the peak kinetic energy to the early universe rather than intermediate redshifts, which logically corrupted the acoustic integration. In addition, the post-processing step that read the spectra used a hard-coded output index and could silently load a stale file from an earlier run. Both issues are fixed: the transition function now uses the shared TEP-C0 implementation (<code>core/cosmology.py</code>), correctly matching the field profile to the Pantheon+ apparent acceleration, and the analysis resolves the most recent hi_class output deterministically. <em>Sign convention (TEP disformal metric):</em> the distance integrand is multiplied by $A(z)$ for null-geodesic propagation in the conformal frame. The legacy SMG alpha-function stub (<code>smg_tep_*</code>) has been retired; production physics lives in the patched <code>background.c</code> (<code>external/patches/hiclass_tep_native.patch</code>).</p>
 
 <h3>A.3a Derivation of the Conformal-Frame Factor $M(z)$</h3>
 
-<p>This appendix derives the background conformal mapping $M(z)$ from the bi-metric action (Equation \ref{eq:3_theory_01}) using a single frame convention held fixed throughout, demonstrating the exact geometric relation implemented natively in the codebase.</p>
+<p>This appendix derives the background conformal mapping $M(z)$ from the bi-metric action (Equation \ref{eq:3_theory_01}) using a single frame convention held fixed throughout, demonstrating the exact conformal-frame relation under the adopted HC reference-density convention, implemented natively in the codebase.</p>
 
 <p><em>Setup and convention.</em> Matter, photons, and rods couple to the conformal metric $\tilde{g}_{\mu\nu} = A^2(\phi)\,g_{\mu\nu} + B(\phi)\,\nabla_\mu\phi\nabla_\nu\phi$. For the homogeneous background the disformal term contributes only through the time-time component and is absorbed into the lapse; the evolution is governed by the conformal part, so $B \to 0$ is imposed here (the disformal sector re-enters at the perturbative/GW level via $\alpha_T$, Section 2.2.2). The conformal part gives the standard map between the Einstein-frame scale factor $a_E$ and cosmic time $t_E$ and their conformal counterparts:</p>
 
@@ -60,7 +60,9 @@ cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
 \end{equation}
 </div>
 
-<p>which matches the definition in Section 3.2. Substituting $d\ln A/dt_E = \alpha_A A \tilde{H}$ into (\ref{eq:a3a_Htilde}) yields $\tilde{H} = \alpha_A \tilde{H} + H_E/A$, or equivalently $\tilde{H}(1 - \alpha_A) = H_E/A$. Identifying the reference FLRW background rate with the conformally mapped Einstein-frame rate used by the implementation, $H_E = A^2\,H_{\Lambda\rm CDM}$, gives the exact geometric relation:</p>
+<p>which matches the definition in Section 3.2. Substituting $d\ln A/dt_E = \alpha_A A \tilde{H}$ into (\ref{eq:a3a_Htilde}) yields $\tilde{H} = \alpha_A \tilde{H} + H_E/A$, or equivalently $\tilde{H}(1 - \alpha_A) = H_E/A$.</p>
+
+<p><em>Einstein-frame reference rate.</em> The remaining step is to relate the Einstein-frame Hubble rate $H_E$ to the reference $\Lambda$CDM rate $H_{\Lambda\rm CDM}$. Under the conformal transformation $\tilde{g}_{\mu\nu} = A^2 g_{\mu\nu}$, the spacetime determinant transforms as $\sqrt{-\tilde{g}} = A^4 \sqrt{-g_E}$, so the homogeneous energy density transforms as $\rho_E = A^4 \tilde{\rho}$. The Einstein-frame Friedmann equation gives $H_E^2 = \frac{8\pi G}{3}\,\rho_E = A^4 \frac{8\pi G}{3}\,\tilde{\rho}$. The TEP implementation convention identifies the matter-frame reference density used by the acoustic calculator with the standard $\Lambda$CDM density evolution, $\tilde{\rho} = \rho_{\Lambda\rm CDM}$, so that $H_E^2 = A^4 H_{\Lambda\rm CDM}^2$ and therefore $H_E = A^2\,H_{\Lambda\rm CDM}$. Substituting into $\tilde{H}(1 - \alpha_A) = H_E/A$ gives the exact conformal-frame relation under the adopted HC reference-density convention:</p>
 
 <div class="equation">
 \begin{equation} \label{eq:a3a_exact}
@@ -68,7 +70,7 @@ cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
 \end{equation}
 </div>
 
-<p><em>Implementation Status.</em> The production codebase (<code>hiclass_tep_native.patch</code>) evaluates this exact geometric relation $M = A/(1-\alpha_A)$ directly, guaranteeing mathematical fidelity to the conformal evaluation without requiring first-order approximations.</p>
+<p><em>Implementation Status.</em> The production codebase (<code>hiclass_tep_native.patch</code>) evaluates this exact HC conformal-frame mapping $M = A/(1-\alpha_A)$ directly, guaranteeing mathematical fidelity to the conformal evaluation without requiring first-order approximations.</p>
 
 <h3>A.4 Saturation Scale in Cosmological Units</h3>
 
@@ -86,7 +88,7 @@ cobaya-install planck_2018_lowl.TT planck_2018_lowl.EE \
 </div>
 <p>Compare to cosmic mean density today ($\rho_{\rm crit,0} \approx 10^{-123} M_{\rm Pl}^4$). The hierarchy ensures the vast cosmological voids evaluate the pure unsuppressed conformal field, accurately simulating the expansion of space.</p>
 
-<p><em>Intermediate environments and operational parameter bounds.</em> Between the terrestrial laboratory and the cosmic mean, the screening transition is continuous. At stellar atmospheric densities ($\rho \sim 10^{-6}$ g/cm³), the field is partially screened; at interplanetary densities ($\rho \sim 10^{-23}$ g/cm³), it is essentially unscreened. Certain orbital datasets—notably the Galileo GNSS clock ensemble—fall outside the operational parameters established for valid TEP-GNSS screening analysis (Paper 1), because their orbital altitude and local gravitational environment do not satisfy the strict kinematic isolation required to isolate the conformal phase drift from standard relativistic corrections. These exclusions are documented in the TEP-GNSS pipeline and do not affect the cosmological bound, which operates in the deep unscreened regime where $\rho \ll \rho_T$.</p>
+<p><em>Intermediate environments and operational parameter bounds.</em> In the density-projection used for this order-of-magnitude comparison, between the terrestrial laboratory and the cosmic mean the screening transition is continuous. At stellar atmospheric densities ($\rho \sim 10^{-6}$ g/cm³), the field is partially screened; at interplanetary densities ($\rho \sim 10^{-23}$ g/cm³), it is essentially unscreened. Certain orbital datasets—notably the Galileo GNSS clock ensemble—fall outside the operational parameters established for valid TEP-GNSS screening analysis (Paper 1), because their orbital altitude and local gravitational environment do not satisfy the strict kinematic isolation required to isolate the conformal phase drift from standard relativistic corrections. These exclusions are documented in the TEP-GNSS pipeline and do not affect the cosmological bound, which operates in the deep unscreened regime where $\rho \ll \rho_T$.</p>
 
 <h3>A.5 Stability Sector Closure</h3>
 
@@ -135,6 +137,6 @@ D = (-5\alpha_A^2) + \frac{3}{2}(2\alpha_A)^2 = \alpha_A^2
 \end{equation}
 </div>
 
-<p>This identity proves that the continuous conformal field transition is analytically protected against ghost instabilities, as the discriminant remains strictly positive-definite. In the pure-conformal implementation used here, the runtime SMG closure fixes the scalar sound-speed sector to the luminal conformal-frame limit ($c_s^2 = 1$), and the integration verifies that this choice produces no gradient instability across the sampled redshift range. The no-ghost condition is independently protected by the discriminant identity ($D=\alpha_A^2$). A fully derived sound-speed expression for the disformal and nonlinear screening sectors is outside the scope of the present pure-conformal closure.</p>
+<p>This identity shows that the no-ghost discriminant is non-negative, $D = \alpha_A^2 \ge 0$. Because the finite-turnover profile $f_T(z)$ has a single extremum, $\alpha_A$ vanishes at the turnover redshift $z_\star$ (for $z_T=5$, $n_T=2$: $z_\star \simeq 2.64785$), and $D$ touches zero there for every nonzero $\epsilon_T$. For $D > 0$, the scalar branch has positive kinetic normalization $Q_s = 2M_\star^2 D/(2-\alpha_B)^2 > 0$ and the adopted luminal conformal-frame limit $c_s^2 = 1$ applies. At $z_\star$, $D = Q_s = 0$, so the propagating scalar description becomes degenerate and a propagation speed is not physically defined. The linear <code>hi_class</code> system passes continuously through this point without numerical divergence, as verified by the diagnostic reported in Section 3.3. Whether this degeneracy represents exact constraint reduction or a strong-coupling limit at the nonlinear level requires a separate analysis and is outside the scope of the present linear closure. A fully derived sound-speed expression for the disformal and nonlinear screening sectors is likewise outside the scope of the present pure-conformal closure.</p>
 
-<p>The production codebase forces these limits natively during the calculation of the SMG perturbation coefficients, guaranteeing mathematical fidelity to the conformal evaluation without requiring pre-tabulated interpolation or analytical approximations.</p>
+<p>The production codebase applies these adopted closure values during the calculation of the SMG perturbation coefficients, ensuring the pure-conformal branch is evaluated consistently without requiring pre-tabulated interpolation or analytical approximations.</p>

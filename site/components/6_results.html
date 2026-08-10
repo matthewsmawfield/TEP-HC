@@ -2,7 +2,7 @@
 
 <h3>5.1 The Acoustic Spectra</h3>
 
-<p>The physically meaningful test of the native TEP integration is to evaluate whether the conformal field exactly replicates the acoustic physics of the early universe without invoking spatial expansion. Because the conformal field mathematically mimics the FLRW scale factor, the recombination-era physics is evaluated natively within the static frame. Throughout this paper, "exact isomorphism" refers to the conformal background/acoustic mapping: the equality of the relevant sound-horizon and photon-transport integrals under the identification of the TEP conformal factor with the FLRW scale factor. The associated linear pure-conformal scalar perturbation sector is closed separately through the runtime Bellini–Sawicki EFT functions and validated by the active ($\delta\phi$) hi_class run reported in Section 4.5 and Appendix A.5. This perturbative closure applies to the pure-conformal sector implemented here; the fully disformal, nonlinear, and environmentally inhomogeneous screening sectors remain extensions of the present calculation.</p>
+<p>The physically meaningful test of the native TEP integration is to evaluate whether the conformal field exactly replicates the acoustic physics of the early universe without invoking spatial expansion. Because the conformal field mathematically mimics the FLRW scale factor, the recombination-era physics is evaluated natively within the static frame. Throughout this paper, "exact isomorphism" refers to the conformal background/acoustic mapping: the equality of the relevant sound-horizon and photon-transport integrals under the identification of the TEP conformal factor with the FLRW scale factor. The associated linear pure-conformal scalar perturbation sector is closed separately through the adopted Bellini–Sawicki EFT closure and validated by the active ($\delta\phi$) hi_class run reported in Section 4.5 and Appendix A.5. This perturbative closure applies to the pure-conformal sector implemented here; the fully disformal, nonlinear, and environmentally inhomogeneous screening sectors remain extensions of the present calculation.</p>
 
 <h4>5.1.1 Sound-horizon and acoustic-peak preservation</h4>
 
@@ -17,7 +17,7 @@
 
 <h4>5.1.1b Acoustic-scale preservation metrics</h4>
 
-<p>Table 2 quantifies the acoustic-scale preservation in three multipole ranges. The sound-horizon ratio $r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$ is independent of multipole because $r_s$ is a single integrated quantity; the $\ell$-centroid shift tracks the expected $-0.185\%$ angular-diameter-distance projection, and the active-perturbation residual remains below $1.9\%$ across the acoustic range.</p>
+<p>Table 2 quantifies the acoustic-scale preservation in three multipole ranges. The sound-horizon ratio $r_s^{\rm TEP}/r_s^{\Lambda\rm CDM} = 0.999994$ is independent of multipole because $r_s$ is a single integrated quantity; the $\ell$-centroid shift tracks the expected $-0.185\%$ angular-diameter-distance projection. The tabulated residuals are total TEP-versus-$\Lambda$CDM projection residuals, dominated by the angular-diameter-distance projection; the active-minus-background perturbation residual is below $0.001\%$ across the entire acoustic range.</p>
 
 <table class="results-table">
     <thead>
@@ -25,7 +25,7 @@
             <th scope="col">Multipole range</th>
             <th scope="col">$\ell_{\rm peak}$ shift $\Delta\ell$</th>
             <th scope="col">$r_s^{\rm TEP}/r_s^{\Lambda\rm CDM}$</th>
-            <th scope="col">Max residual (%)</th>
+            <th scope="col">Total TEP–$\Lambda$CDM projection residual (%)</th>
         </tr>
     </thead>
     <tbody>
@@ -41,14 +41,14 @@
 
 <h4>5.1.3 Polarization Spectra ($C_\ell^{TE}, C_\ell^{EE}$)</h4>
 
-<p>The TE and EE spectra inherit the same exact behavior: the recombination-era polarization source is natively preserved by the conformal integration, and the only effect is the common $\theta_s$ projection shared with TT. Running hi_class with active scalar perturbations ($\delta\phi$ evolved through the exact Bellini–Sawicki EFT) and comparing against the background-only TEP run and Planck 2018 $\Lambda$CDM, the maximum active-perturbation residuals in the polarization channels are:</p>
+<p>The TE and EE spectra inherit the same behavior: the recombination-era polarization source is natively preserved by the conformal integration, and the only effect is the common $\theta_s$ projection shared with TT. Running hi_class with active scalar perturbations ($\delta\phi$ evolved through the adopted Bellini–Sawicki EFT closure) and comparing against the background-only TEP run and Planck 2018 $\Lambda$CDM, the maximum active-perturbation residuals in the polarization channels are:</p>
 
 <table class="results-table">
     <thead>
         <tr>
             <th scope="col">Multipole range</th>
-            <th scope="col">Max TE residual (%)</th>
-            <th scope="col">Max EE residual (%)</th>
+            <th scope="col">Total TE projection residual (%)</th>
+            <th scope="col">Total EE projection residual (%)</th>
         </tr>
     </thead>
     <tbody>
@@ -58,7 +58,7 @@
     </tbody>
 </table>
 
-<p>These residuals are consistent with the pure angular-diameter-distance projection already documented for TT; there is no additional polarization-specific distortion from the dynamical scalar sector at the current precision.</p>
+<p>These are total TEP-versus-$\Lambda$CDM projection residuals, dominated by the common angular-diameter-distance projection. The active-minus-background perturbation residual is below $0.001\%$; the larger values tabulated here are total TEP-versus-$\Lambda$CDM projection differences. There is no additional polarization-specific distortion from the dynamical scalar sector at the current precision.</p>
 
 <h3>5.2 Cosmological Constraints: Late-Time Evidence and the CMB Bound</h3>
 
@@ -71,24 +71,24 @@
         <tr>
             <th scope="col">Model</th>
             <th scope="col">Bayes factor vs $\Lambda$CDM</th>
-            <th scope="col">Interpretation</th>
         </tr>
     </thead>
     <tbody>
-        <tr><td>TEP M1 fixed ($z_T = 100$)</td><td>$\sim 32.1$</td><td>Strong</td></tr>
-        <tr><td>TEP M1 free ($z_T \in [0.1, 150]$)</td><td>$\sim 36.2$</td><td>Strong</td></tr>
-        <tr><td>$w$CDM</td><td>$\sim 21.1$</td><td>Strong</td></tr>
-        <tr><td>CPL ($w_0 w_a$)</td><td>$\sim 35.2$</td><td>Strong</td></tr>
-        <tr><td>Einstein-de Sitter</td><td>$4.3\times10^{-126}$</td><td>Rejected (sanity check)</td></tr>
+        <tr><td>TEP, $z_{\rm los}=5$</td><td>$\sim 4.6$</td></tr>
+        <tr><td>TEP, $z_{\rm los}=100$</td><td>$\sim 61.8$</td></tr>
+        <tr><td>TEP, free $z_{\rm los}$</td><td>$\sim 40.3$</td></tr>
+        <tr><td>$w$CDM</td><td>$\sim 29.7$</td></tr>
+        <tr><td>CPL</td><td>$\sim 53.3$</td></tr>
+        <tr><td>Einstein–de Sitter</td><td>$\sim 6.2\times10^{-126}$</td></tr>
     </tbody>
 </table>
 
 <p>The TEP M1 branch improves the Pantheon+ likelihood relative to baseline $\Lambda$CDM with BF approximately 4.6 (conservative $z_{\rm los}=5$), approximately 61.8 (fixed $z_{\rm los}=100$ benchmark), and approximately 40.3 (broad free-$z_{\rm los}$) (TEP-C0, Paper 26). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the <code>hi_class</code> acoustic-preservation implementation. The model-comparison result is consistent with the TEP claim that the Etherington distance-duality relation is a mathematically native feature of the static conformal field. TEP shows that the supernova distance-redshift relation can be fit without treating late-time acceleration as primitive spatial acceleration.</p>
 
-<p><em>$z_T$ distinction.</em> The $z_T = 5$ profile used in this paper is the homogeneous acoustic-sector benchmark for the hi_class conformal implementation. It should not be confused with the C0 supernova-sector transport benchmark ($z_T^{\rm los} = 100$), where $z_T^{\rm los}$ parameterizes the effective line-of-sight temporal-shear transition in the Pantheon+ distance law, or with the TEP-TH thermal screening transition ($z_t^{\rm th}=100$, $T_{\rm lock}=0.03$ eV). The C0 free-$z_T$ robustness test uses $z_T \in [0.1, 150]$.</p>
-<p><em>Amplitude dictionary.</em> $\epsilon_T^{\rm los}$ denotes the late-time line-of-sight transport amplitude fitted in TEP-C0. $\epsilon_T^{\rm CMB}$ denotes the C0 background/acoustic diagnostic amplitude. $\epsilon_T^{\rm HC}$ denotes the native <code>hi_class</code> homogeneous conformal amplitude reported here ($0.0059 \pm 0.0047$). $\epsilon_{\rm dyn}(z)$ denotes the screened dynamical response in TEP-TH. $\epsilon_{\rm field}=0.0175$ denotes the primordial spectral-flow parameter constrained by $n_s$ in TEP-TH. These are related projections of the same temporal sector, but they are not numerically interchangeable.</p>
+<p><em>$z_{\rm los}$ distinction.</em> The $z_{\rm los} = 5$ profile is the conservative line-of-sight turnover used in the C0 supernova-sector transport benchmark. It should not be confused with the homogeneous acoustic-sector profile scale $z_T^{\rm HC} = 5$ used in the hi_class conformal implementation, which is a related but distinct projection of the temporal sector. The C0 free-$z_{\rm los}$ robustness test uses $z_{\rm los} \in [0.1, 150]$.</p>
+<p><em>Amplitude dictionary.</em> $\epsilon_T^{\rm los}$ denotes the late-time line-of-sight transport amplitude fitted in TEP-C0. $\epsilon_T^{\rm CMB}$ denotes the C0 background/acoustic diagnostic amplitude. $\epsilon_T^{\rm HC}$ denotes the native <code>hi_class</code> homogeneous conformal amplitude reported here ($0.00547 \pm 0.00429$ from the 5-chain active posterior; the background-only chain yields $0.00602 \pm 0.00493$ as a solver-comparison diagnostic). $\epsilon_{\rm dyn}$ denotes the dynamical response in TEP-TH. $\epsilon_{\rm field}=0.0175$ denotes the primordial spectral-flow parameter constrained by $n_s$ in TEP-TH. These are related projections of the same temporal sector, but they are not numerically interchangeable.</p>
 
-<p><em>Homogeneous (CMB) bound.</em> The low-$\ell$ Planck likelihoods used in this paper's hi_class MCMC (TT/EE + lensing) yield $\epsilon_T = 0.0059 \pm 0.0047$, consistent with zero at $\sim 1.3\sigma$. This homogeneous bound is smaller than the primordial temporal-shear amplitude $\epsilon_t = 0.0175$ constrained by the spectral index in TEP-TH (Paper 27), as expected because the temporal field is subject to late-time epoch screening that suppresses the effective shear amplitude at recombination. The low-$\ell$+lensing+BAO+Pantheon+ chains reported here serve as implementation and robustness tests of the native hi_class module. The native <code>hi_class tep_mode</code> high-$\ell$ TTTEEE production likelihood remains pending because of a <code>clipy</code>/<code>hi_class</code> interface incompatibility (Section 5.1). However, the high-$\ell$ sector is not untested: a <code>CAMB</code>-based effective-background mapping was run successfully, producing stable high-$\ell$ spectra and a <code>plik_lite</code> likelihood evaluation consistent with the low-$\ell$ posterior. This <code>CAMB</code> diagnostic is reported as a consistency check. The low-$\ell$ constraint therefore remains the primary acoustic result of the present paper.</p>
+<p><em>Homogeneous (CMB) bound.</em> The low-$\ell$ Planck likelihoods used in this paper's hi_class MCMC (TT/EE + lensing) yield $\epsilon_T = 0.00547 \pm 0.00429$ (5-chain active posterior), consistent with zero at $\sim 1.3\sigma$. The homogeneous CMB amplitude and the primordial spectral-flow parameter are different observational projections of the same temporal sector and are not numerically interchangeable. Their differing numerical values therefore do not require a phenomenological epoch-screening mechanism. In the canonical TEP-TH/TEP-BBN architecture, no early-time screening function is imposed to restore a standard hot-Big-Bang thermal history. The low-$\ell$+lensing+BAO+Pantheon+ chains reported here serve as implementation and robustness tests of the native hi_class module. The native <code>hi_class tep_mode</code> high-$\ell$ TTTEEE production likelihood remains pending because of a <code>clipy</code>/<code>hi_class</code> interface incompatibility (Section 4.5). A <code>CAMB</code>-based effective-background mapping was used solely to validate the high-$\ell$ code path; because it is an effective-$w(a)$ approximation rather than the native TEP perturbation implementation, it is not included in parameter inference or model comparison (Section 4.5). The low-$\ell$ combination remains the primary joint-likelihood constraint. Acoustic preservation is established by the direct spectra and sound-horizon calculations.</p>
 
 <p><em>Native-TEP joint MCMC.</em> This paper's primary contribution is the verified hi_class implementation, demonstrating ppm-level sound-horizon preservation and acoustic-sector equivalence in the native static conformal geometry.</p>
 
@@ -97,8 +97,8 @@
 <p>The full hi_class Boltzmann closure with active SMG perturbations yields a linear growth amplitude in agreement with Planck and weak-lensing measurements:</p>
 
 <ul>
-    <li><em>Linear growth amplitude:</em> $\sigma_8 = 0.825 \pm 0.016$ at the fiducial TEP parameters ($\epsilon_T = 0.0066$, $z_T = 5$, $n_T = 2$), compared to $\sigma_8 = 0.823$ for standard $\Lambda$CDM at the same cosmology. The TEP value is a native output of the full SMG EFT solver with runtime Bellini-Sawicki mappings; no phenomenological suppression factor is applied.</li>
-    <li><em>Growth-function diagnostic:</em> The linear growth rate $f\sigma_8$ from the hi_class matter power spectrum (computed via $P(k)$ at $z=0$ and $z=0.5$) shows excellent agreement between the screened TEP model and Planck+BOSS best-fit $\Lambda$CDM:
+    <li><em>Linear growth amplitude:</em> $\sigma_8 = 0.825 \pm 0.016$ at the fiducial TEP parameters ($\epsilon_T = 0.0066$, $z_T = 5$, $n_T = 2$), compared to $\sigma_8 = 0.823$ for standard $\Lambda$CDM at the same cosmology. The TEP value is a native output of the full SMG EFT solver with the adopted Bellini–Sawicki mappings; no phenomenological suppression factor is applied.</li>
+    <li><em>Growth-function diagnostic:</em> The linear growth rate $f\sigma_8$ from the hi_class matter power spectrum (computed via $P(k)$ at $z=0$ and $z=0.5$) shows excellent agreement between the finite-turnover TEP model and Planck+BOSS best-fit $\Lambda$CDM:
         <table class="results-table">
             <thead>
                 <tr>
@@ -113,12 +113,11 @@
                 <tr><td>TEP (active $\delta\phi$)</td><td>$0.824$</td><td>$0.413$</td></tr>
             </tbody>
         </table>
-        The TEP deviation from $\Lambda$CDM is $0.001$ ($0.1\%$) at $z=0$ and $0.003$ ($0.7\%$) at $z=0.5$, well within current BOSS and eBOSS uncertainties ($\sim 3\%$). This confirms that the TEP covariant action, when mapped rigorously into the Bellini-Sawicki EFT and solved with the full Boltzmann hierarchy, naturally restores structure growth to the observationally consistent range.
+        The TEP deviation from $\Lambda$CDM is $0.001$ ($0.1\%$) at $z=0$ and $0.003$ ($0.7\%$) at $z=0.5$, well within current BOSS and eBOSS uncertainties ($\sim 3\%$). This confirms that the TEP covariant action, when closed through the adopted Bellini–Sawicki EFT and solved with the full Boltzmann hierarchy, naturally restores structure growth to the observationally consistent range.
     </li>
-    <li><em>Scale-dependent screening signature:</em> The gradient-screening envelope $\mathcal{S}_\Sigma(k) = [1 + (k/k_t)^n]^{-1}$ injects a characteristic scale dependence into the matter power spectrum. At $k < k_t$ (cosmic scales), $\mathcal{S}_\Sigma \to 0$ and the background expansion is preserved. At $k > k_t$ (structure scales), $\alpha_M(k) \to 0$ and the scalar fifth force is suppressed, yielding $G_{\rm eff} \to G_N$ inside collapsing halos. The fractional deviation $\Delta P(k)/P_{\Lambda\rm CDM}(k)$ exhibits a smooth transition around $k_t$, producing a testable spectral feature for DESI and Euclid clustering data.</li>
 </ul>
 
-<p>The $\sigma_8$ result demonstrates that the TEP covariant action, when mapped rigorously into the Bellini-Sawicki EFT and solved with the full Boltzmann hierarchy, naturally restores structure growth to the observationally consistent range. Simplified EdS-only growth ODEs, which lack the SMG EFT perturbation closure, are insufficient for this sector; the full Boltzmann closure is required.</p>
+<p>The $\sigma_8$ result demonstrates that the TEP covariant action, when closed through the adopted Bellini–Sawicki EFT and solved with the full Boltzmann hierarchy, naturally restores structure growth to the observationally consistent range. Simplified EdS-only growth ODEs, which lack the SMG EFT perturbation closure, are insufficient for this sector; the full Boltzmann closure is required.</p>
 
 <h3>5.4 The Hubble Tension in TEP</h3>
 
@@ -129,15 +128,15 @@
 </div>
 
 <figure>
-    <img src="figures/figure_1_H0_comparison.png" alt="H0 in the TEP picture">
-    <figcaption><strong>Figure 2.</strong> Corpus-level $H_0$ comparison: HC acoustic posterior and Paper 11 local-ladder correction. <strong>HC joint MCMC:</strong> native <code>hi_class</code> <code>tep_mode</code> acoustic/perturbation posterior with $\epsilon_T^{\rm HC}=0.0059\pm0.0047$, $z_{\rm HC}=5.0$, $n_T=2.0$. <strong>Planck 2018:</strong> independent CMB constraint. <strong>SH0ES uncorrected / TEP-corrected:</strong> the local distance-ladder values are imported from Paper 11; HC does not independently re-analyse the Cepheid/SN Ia calibration data. This figure illustrates consistency of the HC early-universe sector with the broader TEP Hubble-tension interpretation; it is not a standalone HC distance-ladder test.</figcaption>
+    <img src="figures/figure_2_H0_comparison.png" alt="H0 in the TEP picture">
+    <figcaption><strong>Figure 2.</strong> Corpus-level $H_0$ comparison: HC acoustic posterior and Paper 11 local-ladder correction. <strong>HC joint MCMC:</strong> native <code>hi_class</code> <code>tep_mode</code> homogeneous posterior with $\epsilon_T^{\rm HC}=0.00547\pm0.00429$, $z_{\rm HC}=5.0$, $n_T=2.0$. <strong>Planck 2018:</strong> independent CMB constraint. <strong>SH0ES uncorrected / TEP-corrected:</strong> the local distance-ladder values are imported from Paper 11; HC does not independently re-analyse the Cepheid/SN Ia calibration data. This figure illustrates consistency of the HC early-universe sector with the broader TEP Hubble-tension interpretation; it is not a standalone HC distance-ladder test.</figcaption>
 </figure>
 
 <h3>5.5 The Mathematical Limit of the Conformal Field</h3>
 
 <p>To explicitly map the action of the conformal field on the acoustic horizon, the acoustic scale is evaluated in a mathematically idealized geometry ($\Omega_m = 1.0$, $\Omega_\Lambda = 0.0$) using the hi_class native <code>tep_mode</code> implementation.</p>
 
-<h4>Regime I: Screened HC branch ($z_{\rm HC} = 5$)</h4>
+<h4>Regime I: Finite-turnover HC branch ($z_{\rm HC} = 5$)</h4>
 
 <p>In the standard TEP model, the profile $\exp[-(z/z_{\rm HC})^{n_T}]$ ensures the conformal field correctly matches the apparent late-time acceleration inferred from Pantheon+. The integration verifies this background/acoustic mathematical isomorphism:</p>
 
@@ -159,7 +158,7 @@
 
 <p>The sound horizon $r_s$ remains exact because the conformal field geometry accurately tracks the mathematics of the acoustic horizon without requiring physical stretching of space.</p>
 
-<h4>Regime II: Unscreened diagnostic branch ($z_{\rm HC} \to \infty$)</h4>
+<h4>Regime II: Power-law diagnostic limit ($z_{\rm HC} \to \infty$)</h4>
 
 <p>Removing the empirical profile and forcing the conformal factor to grow as a pure unsuppressed power law $A(z) = (1+z)^{\epsilon_T}$ exposes the mathematical divergence of the bare field:</p>
 
@@ -182,6 +181,6 @@
 <p>This mathematical limit demonstrates that the $z_{\rm HC} \sim 5$ empirical fitting function accurately defines the physical profile of the conformal field, allowing it to mimic Dark Energy while preserving the CMB acoustic horizon without expanding space.</p>
 
 <figure>
-    <img src="figures/figure_2_jordan_theta_s.png" alt="Matter-frame dual-scan results">
-    <figcaption><strong>Figure 3.</strong> Jordan-frame acoustic-scale screening diagnostic. Background-only native <code>hi_class</code> <code>tep_mode</code> diagnostic in an Einstein-de Sitter geometry ($\Omega_m=1.0$, $\Omega_\Lambda=0.0$). <strong>Left panel:</strong> Screened HC branch ($z_{\rm HC}=5$, $\epsilon_T^{\rm HC}=0.05$, $n_T=2.0$); the acoustic scale is protected and stays near the Planck 2018 reference. <strong>Right panel:</strong> Unscreened diagnostic branch ($z_{\rm HC}\to\infty$, $\epsilon_T^{\rm HC}=0.05$, $n_T=2.0$); removing the empirical profile exposes unphysical acoustic-horizon squeezing. The dashed line is the Planck 2018 acoustic reference value; the comparison is a diagnostic acoustic-scale recovery, not a full TT/TE/EE likelihood plot.</figcaption>
+    <img src="figures/figure_3_jordan_theta_s.png" alt="Matter-frame dual-scan results">
+    <figcaption><strong>Figure 3.</strong> Jordan-frame acoustic-scale diagnostic. Background-only native <code>hi_class</code> <code>tep_mode</code> diagnostic in an Einstein-de Sitter geometry ($\Omega_m=1.0$, $\Omega_\Lambda=0.0$). <strong>Left panel:</strong> Finite-turnover HC branch ($z_{\rm HC}=5$, $\epsilon_T^{\rm HC}=0.05$, $n_T=2.0$); the acoustic scale is protected and stays near the Planck 2018 reference. <strong>Right panel:</strong> Power-law diagnostic limit ($z_{\rm HC}\to\infty$, $\epsilon_T^{\rm HC}=0.05$, $n_T=2.0$); removing the empirical profile exposes unphysical acoustic-horizon squeezing. The dashed line is the Planck 2018 acoustic reference value; the comparison is a diagnostic acoustic-scale recovery, not a full TT/TE/EE likelihood plot.</figcaption>
 </figure>
