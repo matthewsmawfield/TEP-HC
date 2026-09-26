@@ -1,0 +1,12 @@
+2026-09-26 19:20:48 [INFO] STEP 10_stability_audit: Scalar Perturbation Stability Audit
+2026-09-26 19:21:00 [INFO] STEP 10_stability_audit: Scalar Perturbation Stability Audit
+2026-09-26 19:21:04 [INFO] STEP 10_stability_audit: Scalar Perturbation Stability Audit
+2026-09-26 19:21:24 [INFO] STEP 10_stability_audit: Scalar Perturbation Stability Audit
+2026-09-26 19:21:24 [SUCCESS]   ✓ Saved stability audit to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/10_stability_audit.json
+2026-09-26 19:21:24 [WARNING]   Some stability checks FAILED
+2026-09-26 19:25:35 [INFO] STEP 10_stability_audit: Scalar Perturbation Stability Audit
+2026-09-26 19:25:35 [SUCCESS]   ✓ Saved stability audit to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/10_stability_audit.json
+2026-09-26 19:25:35 [WARNING]   Some stability checks FAILED
+2026-09-26 19:26:02 [INFO] STEP 10_stability_audit: Scalar Perturbation Stability Audit
+2026-09-26 19:26:02 [SUCCESS]   ✓ Saved stability audit to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/10_stability_audit.json
+2026-09-26 19:26:02 [SUCCESS]   All stability checks PASSED

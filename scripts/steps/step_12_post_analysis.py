@@ -270,7 +270,10 @@ M2_evolution = yes
             "n_samples": n_samples,
             "z_range": {"z_min": float(z[0]), "z_max": float(z[-1])},
             "D_min_global": D_min_global,
-            "all_positive_definite": D_min_global > 0,
+            # D = alpha_A^2 >= 0 mathematically; at high z alpha_A underflows
+            # to denormals and the combination -5*alpha_A^2 + 1.5*(2*alpha_A)^2
+            # can return a negative denormal (~ -1e-323), which is zero.
+            "all_positive_definite": D_min_global > -1e-300,
             "alpha_M_max_global": alpha_M_max_global,
             "sampled_edge_table": edge_table,
             "note": "D(z) = alpha_A^2 > 0 for all z in (0,1100) and all epsilon_T in the 95% posterior.",

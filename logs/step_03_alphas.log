@@ -90,3 +90,5 @@ Step 03 completed in 0.0s
 2026-06-05 20:42:14 [INFO] 
 2026-06-05 20:42:14 [INFO] >>> STEP 04: CMB SPECTRA GENERATION
 2026-06-05 20:42:14 [INFO] 
+2026-09-26 19:20:44 [INFO] STEP 03_alphas: Bellini-Sawicki Alpha Functions (Exact EFT Closure)
+2026-09-26 19:20:44 [SUCCESS]   ✓ Saved exact EFT closure results to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/03_alpha_functions.json
