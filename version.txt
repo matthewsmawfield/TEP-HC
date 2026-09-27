@@ -1,4 +1,4 @@
-v0.6 (Cambridge) — 2026-08-10 — CMB acoustic preservation without a hot Big Bang: native hi_class conformal implementation
+v0.7 (Cambridge) — 2026-09-13 — CMB acoustic preservation without a hot Big Bang: native hi_class conformal implementation
 
 - "Big Bang" reinterpreted as TEP temporal horizon (A_clock → 0), not a physical density singularity
 - Native hi_class implementation: conformal transport geometry isomorphic to FLRW scale factor

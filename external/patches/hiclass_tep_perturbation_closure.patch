@@ -150,7 +150,7 @@ diff --git a/gravity_smg/tep.c b/gravity_smg/tep.c
 index 3b24124..9e30944 100644
 --- a/gravity_smg/tep.c
 +++ b/gravity_smg/tep.c
-@@ -2,85 +2,53 @@
+@@ -2,85 +2,65 @@
   * @file tep.c
   * @brief TEP (Temporal Equivalence Principle) model for hi_class
   *
@@ -166,6 +166,18 @@ index 3b24124..9e30944 100644
 + *   alpha_B =  2 * alpha_A
 + *   alpha_K = -5 * alpha_A^2
 + *   alpha_T =  0
++ *
++ * Canonical derivation: the Weyl transform g_tilde = A^2 g of the
++ * canonical Einstein-frame scalar yields the Jordan-frame action
++ * F R~/2 + W X~ - U with F = M_Pl^2 A^-2 and
++ * W = A^-2 (1 - 6 M_Pl^2 A_,phi^2/A^2) = A^-2 (1 - 6 beta_A^2).
++ * The standard Horndeski map (as for the built-in brans_dicke
++ * model: alpha_B = -alpha_M, alpha_K = 2X G2_X/(H^2 M_*^2)) gives
++ * alpha_M = -2 alpha_A, alpha_B = 2 alpha_A, alpha_T = 0,
++ * alpha_K = (1 - 6 beta_A^2)/beta_A^2 alpha_A^2 = -5 alpha_A^2.
++ * The negative explicit kineticity is the required Jordan-frame
++ * signature of a canonical Einstein-frame scalar at |beta_A|>1/sqrt(6);
++ * the ghost-free combination 2WF + 3F_,phi^2 = 2 M_Pl^2 A^-4 > 0.
 + *
 + * The physical no-ghost discriminant D = alpha_K + (3/2)*alpha_B^2
 + * evaluates to exactly +alpha_A^2, guaranteeing stability.
@@ -335,7 +347,7 @@ index 8001834..83d411b 100644
 -  double A_z = tep_gamma_factor(pba, z);
    double S_z = tep_f_transition(pba, z);
    double dS = 0.0;
-   if (z > 1e-10 && pba->z_T > 0.0 && z <= pba->z_T * 3.0) {
+   if (z > 1e-10 && pba->z_T > 0.0) {
      dS = -S_z * pba->n_T * pow(z / pba->z_T, pba->n_T - 1.0) / pba->z_T;
    }
 -  double alpha_A = -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);

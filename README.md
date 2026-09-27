@@ -6,8 +6,8 @@
 ![TEP-HC: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation](site/public/image.webp)
 
 **Author:** Matthew Lukin Smawfield  
-**Version:** v0.6 (Cambridge)  
-**First published:** 8 June 2026  
+**Version:** v0.7 (Cambridge)  
+**First published:** 8 June 2026 · **Last updated:** 13 September 2026
 **Website:** [https://mlsmawfield.com/tep/hc](https://mlsmawfield.com/tep/hc)  
 **DOI:** [10.5281/zenodo.20572722](https://doi.org/10.5281/zenodo.20572722)
 
@@ -40,13 +40,13 @@ Keywords: cosmology theory, cosmic microwave background, static conformal geomet
 |-------|-----------|-------|-----|
 | **Paper 0** | [TEP](https://github.com/matthewsmawfield/TEP) | Temporal Equivalence Principle: Dynamic Time & Emergent Light Speed | [10.5281/zenodo.16921911](https://doi.org/10.5281/zenodo.16921911) |
 | **Paper 11** | [TEP-H0](https://github.com/matthewsmawfield/TEP-H0) | The Cepheid Bias: Resolving the Hubble Tension | [10.5281/zenodo.18209702](https://doi.org/10.5281/zenodo.18209702) |
-| **Paper 15** | [TEP-EFA](https://github.com/matthewsmawfield/TEP-EFA) | Temporal Shear in the Earth Flyby Anomaly | [10.5281/zenodo.19454863](https://doi.org/10.5281/zenodo.19454863) |
+| **Paper 15** | [TEP-EFA](https://github.com/matthewsmawfield/TEP-EFA) | Temporal Shear in the Earth Flyby Anomaly | [10.5281/zenodo.19454862](https://doi.org/10.5281/zenodo.19454862) |
 | **Paper 17** | [TEP-LLR](https://github.com/matthewsmawfield/TEP-LLR) | Lunar Laser Ranging and the Nordtvedt Effect | [10.5281/zenodo.19446029](https://doi.org/10.5281/zenodo.19446029) |
 | **Paper 18** | **TEP-HC** (This repo) | Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation | [10.5281/zenodo.20572722](https://doi.org/10.5281/zenodo.20572722) |
 | **Paper 19** | [TEP-LENS](https://github.com/matthewsmawfield/TEP-LENS) | Geometric Route-Closure Test in Multiply-Imaged Supernovae | — |
 | **Paper 26** | [TEP-C0](https://github.com/matthewsmawfield/TEP-C0) | Covariant Alternative to Cosmic Expansion (Pantheon+ + full Planck) | [10.5281/zenodo.20370143](https://doi.org/10.5281/zenodo.20370143) |
 | **Paper 27** | [TEP-TH](https://github.com/matthewsmawfield/TEP-TH) | Temporal Horizon Cosmology and the Absence of a Physical Big Bang Singularity | [10.5281/zenodo.20723059](https://doi.org/10.5281/zenodo.20723059) |
-| **Paper 29** | [TEP-BBN](https://github.com/matthewsmawfield/TEP-BBN) | Dynamical Proper Time and the Illusion of Primordial Deuterium | [10.5281/zenodo.21841148](https://doi.org/10.5281/zenodo.21841148) |
+| **Paper 29** | [TEP-BBN](https://github.com/matthewsmawfield/TEP-BBN) | Dynamical Proper Time and the Illusion of Primordial Deuterium | [10.5281/zenodo.21841147](https://doi.org/10.5281/zenodo.21841147) |
 
 ## Repository Structure
 
@@ -100,7 +100,7 @@ python scripts/generate_figures.py
 
 # Build manuscript from HTML
 cd site && npm ci && npm run build:markdown
-# Output: 18-TEP-HC-v0.6-Cambridge.md
+# Output: 18-TEP-HC-v0.7-Cambridge.md
 
 # Build static site (figures copied from results/figures/)
 cd site && npm ci && npm run build
@@ -132,7 +132,7 @@ Figures are generated separately via `python scripts/generate_figures.py` and co
   title={Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation},
   author={Smawfield, Matthew Lukin},
   year={2026},
-  note={Preprint v0.6 (Cambridge)},
+  note={Preprint v0.7 (Cambridge)},
   url={https://mlsmawfield.com/tep/hc}
 }
 ```

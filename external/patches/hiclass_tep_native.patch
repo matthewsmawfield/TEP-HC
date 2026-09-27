@@ -1,6 +1,6 @@
 --- a/source/background.c
 +++ b/source/background.c
-@@ -115,6 +115,106 @@
+@@ -115,6 +115,102 @@
  #include "background.h"
  #include "hi_class.h"
  
@@ -40,11 +40,7 @@
 +  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
 +    return 0.0;
 +  }
-+  double z_effective = z;
-+  if (pba->z_T > 0.0 && z > pba->z_T * 3.0) {
-+    z_effective = pba->z_T * 3.0;
-+  }
-+  double ratio = z_effective / pba->z_T;
++  double ratio = z / pba->z_T;
 +  double exponent = pow(ratio, pba->n_T);
 +  return exp(-exponent);
 +}
@@ -75,7 +71,7 @@
 +  double A_z = tep_gamma_factor(pba, z);
 +  double S_z = tep_f_transition(pba, z);
 +  double dS = 0.0;
-+  if (z > 1e-10 && pba->z_T > 0.0 && z <= pba->z_T * 3.0) {
++  if (z > 1e-10 && pba->z_T > 0.0) {
 +    dS = -S_z * pba->n_T * pow(z / pba->z_T, pba->n_T - 1.0) / pba->z_T;
 +  }
 +  double alpha_A = -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);

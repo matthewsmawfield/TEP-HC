@@ -38,3 +38,5 @@ results/tep_model_*.dat
 results/lcdm_baseline*.ini
 results/lcdm_baseline*.dat
 .windsurf/
+
+manuscripts/

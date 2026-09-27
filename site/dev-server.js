@@ -12,7 +12,7 @@ class DevServer {
         this.isBuilding = false;
         this.buildQueue = false;
         this.server = null;
-        this.port = 51800; // Unique port for TEP-HC
+        this.port = 55518; // Unique port for TEP-HC (Paper 18)
     }
 
     killPort() {
