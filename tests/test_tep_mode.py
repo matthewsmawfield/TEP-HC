@@ -38,7 +38,7 @@ BASE_PARAMS = {
 }
 
 
-def run_classy(params):
+def run_classy(params, ell_max=100):
     """Run CLASS/hi_class with given parameters."""
     try:
         import classy
@@ -48,7 +48,8 @@ def run_classy(params):
     cosmo = classy.Class()
     cosmo.set(params)
     cosmo.compute()
-    cls = cosmo.lensed_cl(100)
+    cls = cosmo.lensed_cl(ell_max)
+    cls["sigma8"] = cosmo.sigma8()
     cosmo.struct_cleanup()
     cosmo.empty()
     return cls
@@ -162,6 +163,42 @@ class TestTepModeLambdaCDM:
                 assert cls["tt"] is not None
             except Exception as e:
                 pytest.fail(f"tep_mode crashed with z_T={z_T}: {e}")
+
+
+class TestCdmLensingScope:
+    """
+    Fixed-posterior-point CDM-free lensing scope diagnostic (step 21).
+
+    At the published active posterior, removing the standard CDM fluid must
+    collapse C_l^{phiphi} in the CURRENT implementation (pure-conformal scalar
+    sector with rho_smg = 0 and alpha functions ~ epsilon_T). These assertions
+    guard the manuscript's claim-status wording: if a future closure makes the
+    scalar sector source a CDM-level lensing potential, these bounds will fail
+    and the manuscript claims must be revisited, not just the test.
+    """
+
+    POSTERIOR_PARAMS = dict(
+        BASE_PARAMS, l_max_scalars=500, non_linear="none",
+        H0=66.77, omega_b=0.02144, n_s=0.9956,
+        tau_reio=0.0497, tep_mode="yes", z_T=5.0,
+        n_T=2.0, epsilon_T=0.00547,
+    )
+
+    def _check_lensing_depends_on_cdm(self, extra_params):
+        params = dict(self.POSTERIOR_PARAMS, **extra_params)
+        with_cdm = run_classy(dict(params, omega_cdm=0.1155), 500)
+        without_cdm = run_classy(dict(params, omega_cdm=0.0), 500)
+        assert 0 < without_cdm["pp"][100] < 0.3 * with_cdm["pp"][100]
+        assert 0 < without_cdm["pp"][400] < 0.1 * with_cdm["pp"][400]
+        assert 0 < without_cdm["sigma8"] < 0.3 * with_cdm["sigma8"]
+
+    def test_background_only_lensing_depends_on_cdm_fluid(self):
+        self._check_lensing_depends_on_cdm({})
+
+    def test_active_perturbation_lensing_depends_on_cdm_fluid(self):
+        self._check_lensing_depends_on_cdm(
+            {"gravity_model": "tep", "M2_evolution": "yes"}
+        )
 
 
 class TestStability:

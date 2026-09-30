@@ -12,7 +12,7 @@
     
     <!-- Primary Meta Tags -->
     <meta name="title" content="Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation">
-    <meta name="description" content="Exact mapping of the TEP bi-metric framework into Bellini-Sawicki EFT, integrated in hi_class with Cobaya MCMC against Planck 2018. Demonstrates preserved CMB acoustic peaks with late-time proper-time dynamics. github.com/matthewsmawfield/TEP-HC.">
+    <meta name="description" content="Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a physical singularity.">
     <meta name="keywords" content="hi_class, Horndeski, EFT, CMB, modified gravity, scalar-tensor, static universe, conformal gravity, TEP, Cobaya, Planck 2018, Hubble tension, proper time, acoustic peaks, effective field theory">
     <meta name="author" content="Matthew Lukin Smawfield">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -49,7 +49,7 @@
     <meta name="dc.title" content="Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation">
     <meta name="dc.creator" content="Smawfield, Matthew Lukin">
     <meta name="dc.subject" content="Physics; Cosmology; EFT of Dark Energy; hi_class; Temporal Equivalence Principle; Hubble tension; proper time; modified gravity">
-    <meta name="dc.description" content="Exact mapping of the TEP bi-metric framework into Bellini-Sawicki EFT, integrated in hi_class with Cobaya MCMC against Planck 2018.">
+    <meta name="dc.description" content="Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a physical singularity. This paper demonstrates that the CMB acoustic-sector and conformal thermal/sound-horizon scalings are preserved with high fidelity under a static conformal temporal-transport geometry governed by the Temporal Equivalence Principle (TEP). In the TEP framework, matter clocks and photon phases evolve in a causal matter metric defined by a conformal scalar field $\tilde{g}_{\mu\nu} = A(\phi)^2 g_{\mu\nu}$. Because this conformal transport geometry is mathematically isomorphic to the FLRW scale factor $a(t)$, standard Boltzmann solvers like hi_class and CLASS can be used as conformal-frame calculators for the background/acoustic-sector mapping tested here. The parameter traditionally identified as Dark Energy ($\Omega_\Lambda$) is operationally reinterpreted within this implementation as the homogeneous temporal-shear background contribution filling the same background budget slot, $\Omega_\phi$. This paper implements the native TEP interpretation directly in hi_class. Within the broader TEP interpretation, by recognizing that the spatial metric does not stretch, the &quot;Big Bang&quot; is reinterpreted not as a physical density singularity, but as a TEP temporal horizon—an asymptotic boundary where the observational clock map $A_{\rm clock} \to 0$. Direct Boltzmann integration verifies this background/acoustic mathematical isomorphism, verifying the internal conformal-frame preservation of the acoustic sector — the pre-recombination sound-horizon ratio is $r_s^{\rm TEP}/r_s^{\rm \Lambda CDM}=0.999994$ (a $\simeq 6\times10^{-6}$ deviation; this validates the $hi_class$ conformal-frame implementation, not the TEP hypothesis itself) The acoustic indistinguishability is nonetheless the necessary consistency requirement a conformal-frame alternative must satisfy: a framework that failed it would be excluded, and the demonstration that early-universe background physics cannot distinguish a stretching spatial metric from an evolving conformal clock-rate field shifts the discriminating burden to the perturbation and late-time sectors where the models do differ. Beyond the background mapping, the paper closes the linear pure-conformal scalar perturbation sector through the luminal EFT closure $\alpha_M=-2\alpha_A$, $\alpha_B=2\alpha_A$, $\alpha_K=-5\alpha_A^2$, and $\alpha_T=0$ — shown in Appendix A.5a to be the exact Jordan-frame Bellini–Sawicki image of the canonical conformal scalar at $\beta_A = -1$, not a selected Horndeski branch — for which the physical no-ghost discriminant satisfies $D=\alpha_K+\frac{3}{2}\alpha_B^2=\alpha_A^2 \ge 0$. An active-perturbation hi_class run evolving $\delta\phi$ through the full Einstein–Boltzmann hierarchy produces posteriors statistically indistinguishable from the background-only chain, demonstrating that the implemented linear pure-conformal scalar perturbation sector is numerically stable within the linear EFT closure and observationally negligible at the current homogeneous-amplitude bound. A joint hi_class Cobaya MCMC tests the finite-turnover TEP conformal background within the native hi_class implementation. The primary inference uses Planck 2018 low-$\ell$ TT/EE + lensing + BAO + Pantheon+: the native tep_mode high-$\ell$ TTTEEE likelihood is pending because of an unresolved numerical incompatibility between the tep_mode spectra and the Planck clipy high-$\ell$ interface (a CAMB effective-$w(a)$ workaround yields finite spectra and $\Delta\chi^2 = -160$ at matched baseline parameters, but this is an effective-background validation, not a model-comparison statistic, and is excluded from the primary inference). Within this low-$\ell$ configuration the TEP homogeneous amplitude is not detected: $\epsilon_T = 0.00547 \pm 0.00429$, consistent with zero at $\sim 1.3\sigma$ — a null result that bounds rather than confirms the conformal modification. Companion TEP-C0 (Paper 26) reports Pantheon+ nested-sampling evidence for the physical no-$\Lambda$ temporal-shear branch: Bayes factor approximately 4.2 for the conservative $z_{\rm los}=5$ branch (substantial, not decisive), approximately 35.8 for the fixed $z_{\rm los}=100$ benchmark, and approximately 33.1 for the broad free-$z_{\rm los}$ branch. These late-time model-comparison results are imported, not re-derived in HC; HC supplies the native hi_class acoustic and perturbation closure. Within the broader TEP corpus, Paper 11 interprets the Hubble tension as a late-time, environment-dependent clock-transport effect caused by the environmental screening of the scalar field, rather than through a crisis in early-universe physics; that interpretation is likewise imported — HC does not independently re-analyse the distance-ladder data, and the Paper 11 response coefficient $\kappa_{\rm Cep}$ is a fitted amplitude whose derivation from the action remains open. The Planck lensing likelihood in this implementation retains a standard pressureless CDM component ($\Omega_{\rm cdm}h^2=0.1155\pm0.0042$ in the active posterior). The perturbation and acoustic tests therefore do not demonstrate a CDM-free CMB lensing solution; producing its absolute potential from the TEP scalar, baryons and the gravitational metric remains a separate test. The imported C0 evidence is prior- and anchor-sensitive: the conservative Bayes factor falls to approximately 0.8 after removing $z &lt; 0.023$ anchors. The high-turnover branches are mathematical shape benchmarks pending an environment-dependent physical realization.">
     <meta name="dc.publisher" content="Independent Research">
     <meta name="dc.date" content="2026-06-08">
     <meta name="dc.language" content="en">
@@ -115,7 +115,7 @@
       "@type": "ScholarlyArticle",
       "headline": "Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation",
       "name": "Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation",
-      "description": "Exact mapping of the TEP bi-metric framework into Bellini-Sawicki EFT, integrated in hi_class with Cobaya MCMC against Planck 2018. Demonstrates preserved CMB acoustic peaks with late-time proper-time dynamics. github.com/matthewsmawfield/TEP-HC.",
+      "description": "Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a physical singularity.",
       "author": {
         "@type": "Person",
         "name": "Matthew Lukin Smawfield",
@@ -128,7 +128,7 @@
         "sameAs": "https://orcid.org/0009-0003-8219-3159"
       },
       "datePublished": "2026-06-08",
-      "dateModified": "2026-09-13",
+      "dateModified": "2026-09-30",
       "identifier": {
         "@type": "PropertyValue",
         "propertyID": "DOI",
@@ -161,7 +161,7 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://mlsmawfield.com/tep/hc/">
     <meta property="og:title" content="Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation">
-    <meta property="og:description" content="Exact mapping of the TEP bi-metric framework into Bellini-Sawicki EFT, integrated in hi_class with Cobaya MCMC against Planck 2018. Demonstrates preserved CMB acoustic peaks with late-time proper-time dynamics. github.com/matthewsmawfield/TEP-HC.">
+    <meta property="og:description" content="Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a physical singularity.">
     <meta property="og:image" content="https://mlsmawfield.com/tep/hc/public/image.webp">
     <meta property="og:image:alt" content="TEP-HC: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation">
     <meta property="og:image:width" content="1792">
@@ -169,8 +169,8 @@
     <meta property="og:site_name" content="TEP-HC">
     <meta property="article:author" content="Matthew Lukin Smawfield">
     <meta property="article:published_time" content="2026-06-08T00:00:00Z">
-    <meta property="article:modified_time" content="2026-08-07T00:00:00Z">
-    <meta property="og:updated_time" content="2026-08-07T00:00:00Z">
+    <meta property="article:modified_time" content="2026-09-30T00:00:00Z">
+    <meta property="og:updated_time" content="2026-09-30T00:00:00Z">
     <meta property="article:section" content="Physics">
     <meta property="article:tag" content="Cosmology">
     <meta property="article:tag" content="Temporal Equivalence Principle">
@@ -183,7 +183,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://mlsmawfield.com/tep/hc/">
     <meta name="twitter:title" content="Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation">
-    <meta name="twitter:description" content="Maps the Temporal Equivalence Principle bi-metric framework into the Bellini-Sawicki EFT of Dark Energy and integrates with hi_class to prove CMB acoustic peak preservation.">
+    <meta name="twitter:description" content="Standard cosmology explains the Cosmic Microwave Background (CMB) acoustic peaks, the pre-recombination sound horizon, and the thermal scaling relevant to Big Bang Nucleosynthesis (BBN) within an FLRW expansion history conventionally extrapolated toward a physical singularity.">
     <meta name="twitter:image" content="https://mlsmawfield.com/tep/hc/public/image.webp">
     <meta name="twitter:image:alt" content="TEP-HC: hi_class CMB Acoustic Peak Constraints">
     <meta name="twitter:creator" content="@matthewsmawfield">
@@ -923,8 +923,8 @@
         <h1 class="title">Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation</h1>
         <div class="author">Matthew Lukin Smawfield</div>
         <div class="version">Version: v0.7 (Cambridge)</div>
-        <div class="date">First published: 8 June 2026 · Last updated: 13 September 2026</div>
-        <div class="doi">DOI: <a href="https://doi.org/10.5281/zenodo.20572722" target="_blank">10.5281/zenodo.20572722</a><a class="pdf-link no-print" href="public/docs/18-TEP-HC-v0.7-Cambridge.pdf" aria-label="Download PDF (v0.6)" title="Download PDF (v0.6)">
+        <div class="date">First published: 8 June 2026 · Last updated: 30 September 2026</div>
+        <div class="doi">DOI: <a href="https://doi.org/10.5281/zenodo.20572722" target="_blank">10.5281/zenodo.20572722</a><a class="pdf-link no-print" href="public/docs/18-TEP-HC-v0.7-Cambridge.pdf" aria-label="Download PDF (v0.7)" title="Download PDF (v0.7)">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
                 <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
             </svg>

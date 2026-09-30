@@ -7,3 +7,5 @@ v0.7 (Cambridge) — 2026-09-13 — CMB acoustic preservation without a hot Big 
 - Dark Energy (Ω_Λ) reinterpreted as homogeneous temporal-shear background (Ω_φ)
 - TEP terminology aligned across corpus: matter-frame, temporal horizon, Temporal Shear
 - Cross-paper consistency: aligned with TEP-TH (Paper 27), TEP-C0 (Paper 26), TEP (Paper 0) v0.10
+- Added CDM-free lensing scope diagnostic (step 21): removing the CDM fluid collapses the lensing potential, stated as an open scope
+- Updated imported C0 Pantheon+ Bayes factors (≈4.2/35.8/33.1) with prior- and anchor-sensitivity noted

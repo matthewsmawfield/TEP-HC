@@ -74,17 +74,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr><td>TEP, $z_{\rm los}=5$</td><td>$\sim 4.6$</td></tr>
-        <tr><td>TEP, $z_{\rm los}=100$</td><td>$\sim 61.8$</td></tr>
-        <tr><td>TEP, free $z_{\rm los}$</td><td>$\sim 40.3$</td></tr>
+        <tr><td>TEP, $z_{\rm los}=5$</td><td>$\sim 4.2$</td></tr>
+        <tr><td>TEP, $z_{\rm los}=100$</td><td>$\sim 35.8$</td></tr>
+        <tr><td>TEP, free $z_{\rm los}$</td><td>$\sim 33.1$</td></tr>
         <tr><td>$w$CDM</td><td>$\sim 29.7$</td></tr>
         <tr><td>CPL</td><td>$\sim 53.3$</td></tr>
         <tr><td>Einstein–de Sitter</td><td>$\sim 6.2\times10^{-126}$</td></tr>
     </tbody>
 </table>
 
-<p>The TEP M1 branch improves the Pantheon+ likelihood relative to baseline $\Lambda$CDM with BF approximately 4.6 (conservative $z_{\rm los}=5$), approximately 61.8 (fixed $z_{\rm los}=100$ benchmark), and approximately 40.3 (broad free-$z_{\rm los}$) (TEP-C0, Paper 26). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the <code>hi_class</code> acoustic-preservation implementation. The model-comparison result is consistent with the TEP claim that the Etherington distance-duality relation is a mathematically native feature of the static conformal field. TEP shows that the supernova distance-redshift relation can be fit without treating late-time acceleration as primitive spatial acceleration.</p>
-
+<p>The TEP M1 branch improves the Pantheon+ likelihood relative to baseline $\Lambda$CDM with BF approximately 4.2 (conservative $z_{\rm los}=5$), approximately 35.8 (fixed $z_{\rm los}=100$ benchmark), and approximately 33.1 (broad free-$z_{\rm los}$) (TEP-C0, Paper 26). Those model-comparison results are not re-derived here; they are used as the late-time empirical context for the <code>hi_class</code> acoustic-preservation implementation. The model-comparison result is consistent with the TEP claim that the Etherington distance-duality relation is a mathematically native feature of the static conformal field. TEP shows that the supernova distance-redshift relation can be fit without treating late-time acceleration as primitive spatial acceleration.</p>
+<p>The prior- and anchor-sensitivity of the imported C0 evidence noted in Section 4.5 (conservative Bayes factor $\approx 0.8$ after removing $z &lt; 0.023$ anchors) applies equally here.</p>
 <p><em>$z_{\rm los}$ distinction.</em> The $z_{\rm los} = 5$ profile is the conservative line-of-sight turnover used in the C0 supernova-sector transport benchmark. It should not be confused with the homogeneous acoustic-sector profile scale $z_T^{\rm HC} = 5$ used in the hi_class conformal implementation, which is a related but distinct projection of the temporal sector. The C0 free-$z_{\rm los}$ robustness test uses $z_{\rm los} \in [0.1, 150]$.</p>
 <p><em>Amplitude dictionary.</em> $\epsilon_T^{\rm los}$ denotes the late-time line-of-sight transport amplitude fitted in TEP-C0. $\epsilon_T^{\rm CMB}$ denotes the C0 background/acoustic diagnostic amplitude. $\epsilon_T^{\rm HC}$ denotes the native <code>hi_class</code> homogeneous conformal amplitude reported here ($0.00547 \pm 0.00429$ from the 5-chain active posterior; the background-only chain yields $0.00602 \pm 0.00493$ as a solver-comparison diagnostic). $\epsilon_{\rm dyn}$ denotes the dynamical response in TEP-TH. $\epsilon_{\rm field}=0.01755$ denotes the primordial spectral-flow parameter constrained by $n_s$ in TEP-TH. These are related projections of the same temporal sector, but they are not numerically interchangeable.</p>
 
@@ -94,7 +94,7 @@
 
 <h3>5.3 Structure Growth and the Matter Power Spectrum</h3>
 
-<p>The full hi_class Boltzmann closure with active SMG perturbations yields a linear growth amplitude in agreement with Planck and weak-lensing measurements:</p>
+<p>The full hi_class Boltzmann closure with active SMG perturbations yields a linear growth amplitude in agreement with Planck. The weak-lensing comparison must be stated exactly: the joint MCMC gives $S_8 = \sigma_8\sqrt{\Omega_m/0.3} = 0.868 \pm 0.025$, which sits $\sim 3$–$4\sigma$ above the KiDS-1000 and DES-Y3 central values ($\sim 0.76$–$0.78$) when interpreted as a $z=0$-extrapolated parameter. A like-for-like Limber projection through a DES-Y3-like combined-source shear kernel ($n(z_s) \propto z_s^2 e^{-(z_s/0.5)^{1.5}}$, effective lens redshift $z_{\rm eff} \approx 0.457$, Step 22, <code>results/step_22_des_kernel_projection.json</code>) evaluates the linear growth comparison directly on the registered matter-power outputs: at the shared cosmology ($\Omega_m = 0.314$), the kernel-weighted linear amplitude is $S_8^{\rm eff} = 0.6495$ for active-perturbation TEP versus $0.6496$ for $\Lambda$CDM (relative difference $< 0.02\%$). In the linear optical lensing sector, TEP therefore reproduces the $\Lambda$CDM growth history indistinguishably; the apparent $S_8$ tension reflects the standard cosmological tension between $z=0$ CMB-extrapolated amplitudes and low-$z$ cosmic-shear inferences rather than a TEP-specific divergence. The result is registered as a falsifiable diagnostic for Stage-IV weak-lensing surveys rather than as agreement:</p>
 
 <ul>
     <li><em>Linear growth amplitude:</em> $\sigma_8 = 0.825 \pm 0.016$ at the fiducial TEP parameters ($\epsilon_T = 0.0066$, $z_T = 5$, $n_T = 2$), compared to $\sigma_8 = 0.823$ for standard $\Lambda$CDM at the same cosmology. The TEP value is a native output of the full SMG EFT solver with the derived Bellini–Sawicki mappings; no phenomenological suppression factor is applied.</li>

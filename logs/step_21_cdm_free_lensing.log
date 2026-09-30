@@ -1,0 +1,14 @@
+2026-09-30 17:26:15 [INFO] ============================================================
+2026-09-30 17:26:15 [INFO] Step 21: CDM-Free Lensing Potential Diagnostic
+2026-09-30 17:26:15 [INFO] ============================================================
+2026-09-30 17:26:15 [PROCESS] background_only / omega_cdm = 0.1155
+2026-09-30 17:26:15 [INFO]     pp[100] = 5.948277e-15  pp[400] = 5.942737e-18  sigma8 = 0.8183
+2026-09-30 17:26:15 [PROCESS] background_only / omega_cdm = 0.0
+2026-09-30 17:26:16 [INFO]     pp[100] = 5.207332e-16  pp[400] = 5.486161e-20  sigma8 = 0.0750
+2026-09-30 17:26:16 [INFO]     no-CDM/CDM ratios: pp[100]=0.0875  pp[400]=0.00923  sigma8=0.0917
+2026-09-30 17:26:16 [PROCESS] active_perturbation / omega_cdm = 0.1155
+2026-09-30 17:26:16 [INFO]     pp[100] = 5.948277e-15  pp[400] = 5.942737e-18  sigma8 = 0.8183
+2026-09-30 17:26:16 [PROCESS] active_perturbation / omega_cdm = 0.0
+2026-09-30 17:26:16 [INFO]     pp[100] = 5.207332e-16  pp[400] = 5.486161e-20  sigma8 = 0.0750
+2026-09-30 17:26:16 [INFO]     no-CDM/CDM ratios: pp[100]=0.0875  pp[400]=0.00923  sigma8=0.0917
+2026-09-30 17:26:16 [SUCCESS] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_21_cdm_free_lensing.json

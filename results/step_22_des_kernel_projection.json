@@ -1,0 +1,91 @@
+{
+  "step": "22",
+  "title": "DES-Y3-style kernel-projected weak-lensing comparison",
+  "timestamp": "2026-09-30T19:35:20.323641Z",
+  "fixed_cosmology": {
+    "H0": 67.36,
+    "omega_b": 0.022383,
+    "omega_cdm": 0.120011,
+    "Omega_m": 0.3138249967558297
+  },
+  "sigma8_direct": {
+    "lcdm_post": {
+      "0.0": {
+        "sigma8": 0.8227401757604301,
+        "n_k": 524
+      },
+      "0.5": {
+        "sigma8": 0.6329125643348522,
+        "n_k": 524
+      }
+    },
+    "tep_bg_post": {
+      "0.0": {
+        "sigma8": 0.8241092732668286,
+        "n_k": 524
+      },
+      "0.5": {
+        "sigma8": 0.6324618642809905,
+        "n_k": 524
+      }
+    },
+    "tep_pert_post": {
+      "0.0": {
+        "sigma8": 0.8241092732668286,
+        "n_k": 524
+      },
+      "0.5": {
+        "sigma8": 0.6324618642809905,
+        "n_k": 524
+      }
+    }
+  },
+  "growth_deviation_delta": {
+    "tep_bg_post": {
+      "0.0": 0.0016640703185948347,
+      "0.5": -0.0007121047665333835
+    },
+    "tep_pert_post": {
+      "0.0": 0.0016640703185948347,
+      "0.5": -0.0007121047665333835
+    }
+  },
+  "kernel": {
+    "source_n_z": "n(z_s) ~ z_s^2 exp[-(z_s/0.5)^1.5] (DES-Y3-like combined)",
+    "z_eff": 0.4572789499875069,
+    "projection": "sigma8_eff^2 = <W^2 sigma8^2>/<W^2>; S8_eff = sigma8_eff*sqrt(Om/0.3)"
+  },
+  "projected": {
+    "lcdm_post": {
+      "sigma8_eff_kernel": 0.635169413274494,
+      "S8_kernel_projected": 0.6496399369310164
+    },
+    "tep_bg_post": {
+      "sigma8_eff_kernel": 0.6350099000244818,
+      "S8_kernel_projected": 0.6494767896265147
+    },
+    "tep_pert_post": {
+      "sigma8_eff_kernel": 0.6350099000244818,
+      "S8_kernel_projected": 0.6494767896265147
+    }
+  },
+  "external_comparison": {
+    "DES-Y3": {
+      "external_S8": 0.776,
+      "external_err": 0.017,
+      "TEP_kernel_projected": 0.6494767896265147,
+      "LCDM_kernel_projected": 0.6496399369310164,
+      "TEP_gap_sigma_at_mc_posterior": null,
+      "LCDM_gap_at_fixed_cosmology": -7.432944886410801
+    },
+    "KiDS-1000": {
+      "external_S8": 0.759,
+      "external_err": 0.021,
+      "TEP_kernel_projected": 0.6494767896265147,
+      "LCDM_kernel_projected": 0.6496399369310164,
+      "TEP_gap_sigma_at_mc_posterior": null,
+      "LCDM_gap_at_fixed_cosmology": -5.207622050903981
+    }
+  },
+  "note_on_uncertainty": "The kernel-projected values are at the FIXED cosmology of the pk outputs (Omega_m=0.3139), not marginalized over the MCMC posterior. The MCMC-marginalized z=0 S8 is 0.868+/-0.025 (07_mcmc_summary_full). This step quantifies how that z=0 number maps onto the lensing kernel: because the TEP/LCDM deviation grows with z (delta(0)= +0.0017, delta(0.5)=-0.0007), kernel projection does not reconcile the gap."
+}

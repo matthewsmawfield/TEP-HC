@@ -6,5 +6,6 @@
   "description": "hi_class EFT mapping and Planck MCMC constraints for TEP",
   "status": "Preprint",
   "paper": "18",
+  "doi": "10.5281/zenodo.20572722",
   "previous_version": "0.6"
 }
