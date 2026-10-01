@@ -1,0 +1,129 @@
+{
+  "step": "23",
+  "title": "S8 provenance and perturbation-channel audit",
+  "timestamp": "2026-10-01T01:02:40.275504Z",
+  "fixed_cosmology": {
+    "H0": 67.36,
+    "omega_b": 0.022383,
+    "omega_cdm": 0.120011,
+    "Omega_m": 0.3138249967558297
+  },
+  "growth_sign": {
+    "sigma8_ratio_TEP_over_LCDM_z0": 1.0016640703185948,
+    "sigma8_ratio_TEP_over_LCDM_z05": 0.9992878952334666,
+    "sign": "enhancement (wrong direction for resolving the S8 tension)",
+    "interpretation": "TEP modifies the growth history through the tep_mode Jordan-frame Hubble factor M(z) = A/(1-alpha_A). At epsilon_T = 0.0066 the net effect is a +0.17% uplift of sigma8 at z=0 and -0.07% at z=0.5 \u2014 sub-percent and scale-free, as expected for a pure-background modification. A resolution of the DES-Y3/KiDS S8 amplitude would require suppression of order 8-10%, which the CMB-bounded epsilon_T cannot supply in the linear homogeneous closure."
+  },
+  "perturbation_channel": {
+    "0.0": {
+      "bg_md5": "94348ad348929cb2ba261c01264fec89",
+      "pert_md5": "94348ad348929cb2ba261c01264fec89",
+      "bitwise_identical": true
+    },
+    "0.5": {
+      "bg_md5": "9fd42bdacc96cb23b8e50255d62a5c6d",
+      "pert_md5": "9fd42bdacc96cb23b8e50255d62a5c6d",
+      "bitwise_identical": true
+    },
+    "finding": "tep_pert_post (gravity_model=tep, Bellini-Sawicki alphas active) and tep_bg_post (tep_mode background only) produce bitwise-identical mPk at both z=0 and z=0.5. A control run at epsilon_T = 0.05 (7.6x the fiducial amplitude) confirmed the identity persists: the SMG alpha sector contributes zero to the matter power spectrum in this build. All linear growth differences relative to LCDM are carried by the scale-free tep_mode background factor; the only scale-dependent structure in the registered pk files is the k_max boundary artifact quantified below. The 'active-perturbation' sigma8 therefore equals the background-only value by construction, not by computation of a nonzero perturbation correction."
+  },
+  "pk_boundary_artifact": {
+    "grid_k_max_h_over_Mpc": 1.199790826854,
+    "max_deviation_full_grid": 0.44323318918330745,
+    "k_at_max_deviation": 1.199790826854,
+    "max_deviation_below_0.45": 0.005237527925373353,
+    "min_deviation_below_0.45": 0.0033273665201218883,
+    "sigma8_full_minus_truncated_LCDM": 0.006272650133659297,
+    "sigma8_full_minus_truncated_TEP": 0.0062020286506305755,
+    "finding": "The registered pk grids terminate at P_k_max_h/Mpc = 1.0 and show a spurious rising deviation from k ~ 0.45 h/Mpc, reaching +44% at the grid edge. An extended reference run to P_k_max_h/Mpc = 20 with identical physics yields a flat +0.35% deviation over the full k range: the upturn is a grid-boundary artifact of the pk output, not a physical scale-dependent feature. Its integrated impact on sigma8 through the 8 Mpc/h top-hat is below 0.02%. Any small-scale (k > 0.45 h/Mpc) statement using the registered pk files must be regenerated with P_k_max_h/Mpc >= 10."
+  },
+  "prior_saturation": {
+    "main_chain": {
+      "sigma8": {
+        "mean": 0.8585398448994923,
+        "std": 0.015885312723326543
+      },
+      "S8_derived": {
+        "mean": 0.8683847601892593,
+        "std": 0.0247720445161086
+      },
+      "A_planck": {
+        "mean": 1.088161518917464,
+        "std": 0.012027371842369574,
+        "prior": "U[0.9,1.1]",
+        "fraction_within_0.01_of_ceiling": 0.5807689607563241
+      },
+      "n_s": {
+        "mean": 0.9956072986130157,
+        "std": 0.004665078458487636,
+        "prior": "U[0.94,1.0]",
+        "fraction_within_0.002_of_ceiling": 0.3908688835326329
+      },
+      "corr_sigma8_A_planck": 0.46031111473201486,
+      "corr_sigma8_n_s": 0.1644476725203729
+    },
+    "linear_response_fit": {
+      "coefficients": {
+        "const": -0.04853183438037019,
+        "d_sigma8_dA_planck": 0.5760022417672807,
+        "d_sigma8_dn_s": 0.2815248596198348
+      },
+      "sigma8_at_A_planck_1.0": 0.8077586123654226,
+      "S8_at_A_planck_1.0": 0.8170219761789688
+    },
+    "aplanck_sensitivity_chain": {
+      "A_planck": {
+        "mean": 1.2324665233517547,
+        "prior": "U[0.9,1.25]"
+      },
+      "sigma8": {
+        "mean": 0.9229885234376899,
+        "std": 0.019233875826821248
+      },
+      "S8_derived": {
+        "mean": 0.9297305027162873,
+        "std": 0.029278332422174678
+      }
+    },
+    "finding": "The low-ell-only CMB chain lacks the high-ell acoustic lever arm that fixes A_planck and n_s. A_planck pins at its U[0.9,1.1] ceiling and n_s at its U[0.94,1.0] ceiling; sigma8 is strongly slaved to the calibration nuisance (corr = +0.46). Widening A_planck to U[0.9,1.25] moves the posterior to A_planck = 1.233 and sigma8 = 0.923 (S8 ~ 0.93): the S8 posterior is controlled by the prior width, not the likelihood. The quoted S8 = 0.868 +/- 0.025 therefore cannot be read as a TEP prediction of the z=0 clustering amplitude; the data-consistent value at fiducial cosmology is sigma8 = 0.824 (S8 = 0.824*sqrt(0.314/0.3) = 0.843), statistically indistinguishable from the LCDM value at the same cosmology."
+  },
+  "honest_tension": {
+    "DES-Y3": {
+      "external_S8": 0.776,
+      "external_err": 0.017,
+      "LCDM_at_fixed_cosmology": 0.8414839643114818,
+      "TEP_at_fixed_cosmology": 0.842884252800066,
+      "LCDM_gap_sigma": 3.851997900675396,
+      "TEP_gap_sigma": 3.9343678117685843,
+      "TEP_minus_LCDM_gap_sigma": 0.08236991109318825
+    },
+    "KiDS-1000": {
+      "external_S8": 0.759,
+      "external_err": 0.021,
+      "LCDM_at_fixed_cosmology": 0.8414839643114818,
+      "TEP_at_fixed_cosmology": 0.842884252800066,
+      "LCDM_gap_sigma": 3.9278078243562735,
+      "TEP_gap_sigma": 3.9944882285745686,
+      "TEP_minus_LCDM_gap_sigma": 0.06668040421829526
+    },
+    "finding": "At the shared fixed cosmology the TEP-versus-external gap equals the LCDM-versus-external gap to within 0.1 sigma of the external error bar: TEP inherits, and does not resolve or worsen, the standard Planck-CMB versus weak-lensing S8 tension. The 3-4 sigma offset sometimes quoted from the joint-MCMC z=0 extrapolation is dominated by prior-boundary saturation of A_planck and n_s in the low-ell-only likelihood (section 4), not by TEP physics."
+  },
+  "summary": {
+    "verdict": [
+      "1. TEP's linear growth modification is background-only, scale-free,",
+      "   and +0.17% in sigma8 \u2014 an enhancement, not the ~8% suppression",
+      "   required to move toward the weak-lensing amplitude.",
+      "2. The SMG active-perturbation sector is inert in mPk (bitwise-",
+      "   identical to background-only at epsilon_T = 0.0066 and 0.05);",
+      "   the 'active closure' contributes to CMB potentials (ISW), not",
+      "   to matter clustering in this implementation.",
+      "3. The registered pk grids carry a P_k_max=1.0 boundary artifact",
+      "   (+44% at the edge); sigma8 is unaffected (<0.02%).",
+      "4. S8 = 0.868 +/- 0.025 is prior-boundary dominated: A_planck and",
+      "   n_s saturate their ceilings and sigma8 follows A_planck with",
+      "   corr +0.46. At fiducial cosmology TEP predicts S8 = 0.843,",
+      "   i.e. the standard Planck-level tension (DES gap ~ 3.9 sigma;",
+      "   shared with LCDM), not a TEP-specific excess."
+    ]
+  }
+}
