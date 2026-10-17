@@ -1,14 +1,18 @@
-2026-09-30 17:26:15 [INFO] ============================================================
-2026-09-30 17:26:15 [INFO] Step 21: CDM-Free Lensing Potential Diagnostic
-2026-09-30 17:26:15 [INFO] ============================================================
-2026-09-30 17:26:15 [PROCESS] background_only / omega_cdm = 0.1155
-2026-09-30 17:26:15 [INFO]     pp[100] = 5.948277e-15  pp[400] = 5.942737e-18  sigma8 = 0.8183
-2026-09-30 17:26:15 [PROCESS] background_only / omega_cdm = 0.0
-2026-09-30 17:26:16 [INFO]     pp[100] = 5.207332e-16  pp[400] = 5.486161e-20  sigma8 = 0.0750
-2026-09-30 17:26:16 [INFO]     no-CDM/CDM ratios: pp[100]=0.0875  pp[400]=0.00923  sigma8=0.0917
-2026-09-30 17:26:16 [PROCESS] active_perturbation / omega_cdm = 0.1155
-2026-09-30 17:26:16 [INFO]     pp[100] = 5.948277e-15  pp[400] = 5.942737e-18  sigma8 = 0.8183
-2026-09-30 17:26:16 [PROCESS] active_perturbation / omega_cdm = 0.0
-2026-09-30 17:26:16 [INFO]     pp[100] = 5.207332e-16  pp[400] = 5.486161e-20  sigma8 = 0.0750
-2026-09-30 17:26:16 [INFO]     no-CDM/CDM ratios: pp[100]=0.0875  pp[400]=0.00923  sigma8=0.0917
-2026-09-30 17:26:16 [SUCCESS] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_21_cdm_free_lensing.json
+2026-10-17 20:27:46 [INFO] ============================================================
+2026-10-17 20:27:46 [INFO] Step 21: CDM-Free Lensing Spectrum & Planck 2018 Likelihood Fit
+2026-10-17 20:27:46 [INFO] ============================================================
+2026-10-17 20:27:46 [PROCESS] background_only / omega_cdm = 0.1155
+2026-10-17 20:27:46 [INFO]     pp[100] = 5.950308e-15  pp[400] = 5.942076e-18  sigma8 = 0.8183
+2026-10-17 20:27:46 [PROCESS] background_only / omega_cdm = 0.0
+2026-10-17 20:27:46 [INFO]     pp[100] = 5.207332e-16  pp[400] = 5.486157e-20  sigma8 = 0.0750
+2026-10-17 20:27:46 [INFO]     no-CDM/CDM ratios: pp[100]=0.0875  pp[400]=0.00923  sigma8=0.0917
+2026-10-17 20:27:46 [PROCESS] active_perturbation / omega_cdm = 0.1155
+2026-10-17 20:27:47 [INFO]     pp[100] = 6.081927e-15  pp[400] = 6.095000e-18  sigma8 = 0.8207
+2026-10-17 20:27:47 [PROCESS] active_perturbation / omega_cdm = 0.0
+2026-10-17 20:27:47 [INFO]     pp[100] = 5.305595e-16  pp[400] = 5.579330e-20  sigma8 = 0.0750
+2026-10-17 20:27:47 [INFO]     no-CDM/CDM ratios: pp[100]=0.0872  pp[400]=0.00915  sigma8=0.0914
+2026-10-17 20:27:47 [PROCESS] Running Part B: Full multipole C_ell^{phiphi} & Planck 2018 lensing likelihood fit...
+2026-10-17 20:27:51 [INFO] Planck 2018 lensing chi2 (9 bins): CDM=12.30, no-CDM bare=1265.73, no-CDM TEP (fixed Silk 2-param)=15.40, no-CDM TEP (full fit)=13.40 (Delta chi2 vs CDM = +1.11)
+2026-10-17 20:27:51 [PROCESS] Running Part C: Zero-parameter ambient time-field closure (theta_s, peaks, P(k), sigma_8, BAO)...
+2026-10-17 20:28:08 [INFO] Zero-param ambient clock-slope closure: omega_phi=0.11816 (vs MCMC 0.11813+/-0.00117, 0.02 sigma); at H0=67.951: 100*theta_s=1.04111 (+0.02 sigma), max peak err=0.40%, sigma8=0.8170, r_d=147.55 Mpc, BAO chi2/N=0.78 (6pt) / 0.76 (9pt BAO+RSD)
+2026-10-17 20:28:08 [SUCCESS] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_21_cdm_free_lensing.json

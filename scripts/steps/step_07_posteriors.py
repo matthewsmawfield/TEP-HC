@@ -23,6 +23,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.utils.logger import TEPLogger, set_step_logger, print_status
+from scripts.utils.chain_integrity import inspect_chain_prefix, require_completed_chains
 
 
 class Step07Posteriors:
@@ -42,8 +43,16 @@ class Step07Posteriors:
     
     def _load_chains(self, prefix: str, min_cols: int = 8):
         """Load and validate chain files for a given prefix, returning (combined, chains_list, col_map)."""
-        chain_files = sorted(self.chains_dir.glob(f"{prefix}*.txt"))
-        chain_files = [f for f in chain_files if f.suffix == '.txt' and f.stem.split('.')[-1].isdigit()]
+        directory = self.chains_dir / prefix
+        if not any(directory.glob(prefix + ".*.txt")):
+            directory = self.chains_dir
+        candidates = list(directory.glob(f"{prefix}*.txt"))
+        chain_files = sorted(
+            f for f in candidates
+            if f.suffix == '.txt'
+            and f.stem.rsplit('.', 1)[-1].isdigit()
+            and f.stem.rsplit('.', 1)[0] == prefix
+        )
         
         if not chain_files:
             print_status(f"  ! No chain files found for prefix: {prefix}", "WARNING")
@@ -85,7 +94,8 @@ class Step07Posteriors:
     
     def _read_cobaya_sampler_rminus1(self, prefix: str):
         """Read Cobaya's internal MCMC R-1 from the .progress file when present."""
-        progress = self.chains_dir / f"{prefix}.progress"
+        nested = self.chains_dir / prefix / f"{prefix}.progress"
+        progress = nested if nested.exists() else self.chains_dir / f"{prefix}.progress"
         if not progress.exists():
             return None
         try:
@@ -93,7 +103,7 @@ class Step07Posteriors:
             with open(progress) as f:
                 data = yaml.safe_load(f)
             if not isinstance(data, dict):
-                return None
+                data = {}
             for key in ("Rminus1", "R_minus_1", "R-1"):
                 if key in data and data[key] is not None:
                     return float(data[key])
@@ -103,6 +113,15 @@ class Step07Posteriors:
                 if key in mcmc and mcmc[key] is not None:
                     return float(mcmc[key])
         except Exception:
+            pass
+        # Cobaya production progress is a whitespace table, not YAML.
+        try:
+            lines=progress.read_text().splitlines()
+            header=next(line.lstrip('#').split() for line in lines if line.startswith('#'))
+            rows=[line.split() for line in lines if line.strip() and not line.startswith('#')]
+            value=float(rows[-1][header.index('Rminus1')])
+            if np.isfinite(value):return value
+        except (StopIteration,ValueError,IndexError):
             pass
         # Fallback: scan raw text for "R-1 = <float>" lines from Cobaya logs
         try:
@@ -116,18 +135,25 @@ class Step07Posteriors:
         return None
     
     def _gelman_rubin(self, chains, idx):
-        """Compute Gelman-Rubin R-1 for a given parameter index across chains."""
+        """Classic scalar R-hat minus one on the uncompressed iteration chains;
+        distinct from Cobaya's multivariate internal convergence metric."""
         m = len(chains)
         if m < 2:
             return None
-        # Use same length for all chains (minimum)
-        n = min(c.shape[0] for c in chains)
-        chain_means = []
-        chain_vars = []
-        for c in chains:
-            col = c[:n, idx]
-            chain_means.append(np.mean(col))
-            chain_vars.append(np.var(col, ddof=1) if n > 1 else 0.0)
+        # Cobaya rows have integer frequency weights: rejected states are
+        # compressed, so equal row counts are unequal iteration lengths.
+        weights=[np.asarray(c[:,0],dtype=float) for c in chains]
+        if any(not np.all(np.isfinite(w)) or np.any(w<=0) or not np.allclose(w,np.rint(w),rtol=0,atol=1e-8) for w in weights):
+            raise ValueError('Classic chain R-hat requires positive integer frequency weights')
+        n=int(min(np.sum(w) for w in weights))
+        if n<2:return None
+        chain_means=[];chain_vars=[]
+        for c,w in zip(chains,weights):
+            # Take exactly the same iteration prefix without expanding rows.
+            effective=np.clip(n-(np.cumsum(w)-w),0,w)
+            col=c[:,idx];mean=float(np.dot(effective,col)/n)
+            chain_means.append(mean)
+            chain_vars.append(float(np.dot(effective,(col-mean)**2)/(n-1)))
         chain_means = np.array(chain_means)
         chain_vars = np.array(chain_vars)
         overall_mean = np.mean(chain_means)
@@ -139,20 +165,40 @@ class Step07Posteriors:
         R_hat = np.sqrt(V_hat / W)
         return float(R_hat - 1.0)
     
-    def run(self) -> dict:
+    def run(self, allow_incomplete: bool = False) -> dict:
         """Execute rigorous posterior analysis on ALL chain files."""
         print_status(f"STEP {self.STEP_NAME}: {self.STEP_DESCRIPTION}", "TITLE")
         print_status("SCOPE: hi_class with native TEP background-only + active-perturbation.", "INFO")
-        print_status("Reference: TEP-C0 (Paper 26) native TEP + full Planck finds n_s = 0.9619 +- 0.0046.", "INFO")
+        print_status("Reference: C0 background/acoustic diagnostic epsilon_T = -0.0015 +- 0.0037; its amplitude is distinct from the HC inference parameter.", "INFO")
         
+        # Published summaries require coherent saved collections. Diagnostic
+        # callers may opt in to incomplete outputs and must label that scope.
+        integrity = {}
+        for prefix in ("tep_hiclass_suite", "tep_hiclass_perturbations",
+                       "tep_native_ttteee", "lcdm_ttteee", "tep_zscan_ttteee",
+                       "tep_hiclass_perturbations_ttteee"):
+            nested = self.chains_dir / prefix / prefix
+            base = nested if any(nested.parent.glob(prefix + ".*.txt")) else self.chains_dir / prefix
+            if prefix in ("tep_zscan_ttteee", "tep_hiclass_perturbations_ttteee") and not any(base.parent.glob(prefix + ".*.txt")):
+                continue
+            integrity[prefix] = (inspect_chain_prefix(base) if allow_incomplete
+                                 else require_completed_chains(base))
+
         results = {
+            "chain_integrity": integrity,
+            "diagnostic_only": allow_incomplete,
             "step": self.STEP_NAME,
             "timestamp": datetime.now().isoformat(),
             "status": "RUNNING",
+            "burn_in_scope": "First 30% of rows removed separately from each chain before weighted pooling",
+            "inference_scope": "Summary of the available chain files; execution success does not certify convergence or provenance of a separate reported production run",
+            "R_minus_1_scope": "Classic scalar R-hat on integer-frequency-expanded chains; not Cobaya multivariate internal Rminus1",
             "tep": {},
             "tep_perturbation": {},
+            "tep_ttteee": {},
+            "lcdm": {},
             "comparison": {},
-            "lcdm": {}
+            "ttteee_comparison": {}
         }
         
         try:
@@ -169,8 +215,13 @@ class Step07Posteriors:
                 print_status("  ! No perturbation chains found; proceeding with background-only.", "WARNING")
                 pert_combined = None
             
-            # LCDM comparison skipped
-            lcdm_available = False
+            # ---- High-l TTTEEE chains (headline full-likelihood runs) ----
+            ttteee_combined, ttteee_chains, ttteee_cols = self._load_chains("tep_native_ttteee")
+            if ttteee_combined is None:
+                print_status("  ! No native TEP TTTEEE chains found.", "WARNING")
+            lcdm_combined, lcdm_chains, lcdm_cols = self._load_chains("lcdm_ttteee")
+            if lcdm_combined is None:
+                print_status("  ! No LCDM TTTEEE chains found.", "WARNING")
             
             # Map parameter names to column indices dynamically from headers
             param_names = ["A_s", "n_s", "H0", "omega_b", "omega_cdm", "tau_reio", "A_planck", "epsilon_T", "sigma8"]
@@ -187,12 +238,16 @@ class Step07Posteriors:
                 w = data[:, 0]
                 w_sum = np.sum(w)
                 mean = np.sum(w * col) / w_sum
-                w2 = np.sum(w**2)
-                n_eff = w_sum**2 / w2 if w2 > 0 else len(col)
-                var = np.sum(w * (col - mean)**2) / (w_sum * (1 - 1/n_eff)) if n_eff > 1 else 0.0
+                # Frequency weights count repeated chain states, rather than
+                # importance weights. Match sample variance on expanded rows.
+                var = np.sum(w * (col - mean)**2) / (w_sum - 1) if w_sum > 1 else 0.0
                 s = np.argsort(col)
-                median = col[s][np.searchsorted(np.cumsum(w[s]), 0.5 * w_sum)]
+                cw = np.cumsum(w[s])
+                median = col[s][min(np.searchsorted(cw, 0.5 * w_sum), len(s) - 1)]
+                upper_95 = col[s][min(np.searchsorted(cw, 0.95 * w_sum), len(s) - 1)]
+                upper_975 = col[s][min(np.searchsorted(cw, 0.975 * w_sum), len(s) - 1)]
                 return {"mean": float(mean), "std": float(np.sqrt(var)), "median": float(median),
+                        "upper_95": float(upper_95), "upper_975": float(upper_975),
                         "min": float(np.min(col)), "max": float(np.max(col))}
             
             n_chains = len(tep_chains)
@@ -217,9 +272,8 @@ class Step07Posteriors:
                 level = "INFO" if max_r < 0.05 else "WARNING"
                 print_status(f"  Max R-1 across parameters: {max_r:.4f}", level)
             
-            # Apply 30% burn-in to combined data for posterior analysis
-            burn_in = int(0.3 * tep_combined.shape[0])
-            tep_post = tep_combined[burn_in:]
+            # Apply the already-computed 30% burn-in separately to every chain
+            tep_post = np.vstack(tep_chains)
             
             # Compute S8 column: S8 = sigma8 * sqrt( (omega_cdm + omega_b)/(H0/100)^2 / 0.3 )
             idx_sigma8 = _get_idx(tep_cols, "sigma8")
@@ -269,8 +323,7 @@ class Step07Posteriors:
             if pert_combined is not None:
                 print_status("Active-perturbation constraints:", "INFO")
                 
-                pert_burn = int(0.3 * pert_combined.shape[0])
-                pert_post = pert_combined[pert_burn:]
+                pert_post = np.vstack(pert_chains)
                 
                 # Compute S8 for perturbation chain
                 p_sigma8 = pert_post[:, _get_idx(pert_cols, "sigma8")]
@@ -336,31 +389,259 @@ class Step07Posteriors:
                 comp["max_disagreement_sigma"] = float(max_disagree)
                 print_status(f"  Maximum parameter disagreement: {max_disagree:.2f}σ", "INFO")
             
-            if lcdm_available:
-                print_status("LCDM constraints:", "INFO")
+            # ---- Native TEP high-l TTTEEE posterior ----
+            if ttteee_combined is not None:
+                print_status("Native TEP high-l TTTEEE constraints:", "INFO")
+                ttteee_post = np.vstack(ttteee_chains)
+
+                t_sigma8 = ttteee_post[:, _get_idx(ttteee_cols, "sigma8")]
+                t_ocdm = ttteee_post[:, _get_idx(ttteee_cols, "omega_cdm")]
+                t_ob = ttteee_post[:, _get_idx(ttteee_cols, "omega_b")]
+                t_h0 = ttteee_post[:, _get_idx(ttteee_cols, "H0")]
+                t_Om = (t_ocdm + t_ob) / (t_h0 / 100.0)**2
+                t_S8 = t_sigma8 * np.sqrt(t_Om / 0.3)
+                ttteee_post = np.column_stack((ttteee_post, t_S8))
+                ttteee_cols["S8"] = ttteee_post.shape[1] - 1
+
+                t_n_chains = len(ttteee_chains)
+                t_r_minus_1 = {}
+                t_max_r = None
+                if t_n_chains >= 2:
+                    for name in param_names:
+                        if name == "S8":
+                            continue
+                        r1 = self._gelman_rubin(ttteee_chains, _get_idx(ttteee_cols, name))
+                        t_r_minus_1[name] = r1
+                        if t_max_r is None or r1 > t_max_r:
+                            t_max_r = r1
+                    print_status(f"  Max R-1 across parameters: {t_max_r:.4f}", "INFO")
+
                 for name in param_names:
-                    idx = _get_idx(lcdm_cols, name)
-                    st = _stats(lcdm_data, idx)
+                    st = _stats(ttteee_post, _get_idx(ttteee_cols, name))
+                    st["R_minus_1"] = t_r_minus_1.get(name, None)
+                    results["tep_ttteee"][name] = st
+                    fmt = "{:.3e}" if abs(st["mean"]) < 0.001 else "{:.5f}"
+                    print_status(f"    {name}: " + fmt.format(st["mean"]) + f" ± {st['std']:.5f}", "INFO")
+
+                results["tep_ttteee"]["best_logpost"] = float(-np.min(ttteee_post[:, 1]))
+                results["tep_ttteee"]["n_samples"] = int(ttteee_post.shape[0])
+                results["tep_ttteee"]["n_chains"] = t_n_chains
+                results["tep_ttteee"]["max_R_minus_1"] = t_max_r
+                results["tep_ttteee"]["internal_sampler_R_minus_1"] = self._read_cobaya_sampler_rminus1("tep_native_ttteee")
+
+            # ---- LCDM high-l TTTEEE reference posterior ----
+            if lcdm_combined is not None:
+                print_status("LCDM high-l TTTEEE constraints:", "INFO")
+                lcdm_post = np.vstack(lcdm_chains)
+
+                l_sigma8 = lcdm_post[:, _get_idx(lcdm_cols, "sigma8")]
+                l_ocdm = lcdm_post[:, _get_idx(lcdm_cols, "omega_cdm")]
+                l_ob = lcdm_post[:, _get_idx(lcdm_cols, "omega_b")]
+                l_h0 = lcdm_post[:, _get_idx(lcdm_cols, "H0")]
+                l_Om = (l_ocdm + l_ob) / (l_h0 / 100.0)**2
+                l_S8 = l_sigma8 * np.sqrt(l_Om / 0.3)
+                lcdm_post = np.column_stack((lcdm_post, l_S8))
+                lcdm_cols["S8"] = lcdm_post.shape[1] - 1
+
+                l_n_chains = len(lcdm_chains)
+                l_r_minus_1 = {}
+                l_max_r = None
+                if l_n_chains >= 2:
+                    for name in param_names:
+                        if name not in lcdm_cols or name == "S8":
+                            continue
+                        r1 = self._gelman_rubin(lcdm_chains, _get_idx(lcdm_cols, name))
+                        l_r_minus_1[name] = r1
+                        if l_max_r is None or r1 > l_max_r:
+                            l_max_r = r1
+                    print_status(f"  Max R-1 across parameters: {l_max_r:.4f}", "INFO")
+
+                for name in param_names:
+                    if name not in lcdm_cols:
+                        continue
+                    st = _stats(lcdm_post, _get_idx(lcdm_cols, name))
+                    st["R_minus_1"] = l_r_minus_1.get(name, None)
                     results["lcdm"][name] = st
                     fmt = "{:.3e}" if abs(st["mean"]) < 0.001 else "{:.5f}"
                     print_status(f"    {name}: " + fmt.format(st["mean"]) + f" ± {st['std']:.5f}", "INFO")
-                
-                results["lcdm"]["best_logpost"] = float(-np.min(lcdm_data[:, 1]))
-                results["lcdm"]["n_samples"] = lcdm_data.shape[0]
-                
-                print_status("Comparison:", "INFO")
-                dchi2 = 2.0 * (float(np.min(tep_post[:, 1])) - float(np.min(lcdm_data[:, 1])))
-                results["comparison"]["delta_chi2"] = dchi2
-                print_status(f"    Δχ² = {dchi2:.3f}", "INFO")
-                
+
+                results["lcdm"]["best_logpost"] = float(-np.min(lcdm_post[:, 1]))
+                results["lcdm"]["n_samples"] = int(lcdm_post.shape[0])
+                results["lcdm"]["n_chains"] = l_n_chains
+                results["lcdm"]["max_R_minus_1"] = l_max_r
+                results["lcdm"]["internal_sampler_R_minus_1"] = self._read_cobaya_sampler_rminus1("lcdm_ttteee")
+
+            # ---- TEP vs LCDM comparison on the matched TTTEEE likelihood ----
+            if ttteee_combined is not None and lcdm_combined is not None:
+                print_status("TTTEEE comparison (TEP - LCDM, chi2 excludes prior normalization):", "INFO")
+                tchi2_min = float(np.min(ttteee_post[:, _get_idx(ttteee_cols, "chi2")]))
+                lchi2_min = float(np.min(lcdm_post[:, _get_idx(lcdm_cols, "chi2")]))
+                comp = results["ttteee_comparison"]
+                comp["delta_chi2"] = tchi2_min - lchi2_min
+                comp["chi2_min_tep"] = tchi2_min
+                comp["chi2_min_lcdm"] = lchi2_min
+                print_status(f"    Δχ² = {comp['delta_chi2']:.3f}", "INFO")
+
                 for name in param_names:
-                    dmu = results["tep"][name]["mean"] - results["lcdm"][name]["mean"]
-                    joint = np.sqrt(results["tep"][name]["std"]**2 + results["lcdm"][name]["std"]**2)
-                    results["comparison"][f"{name}_diff"] = {"delta_mean": dmu, "sigma_joint": joint}
-                    print_status(f"    Δ{name}: {dmu:.5f} (joint σ = {joint:.5f})", "INFO")
-            
-            results["status"] = "SUCCESS"
-            
+                    if name not in results["tep_ttteee"] or name not in results["lcdm"]:
+                        continue
+                    t_st = results["tep_ttteee"][name]
+                    l_st = results["lcdm"][name]
+                    dmu = t_st["mean"] - l_st["mean"]
+                    joint = np.sqrt(t_st["std"]**2 + l_st["std"]**2)
+                    comp[name] = {"delta_mean": dmu, "sigma_joint": joint,
+                                  "delta_sigma": dmu / joint if joint > 0 else 0.0}
+                    print_status(f"    Δ{name}: {dmu:.6f} (joint σ = {joint:.5f})", "INFO")
+
+            # ---- Free-z_T TTTEEE posterior (z_T marginalized) ----
+            zscan_combined, zscan_chains, zscan_cols = self._load_chains("tep_zscan_ttteee")
+            if zscan_combined is not None:
+                print_status("Free-z_T TTTEEE constraints (z_T sampled):", "INFO")
+                zscan_post = np.vstack(zscan_chains)
+
+                z_sigma8 = zscan_post[:, _get_idx(zscan_cols, "sigma8")]
+                z_ocdm = zscan_post[:, _get_idx(zscan_cols, "omega_cdm")]
+                z_ob = zscan_post[:, _get_idx(zscan_cols, "omega_b")]
+                z_h0 = zscan_post[:, _get_idx(zscan_cols, "H0")]
+                z_Om = (z_ocdm + z_ob) / (z_h0 / 100.0)**2
+                z_S8 = z_sigma8 * np.sqrt(z_Om / 0.3)
+                zscan_post = np.column_stack((zscan_post, z_S8))
+                zscan_cols["S8"] = zscan_post.shape[1] - 1
+
+                z_n_chains = len(zscan_chains)
+                z_r_minus_1 = {}
+                z_max_r = None
+                z_param_names = param_names + ["z_T"]
+                if z_n_chains >= 2:
+                    for name in z_param_names:
+                        if name == "S8" or name not in zscan_cols:
+                            continue
+                        r1 = self._gelman_rubin(zscan_chains, _get_idx(zscan_cols, name))
+                        z_r_minus_1[name] = r1
+                        if z_max_r is None or r1 > z_max_r:
+                            z_max_r = r1
+                    print_status(f"  Max R-1 across parameters: {z_max_r:.4f}", "INFO")
+
+                results["tep_zscan"] = {}
+                for name in z_param_names:
+                    if name not in zscan_cols:
+                        continue
+                    st = _stats(zscan_post, _get_idx(zscan_cols, name))
+                    st["R_minus_1"] = z_r_minus_1.get(name, None)
+                    results["tep_zscan"][name] = st
+                    print_status(f"    {name}: {st['mean']:.5f} ± {st['std']:.5f}", "INFO")
+
+                results["tep_zscan"]["best_logpost"] = float(-np.min(zscan_post[:, 1]))
+                results["tep_zscan"]["n_samples"] = int(zscan_post.shape[0])
+                results["tep_zscan"]["n_chains"] = z_n_chains
+                results["tep_zscan"]["max_R_minus_1"] = z_max_r
+                # Convergence gate: the chain's own stopping criterion is
+                # Rminus1_stop = 0.05.  Posterior summaries must not be
+                # consumed as publishable constraints until max_R_minus_1
+                # is below that threshold; exploratory values are still
+                # recorded but flagged.
+                z_converged = (z_max_r is not None and z_max_r < 0.05)
+                results["tep_zscan"]["convergence_threshold"] = 0.05
+                results["tep_zscan"]["converged"] = bool(z_converged)
+                results["tep_zscan"]["status"] = (
+                    "CONVERGED" if z_converged else
+                    "UNCONVERGED_PROVISIONAL_ONLY")
+                if not z_converged:
+                    print_status(
+                        "  WARNING: tep_zscan chain UNCONVERGED "
+                        f"(max R-1 = {z_max_r}); posterior summaries are "
+                        "provisional and must not be quoted as final "
+                        "constraints.", "WARNING")
+
+                # Mode-split analysis: the profile scan shows the turnover
+                # penalty switching on at z_T ~ 4-5.  Report the epsilon_T
+                # posterior separately below/above z_T = 4 so a bimodal
+                # (low-z_T positive-valley vs high-z_T bound) structure is
+                # not masked by the pooled mean.
+                if "z_T" in zscan_cols and "epsilon_T" in zscan_cols:
+                    iz = zscan_post[:, _get_idx(zscan_cols, "z_T")]
+                    ie = zscan_post[:, _get_idx(zscan_cols, "epsilon_T")]
+                    iw = zscan_post[:, 0]
+                    modes = {}
+                    for label, mask in (
+                        ("low_zT", iz < 4.0),
+                        ("high_zT", iz >= 4.0),
+                    ):
+                        m = np.where(mask)[0]
+                        if len(m) < 10:
+                            modes[label] = {"mass_fraction": float(
+                                np.sum(iw[m]) / np.sum(iw)), "note": "fewer than 10 samples"}
+                            continue
+                        sub = zscan_post[m]
+                        st = _stats(sub, _get_idx(zscan_cols, "epsilon_T"))
+                        zst = _stats(sub, _get_idx(zscan_cols, "z_T"))
+                        st["mass_fraction"] = float(np.sum(iw[m]) / np.sum(iw))
+                        st["z_T_median"] = zst["median"]
+                        modes[label] = st
+                        print_status(
+                            f"    mode {label} (z_T {'<' if label=='low_zT' else '>='} 4): "
+                            f"eps={st['mean']:.4f} ± {st['std']:.4f}, "
+                            f"mass={st['mass_fraction']:.3f}", "INFO")
+                    results["tep_zscan"]["mode_split"] = {
+                        "split_at_z_T": 4.0,
+                        "modes": modes,
+                    }
+
+            # ---- Active-perturbation high-l TTTEEE posterior ----
+            pt_combined, pt_chains, pt_cols = self._load_chains(
+                "tep_hiclass_perturbations_ttteee")
+            if pt_combined is not None:
+                print_status("Active-perturbation high-l TTTEEE constraints:", "INFO")
+                pt_post = np.vstack(pt_chains)
+                results["tep_perturbation_ttteee"] = {}
+                pt_n = len(pt_chains)
+                pt_max_r = None
+                pt_r = {}
+                if pt_n >= 2:
+                    for name in param_names:
+                        if name not in pt_cols:
+                            continue
+                        r1 = self._gelman_rubin(pt_chains, _get_idx(pt_cols, name))
+                        pt_r[name] = r1
+                        if pt_max_r is None or r1 > pt_max_r:
+                            pt_max_r = r1
+                for name in param_names:
+                    if name not in pt_cols:
+                        continue
+                    st = _stats(pt_post, _get_idx(pt_cols, name))
+                    st["R_minus_1"] = pt_r.get(name, None)
+                    results["tep_perturbation_ttteee"][name] = st
+                    print_status(f"    {name}: {st['mean']:.5f} ± {st['std']:.5f}", "INFO")
+                results["tep_perturbation_ttteee"]["n_samples"] = int(pt_post.shape[0])
+                results["tep_perturbation_ttteee"]["n_chains"] = pt_n
+                results["tep_perturbation_ttteee"]["max_R_minus_1"] = pt_max_r
+
+            provisional = []
+            for key, prefix in (
+                ("tep", "tep_hiclass_suite"),
+                ("tep_perturbation", "tep_hiclass_perturbations"),
+                ("tep_ttteee", "tep_native_ttteee"),
+                ("lcdm", "lcdm_ttteee"),
+                ("tep_zscan", "tep_zscan_ttteee"),
+                ("tep_perturbation_ttteee", "tep_hiclass_perturbations_ttteee"),
+            ):
+                section = results.get(key)
+                if not section:
+                    continue
+                report = integrity[prefix]
+                r = section.get("max_R_minus_1")
+                section["collection_integrity_valid"] = report["valid_completed_run"]
+                section["sampler_converged"] = bool(report["checkpoint"].get("converged"))
+                section["convergence_threshold"] = 0.05
+                section["converged"] = bool(report["valid_completed_run"] and
+                                             r is not None and np.isfinite(r) and r < 0.05)
+                section["status"] = "CONVERGED" if section["converged"] else "PROVISIONAL_ONLY"
+                if not section["converged"]:
+                    provisional.append(prefix)
+            if provisional and not allow_incomplete:
+                raise RuntimeError("Posterior diagnostics still provisional: " + ", ".join(provisional))
+            results["status"] = "DIAGNOSTIC_ONLY" if allow_incomplete else "SUCCESS"
+
             # Save rigorous summary
             output_file = self.results_dir / "07_mcmc_summary_full.json"
             with open(output_file, 'w') as f:

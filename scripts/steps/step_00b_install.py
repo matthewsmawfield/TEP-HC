@@ -105,55 +105,30 @@ class RobustDownloader:
     
     def check_cobaya_install(self, likelihood: str, packages_path: Path) -> Tuple[bool, str]:
         """Check if a likelihood is properly installed with real data."""
-        data_path = packages_path / "data"
-        
-        # Expected data directories and minimum sizes
-        # These match what cobaya actually creates
-        checks = {
-            "planck_2018_highl_plik.TTTEEE": ("planck_2018", 40_000_000),  # 40MB
-            "planck_2018_lowl.TT": ("planck_2018_lowT_native", 5_000_000),  # 5MB
-            "planck_2018_lowl.EE": ("planck_2018_lowE_native", 500_000),    # 500KB
-            "planck_2018_lensing.native": ("planck_supp_data_and_covmats", 5_000_000),  # 5MB
-            "bao.sdss_dr12_consensus_final": ("bao_data", 100_000),  # 100KB
-            "sn.pantheonplus": ("sn_data", 500_000),  # 500KB
-        }
-        
-        if likelihood not in checks:
-            return True, "Unknown likelihood, assuming OK"
-        
-        dirname, min_size = checks[likelihood]
-        target_path = data_path / dirname
-        
-        if not target_path.exists():
-            return False, f"Directory {dirname} not found"
-        
-        # Calculate actual size
-        total_size = 0
-        for item in target_path.rglob("*"):
-            if item.is_file():
-                total_size += item.stat().st_size
-        
-        if total_size < min_size:
-            return False, f"Size {format_bytes(total_size)} < required {format_bytes(min_size)}"
-        
-        # Check for actual data files in clik directories
-        if "planck" in likelihood:
-            clik_dirs = list(target_path.rglob("*.clik"))
-            real_data_found = False
-            for clik_dir in clik_dirs:
-                if clik_dir.is_dir():
-                    clik_data = clik_dir / "clik"
-                    if clik_data.exists():
-                        size = sum(f.stat().st_size for f in clik_data.rglob("*") if f.is_file())
-                        if size > 1_000_000:  # At least 1MB of data
-                            real_data_found = True
-                            break
-            
-            if not real_data_found and clik_dirs:
-                return False, "clik directories exist but contain no real data"
-        
-        return True, f"Verified {format_bytes(total_size)}"
-    
+        # Ask the installed Cobaya component about its own data/version layout.
+        # Likelihood code ships with Cobaya; BAO and SN observations do not.
+        try:
+            from cobaya.component import get_component_class
+            component = get_component_class(likelihood, kind="likelihood")
+            if not component.is_installed(path=str(packages_path)):
+                return False, "Cobaya reports missing or incomplete installation"
+            if likelihood.startswith("bao."):
+                defaults = component.get_defaults()
+                for key in ("measurements_file", "cov_file", "invcov_file"):
+                    filename = defaults.get(key)
+                    if filename:
+                        target = packages_path / "data" / filename
+                        if not target.is_file() or target.stat().st_size == 0:
+                            return False, f"Missing BAO input: {target}"
+            elif likelihood.startswith("sn."):
+                # This loads the dataset and referenced observations/covariance,
+                # rather than treating the containing directory as sufficient.
+                instance = component(packages_path=str(packages_path))
+                instance.close()
+            return True, "Cobaya installation and required BAO/SN inputs checked"
+        except Exception as exc:
+            return False, f"{type(exc).__name__}: {exc}"
+
     def download_with_retry(self, likelihood: str, packages_path: Path, force: bool = False) -> Dict:
         """Download a likelihood with retry logic and integrity verification."""
         result = {
@@ -178,44 +153,16 @@ class RobustDownloader:
             print_status(f"      Attempt {attempt}/{self.max_retries}: cobaya-install {likelihood}")
             
             try:
-                cmd = ["cobaya-install", likelihood, "--force", "-p", str(packages_path)]
+                cmd = [sys.executable, "-m", "cobaya.install", likelihood, "--force", "-p", str(packages_path)]
                 
-                process = subprocess.Popen(
-                    cmd,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    text=True,
-                    bufsize=1
+                # subprocess.run enforces the deadline even when the installer
+                # produces no newline/output; blocking readline cannot do that.
+                process = subprocess.run(
+                    cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                    text=True, timeout=self.timeout,
                 )
-                
-                # Monitor with timeout
-                start_time = time.time()
-                output_lines = []
-                last_progress_time = start_time
-                
-                while True:
-                    line = process.stdout.readline()
-                    if not line:
-                        break
-                    
-                    output_lines.append(line)
-                    
-                    # Update progress time on activity
-                    if 'downloading' in line.lower() or 'extracting' in line.lower():
-                        last_progress_time = time.time()
-                    
-                    # Check for timeout
-                    if time.time() - last_progress_time > 300:  # 5 min no progress
-                        process.terminate()
-                        raise TimeoutError("No progress for 5 minutes")
-                    
-                    # Overall timeout
-                    if time.time() - start_time > self.timeout:
-                        process.terminate()
-                        raise TimeoutError(f"Download timeout after {self.timeout}s")
-                
-                process.wait()
-                
+                output_lines = process.stdout.splitlines(keepends=True)
+
                 if process.returncode == 0:
                     # Verify installation
                     ok, msg = self.check_cobaya_install(likelihood, packages_path)
@@ -229,7 +176,7 @@ class RobustDownloader:
                     stderr = ''.join(output_lines[-10:]) if output_lines else "Unknown error"
                     result["error"] = f"cobaya-install failed: {stderr[:200]}"
                 
-            except TimeoutError as e:
+            except (TimeoutError, subprocess.TimeoutExpired) as e:
                 result["error"] = str(e)
             except Exception as e:
                 result["error"] = f"Exception: {e}"
@@ -247,19 +194,9 @@ class RobustDownloader:
         """Download multiple likelihoods in parallel with thread pool."""
         results = {}
         
-        # Filter out built-in likelihoods (no download needed)
-        to_download = [(l, i) for l, i in likelihoods if not i.get('builtin')]
-        builtin = [(l, i) for l, i in likelihoods if i.get('builtin')]
-        
-        # Mark built-in as complete
-        for likelihood, info in builtin:
-            results[likelihood] = {
-                "likelihood": likelihood,
-                "success": True,
-                "attempts": 0,
-                "verification": "Built-in likelihood (no download needed)"
-            }
-        
+        # Every requested likelihood is checked/installed, including BAO and SN.
+        to_download = likelihoods
+
         if not to_download:
             return results
         
@@ -351,11 +288,17 @@ class Step00bInstall:
             # Download Planck likelihoods if Cobaya available
             if skip_planck:
                 print_status("⚠ Skipping Planck download (--skip-planck specified)", "WARNING")
-                print_status("  Note: MCMC steps will run in dry-run mode without Planck data")
+                print_status("  MCMC still requires installed real likelihood data; no dry-run fallback exists.")
             elif results["cobaya_available"]:
                 results["planck_likelihoods"] = self._install_planck_likelihoods(force=force_install)
             else:
-                print_status("⚠ Skipping Planck (Cobaya not available)", "WARNING")
+                raise RuntimeError("Cobaya installation failed; cannot acquire required likelihoods")
+            if not results["cobaya_available"]:
+                raise RuntimeError("Cobaya installation failed")
+            if not skip_planck:
+                missing = [name for name, ok in results["planck_likelihoods"].items() if not ok]
+                if missing:
+                    raise RuntimeError("Required likelihood installation failed: " + ", ".join(missing))
             
             # Install mpi4py for M4 Pro parallel support
             print_status("\n🔄 Checking MPI support for M4 Pro...", "PROCESS")
@@ -364,6 +307,8 @@ class Step00bInstall:
             # Install hi_class for TEP-modified gravity calculations
             print_status("\n🔭 Checking hi_class (modified gravity Boltzmann solver)...", "PROCESS")
             results["hi_class_installed"] = self._install_hi_class(force=force_install)
+            if not results["hi_class_installed"]:
+                raise RuntimeError("Required patched hi_class installation failed")
             
             # Create test configuration
             self._create_test_config()
@@ -431,7 +376,7 @@ class Step00bInstall:
         if success:
             print_status("  ✓ Base packages installed successfully")
         else:
-            print_status("  ✗ Base package installation failed", "ERROR")
+            raise RuntimeError("Base package installation failed: " + result.stderr[-1000:])
     
     def _install_openmpi(self) -> bool:
         """Install OpenMPI system package (macOS only)."""
@@ -545,69 +490,9 @@ class Step00bInstall:
     
     def _check_likelihood_installed(self, likelihood_name: str) -> bool:
         """Check if a likelihood is properly installed with actual data."""
-        try:
-            # Use determined packages path
-            install_path = PACKAGES_PATH
-            data_path = install_path / "data"
-            
-            # Define minimum size thresholds (in MB) for each likelihood
-            # These are minimums to verify data exists, not full download sizes
-            min_size_mb = {
-                # Planck 2018 (actual installed sizes)
-                "planck_2018_highl_plik.TTTEEE": 50,  # ~89MB with lite versions
-                "planck_2018_lowl.TT": 5,
-                "planck_2018_lowl.EE": 0.5,
-                "planck_2018_lensing.native": 10,  # ~14MB actual
-                # BAO/SN built-in
-                "bao.sdss_dr12_consensus_final": 0.001,
-                "sn.pantheonplus": 0.001,
-            }
-            
-            # Map likelihood names to expected data directories
-            # These match what cobaya actually creates
-            likelihood_dir_map = {
-                # Planck
-                "planck_2018_highl_plik.TTTEEE": ["planck_2018"],
-                "planck_2018_lowl.TT": ["planck_2018_lowT_native"],
-                "planck_2018_lowl.EE": ["planck_2018_lowE_native"],
-                "planck_2018_lensing.native": ["planck_supp_data_and_covmats"],
-                # BAO
-                "bao.sixdf_2011_bao": ["sixdf_2011_bao"],
-                "bao.sdss_dr7_mgs": ["sdss_dr7_mgs"],
-                "bao.sdss_dr12_consensus_final": ["sdss_dr12_consensus_final"],
-                # SN
-                "sn.pantheon": ["pantheon"],
-                "sn.pantheonplus": ["pantheonplus"],
-            }
-            
-            expected_dirs = likelihood_dir_map.get(likelihood_name, [])
-            min_size = min_size_mb.get(likelihood_name, 1) * 1024 * 1024  # Convert to bytes
-            
-            # Check for actual data files with size validation
-            if data_path.exists():
-                for expected in expected_dirs:
-                    expected_path = data_path / expected
-                    if expected_path.exists():
-                        # Check total directory size
-                        total_size = self._get_directory_size(expected_path)
-                        if total_size >= min_size:
-                            # Verify data files exist
-                            data_files = list(expected_path.rglob('*.fits')) + \
-                                       list(expected_path.rglob('*.clik')) + \
-                                       list(expected_path.rglob('*.clik_lensing')) + \
-                                       list(expected_path.rglob('*.bin')) + \
-                                       list(expected_path.rglob('*.txt')) + \
-                                       list(expected_path.rglob('*.dat')) + \
-                                       list(expected_path.rglob('*.dataset'))
-                            if len(data_files) >= 1:
-                                return True
-            
-            return False
-            
-        except Exception as e:
-            # If we can't check, assume not installed to be safe
-            return False
-    
+        ok, _ = RobustDownloader().check_cobaya_install(likelihood_name, PACKAGES_PATH)
+        return ok
+
     def _install_planck_likelihoods(self, force: bool = False) -> dict:
         """Download Planck 2018 + BAO + SN likelihoods using Cobaya with intelligent skip logic."""
         likelihoods = {
@@ -616,10 +501,10 @@ class Step00bInstall:
             "planck_2018_lowl.TT": {"name": "Planck 2018 Low-L TT", "size": "~50 MB", "done": False, "installed": False, "required": True},
             "planck_2018_lowl.EE": {"name": "Planck 2018 Low-L EE", "size": "~50 MB", "done": False, "installed": False, "required": True},
             "planck_2018_lensing.native": {"name": "Planck 2018 Lensing", "size": "~3 GB", "done": False, "installed": False, "required": True},
-            # BAO data - built into Cobaya, no external download needed
-            "bao.sdss_dr12_consensus_final": {"name": "BAO SDSS DR12 Consensus", "size": "built-in", "done": False, "installed": False, "required": True, "builtin": True},
-            # Supernova data - built into Cobaya, no external download needed
-            "sn.pantheonplus": {"name": "SN Pantheon+", "size": "built-in", "done": False, "installed": False, "required": True, "builtin": True},
+            # BAO likelihood code is bundled; observational data must be installed
+            "bao.sdss_dr12_consensus_final": {"name": "BAO SDSS DR12 Consensus", "size": "external data", "done": False, "installed": False, "required": True},
+            # Supernova observations and covariance must be installed
+            "sn.pantheonplus": {"name": "SN Pantheon+", "size": "external data", "done": False, "installed": False, "required": True},
         }
         
         if not self._check_cobaya():
@@ -656,14 +541,12 @@ class Step00bInstall:
         print_status(f"  → {len(need_download)} likelihood(s) need installation")
         print_status("")
         
-        # Calculate total download size (only for non-built-in likelihoods)
+        # Estimate large Planck downloads; BAO/SN archives are smaller.
         size_map = {
             'highl': 6.0, 'lensing': 3.0, 'lowl': 0.05
         }
         total_size = 0
         for k, info in need_download:
-            if info.get('builtin'):
-                continue
             for key, size in size_map.items():
                 if key in k.lower():
                     total_size += size
@@ -718,12 +601,7 @@ class Step00bInstall:
         verified = 0
         for likelihood, info in list(need_download):
             if info["done"]:
-                # Built-in likelihoods are always verified if Cobaya is available
-                if info.get('builtin'):
-                    print_status(f"  ✓ {info['name']}: Verified (built-in)")
-                    verified += 1
-                # Re-check external installations
-                elif self._check_likelihood_installed(likelihood):
+                if self._check_likelihood_installed(likelihood):
                     print_status(f"  ✓ {info['name']}: Verified installed")
                     verified += 1
                 else:
@@ -876,7 +754,29 @@ class Step00bInstall:
                     print_status("  ✗ Patch applied but tep_mode missing from background.c", "ERROR")
                     return False
                 print_status("  ✓ Native TEP patch applied (background.c, input.c, background.h)", "SUCCESS")
-                
+
+                # Apply active-perturbation closure patch (delta-phi SMG sector,
+                # screened kineticity branch; must follow the native patch)
+                closure_patch = self.root_dir / "external" / "patches" / "hiclass_tep_perturbation_closure.patch"
+                if not closure_patch.exists():
+                    print_status(f"  ✗ TEP closure patch not found: {closure_patch}", "ERROR")
+                    return False
+                print_status("  Applying TEP perturbation-closure patch (gravity_model=tep, deltaphi SMG sector)...", "PROCESS")
+                patch_result = subprocess.run(
+                    ["patch", "-p1", "-i", str(closure_patch)],
+                    cwd=hi_class_source,
+                    capture_output=True,
+                    text=True,
+                )
+                if patch_result.returncode != 0:
+                    print_status("  ✗ TEP closure patch failed to apply", "ERROR")
+                    print_status(f"    {patch_result.stderr[:300]}", "ERROR")
+                    return False
+                if "gravity_model_smg == tep" not in (hi_class_source / "gravity_smg" / "gravity_functions_smg.c").read_text():
+                    print_status("  ✗ Closure patch applied but gravity_model=tep missing from gravity_functions_smg.c", "ERROR")
+                    return False
+                print_status("  ✓ Closure patch applied (gravity_smg/*, models/tep.*, deltaphi sector)", "SUCCESS")
+
                 # Compile hi_class
                 print_status("  Compiling hi_class...", "PROCESS")
                 print_status("    This may take 2-5 minutes...", "INFO")

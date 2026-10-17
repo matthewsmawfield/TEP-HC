@@ -15,13 +15,13 @@
     },
     "sh0es_tep_corrected": {
       "label": "SH0ES local, TEP-corrected\n(clock bias removed; Paper 11)",
-      "value": 69.1,
-      "error": 1.0,
-      "source": "TEP Paper 11 (clock-transport correction)"
+      "value": 68.48,
+      "error": 1.47,
+      "source": "Paper 11 (TEP-H0 v0.11), cosmologically constrained expansion likelihood, canonical sigma_v=250 km/s"
     }
   },
   "planck_theta_s_100_lcdm": {
     "value": 1.0411,
-    "note": "External Planck ΛCDM reference for comparison only; Jordan-frame EdS scan baseline is read from 04b_jordan_frame_scan.json at epsilon_T=0."
+    "note": "External Planck \u039bCDM reference for comparison only; Jordan-frame EdS scan baseline is read from 04b_jordan_frame_scan.json at epsilon_T=0."
   }
 }

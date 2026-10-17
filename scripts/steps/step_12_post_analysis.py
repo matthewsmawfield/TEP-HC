@@ -6,7 +6,7 @@ Generates the four quantitative items requested for the TEP-HC manuscript:
   1. Acoustic-scale preservation metrics table (binned by multipole range)
   2. No-ghost discriminant across the 95% ε_T posterior range
   3. TE/EE max residuals (from fresh hi_class runs with pCl output)
-  4. fσ8(z=0) and fσ8(z=0.5) from matter power spectra
+  4. sigma8(z=0), D(0.5) and interval-averaged growth from matter power spectra
 
 All outputs are written to results/12_post_analysis.json.
 """
@@ -53,6 +53,14 @@ class Step12PostAnalysis:
         try:
             print_status("Running hi_class (LCDM, TEP-bg, TEP-pert) with tCl,pCl,mPk...", "PROCESS")
             raw = self._run_all_spectra()
+
+            bad = [root for root, d in raw.items()
+                   if not (np.all(np.isfinite(d["tt"])) and np.all(np.isfinite(d["pk_z0"]))
+                           and np.all(np.isfinite(d["pk_z05"])))]
+            if bad:
+                raise RuntimeError(
+                    f"Non-finite spectra from hi_class for {bad}; refusing to "
+                    "report post-analysis tables from divergent products")
 
             print_status("Computing acoustic-scale preservation metrics...", "PROCESS")
             results["acoustic_metrics"] = self._acoustic_metrics(raw)
@@ -127,7 +135,8 @@ n_s = 0.96605
 YHe = 0.2454
 root = {root_val}
 z_pk = 0, 0.5
-P_k_max_h/Mpc = 1.0
+P_k_max_h/Mpc = 20
+k_scalar_max_tau0_over_l_max = 80
 """
         if is_tep:
             content += f"""
@@ -140,6 +149,10 @@ n_T = {self.N_T_FID}
                 content += """
 gravity_model = tep
 M2_evolution = yes
+use_pert_var_deltaphi_smg = yes
+pert_initial_conditions_smg = zero
+tep_screening_s = 1.0
+tep_kin_boost = 10.0
 """
         with open(path, 'w') as f:
             f.write(content)
@@ -270,9 +283,8 @@ M2_evolution = yes
             "n_samples": n_samples,
             "z_range": {"z_min": float(z[0]), "z_max": float(z[-1])},
             "D_min_global": D_min_global,
-            # D = alpha_A^2 >= 0 mathematically; at high z alpha_A underflows
-            # to denormals and the combination -5*alpha_A^2 + 1.5*(2*alpha_A)^2
-            # can return a negative denormal (~ -1e-323), which is zero.
+            # D = (wc + 6 S^2) alpha_A^2 >= 0 mathematically; at high z
+            # alpha_A underflows to denormals, which is zero.
             "all_positive_definite": D_min_global > -1e-300,
             "alpha_M_max_global": alpha_M_max_global,
             "sampled_edge_table": edge_table,
@@ -322,7 +334,7 @@ M2_evolution = yes
         return {"residual_table": table}
 
     # ------------------------------------------------------------------
-    # 4. fσ8 from matter power spectra
+    # 4. Amplitude and interval-averaged growth from matter power spectra
     # ------------------------------------------------------------------
     def _growth_function(self, raw):
         results = {}
@@ -341,15 +353,17 @@ M2_evolution = yes
             idx = np.argmin(np.abs(k - 0.01))
             D_05 = np.sqrt(pk05[idx] / pk0[idx])
 
-            # f(z=0.5) = d ln D / d ln a  (finite difference between a=1 and a=2/3)
+            # Mean d ln D / d ln a over 0 <= z <= 0.5; not an endpoint derivative.
             f_05 = -np.log(D_05) / np.log(1.5)
 
             results[label] = {
                 "sigma8": round(float(sigma8), 4),
                 "D_z05": round(float(D_05), 6),
-                "f_z05": round(float(f_05), 4),
-                "fsigma8_z0": round(float(sigma8), 4),
-                "fsigma8_z05": round(float(f_05 * sigma8 * D_05), 4),
+                "f_mean_z0_to_z05": round(float(f_05), 4),
+                "fsigma8_z0": None,
+                "fsigma8_z05": None,
+                "f_mean_times_sigma8_z05": round(float(f_05 * sigma8 * D_05), 4),
+                "scope": "Two redshift outputs determine an interval mean, not local f(z).",
             }
 
         return results

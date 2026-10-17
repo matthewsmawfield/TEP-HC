@@ -1,0 +1,409 @@
+[0 : output] Output to be read-from/written-into folder 'results/mcmc_chains/lcdm_ttteee', with prefix 'lcdm_ttteee'
+[0 : output] Found existing info files with the requested output prefix: 'results/mcmc_chains/lcdm_ttteee/lcdm_ttteee'
+[0 : output] Will delete previous products ('force' was requested).
+[0 : classy] `classy` module loaded successfully from /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/external/hi_class/hi_class/build/lib.macosx-11.1-arm64-cpython-313
+[0 : planck_2018_highl_plik.ttteee_lite] `clipy` module loaded successfully from /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy
+----
+clipy_0.15
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+Checking likelihood '/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/data/planck_2018/baseline/plc_3.0/hi_l/plik_lite/plik_lite_v22_TTTEEE.clik' on test data. got -292.286 expected -292.286 (diff -3.86223e-09)
+----
+before crop : TT 30 -> 2508, TE 30 -> 1996, EE 30 -> 1996
+after crop  : TT 30 -> 2508, TE 30 -> 1996, EE 30 -> 1996
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+----
+clipy_0.15
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+Checking likelihood '/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/data/planck_2018/baseline/plc_3.0/hi_l/plik_lite/plik_lite_v22_TTTEEE.clik' on test data. got -292.286 expected -292.286 (diff -3.86223e-09)
+----
+before crop : TT 30 -> 2508, TE 30 -> 1996, EE 30 -> 1996
+after crop  : TT 30 -> 2508, TE 30 -> 1996, EE 30 -> 1996
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+[0 : bao.sdss_dr12_consensus_final] Initialized.
+[1 : bao.sdss_dr12_consensus_final] Initialized.
+[0 : mcmc] *WARNING* This run has been SEEDED with seed 44
+[0 : mcmc] Getting initial point... (this may take a few seconds)
+[1 : mcmc] Getting initial point... (this may take a few seconds)
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+[1 : mcmc] Initial point: logA:3.036036, n_s:0.9654145, H0:67.68046, omega_b:0.02233989, omega_cdm:0.119702, tau_reio:0.04008387, A_planck:1.000217
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+[0 : mcmc] Initial point: logA:3.057627, n_s:0.9518045, H0:68.03649, omega_b:0.02254722, omega_cdm:0.1192341, tau_reio:0.05260859, A_planck:0.9998697
+[0 : model] Measuring speeds... (this may take a few seconds)
+[0 : model] Setting measured speeds (per sec): {planck_2018_lowl.TT: 607.0, planck_2018_lowl.EE: 1430.0, planck_2018_highl_plik.TTTEEE_lite: 497.0, planck_2018_lensing.native: 1390.0, bao.sdss_dr12_consensus_final: 646.0, sn.pantheonplus: 218.0, classy: 0.174}
+[0 : mcmc] Dragging with number of interpolating steps:
+[0 : mcmc] * 1 : [['logA', 'n_s', 'H0', 'omega_b', 'omega_cdm', 'tau_reio']]
+[0 : mcmc] * 2 : [['A_planck']]
+[0 : mcmc] Covariance matrix not present. We will start learning the covariance of the proposal earlier: R-1 = 100 (would be 2 if all params loaded).
+[0 : mcmc] Sampling!
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: divide by zero encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: overflow encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:266: RuntimeWarning: invalid value encountered in matmul
+  X_model[0:self.bin_max_tt-self.bin_min_tt+1] = (self.bns["tt"] @ cls[0,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:269: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_te-self.bin_min_te+1] = (self.bns["te"] @ cls[3,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: divide by zero encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: overflow encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages/code/planck/clipy/clipy/cmbonly.py:272: RuntimeWarning: invalid value encountered in matmul
+  X_model[off:off+self.bin_max_ee-self.bin_min_ee+1] = (self.bns["ee"] @ cls[1,self.plmin:])

@@ -1,6 +1,6 @@
 {
   "step": "12_post_analysis",
-  "timestamp": "2026-09-26T19:25:36.112376",
+  "timestamp": "2026-10-13T01:14:12.460661",
   "status": "SUCCESS",
   "acoustic_metrics": {
     "global_r_s_ratio": 0.9999940894770135,
@@ -10,110 +10,110 @@
         "multipole_range": "100 \u2264 \u2113 \u2264 500",
         "l_centroid_lcdm": 266.26,
         "l_centroid_tep_bg": 266.2,
-        "delta_l": -0.058,
+        "delta_l": -0.057,
         "expected_delta_l": -0.493,
         "r_s_ratio": 0.99999409,
-        "max_res_bg_vs_lcdm_percent": 0.6656,
-        "max_res_pert_vs_lcdm_percent": 0.6656,
-        "max_res_pert_vs_bg_percent": 0.0
+        "max_res_bg_vs_lcdm_percent": 0.6708,
+        "max_res_pert_vs_lcdm_percent": 0.7199,
+        "max_res_pert_vs_bg_percent": 0.4238
       },
       {
         "multipole_range": "500 \u2264 \u2113 \u2264 1000",
         "l_centroid_lcdm": 731.94,
-        "l_centroid_tep_bg": 731.58,
-        "delta_l": -0.358,
+        "l_centroid_tep_bg": 731.57,
+        "delta_l": -0.362,
         "expected_delta_l": -1.355,
         "r_s_ratio": 0.99999409,
-        "max_res_bg_vs_lcdm_percent": 1.3377,
-        "max_res_pert_vs_lcdm_percent": 1.3377,
-        "max_res_pert_vs_bg_percent": 0.0
+        "max_res_bg_vs_lcdm_percent": 1.3226,
+        "max_res_pert_vs_lcdm_percent": 1.3382,
+        "max_res_pert_vs_bg_percent": 0.0793
       },
       {
         "multipole_range": "1000 \u2264 \u2113 \u2264 2000",
         "l_centroid_lcdm": 1362.85,
         "l_centroid_tep_bg": 1362.21,
-        "delta_l": -0.635,
+        "delta_l": -0.638,
         "expected_delta_l": -2.523,
         "r_s_ratio": 0.99999409,
-        "max_res_bg_vs_lcdm_percent": 1.8187,
-        "max_res_pert_vs_lcdm_percent": 1.8187,
-        "max_res_pert_vs_bg_percent": 0.0
+        "max_res_bg_vs_lcdm_percent": 1.8268,
+        "max_res_pert_vs_lcdm_percent": 1.82,
+        "max_res_pert_vs_bg_percent": 0.062
       }
     ]
   },
   "stability_posterior": {
     "eps_T_range_95": {
-      "lower": 3.3518649e-06,
-      "upper": 0.015673973765123653
+      "lower": 3.658106e-06,
+      "upper": 0.015277742240708964
     },
     "n_samples": 200,
     "z_range": {
       "z_min": 1e-06,
       "z_max": 1100.0
     },
-    "D_min_global": -1e-323,
+    "D_min_global": 0.0,
     "all_positive_definite": true,
-    "alpha_M_max_global": 0.04106216105817902,
+    "alpha_M_max_global": 0.04002412673991018,
     "sampled_edge_table": [
       {
-        "epsilon_T": 3e-06,
+        "epsilon_T": 4e-06,
         "D_min": 0.0,
-        "D_max": 0.0,
-        "alpha_M_max": 9e-06
+        "D_max": 2e-08,
+        "alpha_M_max": 1e-05
       },
       {
-        "epsilon_T": 0.001745,
+        "epsilon_T": 0.001701,
         "D_min": 0.0,
-        "D_max": 5.22e-06,
-        "alpha_M_max": 0.00457
+        "D_max": 0.00350401,
+        "alpha_M_max": 0.004456
       },
       {
-        "epsilon_T": 0.003486,
+        "epsilon_T": 0.003398,
         "D_min": 0.0,
-        "D_max": 2.085e-05,
-        "alpha_M_max": 0.009132
+        "D_max": 0.01398592,
+        "alpha_M_max": 0.008902
       },
       {
-        "epsilon_T": 0.005227,
+        "epsilon_T": 0.005095,
         "D_min": 0.0,
-        "D_max": 4.688e-05,
-        "alpha_M_max": 0.013693
+        "D_max": 0.03144574,
+        "alpha_M_max": 0.013348
       },
       {
-        "epsilon_T": 0.006968,
-        "D_min": -0.0,
-        "D_max": 8.331e-05,
-        "alpha_M_max": 0.018255
+        "epsilon_T": 0.006792,
+        "D_min": 0.0,
+        "D_max": 0.05588347,
+        "alpha_M_max": 0.017794
       },
       {
-        "epsilon_T": 0.008709,
+        "epsilon_T": 0.008489,
         "D_min": 0.0,
-        "D_max": 0.00013014,
-        "alpha_M_max": 0.022816
+        "D_max": 0.08729911,
+        "alpha_M_max": 0.02224
       },
       {
-        "epsilon_T": 0.01045,
+        "epsilon_T": 0.010186,
         "D_min": 0.0,
-        "D_max": 0.00018738,
-        "alpha_M_max": 0.027378
+        "D_max": 0.12569266,
+        "alpha_M_max": 0.026686
       },
       {
-        "epsilon_T": 0.012192,
+        "epsilon_T": 0.011884,
         "D_min": 0.0,
-        "D_max": 0.00025503,
-        "alpha_M_max": 0.031939
+        "D_max": 0.17106412,
+        "alpha_M_max": 0.031132
       },
       {
-        "epsilon_T": 0.013933,
+        "epsilon_T": 0.013581,
         "D_min": 0.0,
-        "D_max": 0.00033307,
-        "alpha_M_max": 0.036501
+        "D_max": 0.22341349,
+        "alpha_M_max": 0.035578
       },
       {
-        "epsilon_T": 0.015674,
+        "epsilon_T": 0.015278,
         "D_min": 0.0,
-        "D_max": 0.00042153,
-        "alpha_M_max": 0.041062
+        "D_max": 0.28274077,
+        "alpha_M_max": 0.040024
       }
     ],
     "note": "D(z) = alpha_A^2 > 0 for all z in (0,1100) and all epsilon_T in the 95% posterior."
@@ -122,42 +122,48 @@
     "residual_table": [
       {
         "multipole_range": "100 \u2264 \u2113 \u2264 500",
-        "max_res_te_percent": 1.1634,
-        "max_res_ee_percent": 1.6241
+        "max_res_te_percent": 1.0912,
+        "max_res_ee_percent": 1.5171
       },
       {
         "multipole_range": "500 \u2264 \u2113 \u2264 1000",
-        "max_res_te_percent": 2.1429,
-        "max_res_ee_percent": 2.455
+        "max_res_te_percent": 2.1557,
+        "max_res_ee_percent": 2.4397
       },
       {
         "multipole_range": "1000 \u2264 \u2113 \u2264 2000",
-        "max_res_te_percent": 3.1911,
-        "max_res_ee_percent": 3.6224
+        "max_res_te_percent": 3.1351,
+        "max_res_ee_percent": 3.6351
       }
     ]
   },
   "growth": {
     "LCDM": {
-      "sigma8": 0.823,
+      "sigma8": 0.8233,
       "D_z05": 0.769272,
-      "f_z05": 0.6469,
-      "fsigma8_z0": 0.823,
-      "fsigma8_z05": 0.4096
+      "f_mean_z0_to_z05": 0.6469,
+      "fsigma8_z0": null,
+      "fsigma8_z05": null,
+      "f_mean_times_sigma8_z05": 0.4097,
+      "scope": "Two redshift outputs determine an interval mean, not local f(z)."
     },
     "TEP_background_only": {
-      "sigma8": 0.8242,
-      "D_z05": 0.767439,
-      "f_z05": 0.6528,
-      "fsigma8_z0": 0.8242,
-      "fsigma8_z05": 0.4129
+      "sigma8": 0.8248,
+      "D_z05": 0.767416,
+      "f_mean_z0_to_z05": 0.6529,
+      "fsigma8_z0": null,
+      "fsigma8_z05": null,
+      "f_mean_times_sigma8_z05": 0.4133,
+      "scope": "Two redshift outputs determine an interval mean, not local f(z)."
     },
     "TEP_active_perturbations": {
-      "sigma8": 0.8242,
-      "D_z05": 0.767439,
-      "f_z05": 0.6528,
-      "fsigma8_z0": 0.8242,
-      "fsigma8_z05": 0.4129
+      "sigma8": 0.8244,
+      "D_z05": 0.767551,
+      "f_mean_z0_to_z05": 0.6525,
+      "fsigma8_z0": null,
+      "fsigma8_z05": null,
+      "f_mean_times_sigma8_z05": 0.4129,
+      "scope": "Two redshift outputs determine an interval mean, not local f(z)."
     }
   }
 }

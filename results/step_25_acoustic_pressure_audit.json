@@ -1,0 +1,69 @@
+{
+  "scope": "Controlled pressure sensitivity, NOT an action-derived TEP replacement model.\n\nUses the unchanged local hi_class build. The derived BBN density is held fixed;\nCDM is compared with a w=0 fluid, first cs2=0 then the proposed finite cs2.\nThe zero-pressure fluid control checks equation/solver equivalence before the\nfinite-pressure difference is interpreted. No fit or likelihood is performed.\n",
+  "status": "solver_comparison_unavailable",
+  "failure": {
+    "scenario": "zero_pressure_fluid_control",
+    "error": "\n\nError in Class: perturbations_init(L:779) :condition (w_fld_ini >= 0.) is true; The fluid is meant to be negligible at early time, and unimportant for defining the initial conditions of other species. You are using parameters for which this assumption may break down, since at early times you have w_fld(a--->0) = 0.000000e+00 >= 0",
+    "parameters": {
+      "output": "tCl,pCl,lCl,mPk",
+      "lensing": "yes",
+      "l_max_scalars": 2500,
+      "P_k_max_h/Mpc": 10.0,
+      "H0": 67.951,
+      "omega_b": 0.02247,
+      "A_s": 2.0989031673191437e-09,
+      "n_s": 0.9686,
+      "tau_reio": 0.0479,
+      "tep_mode": "yes",
+      "z_T": 5.0,
+      "n_T": 2.0,
+      "epsilon_T": 0.00488,
+      "gauge": "newtonian",
+      "omega_cdm": 0.0,
+      "Omega_fld": 0.2554352941588097,
+      "w0_fld": 0.0,
+      "wa_fld": 0.0,
+      "cs2_fld": 0.0,
+      "use_ppf": "no"
+    }
+  },
+  "finite_pressure_comparison_completed": false,
+  "bbn_source_sha256": "29606d8b1fd5581f979f489475ef58f36aaa9a98baf63ffcda5654a7ceb422e0",
+  "classy_library": "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/external/hi_class/hi_class/build/lib.macosx-11.1-arm64-cpython-313/classy.cpython-313-darwin.so",
+  "classy_sha256": "818539b752b55125f48c2f76e5569e6ec04555e17d98d7026a81e419bb65d1af",
+  "script_sha256": "aa31ba24d7837d9bdcc49b98115f446587bf41f4c7fec1b6f030397ba1fa57fc",
+  "sound_speed_squared_requested": 0.00503690860773789,
+  "multipole_range": [
+    30,
+    2000
+  ],
+  "scenarios": {
+    "pressureless_cdm_slot": {
+      "parameters": {
+        "output": "tCl,pCl,lCl,mPk",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "P_k_max_h/Mpc": 10.0,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.11794311926902028
+      },
+      "100_theta_s": 1.0411052462570363,
+      "sigma8": 0.8094807493692968,
+      "derived": {
+        "rs_rec": 145.00107759533492,
+        "z_rec": 1088.5238009309776
+      }
+    }
+  },
+  "comparisons_to_pressureless": {},
+  "interpretation_limit": "Fluid pressure is a sensitivity experiment, not a derived temporal-condensate action. No likelihood, refit, or exclusion significance is claimed."
+}

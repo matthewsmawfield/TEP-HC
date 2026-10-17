@@ -4,18 +4,21 @@
 # Full high-ℓ acoustic likelihood production run.
 # Adds planck_2018_highl_pliklite.TTTEEE to the low-ℓ + lensing + BAO + SNe baseline.
 #
-# Run with:
-#   export PYTHONPATH=external/hi_class/hi_class/python:$PYTHONPATH
+# Run from the repo root:
 #   cobaya-run -f -p data/external/cobaya_packages data/cobaya/tep_native_mcmc_ttteee.yaml
 # -----------------------------------------------------------------------------
 
 theory:
   classy:
+    # Pin the local patched hi_class build so `tep_mode` resolves regardless
+    # of PYTHONPATH (fixes the historical "clipy" NaN failure, which traced
+    # to spectra computed by a non-hi_class CLASS build picked up from env).
+    path: external/hi_class/hi_class
     ignore_obsolete: true
     extra_args:
       output: tCl,pCl,lCl,mPk
       lensing: 'yes'
-      modes: s,t
+      modes: s
       non_linear: halofit
       l_max_scalars: 2700
       # --- Native TEP background-only modification ---

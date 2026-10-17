@@ -1,0 +1,6 @@
+Step 22 written: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_22_des_kernel_projection.json
+  z_eff = 0.457
+  lcdm_post: sigma8=0.6566 S8_eff=0.6716
+  tep_bg_post: sigma8=0.6565 S8_eff=0.6714
+  tep_pert_post: sigma8=0.6563 S8_eff=0.6712
+  TEP/LCDM common-kernel amplitude ratio: 0.99944531

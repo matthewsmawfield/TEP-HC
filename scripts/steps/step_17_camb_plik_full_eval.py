@@ -30,13 +30,13 @@ from scripts.utils.logger import TEPLogger, set_step_logger, print_status
 
 def tep_transition(z, z_T, n_T):
     z = np.asarray(z)
-    return np.where(z <= 0.0, 0.0, np.exp(-(np.minimum(z, z_T * 3.0) / z_T) ** n_T))
+    return np.where(z < 0.0, 0.0, np.exp(-(np.minimum(z, z_T * 3.0) / z_T) ** n_T))
 
 
 def tep_A(z, epsilon_T, z_T, n_T):
     z = np.asarray(z)
     S = tep_transition(z, z_T, n_T)
-    A_val = np.exp(epsilon_T * np.log(1.0 + z) * S)
+    A_val = np.exp(epsilon_T * np.log(1.0 + np.maximum(z, 0.0)) * S)
     return np.where((epsilon_T == 0.0) | (z <= 0.0), 1.0, np.maximum(A_val, 0.1))
 
 
@@ -48,10 +48,11 @@ def tep_alpha_A(z, epsilon_T, z_T, n_T):
         -S * n_T * (z / z_T) ** (n_T - 1.0) / z_T,
         0.0
     )
+    # Include z = 0 smoothly (where S(0) = 1, ln(1+z)*dS = 0 => alpha_A(0) = -epsilon_T)
     return np.where(
-        (epsilon_T == 0.0) | (z <= 0.0),
+        (epsilon_T == 0.0) | (z < 0.0),
         0.0,
-        -epsilon_T * (S + (1.0 + z) * np.log(1.0 + z) * dS)
+        -epsilon_T * (S + (1.0 + np.maximum(z, 0.0)) * np.log(1.0 + np.maximum(z, 0.0)) * dS)
     )
 
 
@@ -59,7 +60,7 @@ def tep_M(z, epsilon_T, z_T, n_T):
     z = np.asarray(z)
     A = tep_A(z, epsilon_T, z_T, n_T)
     alpha = tep_alpha_A(z, epsilon_T, z_T, n_T)
-    return np.where((epsilon_T == 0.0) | (z <= 0.0), 1.0, A / (1.0 - alpha))
+    return np.where((epsilon_T == 0.0) | (z < 0.0), 1.0, A / (1.0 - alpha))
 
 
 def tep_H(z, H0, ombh2, omch2, epsilon_T, z_T, n_T):

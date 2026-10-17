@@ -115,8 +115,11 @@ class Step04CMB:
         # Use relative root to avoid space issues
         root_val = path.stem + "_"
         content = f"""
-output = tCl
+output = tCl,mPk
 l_max_scalars = 2500
+P_k_max_h/Mpc = 20
+k_scalar_max_tau0_over_l_max = 80
+z_pk = 0.0,0.5
 write background = yes
 H0 = 67.36
 omega_b = 0.022383
@@ -146,10 +149,39 @@ n_T = {n_T}
                 # Active scalar perturbation closure via SMG EFT framework.
                 # Hubble rate remains H_TEP = H_LCDM * M(z); scalar fluctuations
                 # are evolved natively by hi_class alongside metric potentials.
+                # The regular deltaphi variable is required: x_smg = dphi/phi'
+                # is singular at the alpha_A = 0 turnover (z ~ 2.6).
+                # tep_kin_boost sets the Jordan kinetic coefficient wc:
+                #   wc = 7*K^2 for K > 0 (screened branch, Z_E = 6 + 7K^2);
+                #   wc = K for K < 0.  The canonical-EF image wc = -5 is
+                #   linearly unstable on the TEP background (scalarization
+                #   channel, verified 2026-10-01).  S_Sigma suppresses the
+                #   braiding while wc is held fixed: the fifth force scales
+                #   as bra^2/kin ~ S^2/wc, so screening requires S < 1 at
+                #   fixed wc (scaling kin ~ S^2 as in the original alpha_K =
+                #   -5(S alpha_A)^2 map leaves bra^2/D invariant and does
+                #   not screen -- verified numerically).
+                # Production choice: S_Sigma = 1 (TEP-C0: the cosmological
+                # scalar coupling is unscreened, S_Sigma ~ 1) with the
+                # screened kineticity branch kin_boost = 10 -> wc = 700
+                # (Z_E ~ 706): the P(X) kinetic sector makes the scalar
+                # inert on cosmological backgrounds.  This is the minimal
+                # large-kineticity point recovering LambdaCDM growth:
+                # sigma8 = 0.824 vs 0.823, med |P/P_LCDM - 1| < 0.2%
+                # (results/closure_response_scan.json).  Unscreened
+                # minimal-stable wc = +7 gives sigma8 = 1.61 (excluded);
+                # wc ~ 6300 gives sigma8 = 0.76 (the weak-lensing value).
+                kin_boost = 10.0
+                screening_s = 1.0
                 content += f"""
-# Active scalar perturbation closure (TEP-HC v0.4)
+# Active scalar perturbation closure (TEP-HC v0.8, delta-phi variable,
+# screened kineticity branch; see results/closure_response_scan.json)
 gravity_model = tep
 M2_evolution = yes
+use_pert_var_deltaphi_smg = yes
+pert_initial_conditions_smg = zero
+tep_screening_s = {screening_s}
+tep_kin_boost = {kin_boost}
 """
             else:
                 content += """

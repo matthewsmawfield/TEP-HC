@@ -58,8 +58,14 @@ class Step03Alphas:
             # Exact native TEP conformal-factor derivative
             alpha_A = alpha_A_native(z, epsilon_T, z_T, n_T)
 
-            # Exact Bellini-Sawicki parameters and stability discriminants
-            eft = evaluate_tep_eft_sector(alpha_A)
+            # Exact Bellini-Sawicki parameters and stability discriminants.
+            # Production closure: S_Sigma = 1 (unscreened, TEP-C0: the
+            # cosmological scalar is unscreened) with wc = +700
+            # (Z_E = 706, tep_kin_boost = 10 — the screened branch);
+            # the canonical-EF value wc = -5 is linearly unstable on the
+            # TEP background, and the minimal stable wc = +7 is retained
+            # as a diagnostic.
+            eft = evaluate_tep_eft_sector(alpha_A, screening_s=1.0, wc=700.0)
 
             results["redshifts"] = z.tolist()
             results["epsilon_T"] = epsilon_T
@@ -74,12 +80,16 @@ class Step03Alphas:
             results["c_s2"] = np.atleast_1d(eft["c_s2"]).tolist()
             results["is_stable"] = bool(eft["is_stable"])
 
-            # Cross-check: D must equal alpha_A^2 to numerical precision
+            # Cross-check: D must equal (wc + 6 S^2) alpha_A^2 to numerical
+            # precision (reduces to alpha_A^2 for the published wc=-5, S=1 map)
             D_min = float(np.min(eft["D"]))
             alpha_A_max = float(np.max(np.abs(alpha_A)))
             results["D_min"] = D_min
             results["alpha_A_max"] = alpha_A_max
-            results["ghost_free_identity"] = bool(np.allclose(eft["D"], alpha_A**2, atol=1e-14))
+            results["wc"] = eft["wc"]
+            results["screening_s"] = eft["screening_s"]
+            results["ghost_free_identity"] = bool(np.allclose(
+                eft["D"], (eft["wc"] + 6.0 * eft["screening_s"] ** 2) * alpha_A**2, atol=1e-14))
 
             results["status"] = "SUCCESS"
 

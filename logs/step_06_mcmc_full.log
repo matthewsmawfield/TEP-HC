@@ -1,23 +1,77 @@
-03:07:56 [INFO] ============================================================
-03:07:56 [INFO] STEP 06_mcmc: MCMC Execution with hi_class: background-only + active perturbations (Real Data Only)
-03:07:56 [INFO] Run started at: 2026-06-15T03:07:56.955866
-03:07:56 [INFO] ============================================================
-03:07:56 [PROCESS] Launching Cobaya MCMC (background-only TEP)...
-03:07:56 [INFO]   Config: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
-03:07:56 [INFO]   Hardware: M4 Pro detected, using 10 performance cores
-03:07:56 [PROCESS]   MCMC running (log: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs/cobaya_background.log)
-08:15:34 [PROCESS]   Verifying background chain...
-08:15:34 [SUCCESS]   ✓ Fresh chain verified: tep_hiclass_suite.1.txt (8087472 bytes, 18720/18720 unique)
-08:15:34 [PROCESS] Launching Cobaya MCMC (active perturbations)...
-08:15:34 [INFO]   Config: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_perturbations.yaml
-08:15:34 [PROCESS]   MCMC running (log: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs/cobaya_perturbations.log)
-10:57:16 [PROCESS]   Verifying perturbation chain...
-10:57:16 [SUCCESS]   ✓ Fresh chain verified: tep_hiclass_perturbations.1.txt (8294832 bytes, 19200/19200 unique)
-10:57:16 [SUCCESS] 
-  ✓ Both MCMC chains completed successfully
-rbations.log)
-2026-06-15 10:57:16 [PROCESS]   Verifying perturbation chain...
-2026-06-15 10:57:16 [SUCCESS]   ✓ Fresh chain verified: tep_hiclass_perturbations.1.txt (8294832 bytes, 19200/19200 unique)
-2026-06-15 10:57:16 [SUCCESS] 
-  ✓ Both MCMC chains completed successfully
-EXIT_CODE=0
+2026-10-08 23:35:33 [INFO] ============================================================
+2026-10-08 23:35:33 [INFO] STEP 06_mcmc: MCMC Execution with hi_class: background-only + active perturbations + native TTTEEE + LCDM TTTEEE reference (Real Data Only)
+2026-10-08 23:35:33 [INFO] Run started at: 2026-10-08T23:35:33.948671
+2026-10-08 23:35:33 [INFO] ============================================================
+2026-10-08 23:35:33 [INFO]   Removing old file: tep_hiclass_suite.1.txt
+2026-10-08 23:35:33 [INFO]   Removing old file: tep_hiclass_suite.progress
+2026-10-08 23:35:33 [INFO]   Removing old file: tep_hiclass_suite.covmat
+2026-10-08 23:35:33 [INFO]   Removing old file: tep_hiclass_suite.checkpoint
+2026-10-08 23:35:33 [INFO]   Removing old file: tep_hiclass_suite.updated.yaml
+2026-10-08 23:35:33 [INFO]   Removing old file: tep_hiclass_suite.input.yaml
+2026-10-08 23:35:33 [INFO]   Removing old file: tep_hiclass_suite.input.yaml.locked
+2026-10-08 23:35:33 [PROCESS] Launching Cobaya MCMC (background-only TEP)...
+2026-10-08 23:35:33 [INFO]   Config: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+2026-10-08 23:35:33 [INFO]   Hardware: M4 Pro detected, using 10 performance cores
+2026-10-08 23:35:33 [PROCESS]   MCMC running (log: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs/cobaya_background.log)
+2026-10-09 04:32:31 [PROCESS]   Verifying background chain...
+2026-10-09 04:32:31 [SUCCESS]   ✓ Fresh chain verified: tep_hiclass_suite.1.txt (8709552 bytes, 20160/20160 unique)
+2026-10-09 04:32:31 [PROCESS] Launching Cobaya MCMC (active perturbations)...
+2026-10-09 04:32:31 [INFO]   Config: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_perturbations.yaml
+2026-10-09 04:32:31 [PROCESS]   MCMC running (log: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs/cobaya_perturbations.log)
+2026-10-09 05:35:26 [ERROR] 
+  ✗ Step FAILED (no fallback used): Perturbation MCMC exited with code 1.
+Actual error: cobaya.log.LoggedError: Could not find random point giving finite posterior after 10000 tries
+2026-10-09 05:35:26 [ERROR] 
+Step 07 failed after 21592.7s
+2026-10-09 05:35:26 [ERROR] Error: Perturbation MCMC exited with code 1.
+Actual error: cobaya.log.LoggedError: Could not find random point giving finite posterior after 10000 tries
+2026-10-09 05:35:26 [WARNING] 
+Pipeline halted. Use --continue-on-error to proceed.
+2026-10-09 05:35:26 [INFO] ======================================================================
+2026-10-09 05:35:26 [INFO] PIPELINE EXECUTION SUMMARY
+2026-10-09 05:35:26 [INFO] ======================================================================
+2026-10-09 05:35:26 [INFO] 
+2026-10-09 05:35:26 [INFO] 
+Execution Statistics
+2026-10-09 05:35:26 [INFO] ====================
+2026-10-09 05:35:26 [INFO] Metric          | Count | Time (s)
+2026-10-09 05:35:26 [INFO] ----------------------------------
+2026-10-09 05:35:26 [INFO] Steps Completed | 7     | -       
+2026-10-09 05:35:26 [INFO] Steps Skipped   | 0     | -       
+2026-10-09 05:35:26 [INFO] Steps Failed    | 1     | -       
+2026-10-09 05:35:26 [INFO] Total Time      | -     | 21891.1 
+2026-10-09 05:35:26 [INFO] 
+2026-10-09 05:35:26 [INFO] Step Timing Breakdown:
+2026-10-09 05:35:26 [INFO]   00_setup            :    0.9s
+2026-10-09 05:35:26 [INFO]   00b_install         :    2.7s
+2026-10-09 05:35:26 [INFO]   02_background       :    0.0s
+2026-10-09 05:35:26 [INFO]   03_alphas           :    0.0s
+2026-10-09 05:35:26 [INFO]   04_cmb              :  288.7s
+2026-10-09 05:35:26 [INFO]   04b_jordan_frame    :    6.0s
+2026-10-09 05:35:26 [INFO]   05_cobaya           :    0.0s
+2026-10-09 05:35:26 [INFO]   06_mcmc             : 21592.7s
+2026-10-09 05:35:26 [INFO] 
+2026-10-09 05:35:26 [WARNING] Status: FAILED
+2026-10-09 05:35:26 [INFO] 
+2026-10-09 05:35:26 [INFO] Results directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results
+2026-10-09 05:35:26 [INFO] Logs directory: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs
+2026-10-09 05:35:26 [INFO] 
+2026-10-09 05:35:26 [INFO] ======================================================================
+2026-10-09 05:35:26 [INFO] Pipeline results saved to: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/pipeline_results.json
+2026-10-09 07:18:31 [INFO] ============================================================
+2026-10-09 07:18:31 [INFO] STEP 06_mcmc: MCMC Execution with hi_class: background-only + active perturbations + native TTTEEE + LCDM TTTEEE reference (Real Data Only)
+2026-10-09 07:18:31 [INFO] Run started at: 2026-10-09T07:18:31.331377
+2026-10-09 07:18:31 [INFO] ============================================================
+2026-10-09 07:18:31 [INFO]   Removing old file: tep_hiclass_perturbations.progress
+2026-10-09 07:18:31 [INFO]   Removing old file: tep_hiclass_perturbations.updated.yaml
+2026-10-09 07:18:31 [INFO]   Removing old file: tep_hiclass_perturbations.input.yaml
+2026-10-09 07:18:31 [PROCESS] Launching Cobaya MCMC (background-only TEP)...
+2026-10-09 07:18:31 [INFO]   Config: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_hiclass_suite.yaml
+2026-10-09 07:18:31 [INFO]   Hardware: M4 Pro detected, using 10 performance cores
+2026-10-09 07:18:31 [PROCESS]   MCMC running (log: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs/cobaya_background.log)
+2026-10-09 07:18:44 [PROCESS]   Verifying background-only TEP chain...
+2026-10-09 07:18:44 [SUCCESS]   ✓ Fresh chain verified: tep_hiclass_suite.1.txt (8709552 bytes, 20160/20160 unique)
+2026-10-09 07:18:44 [PROCESS] Launching Cobaya MCMC (native TEP high-l TTTEEE)...
+2026-10-09 07:18:44 [INFO]   Config: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/cobaya/tep_native_mcmc_ttteee.yaml
+2026-10-09 07:18:44 [INFO]   Hardware: M4 Pro detected, using 10 performance cores
+2026-10-09 07:18:44 [PROCESS]   MCMC running (log: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/logs/cobaya_ttteee.log)

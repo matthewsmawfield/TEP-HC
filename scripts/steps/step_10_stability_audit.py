@@ -2,13 +2,21 @@
 """
 Step 10: Stability Audit
 ========================
-Evaluates the exact stability discriminants across the full redshift range.
-Demonstrates that the TEP scalar perturbation sector is ghost-free and
-gradient-stable with no pathological growth in the late-universe unscreened regime.
+Evaluates the exact stability discriminants across the full redshift range
+for the corrected delta-phi closure (alpha_K = wc alpha_A^2; production
+wc = +700 = Z_E - 6 for tep_kin_boost = 10, with wc = +7 retained as the
+minimal-stable diagnostic; production S_Sigma = 1).
 
 Audits:
-  - No-ghost discriminant D(z) = alpha_K + (3/2) alpha_B^2 = +alpha_A^2 > 0
-  - Sound speed c_s^2(z) = 1 exactly (conformal isomorphism)
+  - No-ghost discriminant D(z) = alpha_K + (3/2) alpha_B^2
+        = (wc + 6 S^2) alpha_A^2 > 0
+  - Kinetic-coefficient sign wc > 0: the operative linear-stability
+    criterion. D > 0 alone is NOT sufficient — the canonical-EF branch
+    wc = -5 has D = alpha_A^2 > 0 yet is linearly unstable
+    (tachyonic/scalarization channel, median P(k) enhancement ~1e8;
+    see results/closure_response_scan.json).
+  - Sound speed c_s^2(z) = 1 (asserted by conformal isomorphism; the
+    hi_class build overrides the generic cs2 reconstruction for tep)
   - Planck-mass running |alpha_M(z)| bounded
   - Transition-regime smoothness: no discontinuous jumps in alpha_M'(z)
 """
@@ -69,11 +77,10 @@ class Step10StabilityAudit:
             # Exact EFT sector
             eft = evaluate_tep_eft_sector(alpha_A)
 
-            # 1. No-ghost check: D(z) = alpha_A^2 >= 0 (no ghosts). D = 0 at
-            # z = 0 (local reference frame), at the turnover z* ~ 2.65, and at
-            # high z where the suppression underflows — all documented
-            # scalar-decoupling limits, not ghosts. Denormal underflow of the
-            # -5*alpha_A^2 + 1.5*(2*alpha_A)^2 combination can return -1e-323.
+            # 1. No-ghost check: D(z) = (wc + 6 S^2) alpha_A^2 >= 0 (no
+            # ghosts). D = 0 at z = 0 (local reference frame), at the
+            # turnover z* ~ 2.65, and at high z where the suppression
+            # underflows — all documented scalar-decoupling limits.
             D = eft["D"]
             D_min = float(np.min(D[z > 0]))
             ghost_free = D_min > -1e-300
@@ -115,10 +122,18 @@ class Step10StabilityAudit:
                 "tolerance": self.DERIVATIVE_JUMP_TOLERANCE,
                 "transition_regime": f"{0.5*z_T} <= z <= {2.0*z_T}"
             }
-            results["ghost_free_identity"] = bool(np.allclose(D, alpha_A**2, atol=1e-14))
+            results["ghost_free_identity"] = bool(
+                np.allclose(D, (eft["wc"] + 6.0 * eft["screening_s"] ** 2) * alpha_A**2, atol=1e-14))
+            results["wc"] = eft["wc"]
+            results["screening_s"] = eft["screening_s"]
+            # Operative linear-stability criterion: positive Jordan
+            # kinetic coefficient. wc = -5 (canonical EF image) passes
+            # D > 0 but carries a runaway tachyonic mode.
+            results["kinetic_stable"] = bool(eft["wc"] > 0)
 
             # Overall pass/fail
-            all_passed = ghost_free and gradient_free and alpha_M_bounded and transition_smooth
+            all_passed = (ghost_free and gradient_free and alpha_M_bounded
+                          and transition_smooth and results["kinetic_stable"])
             results["all_passed"] = all_passed
 
             # Store sampled discriminants for plotting

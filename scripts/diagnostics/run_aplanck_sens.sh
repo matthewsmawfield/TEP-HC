@@ -1,8 +1,8 @@
 #!/bin/bash
 # A_planck sensitivity MCMC launcher — runs inside screen
 set -e
-cd "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC"
-export COBAYA_PACKAGES_PATH="/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/data/external/cobaya_packages"
+cd "$(dirname "$0")/../.."
+export COBAYA_PACKAGES_PATH="$PWD/data/external/cobaya_packages"
 export OMP_NUM_THREADS=1
 
 LOG="logs/aplanck_sens_mpi4.log"

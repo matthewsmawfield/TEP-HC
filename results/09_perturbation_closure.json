@@ -1,0 +1,29 @@
+{
+  "step": "09_perturbation_closure",
+  "timestamp": "2026-10-10T08:18:07.413120",
+  "status": "SUCCESS",
+  "background_consistency": {
+    "available": true,
+    "max_rel_diff": 0.0,
+    "mean_rel_diff": 0.0,
+    "tolerance": 1e-06,
+    "passed": true,
+    "n_points": 40000
+  },
+  "spectrum_comparison": {
+    "available": true,
+    "max_residual_acoustic_vs_lcdm": 0.0182000496189732,
+    "max_residual_acoustic_vs_bg": 0.004238468298799504,
+    "acoustic_reference_band": 0.001,
+    "within_acoustic_reference_band": false,
+    "max_residual_lowell_vs_lcdm": 0.13475884772051377,
+    "max_residual_lowell_vs_bg": 0.1752223792692902,
+    "low_ell_reference_band": 0.05,
+    "within_lowell_reference_band": false,
+    "spectra_finite": true,
+    "not_divergent": true,
+    "scalar_active": true,
+    "note": "Residuals are the measured active-scalar signature (screened delta-phi closure); nonzero is expected. Gate fails on divergence (>500%), non-finite spectra, or a bitwise-silent scalar sector."
+  },
+  "closure_passed": true
+}

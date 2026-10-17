@@ -1,0 +1,15 @@
+======================================================================
+Step 23: S8 provenance and perturbation-channel audit
+======================================================================
+sigma8 LCDM z=0:        0.8233
+sigma8 TEP  z=0:        0.8244 (+0.130%)
+bg vs pert pk identical: [False, False]
+pk boundary artifact:   max dev +0.5% at k=20.19 (clean: -0.893% to +0.371% below k=0.45)
+MCMC S8:                0.8696 +/- 0.0242
+  corr(sigma8,A_planck)=+0.31, A_planck ceiling fraction=0.58, n_s ceiling fraction=0.34
+  widened-prior chain:  S8=0.930 at A_planck=1.232
+Fixed-cosmology S8:     LCDM 0.8421, TEP 0.8432
+  vs DES-Y3: LCDM +3.9sigma, TEP +4.0sigma (TEP-LCDM +0.06sigma)
+  vs KiDS-1000: LCDM +4.0sigma, TEP +4.0sigma (TEP-LCDM +0.05sigma)
+
+Saved: /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_23_s8_provenance_audit.json

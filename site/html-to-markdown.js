@@ -173,7 +173,7 @@ class HTMLToMarkdownConverter {
             console.log(`  Total HTML: ${(allHtml.length / 1024).toFixed(1)} KB`);
             const markdownTitle = manifest.title || 'Temporal Equivalence Principle: Native hi_class Conformal Implementation, Linear Perturbation Closure, and CMB Acoustic Peak Preservation';
             const author = manifest.author || 'Matthew Lukin Smawfield';
-            const version = (manifest.version || 'v0.7').replace(/\s*\([^)]*\)\s*/g, '').trim();
+            const version = (manifest.version || 'v0.8').replace(/\s*\([^)]*\)\s*/g, '').trim();
             const codename = manifest.codename || 'Cambridge';
             const firstPublished = manifest.first_published || '8 June 2026';
             const lastUpdated = manifest.last_updated || manifest.date || '30 September 2026';
@@ -189,7 +189,7 @@ class HTMLToMarkdownConverter {
             }).join('\n').trim();
             
             const fullMarkdown = header + markdown;
-            const outputPath = path.join(__dirname, '..', `18-TEP-HC-${version}-${codename}.md`);
+            const outputPath = path.join(__dirname, '..', `F18-TEP-HC-${version}-${codename}.md`);
             fs.writeFileSync(outputPath, fullMarkdown, 'utf8');
             console.log(`✅ Markdown saved to: ${outputPath} (${(markdown.length / 1024).toFixed(1)} KB)`);
 

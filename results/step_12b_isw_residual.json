@@ -64,6 +64,6 @@
     "isw_detectable": false,
     "required_snr_for_detection": 3.0,
     "predicted_snr": 0.008566352782835879,
-    "interpretation": "The predicted TEP ISW modification at low-\u2113 has S/N \u2248 0.01 relative to the cosmic-variance floor. This is below the threshold for a confident detection (S/N > 3). A full Boltzmann integration of the ISW power spectrum with the native hi_class tep_mode implementation is required for a definitive number. The present analytic estimate serves as a scoping calculation."
+    "interpretation": "The predicted TEP ISW modification at low-\u2113 has S/N \u2248 0.01 relative to the cosmic-variance floor. This is below the threshold for a confident detection (S/N >= 3). A full Boltzmann integration of the ISW power spectrum with the native hi_class tep_mode implementation is required for a definitive number. The present analytic estimate serves as a scoping calculation."
   }
 }

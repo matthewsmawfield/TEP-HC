@@ -1,7 +1,7 @@
 {
   "step": "23",
   "title": "S8 provenance and perturbation-channel audit",
-  "timestamp": "2026-10-01T01:02:40.275504Z",
+  "timestamp": "2026-10-13T01:22:24.205999Z",
   "fixed_cosmology": {
     "H0": 67.36,
     "omega_b": 0.022383,
@@ -9,67 +9,68 @@
     "Omega_m": 0.3138249967558297
   },
   "growth_sign": {
-    "sigma8_ratio_TEP_over_LCDM_z0": 1.0016640703185948,
-    "sigma8_ratio_TEP_over_LCDM_z05": 0.9992878952334666,
+    "sigma8_ratio_TEP_over_LCDM_z0": 1.0012957084336045,
+    "sigma8_ratio_TEP_over_LCDM_z05": 0.9990496809543122,
     "sign": "enhancement (wrong direction for resolving the S8 tension)",
-    "interpretation": "TEP modifies the growth history through the tep_mode Jordan-frame Hubble factor M(z) = A/(1-alpha_A). At epsilon_T = 0.0066 the net effect is a +0.17% uplift of sigma8 at z=0 and -0.07% at z=0.5 \u2014 sub-percent and scale-free, as expected for a pure-background modification. A resolution of the DES-Y3/KiDS S8 amplitude would require suppression of order 8-10%, which the CMB-bounded epsilon_T cannot supply in the linear homogeneous closure."
+    "interpretation": "TEP modifies the growth history through the tep_mode Jordan-frame Hubble factor M(z) = A/(1-alpha_A). At epsilon_T = 0.0066 the net effect is a +0.13% uplift of sigma8 at z=0 and -0.10% at z=0.5 \u2014 sub-percent and scale-free, as expected for a pure-background modification. A resolution of the DES-Y3/KiDS S8 amplitude would require suppression of order 8-10%, which the CMB-bounded epsilon_T cannot supply in the linear homogeneous closure."
   },
   "perturbation_channel": {
     "0.0": {
-      "bg_md5": "94348ad348929cb2ba261c01264fec89",
-      "pert_md5": "94348ad348929cb2ba261c01264fec89",
-      "bitwise_identical": true
+      "bg_md5": "677e1d0a97da3f3ebffc77ffa22dc305",
+      "pert_md5": "dd354337e41bcccb86feaef487450534",
+      "bitwise_identical": false
     },
     "0.5": {
-      "bg_md5": "9fd42bdacc96cb23b8e50255d62a5c6d",
-      "pert_md5": "9fd42bdacc96cb23b8e50255d62a5c6d",
-      "bitwise_identical": true
+      "bg_md5": "f6ca47701d8e1fd452bb556355efefd6",
+      "pert_md5": "84db63ba24e41251ec5070b7d1b53cbc",
+      "bitwise_identical": false
     },
-    "finding": "tep_pert_post (gravity_model=tep, Bellini-Sawicki alphas active) and tep_bg_post (tep_mode background only) produce bitwise-identical mPk at both z=0 and z=0.5. A control run at epsilon_T = 0.05 (7.6x the fiducial amplitude) confirmed the identity persists: the SMG alpha sector contributes zero to the matter power spectrum in this build. All linear growth differences relative to LCDM are carried by the scale-free tep_mode background factor; the only scale-dependent structure in the registered pk files is the k_max boundary artifact quantified below. The 'active-perturbation' sigma8 therefore equals the background-only value by construction, not by computation of a nonzero perturbation correction."
+    "finding": "tep_pert_post (gravity_model=tep, Bellini-Sawicki alphas active) and tep_bg_post (tep_mode background only) produce distinct mPk products at z=0 and z=0.5 on the corrected build: the SMG alpha sector is genuinely active in the matter power spectrum, with a bounded sub-percent correction on the screened w_c=700 branch (see results/closure_response_scan.json for the full response curve). The earlier bitwise-identical result reflected a background-density gate that silently disabled the SMG sector in the pre-audit build."
   },
   "pk_boundary_artifact": {
-    "grid_k_max_h_over_Mpc": 1.199790826854,
-    "max_deviation_full_grid": 0.44323318918330745,
-    "k_at_max_deviation": 1.199790826854,
-    "max_deviation_below_0.45": 0.005237527925373353,
-    "min_deviation_below_0.45": 0.0033273665201218883,
-    "sigma8_full_minus_truncated_LCDM": 0.006272650133659297,
-    "sigma8_full_minus_truncated_TEP": 0.0062020286506305755,
-    "finding": "The registered pk grids terminate at P_k_max_h/Mpc = 1.0 and show a spurious rising deviation from k ~ 0.45 h/Mpc, reaching +44% at the grid edge. An extended reference run to P_k_max_h/Mpc = 20 with identical physics yields a flat +0.35% deviation over the full k range: the upturn is a grid-boundary artifact of the pk output, not a physical scale-dependent feature. Its integrated impact on sigma8 through the 8 Mpc/h top-hat is below 0.02%. Any small-scale (k > 0.45 h/Mpc) statement using the registered pk files must be regenerated with P_k_max_h/Mpc >= 10."
+    "grid_k_max_h_over_Mpc": 20.94928444961,
+    "max_deviation_full_grid": 0.00526997928020978,
+    "k_at_max_deviation": 20.19097998846,
+    "max_deviation_below_0.45": 0.003707534700112314,
+    "min_deviation_below_0.45": -0.008931905858413414,
+    "max_abs_deviation_above_0.45": 0.00526997928020978,
+    "sigma8_full_minus_truncated_LCDM": 0.006874996940027134,
+    "sigma8_full_minus_truncated_TEP": 0.00689306589141736,
+    "finding": "The registered pk grids are extended to P_k_max_h/Mpc = 20 (k_scalar_max_tau0_over_l_max = 80) and terminate at k ~ 21 h/Mpc. The rising deviation previously seen near the old grid edge (k ~ 0.45-1.0 h/Mpc, reaching +44%) is absent on the extended grid: it was a grid-boundary artifact of the pk output, not a physical scale-dependent feature. On the extended grid the TEP/LCDM deviation is flat and sub-percent for k > 0.45 h/Mpc; the only residual is at the low-k end, where the active SMG scalar sources a genuine ~1%% correction. The integrated impact of the high-k region on sigma8 through the 8 Mpc/h top-hat is below 0.02%%."
   },
   "prior_saturation": {
     "main_chain": {
       "sigma8": {
-        "mean": 0.8585398448994923,
-        "std": 0.015885312723326543
+        "mean": 0.859026899147488,
+        "std": 0.015227480286103805
       },
       "S8_derived": {
-        "mean": 0.8683847601892593,
-        "std": 0.0247720445161086
+        "mean": 0.8695976947325087,
+        "std": 0.024190133799154575
       },
       "A_planck": {
-        "mean": 1.088161518917464,
-        "std": 0.012027371842369574,
+        "mean": 1.0886775125410968,
+        "std": 0.010654498479355165,
         "prior": "U[0.9,1.1]",
-        "fraction_within_0.01_of_ceiling": 0.5807689607563241
+        "fraction_within_0.01_of_ceiling": 0.5784605930250423
       },
       "n_s": {
-        "mean": 0.9956072986130157,
-        "std": 0.004665078458487636,
+        "mean": 0.9955791924845597,
+        "std": 0.00416560659264684,
         "prior": "U[0.94,1.0]",
-        "fraction_within_0.002_of_ceiling": 0.3908688835326329
+        "fraction_within_0.002_of_ceiling": 0.3421109233369181
       },
-      "corr_sigma8_A_planck": 0.46031111473201486,
-      "corr_sigma8_n_s": 0.1644476725203729
+      "corr_sigma8_A_planck": 0.3082089717321387,
+      "corr_sigma8_n_s": 0.021157890844097367
     },
     "linear_response_fit": {
       "coefficients": {
-        "const": -0.04853183438037019,
-        "d_sigma8_dA_planck": 0.5760022417672807,
-        "d_sigma8_dn_s": 0.2815248596198348
+        "const": 0.2839458886987641,
+        "d_sigma8_dA_planck": 0.44531108929802293,
+        "d_sigma8_dn_s": 0.09068172790901928
       },
-      "sigma8_at_A_planck_1.0": 0.8077586123654226,
-      "S8_at_A_planck_1.0": 0.8170219761789688
+      "sigma8_at_A_planck_1.0": 0.819537819441553,
+      "S8_at_A_planck_1.0": 0.8296357223227575
     },
     "aplanck_sensitivity_chain": {
       "A_planck": {
@@ -91,37 +92,38 @@
     "DES-Y3": {
       "external_S8": 0.776,
       "external_err": 0.017,
-      "LCDM_at_fixed_cosmology": 0.8414839643114818,
-      "TEP_at_fixed_cosmology": 0.842884252800066,
-      "LCDM_gap_sigma": 3.851997900675396,
-      "TEP_gap_sigma": 3.9343678117685843,
-      "TEP_minus_LCDM_gap_sigma": 0.08236991109318825
+      "external_analysis": "DES Y3 3x2pt",
+      "LCDM_at_fixed_cosmology": 0.8421000338720137,
+      "TEP_at_fixed_cosmology": 0.8431911499878404,
+      "LCDM_gap_sigma": 3.88823728658904,
+      "TEP_gap_sigma": 3.9524205875200216,
+      "TEP_minus_LCDM_gap_sigma": 0.06418330093098144
     },
     "KiDS-1000": {
       "external_S8": 0.759,
       "external_err": 0.021,
-      "LCDM_at_fixed_cosmology": 0.8414839643114818,
-      "TEP_at_fixed_cosmology": 0.842884252800066,
-      "LCDM_gap_sigma": 3.9278078243562735,
-      "TEP_gap_sigma": 3.9944882285745686,
-      "TEP_minus_LCDM_gap_sigma": 0.06668040421829526
+      "external_analysis": "KiDS-1000 cosmic shear",
+      "LCDM_at_fixed_cosmology": 0.8421000338720137,
+      "TEP_at_fixed_cosmology": 0.8431911499878404,
+      "LCDM_gap_sigma": 3.95714447009589,
+      "TEP_gap_sigma": 4.009102380373352,
+      "TEP_minus_LCDM_gap_sigma": 0.05195791027746117
     },
     "finding": "At the shared fixed cosmology the TEP-versus-external gap equals the LCDM-versus-external gap to within 0.1 sigma of the external error bar: TEP inherits, and does not resolve or worsen, the standard Planck-CMB versus weak-lensing S8 tension. The 3-4 sigma offset sometimes quoted from the joint-MCMC z=0 extrapolation is dominated by prior-boundary saturation of A_planck and n_s in the low-ell-only likelihood (section 4), not by TEP physics."
   },
   "summary": {
     "verdict": [
-      "1. TEP's linear growth modification is background-only, scale-free,",
-      "   and +0.17% in sigma8 \u2014 an enhancement, not the ~8% suppression",
-      "   required to move toward the weak-lensing amplitude.",
-      "2. The SMG active-perturbation sector is inert in mPk (bitwise-",
-      "   identical to background-only at epsilon_T = 0.0066 and 0.05);",
-      "   the 'active closure' contributes to CMB potentials (ISW), not",
-      "   to matter clustering in this implementation.",
+      "1. TEP's linear growth modification is scale-free and +0.13% in sigma8 \u2014",
+      "   an enhancement, not the ~8% suppression required to move",
+      "   toward the weak-lensing amplitude.",
+      "2. The SMG active-perturbation sector is genuinely active (distinct products) in mPk;",
+      "   the dominant active-scalar signature is in the low-ell CMB",
+      "   potentials (ISW), with the mPk correction bounded at sub-percent.",
       "3. The registered pk grids carry a P_k_max=1.0 boundary artifact",
       "   (+44% at the edge); sigma8 is unaffected (<0.02%).",
       "4. S8 = 0.868 +/- 0.025 is prior-boundary dominated: A_planck and",
       "   n_s saturate their ceilings and sigma8 follows A_planck with",
-      "   corr +0.46. At fiducial cosmology TEP predicts S8 = 0.843,",
+      "   corr +0.46. At fiducial cosmology TEP predicts S8 = 0.842,",
       "   i.e. the standard Planck-level tension (DES gap ~ 3.9 sigma;",
       "   shared with LCDM), not a TEP-specific excess."
     ]

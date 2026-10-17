@@ -1,0 +1,42 @@
+{
+  "status": "preflight_only_not_evidence",
+  "models": {
+    "LCDM": {
+      "model_initialized": true,
+      "reference_evaluation": {
+        "status": "finite",
+        "loglike": -1223.7351577182974
+      },
+      "parameters": {
+        "logA": 3.044,
+        "n_s": 0.965,
+        "H0": 67.4,
+        "omega_b": 0.02237,
+        "omega_cdm": 0.12,
+        "tau_reio": 0.0544,
+        "A_planck": 1.0
+      },
+      "elapsed_s": 5.838398625026457,
+      "config_sha256": "551e8487ee87d9a36384f93efd42b108c9531eaccd4cf15d3da555953731e837"
+    },
+    "TEP": {
+      "model_initialized": true,
+      "reference_evaluation": {
+        "status": "finite",
+        "loglike": -1212.8990688750423
+      },
+      "parameters": {
+        "logA": 3.044,
+        "n_s": 0.965,
+        "H0": 67.4,
+        "omega_b": 0.02237,
+        "omega_cdm": 0.12,
+        "tau_reio": 0.0544,
+        "A_planck": 1.0,
+        "epsilon_T": 0.006
+      },
+      "elapsed_s": 0.7969270829926245,
+      "config_sha256": "027aec3bbdd3acee07e10cefd13756280da80794a724c3f088188f9730b954bb"
+    }
+  }
+}

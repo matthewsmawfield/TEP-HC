@@ -204,15 +204,26 @@ theory:
     extra_args:
       output: tCl,pCl,lCl,mPk
       lensing: yes
-      modes: s,t
+      modes: s
       non_linear: halofit
       # Native TEP background Hubble modification
       tep_mode: 'yes'
       z_T: 5.0
       n_T: 2.0
-      # Active scalar perturbation closure
+      # Active scalar perturbation closure (delta-phi variable; x_smg =
+      # dphi/phi' is singular at the alpha_A=0 turnover z~2.6)
       gravity_model: 'tep'
       M2_evolution: 'yes'
+      use_pert_var_deltaphi_smg: 'yes'
+      pert_initial_conditions_smg: 'zero'
+      # S_Sigma = 1 (unscreened cosmological scalar, TEP-C0); tep_kin_boost
+      # = 10 -> wc = +700 (production value, gravity_smg/tep.c): large
+      # kineticity decouples the scalar so the SMG spectra track the
+      # tep_mode background-only result to ~1-3%. wc = +7 (K=1) leaves the
+      # scalar strongly coupled: TT amplified ~14x at l=10 and lensing
+      # power suppressed, giving -inf posterior everywhere.
+      tep_screening_s: 1.0
+      tep_kin_boost: 10.0
 
 likelihood:
   planck_2018_lowl.TT: null
@@ -310,27 +321,31 @@ class Step05Cobaya:
         }
 
         try:
-            # 1. Native TEP background-only config
-            config_path = self.cobaya_dir / "tep_hiclass_suite.yaml"
-            with open(config_path, 'w') as f:
-                f.write(_inject_hiclass_path(COBAYA_CONFIG_TEMPLATE))
-            print_status(f"  Created {config_path} (TEP background-only)", "SUCCESS")
-
-            # 2. LCDM comparison config
-            lcdm_path = self.cobaya_dir / "lcdm_comparison.yaml"
-            with open(lcdm_path, 'w') as f:
-                f.write(_inject_hiclass_path(COBAYA_CONFIG_LCDM))
-            print_status(f"  Created {lcdm_path} (LCDM comparison)", "SUCCESS")
-
-            # 3. TEP active perturbation closure config
-            pert_path = self.cobaya_dir / "tep_hiclass_perturbations.yaml"
-            with open(pert_path, 'w') as f:
-                f.write(_inject_hiclass_path(COBAYA_CONFIG_TEP_PERT))
-            print_status(f"  Created {pert_path} (TEP active perturbations)", "SUCCESS")
-
-            results["configs_written"] = [
-                str(config_path), str(lcdm_path), str(pert_path)
+            # Current checked-in production configurations take precedence over
+            # fallback templates. Re-running setup must not silently change the
+            # priors, likelihoods, or screening parameters of an existing run.
+            specifications = [
+                ("tep_hiclass_suite.yaml", COBAYA_CONFIG_TEMPLATE),
+                ("lcdm_comparison.yaml", COBAYA_CONFIG_LCDM),
+                ("tep_hiclass_perturbations.yaml", COBAYA_CONFIG_TEP_PERT),
             ]
+            results["configs_written"] = []
+            results["configs_preserved"] = []
+            for filename, template in specifications:
+                path = self.cobaya_dir / filename
+                if path.exists():
+                    info = yaml.safe_load(path.read_text())
+                    if not isinstance(info, dict) or any(
+                        key not in info for key in ("theory", "likelihood", "params", "sampler", "output")
+                    ):
+                        raise ValueError(f"Invalid production configuration: {path}")
+                    results["configs_preserved"].append(str(path))
+                    print_status(f"  Preserved production configuration: {path}", "SUCCESS")
+                else:
+                    path.write_text(_inject_hiclass_path(template))
+                    results["configs_written"].append(str(path))
+                    print_status(f"  Created fallback configuration: {path}", "SUCCESS")
+
             results["status"] = "SUCCESS"
 
         except Exception as e:

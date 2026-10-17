@@ -1,8 +1,419 @@
+diff --git a/Makefile b/Makefile
+index 67a3f04..46a62e8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -6,8 +6,8 @@ MDIR := $(shell pwd)
+ WRKDIR = $(MDIR)/build
+ 
+ .base:
+-	if ! [ -e $(WRKDIR) ]; then mkdir $(WRKDIR) ; mkdir $(WRKDIR)/lib; fi;
+-	touch build/.base
++	if ! [ -e "$(WRKDIR)" ]; then mkdir -p "$(WRKDIR)/lib" ; fi;
++	touch "$(WRKDIR)/.base"
+ 
+ vpath %.c source:tools:main:test
+ vpath %.o build
+@@ -63,7 +63,7 @@ HI_CLASS_PATH = gravity_smg
+ ########################################################
+ 
+ # pass current working directory to the code
+-CLASSDIR ?= $(MDIR)
++CLASSDIR = $(CURDIR)
+ CCFLAG += -D__CLASSDIR__='"$(CLASSDIR)"'
+ 
+ # where to find include files *.h
+@@ -101,14 +101,14 @@ vpath %.c $(HI_CLASS_PATH)
+ CCFLAG += -DHI_CLASS_PATH
+ #LDFLAGS += -DHI_CLASS_PATH
+ INCLUDES += -I../gravity_smg/include
+-EXTERNAL += input_smg.o background_smg.o perturbations_smg.o fourier_smg.o gravity_functions_smg.o gravity_models_smg.o
++EXTERNAL += input_smg.o background_smg.o perturbations_smg.o fourier_smg.o gravity_functions_smg.o gravity_models_smg.o tep.o
+ endif
+ 
+ %.o:  %.c .base $(HEADERFILES)
+-	cd $(WRKDIR);$(CC) $(OPTFLAG) $(OMPFLAG) $(CCFLAG) $(INCLUDES) -c ../$< -o $*.o
++	cd "$(WRKDIR)";$(CC) $(OPTFLAG) $(OMPFLAG) $(CCFLAG) $(INCLUDES) -c ../$< -o $*.o
+ 
+ %.opp:  %.c .base $(HEADERFILES)
+-	cd $(WRKDIR);$(CPP) $(OPTFLAG) $(OMPFLAG) $(CCFLAG) $(INCLUDES) -c ../$< -o $*.opp
++	cd "$(WRKDIR)";$(CPP) $(OPTFLAG) $(OMPFLAG) $(CCFLAG) $(INCLUDES) -c ../$< -o $*.opp
+ 
+ TOOLS = growTable.o dei_rkck.o sparse.o evolver_rkck.o  evolver_ndf15.o arrays.opp parser.o quadrature.o hyperspherical.opp common.o rootfinder.o trigonometric_integrals.o
+ 
+@@ -211,7 +211,7 @@ classy: libclass.a python/classy.pyx python/cclassy.pxd
+ 	cd python; export CC=$(CC); $(PYTHON) setup.py install || $(PYTHON) setup.py install --user
+ 
+ clean: .base
+-	rm -rf $(WRKDIR);
++	rm -rf "$(WRKDIR)";
+ 	rm -f libclass.a
+-	rm -f $(MDIR)/python/classy.c
+-	rm -rf $(MDIR)/python/build
++	rm -f "$(MDIR)/python/classy.c"
++	rm -rf "$(MDIR)/python/build"
+diff --git a/gravity_smg/background_smg.c b/gravity_smg/background_smg.c
+index 38a830d..f79591f 100644
+--- a/gravity_smg/background_smg.c
++++ b/gravity_smg/background_smg.c
+@@ -242,7 +242,7 @@ int background_gravity_functions_smg(
+   pvecback[pba->index_bg_cs2_smg] = 0.;
+   pvecback[pba->index_bg_kinetic_D_smg] = 0.;
+   pvecback[pba->index_bg_kinetic_D_prime_smg] = 0.;
+-	if (pba->field_evolution_smg == _TRUE_) {
++	if (pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep) {
+ 	  pvecback[pba->index_bg_kinetic_D_over_phiphi_smg] = 0.;
+ 	  pvecback[pba->index_bg_kinetic_D_over_phiphi_prime_smg] = 0.;
+ 	}
+@@ -269,7 +269,7 @@ int background_gravity_functions_smg(
+   pvecback[pba->index_bg_A10_prime_smg] = 0.;
+   pvecback[pba->index_bg_A12_prime_smg] = 0.;
+   pvecback[pba->index_bg_A13_prime_smg] = 0.;
+-	if (pba->field_evolution_smg == _TRUE_) {
++	if (pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep) {
+ 		pvecback[pba->index_bg_C0_smg] = 0.;
+ 	  pvecback[pba->index_bg_C1_smg] = 0.;
+ 	  pvecback[pba->index_bg_C2_smg] = 0.;
+@@ -377,9 +377,17 @@ int background_define_indices_bg_smg(
+ 				 													   int * index_bg
+ 			 													 		 ) {
+ 
+-	class_define_index(pba->index_bg_phi_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
+-	class_define_index(pba->index_bg_phi_prime_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
+-	class_define_index(pba->index_bg_phi_prime_prime_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
++	/* For tep the scalar sector is not integrated but prescribed
++	 * analytically; the phi/U_phi columns are still needed by the
++	 * deltaphi perturbation closure (Bs/Cs chain). */
++	short smg_scalar_sector = (pba->field_evolution_smg == _TRUE_ ||
++	                           pba->gravity_model_smg == tep);
++
++	class_define_index(pba->index_bg_phi_smg,smg_scalar_sector,*index_bg,1);
++	class_define_index(pba->index_bg_phi_prime_smg,smg_scalar_sector,*index_bg,1);
++	class_define_index(pba->index_bg_phi_prime_prime_smg,smg_scalar_sector,*index_bg,1);
++	pba->index_bg_U_phi_smg = 0; /* safe default; column exists only for tep */
++	class_define_index(pba->index_bg_U_phi_smg,pba->gravity_model_smg == tep,*index_bg,1);
+ 
+ 	class_define_index(pba->index_bg_rho_smg,_TRUE_,*index_bg,1);
+ 	class_define_index(pba->index_bg_p_smg,_TRUE_,*index_bg,1);
+@@ -396,11 +404,11 @@ int background_define_indices_bg_smg(
+ 	class_define_index(pba->index_bg_M2_running_smg,_TRUE_,*index_bg,1);
+ 	class_define_index(pba->index_bg_beyond_horndeski_smg,_TRUE_,*index_bg,1);
+ 
+-	class_define_index(pba->index_bg_kineticity_over_phiphi_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
+-	class_define_index(pba->index_bg_braiding_over_phi_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
+-	class_define_index(pba->index_bg_beyond_horndeski_over_phi_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
+-	class_define_index(pba->index_bg_braiding_over_phi_prime_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
+-	class_define_index(pba->index_bg_beyond_horndeski_over_phi_prime_smg,pba->field_evolution_smg == _TRUE_,*index_bg,1);
++	class_define_index(pba->index_bg_kineticity_over_phiphi_smg,smg_scalar_sector,*index_bg,1);
++	class_define_index(pba->index_bg_braiding_over_phi_smg,smg_scalar_sector,*index_bg,1);
++	class_define_index(pba->index_bg_beyond_horndeski_over_phi_smg,smg_scalar_sector,*index_bg,1);
++	class_define_index(pba->index_bg_braiding_over_phi_prime_smg,smg_scalar_sector,*index_bg,1);
++	class_define_index(pba->index_bg_beyond_horndeski_over_phi_prime_smg,smg_scalar_sector,*index_bg,1);
+ 
+ 	class_define_index(pba->index_bg_kineticity_prime_smg,_TRUE_,*index_bg,1);
+ 	class_define_index(pba->index_bg_braiding_prime_smg,_TRUE_,*index_bg,1);
+@@ -413,7 +421,7 @@ int background_define_indices_bg_smg(
+ 	class_define_index(pba->index_bg_cs2num_prime_smg,_TRUE_,*index_bg,1);
+ 	class_define_index(pba->index_bg_kinetic_D_smg,_TRUE_,*index_bg,1);
+ 	class_define_index(pba->index_bg_kinetic_D_prime_smg,_TRUE_,*index_bg,1);
+-	if (pba->field_evolution_smg == _TRUE_) {
++	if (smg_scalar_sector == _TRUE_) {
+ 		class_define_index(pba->index_bg_kinetic_D_over_phiphi_smg,_TRUE_,*index_bg,1);
+ 		class_define_index(pba->index_bg_kinetic_D_over_phiphi_prime_smg,_TRUE_,*index_bg,1);
+ 	}
+@@ -439,7 +447,7 @@ int background_define_indices_bg_smg(
+ 	class_define_index(pba->index_bg_A12_prime_smg,_TRUE_,*index_bg,1);
+ 	class_define_index(pba->index_bg_A13_prime_smg,_TRUE_,*index_bg,1);
+ 
+-	if (pba->field_evolution_smg == _TRUE_) {
++	if (smg_scalar_sector == _TRUE_) {
+ 		class_define_index(pba->index_bg_B0_smg,_TRUE_,*index_bg,1);
+ 		class_define_index(pba->index_bg_B1_smg,_TRUE_,*index_bg,1);
+ 		class_define_index(pba->index_bg_B2_smg,_TRUE_,*index_bg,1);
+@@ -578,6 +586,112 @@ int background_solve_smg(
+ 	double * pvecback_derivs;
+ 	class_alloc(pvecback_derivs,pba->bg_size*sizeof(double),pba->error_message);
+ 
++	/* TEP pass A: fill the B_i coefficient columns required by the
++	 * deltaphi perturbation variable. For field-evolution models B_i
++	 * are computed inside background_gravity_functions_smg during the
++	 * solve; for the parameterized tep model they are built here from
++	 * the stored scalar-sector columns (phi, phi', U_phi). The scalar
++	 * equation R0 phi'' + R1 H' + R2 = 0 was already inverted to give
++	 * U_phi(a); its phi-derivative U_phiphi = (dU_phi/dN)/(dphi/dN) is
++	 * obtained from the column spline, with a second-derivative
++	 * (l'Hopital) estimator at the phi-turnaround point where
++	 * dphi/dN = -alpha_A crosses zero. A re-spline of the table then
++	 * makes the B-column derivatives available to Cs_from_Bs_smg in
++	 * the main loop below. */
++	if (pba->gravity_model_smg == tep) {
++
++		int save_bi_phi = pba->index_bi_phi_smg;
++		int save_bi_phi_p = pba->index_bi_phi_prime_smg;
++
++		for (i=0; i < pba->bt_size; i++) {
++
++			class_call(array_derivate_spline(pba->loga_table,
++				     pba->bt_size,
++				     pba->background_table,
++				     pba->d2background_dloga2_table,
++				     pba->bg_size,
++				     pba->loga_table[i],
++				     &last_index,
++				     pvecback_derivs,
++				     pba->bg_size,
++				     pba->error_message),
++				pba->error_message,
++				pba->error_message);
++
++			class_call(background_at_tau(pba,
++				 pba->tau_table[i],
++				 long_info,
++				 inter_normal,
++				 &last_index,
++				 pvecback),
++				pba->error_message,
++				pba->error_message);
++
++			a = pvecback[pba->index_bg_a];
++
++			/* phi'' = a H d(phi')/d ln a (index_bg_H is the physical rate) */
++			pvecback[pba->index_bg_phi_prime_prime_smg] =
++				a*pvecback[pba->index_bg_H]*pvecback_derivs[pba->index_bg_phi_prime_smg];
++
++			/* U_phiphi is the potential curvature of the covariant
++			 * completion. The prescribed (H,phi) trajectory is not a
++			 * classical trajectory of any smooth single-valued U(phi):
++			 * phi=ln A reverses at the alpha_A crossing while the
++			 * EOM-inferred U_phi does not share that extremum, so
++			 * dU_phi/dphi = U_phi,N/phi_N diverges at the turnaround
++			 * and at early times (phi stationary, source ramping).
++			 * The second derivative is therefore a free designer input
++			 * of the EFT completion; the flat-potential choice
++			 * U_phiphi = 0 is the minimal canonical closure. */
++			double U_phiphi = 0.;
++
++			struct G_functions_and_derivs gf = DEFAULT_G_FUNCTIONS_AND_DERIVS;
++			class_call(smg_tep_get_Gs(pba, pvecback, U_phiphi, &gf),
++				pba->error_message,
++				pba->error_message);
++
++			/* Bs_from_Gs reads phi/phi' through the integration
++			 * indices, which are unallocated (-1) in the
++			 * parameterized path; redirect them to a local pair. */
++			pba->index_bi_phi_smg = 0;
++			pba->index_bi_phi_prime_smg = 1;
++			double pvecback_B_tep[2];
++			pvecback_B_tep[0] = pvecback[pba->index_bg_phi_smg];
++			pvecback_B_tep[1] = pvecback[pba->index_bg_phi_prime_smg];
++			class_call(gravity_functions_Bs_from_Gs_smg(pba, a, pvecback_B_tep, pvecback, &gf),
++				pba->error_message,
++				pba->error_message);
++			pba->index_bi_phi_smg = save_bi_phi;
++			pba->index_bi_phi_prime_smg = save_bi_phi_p;
++
++			copy_to_background_table_smg(pba, i, pba->index_bg_B0_smg, pvecback[pba->index_bg_B0_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B1_smg, pvecback[pba->index_bg_B1_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B2_smg, pvecback[pba->index_bg_B2_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B3_smg, pvecback[pba->index_bg_B3_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B4_smg, pvecback[pba->index_bg_B4_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B5_smg, pvecback[pba->index_bg_B5_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B6_smg, pvecback[pba->index_bg_B6_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B7_smg, pvecback[pba->index_bg_B7_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B8_smg, pvecback[pba->index_bg_B8_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B9_smg, pvecback[pba->index_bg_B9_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B10_smg, pvecback[pba->index_bg_B10_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B11_smg, pvecback[pba->index_bg_B11_smg]);
++			copy_to_background_table_smg(pba, i, pba->index_bg_B12_smg, pvecback[pba->index_bg_B12_smg]);
++		}
++
++		/* Rebuild the table spline so that B-column derivatives are
++		 * available to Cs_from_Bs_smg in the main loop. */
++		class_call(array_spline_table_lines(pba->loga_table,
++		                                    pba->bt_size,
++		                                    pba->background_table,
++		                                    pba->bg_size,
++		                                    pba->d2background_dloga2_table,
++		                                    _SPLINE_EST_DERIV_,
++		                                    pba->error_message),
++		           pba->error_message,
++		           pba->error_message);
++	}
++
+  	for (i=0; i < pba->bt_size; i++) {
+ 
+ 		// write the derivatives in the structure
+@@ -636,7 +750,7 @@ int background_solve_smg(
+ 		copy_to_background_table_smg(pba, i, pba->index_bg_A15_smg, pvecback[pba->index_bg_A15_smg]);
+ 		copy_to_background_table_smg(pba, i, pba->index_bg_A16_smg, pvecback[pba->index_bg_A16_smg]);
+ 
+-		if (pba->field_evolution_smg == _TRUE_) {
++		if (pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep) {
+ 
+ 			class_call(gravity_functions_Cs_from_Bs_smg(pba, pvecback, pvecback_derivs),
+ 								 pba->error_message,
+@@ -755,7 +869,7 @@ int background_solve_smg(
+ 		d_over_dtau = factor*pvecback_derivs[pba->index_bg_kinetic_D_smg];
+ 		copy_to_background_table_smg(pba, i, pba->index_bg_kinetic_D_prime_smg, d_over_dtau);
+ 
+-		if (pba->field_evolution_smg == _TRUE_) {
++		if (pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep) {
+ 			//D_over_phiphi'
+ 			d_over_dtau = factor*pvecback_derivs[pba->index_bg_kinetic_D_over_phiphi_smg];
+ 			copy_to_background_table_smg(pba, i, pba->index_bg_kinetic_D_over_phiphi_prime_smg, d_over_dtau);
+@@ -776,7 +890,7 @@ int background_solve_smg(
+ 		d_over_dtau = factor*pvecback_derivs[pba->index_bg_A13_smg];
+ 		copy_to_background_table_smg(pba, i, pba->index_bg_A13_prime_smg, d_over_dtau);
+ 
+-		if (pba->field_evolution_smg == _TRUE_) {
++		if (pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep) {
+ 	    //C9'
+ 			d_over_dtau = factor*pvecback_derivs[pba->index_bg_C9_smg];
+ 			copy_to_background_table_smg(pba, i, pba->index_bg_C9_prime_smg, d_over_dtau);
+@@ -948,9 +1062,10 @@ int background_store_columntitles_smg(
+   }
+ 
+   if (pba->output_background_smg >= 2){
+-    class_store_columntitle(titles,"phi_smg",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"phi'",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"phi''",pba->field_evolution_smg);
++    class_store_columntitle(titles,"phi_smg",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"phi'",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"phi''",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"U_phi",pba->gravity_model_smg == tep);
+     class_store_columntitle(titles,"E0",pba->field_evolution_smg);
+     class_store_columntitle(titles,"E1",pba->field_evolution_smg);
+     class_store_columntitle(titles,"E2",pba->field_evolution_smg);
+@@ -968,10 +1083,10 @@ int background_store_columntitles_smg(
+   if (pba->output_background_smg >= 3){
+     class_store_columntitle(titles,"kineticity_prime_smg",_TRUE_);
+     class_store_columntitle(titles,"braiding_prime_smg",_TRUE_);
+-    class_store_columntitle(titles,"kineticity_over_phiphi_smg",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"braiding_over_phi_smg",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"beyond_horndeski_over_phi_smg",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"kin_over_phiphi (D)",pba->field_evolution_smg);
++    class_store_columntitle(titles,"kineticity_over_phiphi_smg",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"braiding_over_phi_smg",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"beyond_horndeski_over_phi_smg",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"kin_over_phiphi (D)",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
+     class_store_columntitle(titles,"A0",_TRUE_);
+     class_store_columntitle(titles,"A1",_TRUE_);
+     class_store_columntitle(titles,"A2",_TRUE_);
+@@ -989,36 +1104,36 @@ int background_store_columntitles_smg(
+     class_store_columntitle(titles,"A14",_TRUE_);
+     class_store_columntitle(titles,"A15",_TRUE_);
+     class_store_columntitle(titles,"A16",_TRUE_);
+-    class_store_columntitle(titles,"B0",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B1",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B2",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B3",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B4",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B5",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B6",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B7",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B8",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B9",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B10",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B11",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"B12",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C0",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C1",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C2",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C3",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C4",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C5",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C6",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C7",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C8",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C9",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C10",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C11",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C12",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C13",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C14",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C15",pba->field_evolution_smg);
+-    class_store_columntitle(titles,"C16",pba->field_evolution_smg);
++    class_store_columntitle(titles,"B0",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B1",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B2",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B3",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B4",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B5",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B6",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B7",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B8",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B9",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B10",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B11",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"B12",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C0",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C1",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C2",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C3",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C4",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C5",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C6",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C7",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C8",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C9",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C10",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C11",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C12",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C13",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C14",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C15",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
++    class_store_columntitle(titles,"C16",(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep));
+     class_store_columntitle(titles,"lambda_1",_TRUE_);
+     class_store_columntitle(titles,"lambda_2",_TRUE_);
+     class_store_columntitle(titles,"lambda_3",_TRUE_);
+@@ -1078,9 +1193,10 @@ int background_output_data_smg(
+ 	}
+ 
+ 	if (pba->output_background_smg >= 2){
+-		class_store_double(dataptr,pvecback[pba->index_bg_phi_smg],pba->field_evolution_smg,storeidx);
+-		class_store_double(dataptr,pvecback[pba->index_bg_phi_prime_smg],pba->field_evolution_smg,storeidx);
+-		class_store_double(dataptr,pvecback[pba->index_bg_phi_prime_prime_smg],pba->field_evolution_smg,storeidx);
++		class_store_double(dataptr,pvecback[pba->index_bg_phi_smg],(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep),storeidx);
++		class_store_double(dataptr,pvecback[pba->index_bg_phi_prime_smg],(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep),storeidx);
++		class_store_double(dataptr,pvecback[pba->index_bg_phi_prime_prime_smg],(pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep),storeidx);
++		class_store_double(dataptr,pvecback[pba->index_bg_U_phi_smg],(pba->gravity_model_smg == tep),storeidx);
+ 		class_store_double(dataptr,pvecback[pba->index_bg_E0_smg],pba->field_evolution_smg,storeidx);
+ 		class_store_double(dataptr,pvecback[pba->index_bg_E1_smg],pba->field_evolution_smg,storeidx);
+ 		class_store_double(dataptr,pvecback[pba->index_bg_E2_smg],pba->field_evolution_smg,storeidx);
+@@ -1137,7 +1253,7 @@ int background_output_data_smg(
+ 			class_store_double(dataptr,pvecback[pba->index_bg_C0_smg],_TRUE_,storeidx);
+ 			class_store_double(dataptr,pvecback[pba->index_bg_C1_smg],_TRUE_,storeidx);
+ 			class_store_double(dataptr,pvecback[pba->index_bg_C2_smg],_TRUE_,storeidx);
+-			class_store_double(dataptr,pvecback[pba->index_bg_C2_smg],_TRUE_,storeidx);
++			class_store_double(dataptr,pvecback[pba->index_bg_C14_smg],_TRUE_,storeidx);
+ 			class_store_double(dataptr,pvecback[pba->index_bg_C3_smg],_TRUE_,storeidx);
+ 			class_store_double(dataptr,pvecback[pba->index_bg_C4_smg],_TRUE_,storeidx);
+ 			class_store_double(dataptr,pvecback[pba->index_bg_C5_smg],_TRUE_,storeidx);
+@@ -1312,7 +1428,7 @@ int derivatives_alphas_smg(
+ 	d_over_dtau = factor*pvecback_derivs[pba->index_bg_beyond_horndeski_smg];
+ 	copy_to_background_table_smg(pba, i, pba->index_bg_beyond_horndeski_prime_smg, d_over_dtau);
+ 
+-	if (pba->field_evolution_smg == _TRUE_) {
++	if (pba->field_evolution_smg == _TRUE_ || pba->gravity_model_smg == tep) {
+ 		//Braiding_over_phi'
+ 		d_over_dtau = factor*pvecback_derivs[pba->index_bg_braiding_over_phi_smg];
+ 		copy_to_background_table_smg(pba, i, pba->index_bg_braiding_over_phi_prime_smg, d_over_dtau);
 diff --git a/gravity_smg/gravity_functions_smg.c b/gravity_smg/gravity_functions_smg.c
-index c8f46af..a15cec0 100644
+index fdf394d..a15cec0 100644
 --- a/gravity_smg/gravity_functions_smg.c
 +++ b/gravity_smg/gravity_functions_smg.c
-@@ -685,30 +685,41 @@ int gravity_functions_As_from_alphas_smg(
+@@ -501,6 +501,11 @@ int gravity_functions_As_from_alphas_smg(
+   // need to update the time derivatives of the interesting functions
+   double kin_p = factor*pvecback_derivs[pba->index_bg_kineticity_smg];
+   double bra_p = factor*pvecback_derivs[pba->index_bg_braiding_smg];
++  double bra_p_over_aH = bra_p/a/H;
++  if (fabs(bra_p_over_aH) > fabs(bra)) {
++    bra_p_over_aH = fabs(bra) * (bra_p_over_aH > 0 ? 1 : -1);
++    bra_p = bra_p_over_aH * a * H;
++  }
+   double run_p = factor*pvecback_derivs[pba->index_bg_M2_running_smg];
+   double ten_p = factor*pvecback_derivs[pba->index_bg_tensor_excess_smg];
+   double beh_p = factor*pvecback_derivs[pba->index_bg_beyond_horndeski_smg];
+@@ -680,22 +685,41 @@ int gravity_functions_As_from_alphas_smg(
  
    pvecback[pba->index_bg_lambda_11_smg] = bra + 2.*run - (2.-bra)*ten;
  
@@ -47,14 +458,6 @@ index c8f46af..a15cec0 100644
 -	else {
 -		pvecback[pba->index_bg_cs2_smg] = pvecback[pba->index_bg_cs2num_smg]/pvecback[pba->index_bg_kinetic_D_smg];
 -	}
--
--	// Floor cs2_smg to prevent gradient instability when sound speed
--	// becomes negative due to numerical noise at early times.
--	// Only applied when cs2 < 0; positive small values are left untouched.
--	if (pvecback[pba->index_bg_cs2_smg] < 0.0) {
--		pvecback[pba->index_bg_cs2_smg] = 1e-10;
--		pvecback[pba->index_bg_cs2num_smg] = pvecback[pba->index_bg_cs2_smg] * pvecback[pba->index_bg_kinetic_D_smg];
--	}
 +    // Floor cs2_smg to prevent gradient instability when sound speed
 +    // becomes negative due to numerical noise at early times.
 +    // Only applied when cs2 < 0; positive small values are left untouched.
@@ -67,37 +470,218 @@ index c8f46af..a15cec0 100644
    // NOTE: Geff and slip are calculated for Horndeski. Consider extending them to
    // beyond Horndeski
 diff --git a/gravity_smg/gravity_models_smg.c b/gravity_smg/gravity_models_smg.c
-index 4c69e1b..3247b38 100644
+index aaabb1a..0bffd83 100644
 --- a/gravity_smg/gravity_models_smg.c
 +++ b/gravity_smg/gravity_models_smg.c
-@@ -50,6 +50,8 @@ int gravity_models_gravity_properties_smg(
-      pba->field_evolution_smg = _FALSE_;
-      pba->M2_evolution_smg = _TRUE_;
-      pba->parameters_2_smg = NULL;
+@@ -27,15 +27,15 @@ int gravity_models_gravity_properties_smg(
+                                           ErrorMsg errmsg
+                                           ) {
+ 
+-  int flag2, flag3;
++  int flag2=_FALSE_;
++  int flag3;
++
+   char string2[_ARGUMENT_LENGTH_MAX_];
+   char string3[_ARGUMENT_LENGTH_MAX_];
+   /** Loop over the different models
+   * flag2 keeps track of whether model has been identified
+   */
+ 
+-  flag2=_FALSE_;
+-
+   /** read the model and loop over models to set several flags and variables
+   * field_evolution_smg: for self-consistent scalar tensor theories, need to evolve the background equations
+   * M2_evolution_smg: for some parameterizations, need to integrate M2 from alpha_M
+@@ -45,6 +45,18 @@ int gravity_models_gravity_properties_smg(
+   *                        "expansion_smg" to pba->parameters_smg
+   */
+ 
++  if (strcmp(string1,"tep") == 0) {
++     pba->gravity_model_smg = tep;
++     pba->field_evolution_smg = _FALSE_;
++     pba->M2_evolution_smg = _TRUE_;
++     pba->parameters_2_smg = NULL;
 +     pba->parameters_size_smg = 0;
 +     pba->tuning_index_smg = -1;
-      flag2=_TRUE_;
-      pba->kineticity_safe_smg = 1e-4;
-      smg_tep_init(pba, &(pba->tep_params));
-@@ -737,6 +739,16 @@ int gravity_models_get_back_par_smg(
++     flag2=_TRUE_;
++     pba->kineticity_safe_smg = 1e-4;
++     smg_tep_init(pba, &(pba->tep_params));
++   }
++
+   if (strcmp(string1,"propto_omega") == 0) {
+      pba->gravity_model_smg = propto_omega;
+      pba->field_evolution_smg = _FALSE_;
+@@ -489,7 +501,7 @@ int gravity_models_gravity_properties_smg(
+ 
+   class_test(flag2==_FALSE_,
+              errmsg,
+-             "could not identify gravity_theory value, check that it is one of 'propto_omega', 'propto_scale', 'constant_alphas', 'eft_alphas_power_law', 'eft_gammas_power_law', 'eft_gammas_exponential', 'brans_dicke', 'galileon', 'nKGB', 'quintessence_monomial', 'quintessence_tracker', 'alpha_attractor_canonical' ...");
++             "could not identify gravity_theory value, check that it is one of 'tep', 'propto_omega', 'propto_scale', 'constant_alphas', 'eft_alphas_power_law', 'eft_gammas_power_law', 'eft_gammas_exponential', 'brans_dicke', 'galileon', 'nKGB', 'quintessence_monomial', 'quintessence_tracker', 'alpha_attractor_canonical' ...");
+ 
+   return _SUCCESS_;
+ }
+@@ -727,6 +739,56 @@ int gravity_models_get_back_par_smg(
                                      double * pvecback_B
                                      ) {
  
-+  /* TEP model: background Hubble is provided by tep_mode natively.
-+     SMG alphas are used for perturbations, but rho_smg must be zero
-+     so that H = sqrt(rho_tot_wo_smg) in the SMG path, allowing the
-+     tep_mode bridge to apply the correct Jordan-frame factor. */
++  /* TEP model: designer-fluid bookkeeping. The SMG fluid is defined as
++     the effective density/pressure required to reproduce the tep_mode
++     expansion history under the parameterised Friedmann equations
++       H' = sqrt(rho_tot - K/a^2),   H' = -(3/2)(rho_tot+p_tot) a + K/a.
++     With H_tep = M(z) H_lcdm this gives
++       rho_smg = (M^2 - 1) (rho_wo - K/a^2)
++       p_smg   = (2/(3a)) (K/a - H'_tep) - rho_tot_needed - p_wo
++     so that the tabulated background is self-consistent with the
++     Einstein constraints used by the perturbation module. The previous
++     choice rho_smg = p_smg = 0 left the stored background inconsistent
++     with its own Friedmann equation (H_tep^2 != rho_tot), which the
++     einstein00 consistency check correctly flags and which the
++     einstein00_friction term then feeds back into h'' as a spurious
++     source, destabilising the scalar-metric evolution. */
 +  if (pba->gravity_model_smg == tep) {
-+    pvecback[pba->index_bg_rho_smg] = 0.0;
-+    pvecback[pba->index_bg_p_smg] = 0.0;
-+    pvecback[pba->index_bg_w_smg] = 0.0;
++
++    double rho_wo = pvecback[pba->index_bg_rho_tot_wo_smg];
++    double p_wo   = pvecback[pba->index_bg_p_tot_wo_smg];
++    double z      = 1.0/a - 1.0;
++    double z_eval = (z > 0.0) ? z : 0.0;
++
++    /* lcdm Hubble and its d/d ln a slope from continuity */
++    double Hc2 = rho_wo - pba->K/a/a;
++    double dlnHc_dlna = (-3.*(rho_wo + p_wo) + 2.*pba->K/a/a)/(2.*Hc2);
++
++    /* M(z) = A/(1 - alpha_A) and d ln M / d ln a = -(1+z) d ln M/dz */
++    double M_0 = tep_M_factor(pba, z_eval);
++    double dz  = 1e-6*(1.0 + z_eval);
++    if (dz < 1e-9) dz = 1e-9;
++    double dM_dz = (tep_M_factor(pba, z_eval + dz)
++                  - ((z_eval - dz > 0.0) ? tep_M_factor(pba, z_eval - dz)
++                                         : tep_M_factor(pba, 0.0)))/(2.*dz);
++    double dlnM_dlna = -(1.0 + z_eval)*dM_dz/M_0;
++
++    /* H_tep and its conformal derivative H' = a * H^2 * d ln H/d ln a */
++    double dlnHtep_dlna = dlnM_dlna + dlnHc_dlna;
++    double H_tep  = M_0*sqrt(Hc2);
++    double Hp_tep = a*H_tep*H_tep*dlnHtep_dlna;
++
++    double rho_tot_needed = M_0*M_0*Hc2 + pba->K/a/a;
++    double p_tot_needed   = (2./(3.*a))*(pba->K/a - Hp_tep) - rho_tot_needed;
++
++    pvecback[pba->index_bg_rho_smg] = rho_tot_needed - rho_wo;
++    pvecback[pba->index_bg_p_smg]   = p_tot_needed - p_wo;
++    pvecback[pba->index_bg_w_smg]   =
++      (fabs(pvecback[pba->index_bg_rho_smg]) > 1e-30*Hc2) ?
++      pvecback[pba->index_bg_p_smg]/pvecback[pba->index_bg_rho_smg] : 0.0;
++
 +    return _SUCCESS_;
 +  }
  
    double rho_tot = pvecback[pba->index_bg_rho_tot_wo_smg];
    double p_tot = pvecback[pba->index_bg_p_tot_wo_smg];
+@@ -847,6 +909,12 @@ int gravity_models_get_alphas_par_smg(
+     pvecback[pba->index_bg_M2_smg] = 1.+delta_M2;
+   }
+ 
++  else if (pba->gravity_model_smg == tep) {
++    class_call(smg_tep_get_alphas(pba, a, pvecback, delta_M2),
++               pba->error_message,
++               pba->error_message);
++  }
++
+   else if (pba->gravity_model_smg == propto_scale) {
+ 
+     double c_k = pba->parameters_2_smg[0];
+@@ -1152,7 +1220,13 @@ int gravity_models_initial_conditions_smg(
+ 			}
+ 	    break;
+ 
+-	  case propto_omega:
++	  case tep:
++      if (pba->M2_evolution_smg == _TRUE_) {
++        pvecback_integration[pba->index_bi_delta_M2_smg] = 0.;
++      }
++      break;
++
++  case propto_omega:
+ 			pvecback_integration[pba->index_bi_delta_M2_smg] = pba->parameters_2_smg[4]-1.;
+ 			break;
+ 
+@@ -1254,6 +1328,11 @@ int gravity_models_print_stdout_smg(
+ 	    pba->parameters_smg[0],pba->parameters_smg[1],pba->parameters_smg[2]);
+     break;
+ 
++    case tep:
++      printf("Modified gravity: TEP (Temporal Equivalence Principle) with pre-tabulated exact alphas\n");
++      printf(" -> beta = %g\n", pba->tep_params.beta);
++    break;
++
+     case propto_omega:
+       printf("Modified gravity: propto_omega with parameters: \n");
+       printf(" -> c_K = %g, c_B = %g, c_M = %g, c_T = %g, M_*^2_init = %g \n",
+@@ -1303,7 +1382,11 @@ int gravity_models_print_stdout_smg(
+ 
+       case lcdm:
+         printf("Parameterized model with LCDM expansion \n");
+-        printf("-> Omega_smg = %f \n",pba->parameters_smg[0]);
++        /* TEP carries no parameters_smg array: rho_smg = 0 by
++           construction and the background is supplied natively by
++           tep_mode. Skip the Omega_smg readout for that model. */
++        if (pba->gravity_model_smg != tep)
++          printf("-> Omega_smg = %f \n",pba->parameters_smg[0]);
+       break;
+ 
+       case wowa:
+diff --git a/gravity_smg/include/perturbations_smg.h b/gravity_smg/include/perturbations_smg.h
+index cfe569a..f01e855 100644
+--- a/gravity_smg/include/perturbations_smg.h
++++ b/gravity_smg/include/perturbations_smg.h
+@@ -15,6 +15,7 @@ extern "C" {
+ int get_gravity_coefficients_smg(struct background * pba,
+                                  struct perturbations * ppt,
+                                  double * pvecback,
++                                 double k,
+                                  double * delM2, double * M2, double * kin, double * bra,
+                                  double * ten, double * run, double * beh, double * res,
+                                  double * cD, double * cK, double * cB, double * cH, double * c0,
+diff --git a/gravity_smg/include/tep.h b/gravity_smg/include/tep.h
+new file mode 100644
+index 0000000..9adf66d
+--- /dev/null
++++ b/gravity_smg/include/tep.h
+@@ -0,0 +1,32 @@
++/**
++ * @file tep.h
++ * @brief Header file for TEP model in hi_class
++ */
++
++#ifndef __TEP_H__
++#define __TEP_H__
++
++#include "common.h"
++
++/* File-scope forward declaration so that prototypes below use the same
++ * tag as the definition in gravity_models_smg.h regardless of include
++ * order (tep.h is pulled in via background.h). */
++struct G_functions_and_derivs;
++
++/**
++ * @brief TEP model parameters structure
++ */
++struct smg_tep_params {
++    double alpha_eff;           /**< TEP clock-sector coupling (~1e6) */
++    double phi_init;          /**< Initial scalar field value */
++    double B_phi_coeff;       /**< Disformal coupling coefficient */
++    double screening_threshold; /**< Critical density (20 g/cm^3 in Planck units) */
++    double beta;              /**< Conformal coupling strength */
++};
++
++/* Function prototypes */
++int smg_tep_init(struct background *pba, struct smg_tep_params *params);
++int smg_tep_get_alphas(struct background *pba, double a, double *pvecback, double delta_M2);
++int smg_tep_get_Gs(struct background *pba, double *pvecback, double U_phiphi, struct G_functions_and_derivs *pgf);
++
++#endif /* __TEP_H__ */
 diff --git a/gravity_smg/input_smg.c b/gravity_smg/input_smg.c
-index 439811f..9a9df78 100644
+index 439811f..7af0325 100644
 --- a/gravity_smg/input_smg.c
 +++ b/gravity_smg/input_smg.c
 @@ -180,8 +180,9 @@ int input_read_parameters_smg(
@@ -131,7 +715,24 @@ index 439811f..9a9df78 100644
  
    /** Other generic specifications:
     * - whether stability tests are skipped (skip_stability_tests_smg) or softened (cs2_safe_smg)
-@@ -271,11 +285,11 @@ int input_read_parameters_smg(
+@@ -265,17 +279,28 @@ int input_read_parameters_smg(
+     ppt->pert_initial_conditions_smg = ext_field_attr;
+   }
+ 
++  /* TEP: the scalar carries no background energy density (Omega_smg = 0
++     by construction; the tep_mode background supplies H directly). The
++     ext_field_attr initial condition divides by Omega_smg through den3 and
++     B3denom in calc_extfld_ampl_smg, producing a NaN amplitude. Since the
++     Bellini-Sawicki alphas vanish identically for z >> z_T, the scalar
++     perturbation is decoupled at IC time and x_smg = x_smg' = 0 is the
++     correct (exact) adiabatic initial condition. */
++  if (pba->gravity_model_smg == tep) {
++    ppt->pert_initial_conditions_smg = zero;
++  }
++
+   // else {
+   //   if (ppt->perturbations_verbose > 1)
+   //     printf(" Initial conditions for Modified gravity perturbations not specified, using default \n");
    // }
  
    /** re-assign shooting parameter (for no-tuning debug mode) */
@@ -146,226 +747,830 @@ index 439811f..9a9df78 100644
         errmsg,
         "Tuning index tuning_index_smg = %d is larger than the number of entries %d in parameters_smg. Check your .ini file.",
         pba->tuning_index_smg,pba->parameters_size_smg);
+diff --git a/gravity_smg/perturbations_smg.c b/gravity_smg/perturbations_smg.c
+index ace4030..bd253e3 100644
+--- a/gravity_smg/perturbations_smg.c
++++ b/gravity_smg/perturbations_smg.c
+@@ -36,6 +36,7 @@ int get_gravity_coefficients_smg(
+                                  struct background * pba,
+                                  struct perturbations * ppt,
+                                  double * pvecback,
++                                 double k,
+                                  double * delM2, double * M2, double * kin, double * bra,
+                                  double * ten, double * run, double * beh, double * res,
+                                  double * cD, double * cK, double * cB, double * cH, double * c0,
+@@ -59,6 +60,21 @@ int get_gravity_coefficients_smg(
+   *run = pvecback[pba->index_bg_M2_running_smg];
+   *beh = pvecback[pba->index_bg_beyond_horndeski_smg];
+ 
++  /* ------------------------------------------------------------------
++   * TEP (Temporal Equivalence Principle) scale-dependent Bellini-Sawicki
++   * screening. The background alpha_M is k-modulated by the gradient
++   * screening envelope S_Sigma(k) = [1 + (k/k_t)^n]^{-1}.
++   * alpha_M(k) = alpha_M^bg * [1 - S_Sigma(k)].
++   * This strips the scalar fifth force in dense collapsing regimes.
++   * ------------------------------------------------------------------ */
++  if (pba->tep_mode == _TRUE_ && pba->tep_k_t > 0.0 && k > 0.0) {
++    double S_Sigma = tep_screening_factor(k, pba->tep_k_t, pba->tep_n_t);
++    double alpha_M_bg = *run;
++    if (alpha_M_bg != 0.0) {
++      *run = alpha_M_bg * (1.0 - S_Sigma);
++    }
++  }
++
+   if (ppt->use_pert_var_deltaphi_smg == _TRUE_) {
+     *res = 1.;
+     *cD  = pvecback[pba->index_bg_kinetic_D_over_phiphi_smg];
+@@ -539,7 +555,7 @@ int perturbations_einstein_scalar_smg(
+   */
+   class_call(
+     get_gravity_coefficients_smg(
+-      pba, ppt, ppw->pvecback,
++      pba, ppt, ppw->pvecback, k,
+       & delM2, & M2, & kin, & bra, & ten, & run, & beh, & res,
+       & cD, & cK, & cB, & cH, & c0, & c1, & c2, & c3,
+       & c4, & c5, & c6, & c7, & c8, & c9, & c10, & c11,
+@@ -722,21 +738,13 @@ int perturbations_einstein_scalar_smg(
+ 
+   /* scalar field equation. This is the right place to evaluate it, since when rsa is on the radiation density gets updated */
+   if (qs_array_smg[ppw->approx[ppw->index_ap_qs_smg]] == _FALSE_) {
+-    ppw->pvecmetric[ppw->index_mt_x_prime_prime_smg] =
+-    (
+-      + 9./2.*cB*ppw->delta_p*pow(a,2)/M2/res
+-      - c10*k2*ppw->pvecmetric[ppw->index_mt_eta]/res
+-      - 2./3.*cH*pow(k2,2)*ppw->pvecmetric[ppw->index_mt_alpha]/a/H/res
+-      + a*H/res*(
+-        + 1./3.*cH*k2*pow(a*H,-2) - c9
+-      )*ppw->pvecmetric[ppw->index_mt_h_prime]
+-      + (
+-        + c13*k2 + c12*pow(a*H,2)
+-      )*ppw->pvecmetric[ppw->index_mt_x_smg]
+-      + H*a*(
+-        - c3*k2*pow(a*H,-2) + c11
+-      )*ppw->pvecmetric[ppw->index_mt_x_prime_smg]
+-    )/cD;
++    double t1 = + 9./2.*cB*ppw->delta_p*pow(a,2)/M2/res;
++    double t2 = - c10*k2*ppw->pvecmetric[ppw->index_mt_eta]/res;
++    double t3 = - 2./3.*cH*pow(k2,2)*ppw->pvecmetric[ppw->index_mt_alpha]/a/H/res;
++    double t4 = + a*H/res*(+ 1./3.*cH*k2*pow(a*H,-2) - c9)*ppw->pvecmetric[ppw->index_mt_h_prime];
++    double t5 = + (c13*k2 + c12*pow(a*H,2))*ppw->pvecmetric[ppw->index_mt_x_smg];
++    double t6 = + H*a*(- c3*k2*pow(a*H,-2) + c11)*ppw->pvecmetric[ppw->index_mt_x_prime_smg];
++    ppw->pvecmetric[ppw->index_mt_x_prime_prime_smg] = (t1+t2+t3+t4+t5+t6)/cD;
+ 
+     class_test(isnan(ppw->pvecmetric[ppw->index_mt_x_prime_prime_smg]),
+         ppt->error_message, " Isnan x'' at a =%e !",a);
+@@ -1182,7 +1190,7 @@ int perturbations_qs_functions_at_tau_and_k_qs_smg(
+ 
+   class_call(
+           get_gravity_coefficients_smg(
+-                  pba, ppt, pvecback,
++                  pba, ppt, pvecback, k,
+                   &delM2, &M2, &kin, &bra, &ten, &run, &beh, &res,
+                   &cD, &cK, &cB, &cH, &c0, &c1, &c2, &c3,
+                   &c4, &c5, &c6, &c7, &c8, &c9, &c10, &c11,
+@@ -1221,7 +1229,16 @@ int perturbations_qs_functions_at_tau_and_k_qs_smg(
+   *slope = slope_qs;
+ 
+   //Approximation
+-  if ((mass2_qs > pow(ppr->trigger_mass_qs_smg,2)) && (rad2_qs > pow(ppr->trigger_rad_qs_smg,2))) {
++  if (mass2_qs > pow(ppr->trigger_mass_qs_smg,2)) {
++    if (rad2_qs > pow(ppr->trigger_rad_qs_smg,2)) {
++      proposal = _TRUE_;
++    }
++    else {
++      proposal = _FALSE_;
++    }
++  }
++  else if (fabs(mass2_qs) > pow(ppr->trigger_mass_qs_smg,2)) {
++    // Large negative mass squared: QS is valid regardless of rad2 sign
+     proposal = _TRUE_;
+   }
+   else {
+@@ -1347,7 +1364,7 @@ int get_x_x_prime_qs_smg(
+ 
+   class_call(
+           get_gravity_coefficients_smg(
+-                  pba, ppt, ppw->pvecback,
++                  pba, ppt, ppw->pvecback, k,
+                   &delM2, &M2, &kin, &bra, &ten, &run, &beh, &res,
+                   &cD, &cK, &cB, &cH, &c0, &c1, &c2, &c3,
+                   &c4, &c5, &c6, &c7, &c8, &c9, &c10, &c11,
 diff --git a/gravity_smg/tep.c b/gravity_smg/tep.c
-index 3b24124..9e30944 100644
---- a/gravity_smg/tep.c
+new file mode 100644
+index 0000000..c7251b7
+--- /dev/null
 +++ b/gravity_smg/tep.c
-@@ -2,85 +2,65 @@
-  * @file tep.c
-  * @brief TEP (Temporal Equivalence Principle) model for hi_class
-  *
-- * Uses pre-tabulated exact alpha evolution from the TEP action.
-- * Interpolates Bellini-Sawicki alpha functions at each scale factor.
+@@ -0,0 +1,267 @@
++/**
++ * @file tep.c
++ * @brief TEP (Temporal Equivalence Principle) model for hi_class
++ *
 + * Active scalar perturbation closure via exact Bellini-Sawicki
 + * alpha functions derived from the TEP conformal factor A(z).
 + * All alphas are computed at runtime from the dimensionless
-+ * Jordan-frame coupling alpha_A = d ln A / d ln(1+z).
++ * Jordan-frame coupling alpha_A = d ln A / d ln a
++ * (= -d ln A / d ln(1+z); same convention as tep_alpha_A in
++ * background.c and the Python alpha_A_native).
 + *
-+ * Pure conformal limit (B=0, beta_A = -1.0):
-+ *   alpha_M = -2 * alpha_A
-+ *   alpha_B =  2 * alpha_A
-+ *   alpha_K = -5 * alpha_A^2
++ * Pure conformal limit (B=0, beta_A = -1.0, phi = -ln A):
++ *   alpha_M = -2 * S_Sigma * alpha_A     (S_Sigma = tep_screening_s;
++ *                                       alpha_B = -alpha_M follows
++ *                                       from F = M^2 A^{-2S})
++ *   alpha_B =  2 * S_Sigma * alpha_A
++ *   alpha_K = wc * alpha_A^2              (wc S-independent)
 + *   alpha_T =  0
 + *
-+ * Canonical derivation: the Weyl transform g_tilde = A^2 g of the
-+ * canonical Einstein-frame scalar yields the Jordan-frame action
-+ * F R~/2 + W X~ - U with F = M_Pl^2 A^-2 and
-+ * W = A^-2 (1 - 6 M_Pl^2 A_,phi^2/A^2) = A^-2 (1 - 6 beta_A^2).
-+ * The standard Horndeski map (as for the built-in brans_dicke
-+ * model: alpha_B = -alpha_M, alpha_K = 2X G2_X/(H^2 M_*^2)) gives
-+ * alpha_M = -2 alpha_A, alpha_B = 2 alpha_A, alpha_T = 0,
-+ * alpha_K = (1 - 6 beta_A^2)/beta_A^2 alpha_A^2 = -5 alpha_A^2.
-+ * The negative explicit kineticity is the required Jordan-frame
-+ * signature of a canonical Einstein-frame scalar at |beta_A|>1/sqrt(6);
-+ * the ghost-free combination 2WF + 3F_,phi^2 = 2 M_Pl^2 A^-4 > 0.
++ * Covariant completion: G4 = (M^2/2) e^{2 S phi} = M^2 A^{-2S}/2
++ * (the manuscript's F = M^2 A^{-2} map at S=1), G2_X = wc M^2 e^{2S phi},
++ * with wc = Z_E - 6 beta_A^2 the Jordan-frame kinetic coefficient and
++ * Z_E = P_X + 2 X P_XX the Einstein-frame kinetic coefficient of the
++ * scalar. The Horndeski map (as for the built-in brans_dicke model:
++ * alpha_B = -alpha_M, alpha_K = 2X G2_X/(H^2 M_*^2)) gives the stored
++ * alphas above.
 + *
-+ * The physical no-ghost discriminant D = alpha_K + (3/2)*alpha_B^2
-+ * evaluates to exactly +alpha_A^2, guaranteeing stability.
-  *
-  * @author: TEP-HC Pipeline
-- * @version: v0.2-Geneva
-+ * @version: v0.4-Cambridge
-  */
- 
- #include "common.h"
- #include "background.h"
- #include "tep.h"
--#include "tep_alpha_table.h"
--
--/**
-- * @brief Linear interpolation from pre-tabulated TEP alpha table.
-- *
-- * Arrays are ordered in increasing a (decreasing z).
-- * a ranges from 1e-4 to 1.
-- */
--static double tep_interp_alpha(double a, const double *alpha_table) {
--    // Handle boundaries
--    if (a <= tep_a[0]) {
--        return alpha_table[0];
--    }
--    if (a >= tep_a[TEP_N - 1]) {
--        return alpha_table[TEP_N - 1];
--    }
--
--    // Binary search for bracket
--    int low = 0;
--    int high = TEP_N - 1;
--    while (high - low > 1) {
--        int mid = (low + high) / 2;
--        if (a >= tep_a[mid]) {
--            low = mid;
--        } else {
--            high = mid;
--        }
--    }
--
--    // Linear interpolation
--    double a0 = tep_a[low];
--    double a1 = tep_a[high];
--    double alpha0 = alpha_table[low];
--    double alpha1 = alpha_table[high];
--
--    if (a1 == a0) {
--        return alpha0;
--    }
--
--    return alpha0 + (alpha1 - alpha0) * (a - a0) / (a1 - a0);
--}
- 
- /**
-  * @brief Initialize TEP model parameters from input file
-  */
- int smg_tep_init(struct background *pba, struct smg_tep_params *params) {
--    // Default parameter values
-     /*
--     * NOTE: alpha_eff is a placeholder Lagrangian amplitude for the archived
--     * SMG alpha-table route. It is NOT the observable pulsar response
--     * coefficient kappa_MSP (~10^6-10^7) defined in the Caracas manuscript.
++ * Stability: the no-ghost discriminant D = alpha_K + (3/2)*alpha_B^2
++ * = (wc + 6 S^2) alpha_A^2 is positive on both branches, but D > 0 is
++ * NOT sufficient for linear stability. The canonical-EF image
++ * wc = -5 (Z_E = 1, the published alpha_K = -5 alpha_A^2 map) is
++ * linearly unstable on the TEP background — a tachyonic/scalarization
++ * growing mode with median P(k) enhancement ~1e8, verified with the
++ * delta-phi closure and self-consistent U_phi (2026-10-01 audit;
++ * results/closure_response_scan.json). The minimal stable completion
++ * is wc = +7 (Z_E = 13). tep_kin_boost: K > 0 sets wc = 7 K^2, K < 0
++ * sets wc = K directly. S_Sigma < 1 suppresses the fifth force
++ * genuinely (bra^2/kin ~ S^2/wc) because wc does not scale with S;
++ * scaling alpha_K ~ S^2 (the published -5 (S alpha_A)^2 form) leaves
++ * bra^2/D invariant and does not screen.
++ *
++ * @author: TEP-HC Pipeline
++ * @version: v0.8-Cambridge
++ */
++
++#include "common.h"
++#include "background.h"
++#include "gravity_models_smg.h"
++#include "tep.h"
++
++/**
++ * @brief Initialize TEP model parameters from input file
++ */
++int smg_tep_init(struct background *pba, struct smg_tep_params *params) {
++    /*
 +     * The SMG alpha-table route is deprecated. TEP perturbation closure
 +     * now uses exact runtime alpha functions from the conformal factor.
 +     * alpha_eff is retained for backward compatibility but is inactive.
-      */
--    params->alpha_eff = 1.0e6;        // Placeholder SMG braiding/kineticity amplitude
--    params->phi_init = 0.0;          // Initial field value
--    params->B_phi_coeff = 0.0;       // Disformal coupling
--    /*
--     * NOTE: screening_threshold uses a heuristic rho_eff = exp(-phi). This is
--     * NOT a direct physical density mapping. The threshold 1.8e-124 is
--     * approximately 20 g/cm^3 in Planck units (exact: ~8.6e-123).
--     */
--    params->screening_threshold = 1.8e-124; // Approx. 20 g/cm^3 in Planck units
--    params->beta = -1.0;             // Conformal coupling strength (locked lab-scale)
++     */
 +    params->alpha_eff = 1.0e6;
 +    params->phi_init = 0.0;
 +    params->B_phi_coeff = 0.0;
 +    params->screening_threshold = 1.8e-124;
 +    params->beta = -1.0;
- 
-     return _SUCCESS_;
- }
- 
- /**
-- * @brief Set TEP alpha functions into pvecback at given scale factor.
++
++    return _SUCCESS_;
++}
++
++/**
 + * @brief Set exact TEP alpha functions into pvecback at given scale factor.
-  * Called from gravity_models_get_alphas_par_smg for the tep model.
++ * Called from gravity_models_get_alphas_par_smg for the tep model.
 + *
 + * All alphas derive from the single dimensionless quantity alpha_A(z),
 + * computed identically to the background-only Hubble modification.
 + * This guarantees background--perturbation consistency to machine precision.
-  */
- int smg_tep_get_alphas(
-     struct background *pba,
-@@ -88,10 +56,20 @@ int smg_tep_get_alphas(
-     double *pvecback,
-     double delta_M2
- ) {
--    double alpha_M = tep_interp_alpha(a, tep_alpha_M);
--    double alpha_B = tep_interp_alpha(a, tep_alpha_B);
--    double alpha_K = tep_interp_alpha(a, tep_alpha_K);
--    double alpha_T = tep_interp_alpha(a, tep_alpha_T);
++ */
++int smg_tep_get_alphas(
++    struct background *pba,
++    double a,
++    double *pvecback,
++    double delta_M2
++) {
 +    double z = 1.0 / a - 1.0;
 +
 +    /* 1. Fetch the exact native background derivative from background.c.
-+       tep_alpha_A computes d ln A / d ln(1+z) using the same math as
-+       tep_M_factor, ensuring perfect internal consistency. */
++       tep_alpha_A computes d ln A / d ln a (= -d ln A / d ln(1+z))
++       using the same math as tep_M_factor, ensuring perfect internal
++       consistency. */
 +    double alpha_A = tep_alpha_A(pba, z);
 +
-+    /* 2. Pure Conformal Limit Mappings (beta_A = -1.0).
-+       These are the exact analytical limits derived from the TEP
-+       bi-metric action mapped to the Jordan-frame EFT. */
-+    double alpha_M = -2.0 * alpha_A;
-+    double alpha_B =  2.0 * alpha_A;
-+    double alpha_K = -5.0 * (alpha_A * alpha_A);
++    /* 2. Pure Conformal Limit Mappings (beta_A = -1.0), field convention
++       phi = -ln A.  The scalar mixing is suppressed by the environmental
++       factor S_Sigma (tep_screening_s) while the kinetic coefficient wc is
++       NOT scaled by S: scaling alpha_K ~ S^2 as well would leave
++       bra^2/D invariant and defeat the screening (verified numerically).
++       Since the screened coupling is F = M^2 A^{-2S}, self-consistency
++       (alpha_B = -alpha_M) requires alpha_M = -2 S alpha_A as well:
++         alpha_M = -2 S alpha_A, alpha_B = 2 S alpha_A,
++         alpha_K = wc alpha_A^2.
++       wc = Z_E - 6 is the Jordan-frame kinetic coefficient of the
++       canonical-EF image W = A^{-2}(Z_E - 6 beta_A^2), where
++       Z_E = P_X + 2 X P_XX is the Einstein-frame kinetic coefficient of
++       scalar fluctuations on the cosmological background.  Canonical
++       (Z_E = 1): wc = -5 -> linearly unstable (scalarization channel).
++       Screened branch (tep_kin_boost K > 0): wc = 7 K^2. */
++    double Sscr = pba->tep_screening_s;
++    if (Sscr <= 0.0) Sscr = 1.0;
++    double Kb = pba->tep_kin_boost;
++    if (Kb == 0.0) Kb = 1.0;
++    double wc = (Kb < 0.0) ? Kb : 7.0*Kb*Kb;
++    double alpha_M = -2.0 * Sscr * alpha_A;
++    double alpha_B =  2.0 * Sscr * alpha_A;
++    double alpha_K = wc * (alpha_A * alpha_A);
 +    double alpha_T =  0.0;
- 
-     pvecback[pba->index_bg_kineticity_smg] = alpha_K;
-     pvecback[pba->index_bg_braiding_smg] = alpha_B;
-@@ -99,7 +77,7 @@ int smg_tep_get_alphas(
-     pvecback[pba->index_bg_M2_running_smg] = alpha_M;
- 
-     if (pba->M2_evolution_smg == _TRUE_) {
--      pvecback[pba->index_bg_delta_M2_smg] = delta_M2; // M2-1
++
++    pvecback[pba->index_bg_kineticity_smg] = alpha_K;
++    pvecback[pba->index_bg_braiding_smg] = alpha_B;
++    pvecback[pba->index_bg_tensor_excess_smg] = alpha_T;
++    pvecback[pba->index_bg_M2_running_smg] = alpha_M;
++
++    if (pba->M2_evolution_smg == _TRUE_) {
 +      pvecback[pba->index_bg_delta_M2_smg] = delta_M2;
-       pvecback[pba->index_bg_M2_smg] = 1.0 + delta_M2;
-     }
-     else {
++      pvecback[pba->index_bg_M2_smg] = 1.0 + delta_M2;
++    }
++    else {
++      pvecback[pba->index_bg_delta_M2_smg] = 0.0;
++      pvecback[pba->index_bg_M2_smg] = 1.0;
++    }
++
++    /* ------------------------------------------------------------------
++       Scalar-sector columns for the deltaphi perturbation closure
++       (use_pert_var_deltaphi_smg = yes).
++
++       The TEP scalar is prescribed rather than integrated: the covariant
++       action consistent with the stored alphas is the Jordan-frame
++       Horndeski form
++         S = Int sqrt(-g) [ G4(phi) R + W(phi) X - U(phi) ],
++         G4 = (M^2/2) e^{2 S phi} = M^2 A^{-2S}/2,
++         W  = wc M^2 e^{2 S phi},
++       with field convention phi = -ln A (beta_A = -1), for which
++       bra_s = -2 G4_phi/M^2 = -2 S and kin_ss = G2_X/M^2 = wc
++       identically, giving the kinetic discriminant
++         D_over_phiphi = kin_ss + 3 bra_s^2/2 = wc + 6 S^2.
++       wc = Z_E - 6 is the Jordan-frame kinetic coefficient: wc = -5
++       (Z_E = 1, the canonical-EF image) is linearly unstable on this
++       background; production uses wc = +700 (tep_kin_boost = 10,
++       Z_E = 706).  delta_phi is the regular variable: the alternative
++       x_smg = delta_phi/phi' divides by phi' ~ alpha_A, which crosses
++       zero during the transition and injects a spurious coordinate
++       mass into the perturbation equation.
++
++       Field trajectory: phi = -ln A(z), hence d phi/d ln a = -alpha_A
++       (alpha_A is defined w.r.t. ln a).
++       index_bg_H is the physical (non-conformal) Hubble rate, so the
++       conformal-time field derivative is phi' = -alpha_A * a * H and
++         phi'' = -(a H)^2 [ alpha_A,N + alpha_A (1 + eta) ],
++         eta = d ln H/d ln a = H'/(a H^2).
++
++       The potential slope is reconstructed on-shell from the scalar
++       equation R0 phi'' + R1 H' + R2 = 0 of the same action, which
++       reduces to
++         U_phi = M^2 ( 6 S T2 - wc T1 - 2 S wc X ),
++         X = alpha_A^2 H^2/2,  T1 = (phi'' + 2 a H phi')/a^2,
++         T2 = H'/a + 2 H^2.
++       In radiation domination H' = -2 a H^2, so T2 vanishes and
++       U_phi ~ 0 at early times.  Its phi-derivative U_phiphi (needed
++       by B9) is a free designer input; the flat-potential choice
++       U_phiphi = 0 is used. */
++    {
++      double z_eval = (z > 0.0) ? z : 0.0;
++      double H  = pvecback[pba->index_bg_H];
++      double Hp = pvecback[pba->index_bg_H_prime];
++      double aH = a*H;
++      double eta = (H != 0.0) ? Hp/(aH*H) : 0.0;
++
++      /* d alpha_A / d ln a = -(1+z) d alpha_A/dz, finite-differenced
++         in the same style as d ln M/d ln a in get_back_par. */
++      double dza = 1e-6*(1.0 + z_eval);
++      if (dza < 1e-9) dza = 1e-9;
++      double dalphaA_dz = (tep_alpha_A(pba, z_eval + dza)
++                         - ((z_eval - dza > 0.0)
++                            ? tep_alpha_A(pba, z_eval - dza)
++                            : tep_alpha_A(pba, 0.0)))/(2.*dza);
++      double alpha_A_N = -(1.0 + z_eval)*dalphaA_dz;
++
++      /* Field trajectory is FIXED by the clock profile: phi = -ln A(z),
++         phi' = -alpha_A a H, independent of the screening strength. */
++      double phi_prime = -alpha_A*aH;
++      double phi_pp   = -aH*aH*(alpha_A_N + alpha_A*(1.0 + eta));
++
++      double Xv0 = 0.5*alpha_A*alpha_A*H*H;
++      double T10 = -H*H*(alpha_A_N + alpha_A*(3.0 + eta));
++      double T2 = Hp/a + 2.0*H*H;
++      double M2 = pvecback[pba->index_bg_M2_smg];
++
++      pvecback[pba->index_bg_phi_smg] = -log(tep_gamma_factor(pba, z_eval));
++      pvecback[pba->index_bg_phi_prime_smg] = phi_prime;
++      pvecback[pba->index_bg_phi_prime_prime_smg] = phi_pp;
++      /* R-eq: U_phi = M^2 (6 S T2 - wc T1 - 2 S wc X)
++         for G4_phi = S M^2 e^{2 S phi}, G2_X = wc M^2 e^{2 S phi}
++         with field convention phi = -ln A (beta_A = -1). */
++      pvecback[pba->index_bg_U_phi_smg] = M2*(6.0*Sscr*T2 - wc*T10 - 2.0*Sscr*wc*Xv0);
++
++      /* Exact, alpha_A-safe values for the over_phi EFT coefficients.
++         bra_s = -2 G4_phi/M^2 = -2 S; kin_ss = G2_X/M^2 = wc.
++         Checks: bra = bra_s phi'/aH = 2 S alpha_A; kin = wc alpha_A^2;
++         D_over_phiphi = kin_ss + 1.5 bra_s^2 = wc + 6 S^2.  The fifth
++         force scales as bra^2/kin ~ 4 S^2 alpha_A^2 / wc, so S_Sigma
++         genuinely suppresses it only because wc is S-independent. */
++      pvecback[pba->index_bg_kineticity_over_phiphi_smg] = wc;
++      pvecback[pba->index_bg_braiding_over_phi_smg] = -2.0*Sscr;
++      pvecback[pba->index_bg_beyond_horndeski_over_phi_smg] = 0.0;
++    }
++
++    return _SUCCESS_;
++}
++
++
++/**
++ * @brief Fill the G_functions_and_derivs structure for the TEP action.
++ *
++ * Covariant functions consistent with the stored TEP alphas:
++ *   G4 = (M^2/2) e^{2 S phi} = M^2 A^{-2S}/2,  W = wc M^2 e^{2 S phi}
++ *   (screened conformal completion, phi = -ln A; the canonical-EF image
++ *   wc = -5 is tachyonic; production wc = 7 K^2 with K = tep_kin_boost),
++ *   G2 = W X - U, U_phi reconstructed along the trajectory.
++ * Called from background_solve_smg when building the B_i coefficients
++ * for the deltaphi perturbation closure.
++ */
++int smg_tep_get_Gs(
++    struct background *pba,
++    double *pvecback,
++    double U_phiphi,
++    struct G_functions_and_derivs *pgf
++) {
++    double a   = pvecback[pba->index_bg_a];
++    double M2  = pvecback[pba->index_bg_M2_smg];
++    double phi_prime = pvecback[pba->index_bg_phi_prime_smg];
++    double U_phi = pvecback[pba->index_bg_U_phi_smg];
++    double X = 0.5*pow(phi_prime/a, 2);
++
++    /* Screened conformal completion, phi = -ln A: G4 = (M^2/2) e^{2 S phi}
++       gives G4_phi = S M^2 along the trajectory; G2_X = wc M^2 e^{2 S phi}
++       with wc the S-independent Jordan kinetic coefficient, so
++       kin_ss = wc and bra_s = -2 S (S_Sigma suppresses the fifth force
++       only because wc does not scale with S). */
++    double Sscr = pba->tep_screening_s;
++    if (Sscr <= 0.0) Sscr = 1.0;
++    double Kb = pba->tep_kin_boost;
++    if (Kb == 0.0) Kb = 1.0;
++    double S2 = Sscr*Sscr, S3 = S2*Sscr, K2 = Kb*Kb;
++    double wc = (Kb < 0.0) ? Kb : 7.0*K2;
++
++    pgf->G4 = 0.5*M2;
++    pgf->DG4 = 0.5*pvecback[pba->index_bg_delta_M2_smg];
++    pgf->G4_phi = Sscr*M2;
++    pgf->G4_phiphi = 2.0*S2*M2;
++    pgf->G4_phiphiphi = 4.0*S3*M2;
++
++    pgf->G2_X = wc*M2;
++    pgf->G2_Xphi = 2.0*Sscr*wc*M2;
++    pgf->G2_Xphiphi = 4.0*S2*wc*M2;
++    pgf->G2_phi = 2.0*Sscr*wc*M2*X - U_phi;
++    pgf->G2_phiphi = 4.0*S2*wc*M2*X - U_phiphi;
++
++    return _SUCCESS_;
++}
+diff --git a/gravity_smg/tep_alpha_table.h b/gravity_smg/tep_alpha_table.h
+new file mode 100644
+index 0000000..dfe6789
+--- /dev/null
++++ b/gravity_smg/tep_alpha_table.h
+@@ -0,0 +1,271 @@
++#ifndef __TEP_ALPHA_TABLE__
++#define __TEP_ALPHA_TABLE__
++
++#define TEP_N 500
++
++static const double tep_a[TEP_N] = {
++1.000000000000e-04, 1.018628990245e-04, 1.037605019767e-04, 1.056934553558e-04, 1.076624177045e-04, 1.096680598337e-04, 1.117110650505e-04, 1.137921293915e-04, 1.159119618599e-04, 1.180712846666e-04,
++1.202708334769e-04, 1.225113576604e-04, 1.247936205471e-04, 1.271183996869e-04, 1.294864871146e-04, 1.318986896199e-04, 1.343558290221e-04, 1.368587424503e-04, 1.394082826283e-04, 1.420053181654e-04,
++1.446507338522e-04, 1.473454309620e-04, 1.500903275580e-04, 1.528863588059e-04, 1.557344772926e-04, 1.586356533509e-04, 1.615908753896e-04, 1.646011502309e-04, 1.676675034528e-04, 1.707909797389e-04,
++1.739726432344e-04, 1.772135779080e-04, 1.805148879221e-04, 1.838776980082e-04, 1.873031538506e-04, 1.907924224765e-04, 1.943466926536e-04, 1.979671752951e-04, 2.016551038725e-04, 2.054117348353e-04,
++2.092383480397e-04, 2.131362471841e-04, 2.171067602537e-04, 2.211512399725e-04, 2.252710642646e-04, 2.294676367232e-04, 2.337423870892e-04, 2.380967717380e-04, 2.425322741760e-04, 2.470504055457e-04,
++2.516527051405e-04, 2.563407409297e-04, 2.611161100917e-04, 2.659804395594e-04, 2.709353865732e-04, 2.759826392466e-04, 2.811239171408e-04, 2.863609718508e-04, 2.916955876019e-04, 2.971295818577e-04,
++3.026648059396e-04, 3.083031456568e-04, 3.140465219497e-04, 3.198968915435e-04, 3.258562476153e-04, 3.319266204733e-04, 3.381100782481e-04, 3.444087275974e-04, 3.508247144240e-04, 3.573602246066e-04,
++3.640174847446e-04, 3.707987629168e-04, 3.777063694539e-04, 3.847426577259e-04, 3.919100249433e-04, 3.992109129748e-04, 4.066478091782e-04, 4.142232472484e-04, 4.219398080805e-04, 4.298001206491e-04,
++4.378068629038e-04, 4.459627626819e-04, 4.542705986374e-04, 4.627332011879e-04, 4.713534534787e-04, 4.801342923653e-04, 4.890787094140e-04, 4.981897519205e-04, 5.074705239490e-04, 5.169241873892e-04,
++5.265539630333e-04, 5.363631316739e-04, 5.463550352215e-04, 5.565330778428e-04, 5.669007271207e-04, 5.774615152360e-04, 5.882190401700e-04, 5.991769669311e-04, 6.103390288029e-04, 6.217090286164e-04,
++6.332908400455e-04, 6.450884089268e-04, 6.571057546036e-04, 6.693469712959e-04, 6.818162294944e-04, 6.945177773824e-04, 7.074559422820e-04, 7.206351321293e-04, 7.340598369757e-04, 7.477346305178e-04,
++7.616641716553e-04, 7.758532060788e-04, 7.903065678861e-04, 8.050291812296e-04, 8.200260619934e-04, 8.353023195027e-04, 8.508631582641e-04, 8.667138797389e-04, 8.828598841495e-04, 8.993066723188e-04,
++9.160598475444e-04, 9.331251175078e-04, 9.505082962190e-04, 9.682153059967e-04, 9.862521794869e-04, 1.004625061717e-03, 1.023340212192e-03, 1.042404007022e-03, 1.061822941099e-03, 1.081603630311e-03,
++1.101752813788e-03, 1.122277356209e-03, 1.143184250129e-03, 1.164480618373e-03, 1.186173716452e-03, 1.208270935045e-03, 1.230779802507e-03, 1.253707987441e-03, 1.277063301309e-03, 1.300853701091e-03,
++1.325087291998e-03, 1.349772330234e-03, 1.374917225806e-03, 1.400530545393e-03, 1.426621015261e-03, 1.453197524237e-03, 1.480269126740e-03, 1.507845045861e-03, 1.535934676511e-03, 1.564547588616e-03,
++1.593693530382e-03, 1.623382431612e-03, 1.653624407094e-03, 1.684429760042e-03, 1.715808985610e-03, 1.747772774465e-03, 1.780332016430e-03, 1.813497804196e-03, 1.847281437100e-03, 1.881694424971e-03,
++1.916748492057e-03, 1.952455581017e-03, 1.988827856989e-03, 2.025877711735e-03, 2.063617767864e-03, 2.102060883130e-03, 2.141220154816e-03, 2.181108924192e-03, 2.221740781063e-03, 2.263129568400e-03,
++2.305289387052e-03, 2.348234600554e-03, 2.391979840020e-03, 2.436540009125e-03, 2.481930289186e-03, 2.528166144332e-03, 2.575263326771e-03, 2.623237882163e-03, 2.672106155079e-03, 2.721884794575e-03,
++2.772590759860e-03, 2.824241326078e-03, 2.876854090191e-03, 2.930446976972e-03, 2.985038245119e-03, 3.040646493467e-03, 3.097290667331e-03, 3.154990064958e-03, 3.213764344100e-03, 3.273633528715e-03,
++3.334618015786e-03, 3.396738582272e-03, 3.460016392185e-03, 3.524473003802e-03, 3.590130377007e-03, 3.657010880777e-03, 3.725137300800e-03, 3.794532847237e-03, 3.865221162631e-03, 3.937226329963e-03,
++4.010572880855e-03, 4.085285803929e-03, 4.161390553317e-03, 4.238913057339e-03, 4.317879727332e-03, 4.398317466650e-03, 4.480253679829e-03, 4.563716281925e-03, 4.648733708020e-03, 4.735334922917e-03,
++4.823549431001e-03, 4.913407286296e-03, 5.004939102701e-03, 5.098176064420e-03, 5.193149936590e-03, 5.289893076098e-03, 5.388438442608e-03, 5.488819609790e-03, 5.591070776755e-03, 5.695226779713e-03,
++5.801323103833e-03, 5.909395895341e-03, 6.019481973827e-03, 6.131618844796e-03, 6.245844712440e-03, 6.362198492657e-03, 6.480719826312e-03, 6.601449092735e-03, 6.724427423484e-03, 6.849696716357e-03,
++6.977299649666e-03, 7.107279696773e-03, 7.239681140911e-03, 7.374549090260e-03, 7.511929493321e-03, 7.651869154571e-03, 7.794415750405e-03, 7.939617845382e-03, 8.087524908770e-03, 8.238187331400e-03,
++8.391656442830e-03, 8.547984528840e-03, 8.707224849240e-03, 8.869431656015e-03, 9.034660211811e-03, 9.202966808760e-03, 9.374408787663e-03, 9.549044557518e-03, 9.726933615426e-03, 9.908136566859e-03,
++1.009271514631e-02, 1.028073223831e-02, 1.047225189888e-02, 1.066733937735e-02, 1.086606113855e-02, 1.106848488549e-02, 1.127467958245e-02, 1.148471547840e-02, 1.169866413101e-02, 1.191659843099e-02,
++1.213859262691e-02, 1.236472235054e-02, 1.259506464258e-02, 1.282969797894e-02, 1.306870229743e-02, 1.331215902504e-02, 1.356015110566e-02, 1.381276302832e-02, 1.407008085603e-02, 1.433219225504e-02,
++1.459918652474e-02, 1.487115462809e-02, 1.514818922258e-02, 1.543038469184e-02, 1.571783717773e-02, 1.601064461318e-02, 1.630890675549e-02, 1.661272522034e-02, 1.692220351641e-02, 1.723744708064e-02,
++1.755856331414e-02, 1.788566161883e-02, 1.821885343465e-02, 1.855825227756e-02, 1.890397377819e-02, 1.925613572129e-02, 1.961485808579e-02, 1.998026308573e-02, 2.035247521184e-02, 2.073162127401e-02,
++2.111783044448e-02, 2.151123430182e-02, 2.191196687578e-02, 2.232016469295e-02, 2.273596682328e-02, 2.315951492743e-02, 2.359095330509e-02, 2.403042894407e-02, 2.447809157044e-02, 2.493409369952e-02,
++2.539859068781e-02, 2.587174078596e-02, 2.635370519267e-02, 2.684464810962e-02, 2.734473679738e-02, 2.785414163242e-02, 2.837303616516e-02, 2.890159717910e-02, 2.944000475100e-02, 2.998844231231e-02,
++3.054709671160e-02, 3.111615827824e-02, 3.169582088726e-02, 3.228628202537e-02, 3.288774285826e-02, 3.350040829913e-02, 3.412448707853e-02, 3.476019181542e-02, 3.540773908965e-02, 3.606734951574e-02,
++3.673924781802e-02, 3.742366290722e-02, 3.812082795844e-02, 3.883098049060e-02, 3.955436244735e-02, 4.029122027951e-02, 4.104180502905e-02, 4.180637241456e-02, 4.258518291843e-02, 4.337850187559e-02,
++4.418659956386e-02, 4.500975129608e-02, 4.584823751389e-02, 4.670234388327e-02, 4.757236139188e-02, 4.845858644816e-02, 4.936132098238e-02, 5.028087254942e-02, 5.121755443364e-02, 5.217168575554e-02,
++5.314359158053e-02, 5.413360302965e-02, 5.514205739240e-02, 5.616929824164e-02, 5.721567555063e-02, 5.828154581231e-02, 5.936727216069e-02, 6.047322449463e-02, 6.159977960380e-02, 6.274732129712e-02,
++6.391624053344e-02, 6.510693555481e-02, 6.631981202213e-02, 6.755528315332e-02, 6.881376986416e-02, 7.009570091166e-02, 7.140151304013e-02, 7.273165113001e-02, 7.408656834940e-02, 7.546672630844e-02,
++7.687259521664e-02, 7.830465404301e-02, 7.976339067929e-02, 8.124930210614e-02, 8.276289456246e-02, 8.430468371789e-02, 8.587519484845e-02, 8.747496301554e-02, 8.910453324822e-02, 9.076446072885e-02,
++9.245531098234e-02, 9.417766006870e-02, 9.593209477938e-02, 9.771921283718e-02, 9.953962309984e-02, 1.013939457675e-01, 1.032828125941e-01, 1.052068671024e-01, 1.071667648033e-01, 1.091631734194e-01,
++1.111967731121e-01, 1.132682567136e-01, 1.153783299630e-01, 1.175277117463e-01, 1.197171343419e-01, 1.219473436697e-01, 1.242190995453e-01, 1.265331759389e-01, 1.288903612391e-01, 1.312914585212e-01,
++1.337372858212e-01, 1.362286764142e-01, 1.387664790981e-01, 1.413515584835e-01, 1.439847952876e-01, 1.466670866344e-01, 1.493993463605e-01, 1.521825053264e-01, 1.550175117336e-01, 1.579053314474e-01,
++1.608469483265e-01, 1.638433645578e-01, 1.668956009978e-01, 1.700046975207e-01, 1.731717133723e-01, 1.763977275314e-01, 1.796838390768e-01, 1.830311675621e-01, 1.864408533970e-01, 1.899140582362e-01,
++1.934519653744e-01, 1.970557801502e-01, 2.007267303563e-01, 2.044660666579e-01, 2.082750630191e-01, 2.121550171362e-01, 2.161072508808e-01, 2.201331107493e-01, 2.242339683220e-01, 2.284112207304e-01,
++2.326662911331e-01, 2.370006292009e-01, 2.414157116103e-01, 2.459130425468e-01, 2.504941542175e-01, 2.551606073727e-01, 2.599139918383e-01, 2.647559270567e-01, 2.696880626391e-01, 2.747120789271e-01,
++2.798296875655e-01, 2.850426320853e-01, 2.903526884978e-01, 2.957616658993e-01, 3.012714070881e-01, 3.068837891918e-01, 3.126007243069e-01, 3.184241601505e-01, 3.243560807236e-01, 3.303985069872e-01,
++3.365534975507e-01, 3.428231493734e-01, 3.492095984787e-01, 3.557150206821e-01, 3.623416323323e-01, 3.690916910663e-01, 3.759674965785e-01, 3.829713914046e-01, 3.901057617191e-01, 3.973730381486e-01,
++4.047756965997e-01, 4.123162591030e-01, 4.199972946715e-01, 4.278214201768e-01, 4.357913012397e-01, 4.439096531392e-01, 4.521792417371e-01, 4.606028844202e-01, 4.691834510608e-01, 4.779238649936e-01,
++4.868271040122e-01, 4.958962013837e-01, 5.051342468817e-01, 5.145443878391e-01, 5.241298302206e-01, 5.338938397147e-01, 5.438397428465e-01, 5.539709281106e-01, 5.642908471263e-01, 5.748030158125e-01,
++5.855110155867e-01, 5.964184945842e-01, 6.075291689016e-01, 6.188468238624e-01, 6.303753153071e-01, 6.421185709065e-01, 6.540805914998e-01, 6.662654524581e-01, 6.786773050723e-01, 6.913203779678e-01,
++7.041989785449e-01, 7.173174944466e-01, 7.306803950530e-01, 7.442922330044e-01, 7.581576457522e-01, 7.722813571389e-01, 7.866681790072e-01, 8.013230128397e-01, 8.162508514287e-01, 8.314567805772e-01,
++8.469459808315e-01, 8.627237292461e-01, 8.787954011821e-01, 8.951664721378e-01, 9.118425196147e-01, 9.288292250172e-01, 9.461323755891e-01, 9.637578663841e-01, 9.817117022752e-01, 1.000000000000e+00
++};
++
++static const double tep_alpha_M[TEP_N] = {
++1.911862495984e-17, 3.202193314786e-17, 5.363378405509e-17, 8.983164066907e-17, 1.504597113082e-16, 2.520061367949e-16, 4.220870320040e-16, 7.069568418129e-16, 1.184087494499e-15, 1.983237323275e-15,
++3.321739566296e-15, 5.563607348854e-15, 9.318529076238e-15, 1.560767658461e-14, 2.614141849824e-14, 4.378446448420e-14, 7.333493897041e-14, 1.228292577550e-13, 2.057276759544e-13, 3.445748792037e-13,
++5.771311362335e-13, 9.666414138486e-13, 1.619035197209e-12, 2.711734602147e-12, 4.541905305800e-12, 7.607272404357e-12, 1.274147951966e-11, 2.134080281613e-11, 3.574387606511e-11, 5.986769509873e-11,
++1.002728665997e-10, 1.679478015572e-10, 2.812970747159e-10, 4.711466509838e-10, 7.891271779395e-10, 1.321715227440e-09, 2.213751080034e-09, 3.707828844374e-09, 6.210271273571e-09, 1.040163149652e-08,
++1.742177322427e-08, 2.917986302240e-08, 4.887357877096e-08, 8.185873593881e-08, 1.371058313716e-07, 2.296396197732e-07, 3.846251792650e-07, 6.442116942657e-07, 1.078995160488e-06, 1.807217358392e-06,
++3.026922362652e-06, 5.069815729124e-06, 8.491473664607e-06, 1.422243506455e-05, 2.382126673826e-05, 3.989842431619e-05, 6.682618016944e-05, 1.119276871850e-04, 1.831421379016e-04, 2.356051681366e-04,
++6.461528524553e-04, 1.051141875947e-03, 1.450563375605e-03, 1.844423934925e-03, 2.232998040545e-03, 2.616373374375e-03, 2.994480350238e-03, 3.367466233305e-03, 3.735506603250e-03, 4.098673855260e-03,
++4.456815404874e-03, 4.810205763278e-03, 5.158941164157e-03, 5.503049649447e-03, 5.842444637121e-03, 6.177393862565e-03, 6.507962985604e-03, 6.834116550165e-03, 7.155898093074e-03, 7.473496859982e-03,
++7.786974679376e-03, 8.096239540364e-03, 8.401450296357e-03, 8.702725562538e-03, 9.000123336146e-03, 9.293501338094e-03, 9.583120248856e-03, 9.869035256268e-03, 1.015124763294e-02, 1.042974327933e-02,
++1.070473241099e-02, 1.097625212580e-02, 1.124423769994e-02, 1.150874833983e-02, 1.176990015069e-02, 1.202772892709e-02, 1.228212596199e-02, 1.253324700929e-02, 1.278115604108e-02, 1.302586889248e-02,
++1.326729730629e-02, 1.350562504918e-02, 1.374088815991e-02, 1.397305858431e-02, 1.420214448356e-02, 1.442827752604e-02, 1.465149388926e-02, 1.487172581511e-02, 1.508906954950e-02, 1.530360881057e-02,
++1.551537991450e-02, 1.572427963019e-02, 1.593048386386e-02, 1.613403257662e-02, 1.633492610864e-02, 1.653313837883e-02, 1.672880808939e-02, 1.692197179996e-02, 1.711259462685e-02, 1.730072971316e-02,
++1.748647219055e-02, 1.766985875692e-02, 1.785082365110e-02, 1.802949971543e-02, 1.820596111171e-02, 1.838020633937e-02, 1.855216195818e-02, 1.872193927414e-02, 1.888954954335e-02, 1.905495509326e-02,
++1.921815427811e-02, 1.937922487261e-02, 1.953818047101e-02, 1.969495393548e-02, 1.984961287799e-02, 2.000220252563e-02, 2.015273522005e-02, 2.030112713356e-02, 2.044750092565e-02, 2.059187430015e-02,
++2.073423037839e-02, 2.087455500980e-02, 2.101293764040e-02, 2.114939831109e-02, 2.128389328535e-02, 2.141647393751e-02, 2.154719828881e-02, 2.167608871671e-02, 2.180307747001e-02, 2.192827633648e-02,
++2.205171417967e-02, 2.217339169324e-02, 2.229329250736e-02, 2.241151066777e-02, 2.252807265816e-02, 2.264295603620e-02, 2.275620401272e-02, 2.286788142750e-02, 2.297801709900e-02, 2.308656923289e-02,
++2.319363363524e-02, 2.329924913964e-02, 2.340343053940e-02, 2.350617008793e-02, 2.360755905029e-02, 2.370763034761e-02, 2.380638077554e-02, 2.390384527416e-02, 2.400005424638e-02, 2.409500705163e-02,
++2.418864513392e-02, 2.428102078224e-02, 2.437214386926e-02, 2.446200229213e-02, 2.455056110531e-02, 2.463787640995e-02, 2.472395229913e-02, 2.480875665294e-02, 2.489230263829e-02, 2.497462547020e-02,
++2.505573156718e-02, 2.513556949143e-02, 2.521419970127e-02, 2.529163664570e-02, 2.536787288530e-02, 2.544288743386e-02, 2.551673763052e-02, 2.558943397991e-02, 2.566095009474e-02, 2.573131247246e-02,
++2.580055712044e-02, 2.586869686618e-02, 2.593568811468e-02, 2.600160195492e-02, 2.606645421197e-02, 2.613024050105e-02, 2.619296094876e-02, 2.625466857187e-02, 2.631538027872e-02, 2.637507557667e-02,
++2.643379793987e-02, 2.649158034200e-02, 2.654843633277e-02, 2.660434932839e-02, 2.665938375394e-02, 2.671356059423e-02, 2.676687877941e-02, 2.681936307197e-02, 2.687105836072e-02, 2.692198794666e-02,
++2.697213989390e-02, 2.702157341999e-02, 2.707031701083e-02, 2.711838487118e-02, 2.716579293390e-02, 2.721259225689e-02, 2.725881020846e-02, 2.730445263841e-02, 2.734952955446e-02, 2.739401087958e-02,
++2.743788654549e-02, 2.748113301090e-02, 2.752377499471e-02, 2.756581077317e-02, 2.760721799320e-02, 2.764800422164e-02, 2.768818134634e-02, 2.772774639956e-02, 2.776667176395e-02, 2.780498884725e-02,
++2.784269871663e-02, 2.787978437303e-02, 2.791625133042e-02, 2.795211681859e-02, 2.798738235691e-02, 2.802202040593e-02, 2.805606644789e-02, 2.808952433676e-02, 2.812238124889e-02, 2.815464407868e-02,
++2.818633313369e-02, 2.821745260980e-02, 2.824797975891e-02, 2.827795122449e-02, 2.830737364212e-02, 2.833623712129e-02, 2.836455353533e-02, 2.839234390128e-02, 2.841961339518e-02, 2.844634858670e-02,
++2.847258443721e-02, 2.849833035734e-02, 2.852357850586e-02, 2.854834866296e-02, 2.857266049581e-02, 2.859651904002e-02, 2.861992360831e-02, 2.864290515836e-02, 2.866547586767e-02, 2.868762993330e-02,
++2.870939628038e-02, 2.873079197969e-02, 2.875182194248e-02, 2.877249943721e-02, 2.879285016770e-02, 2.881288759972e-02, 2.883261385833e-02, 2.885206092227e-02, 2.887124491119e-02, 2.889017244185e-02,
++2.890886839627e-02, 2.892735370942e-02, 2.894564176939e-02, 2.896375041868e-02, 2.898170453338e-02, 2.899948922952e-02, 2.901704774607e-02, 2.903438488863e-02, 2.905149713730e-02, 2.906836960784e-02,
++2.908500851529e-02, 2.910141299600e-02, 2.911757186544e-02, 2.913348553617e-02, 2.914915738309e-02, 2.916457985776e-02, 2.917974779417e-02, 2.919466864332e-02, 2.920933830044e-02, 2.922374650618e-02,
++2.923790449246e-02, 2.925181129401e-02, 2.926545227072e-02, 2.927884202428e-02, 2.929198069274e-02, 2.930485507529e-02, 2.931747771734e-02, 2.932985107967e-02, 2.934196430341e-02, 2.935382744127e-02,
++2.936544522506e-02, 2.937680874095e-02, 2.938792646222e-02, 2.939880487124e-02, 2.940943658161e-02, 2.941982944731e-02, 2.942999115411e-02, 2.943991543097e-02, 2.944961046751e-02, 2.945908460479e-02,
++2.946833230888e-02, 2.947736299861e-02, 2.948618514915e-02, 2.949479364950e-02, 2.950319991973e-02, 2.951141210457e-02, 2.951942529854e-02, 2.952725350863e-02, 2.953490417336e-02, 2.954237250678e-02,
++2.954967543313e-02, 2.955681798896e-02, 2.956379991928e-02, 2.957063673783e-02, 2.957733227000e-02, 2.958389155902e-02, 2.959032782492e-02, 2.959664429595e-02, 2.960285080410e-02, 2.960895842813e-02,
++2.961497042797e-02, 2.962090035705e-02, 2.962675671129e-02, 2.963254634161e-02, 2.963828220484e-02, 2.964397219666e-02, 2.964962698039e-02, 2.965525756781e-02, 2.966087352777e-02, 2.966648649718e-02,
++2.967208473529e-02, 2.967764013230e-02, 2.968315022285e-02, 2.968860841111e-02, 2.969401364629e-02, 2.969936091702e-02, 2.970464523684e-02, 2.970986504841e-02, 2.971501104962e-02, 2.972008335405e-02,
++2.972507414638e-02, 2.972997916364e-02, 2.973479458863e-02, 2.973951104670e-02, 2.974412862392e-02, 2.974863457148e-02, 2.975302933844e-02, 2.975730230096e-02, 2.976144931793e-02, 2.976546379037e-02,
++2.976933664884e-02, 2.977306558633e-02, 2.977663641722e-02, 2.978005122793e-02, 2.978329071104e-02, 2.978636005632e-02, 2.978923862482e-02, 2.979193063801e-02, 2.979441626679e-02, 2.979669810208e-02,
++2.979875676920e-02, 2.980059417641e-02, 2.980219030178e-02, 2.980354764292e-02, 2.980464408901e-02, 2.980548435668e-02, 2.980604243146e-02, 2.980632688015e-02, 2.980630673162e-02, 2.980599218558e-02,
++2.980535552478e-02, 2.980439937663e-02, 2.980310451526e-02, 2.980146262782e-02, 2.979946661863e-02, 2.979709334082e-02, 2.979434875716e-02, 2.979120019681e-02, 2.978765296167e-02, 2.978368921610e-02,
++2.977928990418e-02, 2.977445789475e-02, 2.976916157984e-02, 2.976340046686e-02, 2.975716743779e-02, 2.975042425138e-02, 2.974318169326e-02, 2.973542503226e-02, 2.972711781944e-02, 2.971826897688e-02,
++2.970886407838e-02, 2.969886890847e-02, 2.968828394950e-02, 2.967709812754e-02, 2.966529093595e-02, 2.965283530114e-02, 2.963973228690e-02, 2.962596593368e-02, 2.961151978229e-02, 2.959635903283e-02,
++2.958048625584e-02, 2.956388469358e-02, 2.954653737792e-02, 2.952842713654e-02, 2.950953123155e-02, 2.948983002673e-02, 2.946920377361e-02, 2.944746434341e-02, 2.942451313192e-02, 2.940025127533e-02,
++2.937457773321e-02, 2.934738933241e-02, 2.931858081647e-02, 2.928804490037e-02, 2.925567233096e-02, 2.922135195291e-02, 2.918497078039e-02, 2.914641407447e-02, 2.910556542613e-02, 2.906230684505e-02,
++2.901651885406e-02, 2.896807383564e-02, 2.891681071935e-02, 2.886264201020e-02, 2.880544270837e-02, 2.874508689524e-02, 2.868138726352e-02, 2.861423546087e-02, 2.854353199986e-02, 2.846907488327e-02,
++2.839074267628e-02, 2.830843817760e-02, 2.822190361021e-02, 2.813113242420e-02, 2.803581605109e-02, 2.793594638470e-02, 2.783126671634e-02, 2.772165889325e-02, 2.760699845891e-02, 2.748704791171e-02,
++2.736166897193e-02, 2.723072247121e-02, 2.709403080112e-02, 2.695141645746e-02, 2.680270260015e-02, 2.664771362280e-02, 2.648627572865e-02, 2.631827728983e-02, 2.614394376210e-02, 2.596304366888e-02,
++2.577528806803e-02, 2.558051749797e-02, 2.537840691910e-02, 2.516880584724e-02, 2.495155967082e-02, 2.472653428382e-02, 2.449363724652e-02, 2.425279990217e-02, 2.400398193760e-02, 2.374717941454e-02,
++2.348241049668e-02, 2.320973168562e-02, 2.292922635851e-02, 2.264100793590e-02, 2.234521978018e-02, 2.204203930842e-02, 2.173166611892e-02, 2.141433764625e-02, 2.109031529369e-02, 2.075990068192e-02,
++2.042341436587e-02, 2.008121579805e-02, 1.973369182395e-02, 1.938125140122e-02, 1.902435050700e-02, 1.866346080154e-02, 1.829908927153e-02, 1.793177622127e-02, 1.756208771100e-02, 1.719062274968e-02,
++1.681800831000e-02, 1.644459453960e-02, 1.607027510999e-02, 1.569550856605e-02, 1.532077170871e-02, 1.494653317014e-02, 1.457325449666e-02, 1.420138771624e-02, 1.383138033224e-02, 1.346366607109e-02
++};
++
++static const double tep_alpha_B[TEP_N] = {
++-1.911862495984e-17, -3.202193314786e-17, -5.363378405509e-17, -8.983164066907e-17, -1.504597113082e-16, -2.520061367949e-16, -4.220870320040e-16, -7.069568418129e-16, -1.184087494499e-15, -1.983237323275e-15,
++-3.321739566296e-15, -5.563607348854e-15, -9.318529076238e-15, -1.560767658461e-14, -2.614141849824e-14, -4.378446448420e-14, -7.333493897041e-14, -1.228292577550e-13, -2.057276759544e-13, -3.445748792037e-13,
++-5.771311362335e-13, -9.666414138486e-13, -1.619035197209e-12, -2.711734602147e-12, -4.541905305800e-12, -7.607272404357e-12, -1.274147951966e-11, -2.134080281613e-11, -3.574387606511e-11, -5.986769509873e-11,
++-1.002728665997e-10, -1.679478015572e-10, -2.812970747159e-10, -4.711466509838e-10, -7.891271779395e-10, -1.321715227440e-09, -2.213751080034e-09, -3.707828844374e-09, -6.210271273571e-09, -1.040163149652e-08,
++-1.742177322427e-08, -2.917986302240e-08, -4.887357877096e-08, -8.185873593881e-08, -1.371058313716e-07, -2.296396197732e-07, -3.846251792650e-07, -6.442116942657e-07, -1.078995160488e-06, -1.807217358392e-06,
++-3.026922362652e-06, -5.069815729124e-06, -8.491473664607e-06, -1.422243506455e-05, -2.382126673826e-05, -3.989842431619e-05, -6.682618016944e-05, -1.119276871850e-04, -1.831421379016e-04, -2.356051681366e-04,
++-6.461528524553e-04, -1.051141875947e-03, -1.450563375605e-03, -1.844423934925e-03, -2.232998040545e-03, -2.616373374375e-03, -2.994480350238e-03, -3.367466233305e-03, -3.735506603250e-03, -4.098673855260e-03,
++-4.456815404874e-03, -4.810205763278e-03, -5.158941164157e-03, -5.503049649447e-03, -5.842444637121e-03, -6.177393862565e-03, -6.507962985604e-03, -6.834116550165e-03, -7.155898093074e-03, -7.473496859982e-03,
++-7.786974679376e-03, -8.096239540364e-03, -8.401450296357e-03, -8.702725562538e-03, -9.000123336146e-03, -9.293501338094e-03, -9.583120248856e-03, -9.869035256268e-03, -1.015124763294e-02, -1.042974327933e-02,
++-1.070473241099e-02, -1.097625212580e-02, -1.124423769994e-02, -1.150874833983e-02, -1.176990015069e-02, -1.202772892709e-02, -1.228212596199e-02, -1.253324700929e-02, -1.278115604108e-02, -1.302586889248e-02,
++-1.326729730629e-02, -1.350562504918e-02, -1.374088815991e-02, -1.397305858431e-02, -1.420214448356e-02, -1.442827752604e-02, -1.465149388926e-02, -1.487172581511e-02, -1.508906954950e-02, -1.530360881057e-02,
++-1.551537991450e-02, -1.572427963019e-02, -1.593048386386e-02, -1.613403257662e-02, -1.633492610864e-02, -1.653313837883e-02, -1.672880808939e-02, -1.692197179996e-02, -1.711259462685e-02, -1.730072971316e-02,
++-1.748647219055e-02, -1.766985875692e-02, -1.785082365110e-02, -1.802949971543e-02, -1.820596111171e-02, -1.838020633937e-02, -1.855216195818e-02, -1.872193927414e-02, -1.888954954335e-02, -1.905495509326e-02,
++-1.921815427811e-02, -1.937922487261e-02, -1.953818047101e-02, -1.969495393548e-02, -1.984961287799e-02, -2.000220252563e-02, -2.015273522005e-02, -2.030112713356e-02, -2.044750092565e-02, -2.059187430015e-02,
++-2.073423037839e-02, -2.087455500980e-02, -2.101293764040e-02, -2.114939831109e-02, -2.128389328535e-02, -2.141647393751e-02, -2.154719828881e-02, -2.167608871671e-02, -2.180307747001e-02, -2.192827633648e-02,
++-2.205171417967e-02, -2.217339169324e-02, -2.229329250736e-02, -2.241151066777e-02, -2.252807265816e-02, -2.264295603620e-02, -2.275620401272e-02, -2.286788142750e-02, -2.297801709900e-02, -2.308656923289e-02,
++-2.319363363524e-02, -2.329924913964e-02, -2.340343053940e-02, -2.350617008793e-02, -2.360755905029e-02, -2.370763034761e-02, -2.380638077554e-02, -2.390384527416e-02, -2.400005424638e-02, -2.409500705163e-02,
++-2.418864513392e-02, -2.428102078224e-02, -2.437214386926e-02, -2.446200229213e-02, -2.455056110531e-02, -2.463787640995e-02, -2.472395229913e-02, -2.480875665294e-02, -2.489230263829e-02, -2.497462547020e-02,
++-2.505573156718e-02, -2.513556949143e-02, -2.521419970127e-02, -2.529163664570e-02, -2.536787288530e-02, -2.544288743386e-02, -2.551673763052e-02, -2.558943397991e-02, -2.566095009474e-02, -2.573131247246e-02,
++-2.580055712044e-02, -2.586869686618e-02, -2.593568811468e-02, -2.600160195492e-02, -2.606645421197e-02, -2.613024050105e-02, -2.619296094876e-02, -2.625466857187e-02, -2.631538027872e-02, -2.637507557667e-02,
++-2.643379793987e-02, -2.649158034200e-02, -2.654843633277e-02, -2.660434932839e-02, -2.665938375394e-02, -2.671356059423e-02, -2.676687877941e-02, -2.681936307197e-02, -2.687105836072e-02, -2.692198794666e-02,
++-2.697213989390e-02, -2.702157341999e-02, -2.707031701083e-02, -2.711838487118e-02, -2.716579293390e-02, -2.721259225689e-02, -2.725881020846e-02, -2.730445263841e-02, -2.734952955446e-02, -2.739401087958e-02,
++-2.743788654549e-02, -2.748113301090e-02, -2.752377499471e-02, -2.756581077317e-02, -2.760721799320e-02, -2.764800422164e-02, -2.768818134634e-02, -2.772774639956e-02, -2.776667176395e-02, -2.780498884725e-02,
++-2.784269871663e-02, -2.787978437303e-02, -2.791625133042e-02, -2.795211681859e-02, -2.798738235691e-02, -2.802202040593e-02, -2.805606644789e-02, -2.808952433676e-02, -2.812238124889e-02, -2.815464407868e-02,
++-2.818633313369e-02, -2.821745260980e-02, -2.824797975891e-02, -2.827795122449e-02, -2.830737364212e-02, -2.833623712129e-02, -2.836455353533e-02, -2.839234390128e-02, -2.841961339518e-02, -2.844634858670e-02,
++-2.847258443721e-02, -2.849833035734e-02, -2.852357850586e-02, -2.854834866296e-02, -2.857266049581e-02, -2.859651904002e-02, -2.861992360831e-02, -2.864290515836e-02, -2.866547586767e-02, -2.868762993330e-02,
++-2.870939628038e-02, -2.873079197969e-02, -2.875182194248e-02, -2.877249943721e-02, -2.879285016770e-02, -2.881288759972e-02, -2.883261385833e-02, -2.885206092227e-02, -2.887124491119e-02, -2.889017244185e-02,
++-2.890886839627e-02, -2.892735370942e-02, -2.894564176939e-02, -2.896375041868e-02, -2.898170453338e-02, -2.899948922952e-02, -2.901704774607e-02, -2.903438488863e-02, -2.905149713730e-02, -2.906836960784e-02,
++-2.908500851529e-02, -2.910141299600e-02, -2.911757186544e-02, -2.913348553617e-02, -2.914915738309e-02, -2.916457985776e-02, -2.917974779417e-02, -2.919466864332e-02, -2.920933830044e-02, -2.922374650618e-02,
++-2.923790449246e-02, -2.925181129401e-02, -2.926545227072e-02, -2.927884202428e-02, -2.929198069274e-02, -2.930485507529e-02, -2.931747771734e-02, -2.932985107967e-02, -2.934196430341e-02, -2.935382744127e-02,
++-2.936544522506e-02, -2.937680874095e-02, -2.938792646222e-02, -2.939880487124e-02, -2.940943658161e-02, -2.941982944731e-02, -2.942999115411e-02, -2.943991543097e-02, -2.944961046751e-02, -2.945908460479e-02,
++-2.946833230888e-02, -2.947736299861e-02, -2.948618514915e-02, -2.949479364950e-02, -2.950319991973e-02, -2.951141210457e-02, -2.951942529854e-02, -2.952725350863e-02, -2.953490417336e-02, -2.954237250678e-02,
++-2.954967543313e-02, -2.955681798896e-02, -2.956379991928e-02, -2.957063673783e-02, -2.957733227000e-02, -2.958389155902e-02, -2.959032782492e-02, -2.959664429595e-02, -2.960285080410e-02, -2.960895842813e-02,
++-2.961497042797e-02, -2.962090035705e-02, -2.962675671129e-02, -2.963254634161e-02, -2.963828220484e-02, -2.964397219666e-02, -2.964962698039e-02, -2.965525756781e-02, -2.966087352777e-02, -2.966648649718e-02,
++-2.967208473529e-02, -2.967764013230e-02, -2.968315022285e-02, -2.968860841111e-02, -2.969401364629e-02, -2.969936091702e-02, -2.970464523684e-02, -2.970986504841e-02, -2.971501104962e-02, -2.972008335405e-02,
++-2.972507414638e-02, -2.972997916364e-02, -2.973479458863e-02, -2.973951104670e-02, -2.974412862392e-02, -2.974863457148e-02, -2.975302933844e-02, -2.975730230096e-02, -2.976144931793e-02, -2.976546379037e-02,
++-2.976933664884e-02, -2.977306558633e-02, -2.977663641722e-02, -2.978005122793e-02, -2.978329071104e-02, -2.978636005632e-02, -2.978923862482e-02, -2.979193063801e-02, -2.979441626679e-02, -2.979669810208e-02,
++-2.979875676920e-02, -2.980059417641e-02, -2.980219030178e-02, -2.980354764292e-02, -2.980464408901e-02, -2.980548435668e-02, -2.980604243146e-02, -2.980632688015e-02, -2.980630673162e-02, -2.980599218558e-02,
++-2.980535552478e-02, -2.980439937663e-02, -2.980310451526e-02, -2.980146262782e-02, -2.979946661863e-02, -2.979709334082e-02, -2.979434875716e-02, -2.979120019681e-02, -2.978765296167e-02, -2.978368921610e-02,
++-2.977928990418e-02, -2.977445789475e-02, -2.976916157984e-02, -2.976340046686e-02, -2.975716743779e-02, -2.975042425138e-02, -2.974318169326e-02, -2.973542503226e-02, -2.972711781944e-02, -2.971826897688e-02,
++-2.970886407838e-02, -2.969886890847e-02, -2.968828394950e-02, -2.967709812754e-02, -2.966529093595e-02, -2.965283530114e-02, -2.963973228690e-02, -2.962596593368e-02, -2.961151978229e-02, -2.959635903283e-02,
++-2.958048625584e-02, -2.956388469358e-02, -2.954653737792e-02, -2.952842713654e-02, -2.950953123155e-02, -2.948983002673e-02, -2.946920377361e-02, -2.944746434341e-02, -2.942451313192e-02, -2.940025127533e-02,
++-2.937457773321e-02, -2.934738933241e-02, -2.931858081647e-02, -2.928804490037e-02, -2.925567233096e-02, -2.922135195291e-02, -2.918497078039e-02, -2.914641407447e-02, -2.910556542613e-02, -2.906230684505e-02,
++-2.901651885406e-02, -2.896807383564e-02, -2.891681071935e-02, -2.886264201020e-02, -2.880544270837e-02, -2.874508689524e-02, -2.868138726352e-02, -2.861423546087e-02, -2.854353199986e-02, -2.846907488327e-02,
++-2.839074267628e-02, -2.830843817760e-02, -2.822190361021e-02, -2.813113242420e-02, -2.803581605109e-02, -2.793594638470e-02, -2.783126671634e-02, -2.772165889325e-02, -2.760699845891e-02, -2.748704791171e-02,
++-2.736166897193e-02, -2.723072247121e-02, -2.709403080112e-02, -2.695141645746e-02, -2.680270260015e-02, -2.664771362280e-02, -2.648627572865e-02, -2.631827728983e-02, -2.614394376210e-02, -2.596304366888e-02,
++-2.577528806803e-02, -2.558051749797e-02, -2.537840691910e-02, -2.516880584724e-02, -2.495155967082e-02, -2.472653428382e-02, -2.449363724652e-02, -2.425279990217e-02, -2.400398193760e-02, -2.374717941454e-02,
++-2.348241049668e-02, -2.320973168562e-02, -2.292922635851e-02, -2.264100793590e-02, -2.234521978018e-02, -2.204203930842e-02, -2.173166611892e-02, -2.141433764625e-02, -2.109031529369e-02, -2.075990068192e-02,
++-2.042341436587e-02, -2.008121579805e-02, -1.973369182395e-02, -1.938125140122e-02, -1.902435050700e-02, -1.866346080154e-02, -1.829908927153e-02, -1.793177622127e-02, -1.756208771100e-02, -1.719062274968e-02,
++-1.681800831000e-02, -1.644459453960e-02, -1.607027510999e-02, -1.569550856605e-02, -1.532077170871e-02, -1.494653317014e-02, -1.457325449666e-02, -1.420138771624e-02, -1.383138033224e-02, -1.346366607109e-02
++};
++
++static const double tep_alpha_K[TEP_N] = {
++4.609636290033e-33, 1.293148633186e-32, 3.627690521108e-32, 1.017681817790e-31, 2.854919062788e-31, 8.008950059431e-31, 2.246763555945e-30, 6.302881699679e-30, 1.768157473225e-29, 4.960240409212e-29,
++1.391504166894e-28, 3.903608871230e-28, 1.095085633380e-27, 3.072061223332e-27, 8.618102431649e-27, 2.417650044157e-26, 6.782272295285e-26, 1.902641682926e-25, 5.337511111317e-25, 1.497340519715e-24,
++4.200513282729e-24, 1.178376702298e-23, 3.305718989694e-23, 9.273586296738e-23, 2.601533980086e-22, 7.298124838633e-22, 2.047354621080e-21, 5.743476628778e-21, 1.611226674933e-20, 4.519999933503e-20,
++1.268002802878e-19, 3.557148521594e-19, 9.978925579628e-19, 2.799403936025e-18, 7.853212587365e-18, 2.203074274087e-17, 6.180319459266e-17, 1.733774892107e-16, 4.863786405074e-16, 1.364445771010e-15,
++3.827701520949e-15, 1.073791223130e-14, 3.012323674039e-14, 8.450519730202e-14, 2.370637801175e-13, 6.650388098943e-13, 1.865643998616e-12, 5.233720916418e-12, 1.468224090516e-11, 4.118832498709e-11,
++1.155462661456e-10, 3.241437864828e-10, 9.093257430142e-10, 2.550946035031e-09, 7.156209668135e-09, 2.007542931565e-08, 5.631792260116e-08, 1.579895680556e-07, 4.229898159591e-07, 7.000401956864e-07,
++5.265309249060e-06, 1.393400712471e-05, 2.653546901160e-05, 4.290173449676e-05, 6.288253425225e-05, 8.632822149720e-05, 1.130827307182e-04, 1.430078413870e-04, 1.759755652958e-04, 2.118556618554e-04,
++2.504970670310e-04, 2.917968912840e-04, 3.356406101832e-04, 3.819092825473e-04, 4.304696760937e-04, 4.812424583249e-04, 5.341257313552e-04, 5.890038237678e-04, 6.457756220383e-04, 7.043703475983e-04,
++7.646996248441e-04, 8.266469164308e-04, 8.901472959806e-04, 9.551331729569e-04, 1.021527997497e-03, 1.089211163139e-03, 1.158156442823e-03, 1.228295195217e-03, 1.299547615038e-03, 1.371830927006e-03,
++1.445123566106e-03, 1.519362840861e-03, 1.594459116100e-03, 1.670357914186e-03, 1.747024152749e-03, 1.824402318531e-03, 1.902393906621e-03, 1.980982094182e-03, 2.060125255134e-03, 2.139768339540e-03,
++2.219822631315e-03, 2.300290728277e-03, 2.381129204726e-03, 2.462273618195e-03, 2.543672561141e-03, 2.625320481534e-03, 2.707180222970e-03, 2.789177106632e-03, 2.871298028355e-03, 2.953527804240e-03,
++3.035835119628e-03, 3.118134675815e-03, 3.200451764614e-03, 3.282760590591e-03, 3.365020393958e-03, 3.447179937577e-03, 3.529257531157e-03, 3.611231134382e-03, 3.693049062992e-03, 3.774697857445e-03,
++3.856184060851e-03, 3.937490401508e-03, 4.018554580009e-03, 4.099403845411e-03, 4.180041307791e-03, 4.260436700704e-03, 4.340526440232e-03, 4.420333295108e-03, 4.499834644599e-03, 4.578984899367e-03,
++4.657755668090e-03, 4.736157720139e-03, 4.814171812150e-03, 4.891739154900e-03, 4.968867712733e-03, 5.045555557442e-03, 5.121785070270e-03, 5.197489898704e-03, 5.272709264537e-03, 5.347430010712e-03,
++5.421621457236e-03, 5.495254424255e-03, 5.568354747745e-03, 5.640912783617e-03, 5.712885207652e-03, 5.784279766275e-03, 5.855108787784e-03, 5.925366144800e-03, 5.994996693671e-03, 6.064043988958e-03,
++6.132507128082e-03, 6.200370050796e-03, 6.267607345326e-03, 6.334256053524e-03, 6.400316171994e-03, 6.465760276611e-03, 6.530598576809e-03, 6.594854456830e-03, 6.658531346944e-03, 6.721592062248e-03,
++6.784079641874e-03, 6.846004854276e-03, 6.907364852770e-03, 6.968143739444e-03, 7.028384647726e-03, 7.088096901705e-03, 7.147268599892e-03, 7.205910938239e-03, 7.264032837179e-03, 7.321624767431e-03,
++7.378641979172e-03, 7.435107180093e-03, 7.491017614999e-03, 7.546357180210e-03, 7.601095637938e-03, 7.655259142009e-03, 7.708842029155e-03, 7.761816128495e-03, 7.814181547470e-03, 7.865952513584e-03,
++7.917125463957e-03, 7.967660321137e-03, 8.017587872926e-03, 8.066910150975e-03, 8.115615403472e-03, 8.163683236706e-03, 8.211143619008e-03, 8.257996823918e-03, 8.304219425920e-03, 8.349822235172e-03,
++8.394822540756e-03, 8.439222855822e-03, 8.482988965659e-03, 8.526161669909e-03, 8.568745999274e-03, 8.610733854552e-03, 8.652120174489e-03, 8.692935008492e-03, 8.733184850084e-03, 8.772851491677e-03,
++8.811959327245e-03, 8.850526065931e-03, 8.888556671071e-03, 8.926036029082e-03, 8.963003470322e-03, 8.999469475230e-03, 9.035429805962e-03, 9.070897748782e-03, 9.105900415310e-03, 9.140450541391e-03,
++9.174537056307e-03, 9.208197368380e-03, 9.241448239784e-03, 9.274296841718e-03, 9.306751633343e-03, 9.338845292006e-03, 9.370594478536e-03, 9.402001188412e-03, 9.433070337504e-03, 9.463779215559e-03,
++9.494118850269e-03, 9.524070913599e-03, 9.553650506709e-03, 9.582854480729e-03, 9.611665342700e-03, 9.640086399936e-03, 9.668124037936e-03, 9.695774329466e-03, 9.723016100683e-03, 9.749869493811e-03,
++9.776333494685e-03, 9.802394417102e-03, 9.828054391886e-03, 9.853323859071e-03, 9.878202258921e-03, 9.902668526230e-03, 9.926746124884e-03, 9.950436260258e-03, 9.973728347413e-03, 9.996625788100e-03,
++1.001914156910e-02, 1.004127730086e-02, 1.006301543469e-02, 1.008438073768e-02, 1.010537668727e-02, 1.012599499233e-02, 1.014624292654e-02, 1.016613436840e-02, 1.018567192198e-02, 1.020484487650e-02,
++1.022367725829e-02, 1.024217484035e-02, 1.026033102706e-02, 1.027815911021e-02, 1.029567236737e-02, 1.031287358744e-02, 1.032976145597e-02, 1.034635753399e-02, 1.036266989030e-02, 1.037869362445e-02,
++1.039444898311e-02, 1.040994769811e-02, 1.042519273098e-02, 1.044019312873e-02, 1.045496700650e-02, 1.046952364702e-02, 1.048386412067e-02, 1.049801123433e-02, 1.051197631544e-02, 1.052576380358e-02,
++1.053939147407e-02, 1.055287427372e-02, 1.056622168218e-02, 1.057944646098e-02, 1.059256654827e-02, 1.060557084750e-02, 1.061841758871e-02, 1.063110999058e-02, 1.064364518353e-02, 1.065601196369e-02,
++1.066821458422e-02, 1.068025211714e-02, 1.069211605744e-02, 1.070380640797e-02, 1.071532535470e-02, 1.072666705830e-02, 1.073782742568e-02, 1.074881165127e-02, 1.075961643203e-02, 1.077023392709e-02,
++1.078067213434e-02, 1.079093007353e-02, 1.080099667391e-02, 1.081088244412e-02, 1.082058723162e-02, 1.083010102963e-02, 1.083943285741e-02, 1.084858429493e-02, 1.085754707247e-02, 1.086632839431e-02,
++1.087493154063e-02, 1.088334969106e-02, 1.089158890761e-02, 1.089965379020e-02, 1.090753866282e-02, 1.091524915494e-02, 1.092279078379e-02, 1.093015871513e-02, 1.093735885379e-02, 1.094439722921e-02,
++1.095126956989e-02, 1.095798272016e-02, 1.096454283475e-02, 1.097094597227e-02, 1.097720049163e-02, 1.098331232667e-02, 1.098927770444e-02, 1.099510693590e-02, 1.100080545268e-02, 1.100636958588e-02,
++1.101181184623e-02, 1.101713589703e-02, 1.102234146147e-02, 1.102744002541e-02, 1.103243436753e-02, 1.103732817939e-02, 1.104213125992e-02, 1.104684595905e-02, 1.105147956059e-02, 1.105604028656e-02,
++1.106053052628e-02, 1.106496036208e-02, 1.106933610573e-02, 1.107366284500e-02, 1.107795023646e-02, 1.108220416024e-02, 1.108643257096e-02, 1.109064369005e-02, 1.109484466576e-02, 1.109904419927e-02,
++1.110323350256e-02, 1.110739152821e-02, 1.111151641242e-02, 1.111560319728e-02, 1.111965107438e-02, 1.112365626809e-02, 1.112761501904e-02, 1.113152613507e-02, 1.113538261896e-02, 1.113918452710e-02,
++1.114292597182e-02, 1.114660372572e-02, 1.115021489416e-02, 1.115375241258e-02, 1.115721631024e-02, 1.116059698683e-02, 1.116389474127e-02, 1.116710156291e-02, 1.117021430385e-02, 1.117322797038e-02,
++1.117613571245e-02, 1.117893575614e-02, 1.118161740696e-02, 1.118418218935e-02, 1.118661555924e-02, 1.118892137261e-02, 1.119108408284e-02, 1.119310682049e-02, 1.119497464634e-02, 1.119668946875e-02,
++1.119823669071e-02, 1.119961771176e-02, 1.120081745110e-02, 1.120183775708e-02, 1.120266198361e-02, 1.120329365479e-02, 1.120371319732e-02, 1.120392703964e-02, 1.120391189235e-02, 1.120367542377e-02,
++1.120319680425e-02, 1.120247802443e-02, 1.120150465531e-02, 1.120027048166e-02, 1.119877021341e-02, 1.119698650802e-02, 1.119492391417e-02, 1.119255796004e-02, 1.118989272528e-02, 1.118691491855e-02,
++1.118361035188e-02, 1.117998132468e-02, 1.117600426249e-02, 1.117167898159e-02, 1.116700034223e-02, 1.116193987179e-02, 1.115650592184e-02, 1.115068771776e-02, 1.114445823245e-02, 1.113782449961e-02,
++1.113077607199e-02, 1.112328771547e-02, 1.111536023765e-02, 1.110698582181e-02, 1.109814963297e-02, 1.108883197761e-02, 1.107903426216e-02, 1.106874520296e-02, 1.105795319813e-02, 1.104663301311e-02,
++1.103478738550e-02, 1.102240467477e-02, 1.100947315126e-02, 1.099598100438e-02, 1.098191235588e-02, 1.096725372368e-02, 1.095191730158e-02, 1.093576480390e-02, 1.091872488236e-02, 1.090072632983e-02,
++1.088169669222e-02, 1.086156234236e-02, 1.084024856155e-02, 1.081767962876e-02, 1.079377891793e-02, 1.076846900333e-02, 1.074167177309e-02, 1.071330855122e-02, 1.068330022788e-02, 1.065156739824e-02,
++1.061803050970e-02, 1.058260508314e-02, 1.054518338192e-02, 1.050571264248e-02, 1.046411395694e-02, 1.042030914887e-02, 1.037417713371e-02, 1.032565582885e-02, 1.027469115106e-02, 1.022115705606e-02,
++1.016498773468e-02, 1.010613675314e-02, 1.004444535823e-02, 9.979936600179e-03, 9.912421379702e-03, 9.841926766268e-03, 9.768306966510e-03, 9.691517466507e-03, 9.611512478198e-03, 9.528171181022e-03,
++9.441446159274e-03, 9.351293328390e-03, 9.257646480379e-03, 9.160444374299e-03, 9.059631374140e-03, 8.955158087795e-03, 8.846982002675e-03, 8.735107795973e-03, 8.619767531327e-03, 8.500893194297e-03,
++8.378386823483e-03, 8.252242929461e-03, 8.122356837198e-03, 7.988745268066e-03, 7.851429717305e-03, 7.710452220857e-03, 7.565888126834e-03, 7.417834155693e-03, 7.266410599521e-03, 7.111765352402e-03,
++6.954064323377e-03, 6.793500188692e-03, 6.630284369877e-03, 6.464647753347e-03, 6.296839348587e-03, 6.127127210578e-03, 5.955790327392e-03, 5.783125861104e-03, 5.609439867529e-03, 5.435054395854e-03,
++5.260294385542e-03, 5.085496485537e-03, 4.911001145088e-03, 4.737148313010e-03, 4.564287892912e-03, 4.392762365756e-03, 4.222914648557e-03, 4.055085102673e-03, 3.889606217917e-03, 3.726804160471e-03,
++3.566994810997e-03, 3.410355807377e-03, 3.256866636619e-03, 3.106734474243e-03, 2.960156243631e-03, 2.817307767444e-03, 2.678344582430e-03, 2.543401487012e-03, 2.412594866123e-03, 2.286019945821e-03
++};
++
++static const double tep_alpha_T[TEP_N] = {
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00,
++0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00, 0.000000000000e+00
++};
++
++#endif
 diff --git a/include/background.h b/include/background.h
-index 3632138..cd2288f 100644
+index 3632138..ad5820d 100644
 --- a/include/background.h
 +++ b/include/background.h
-@@ -814,6 +814,8 @@ extern "C" {
+@@ -157,6 +157,11 @@ struct background
+   double epsilon_T; /**< TEP amplitude: H_TEP = H_LCDM * M(z), M(z) = A(z)/(1-alpha_A(z)) */
+   double z_T; /**< TEP transition redshift */
+   double n_T; /**< TEP transition steepness */
++  double tep_k_t; /**< TEP perturbation screening threshold scale (h/Mpc) */
++  double tep_n_t; /**< TEP perturbation screening steepness */
++  double tep_beta_coupling; /**< TEP conformal coupling strength beta = d lnA / d phi_c for the canonical EFT field (default 1: phi_c = ln A) */
++  double tep_screening_s; /**< TEP environmental screening S_Sigma: scalar gravitational mixing suppressed by S (bra_s -> -2 S, kin_ss -> 7 S^2). Default 1 = unscreened */
++  double tep_kin_boost; /**< TEP scalar kinetic boost K: kin_ss -> 7 (S K)^2. Large K decouples the scalar (physical P(X) screening). Default 1 */
+ 
+   double wede_Omega_e_regularizer_smg; /** regularize adding a tiny Omega_e */
+ 
+@@ -258,6 +263,8 @@ struct background
+ 
+   /* end of vector in short format, now quantities in normal format */
+ 
++  int index_bg_H_conformal;   /**< TEP matter-frame conformal Hubble rate for perturbation friction */
++
+   int index_bg_rho_g;         /**< photon density */
+   int index_bg_rho_b;         /**< baryon density */
+   int index_bg_rho_cdm;       /**< cdm density */
+@@ -284,6 +291,7 @@ struct background
+   int index_bg_phi_smg;       /**< scalar field value */
+   int index_bg_phi_prime_smg; /**< scalar field derivative wrt conformal time */
+   int index_bg_phi_prime_prime_smg; /**< scalar field second derivative wrt conformal time */
++  int index_bg_U_phi_smg;     /**< reconstructed potential slope U_phi along the prescribed trajectory (tep only) */
+   int index_bg_rho_smg;       /**< scalar field energy density */
+   int index_bg_p_smg;         /**< scalar field pressure */
+   int index_bg_rho_prime_smg;       /**< derivative of the scalar field energy density */
+@@ -814,7 +822,10 @@ extern "C" {
    /** TEP (Temporal Equivalence Principle) background-only Hubble modification **/
    double tep_f_transition(struct background *pba, double z);
    double tep_gamma_factor(struct background *pba, double z);
 +  double tep_alpha_A(struct background *pba, double z);
 +  double tep_M_factor(struct background *pba, double z);
    double tep_hubble_rate(struct background *pba, double z, double H_lcdm);
++  double tep_screening_factor(double k, double k_t, double n);
    int tep_background_init(struct background *pba);
  
+ #ifdef __cplusplus
+diff --git a/python/classy.pyx b/python/classy.pyx
+index 3af72e0..0fcec93 100644
+--- a/python/classy.pyx
++++ b/python/classy.pyx
+@@ -32,8 +32,8 @@ def viewdictitems(d):
+     else:
+         return d.viewitems()
+ 
+-ctypedef np.float_t DTYPE_t
+-ctypedef np.int_t DTYPE_i
++ctypedef np.float64_t DTYPE_t
++ctypedef np.int64_t DTYPE_i
+ 
+ 
+ 
+@@ -369,8 +369,9 @@ cdef class Class:
+             problematic_parameters = []
+             for i in range(self.fc.size):
+                 if self.fc.read[i] == _FALSE_:
++                    param_name = self.fc.name[i].decode()
+                     problem_flag = True
+-                    problematic_parameters.append(self.fc.name[i].decode())
++                    problematic_parameters.append(param_name)
+             if problem_flag:
+                 raise CosmoSevereError(
+                     "Class did not read input parameter(s): %s\n" % ', '.join(
 diff --git a/source/background.c b/source/background.c
-index 8001834..83d411b 100644
+index 5c18985..e107b25 100644
 --- a/source/background.c
 +++ b/source/background.c
-@@ -174,22 +174,31 @@ double tep_gamma_factor(struct background *pba, double z) {
+@@ -146,11 +146,17 @@
+ 
+ /* TEP transition suppression factor S(z) = exp(-(z/z_T)^n_T).
+    Matches TEP-C0 (Paper 26) compiled CLASS exactly.
+-   The full transition is ln(1+z) * S(z), computed in tep_gamma_factor. */
++   The full transition is ln(1+z) * S(z), computed in tep_gamma_factor.
++   At z <= 0 the continuous z->0+ limit S(0)=1 is returned so that
++   endpoint evaluations (a = 1, floating-point excursions in z) do
++   not introduce a discontinuity in the background derivatives. */
+ double tep_f_transition(struct background *pba, double z) {
+-  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
++  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0) {
+     return 0.0;
+   }
++  if (z <= 0.0) {
++    return 1.0;
++  }
+   double ratio = z / pba->z_T;
+   double exponent = pow(ratio, pba->n_T);
+   return exp(-exponent);
+@@ -170,22 +176,40 @@ double tep_gamma_factor(struct background *pba, double z) {
    return A_phi;
  }
  
 -/* TEP Jordan-frame M factor: M(z) = A(z) / (1 - alpha_A(z))
 -   Exact covariant conformal transformation.
-+/* TEP Jordan-frame coupling alpha_A = d ln A / d ln(1+z).
++/* TEP Jordan-frame coupling alpha_A = d ln A / d ln a
++   = -d ln A / d ln(1+z) (the same sign convention as the Python
++   alpha_A_native used by the TEP-HC analysis pipeline).
     For A = exp(g) with g = epsilon_T * log(1+z) * S(z):
-    alpha_A = dlnA/dln(1+z) = -(1+z)*dg/dz
+-   alpha_A = dlnA/dln(1+z) = -(1+z)*dg/dz
 -           = -epsilon_T * (S(z) + (1+z)*log(1+z)*dS/dz) */
--double tep_M_factor(struct background *pba, double z) {
++   alpha_A = dlnA/dlna = -(1+z)*dg/dz
 +           = -epsilon_T * (S(z) + (1+z)*log(1+z)*dS/dz).
 +   Exposed for the SMG perturbation closure (tep.c). */
 +double tep_alpha_A(struct background *pba, double z) {
-   if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
--    return 1.0;
++  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0) {
 +    return 0.0;
-   }
--  double A_z = tep_gamma_factor(pba, z);
-   double S_z = tep_f_transition(pba, z);
-   double dS = 0.0;
-   if (z > 1e-10 && pba->z_T > 0.0) {
-     dS = -S_z * pba->n_T * pow(z / pba->z_T, pba->n_T - 1.0) / pba->z_T;
-   }
--  double alpha_A = -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);
-+  return -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);
++  }
++  /* Clamp negative z (endpoint excursions at a = 1) to the z -> 0+
++     limit: alpha_A(0) = -epsilon_T * S(0) = -epsilon_T. Returning 0
++     here instead would make dy discontinuous at the final step. */
++  double z_eval = (z > 0.0) ? z : 0.0;
++  double S_z = tep_f_transition(pba, z_eval);
++  double dS = 0.0;
++  if (z_eval > 1e-10 && pba->z_T > 0.0) {
++    dS = -S_z * pba->n_T * pow(z_eval / pba->z_T, pba->n_T - 1.0) / pba->z_T;
++  }
++  return -(pba->epsilon_T) * (S_z + (1.0 + z_eval) * log(1.0 + z_eval) * dS);
 +}
 +
 +/* TEP Jordan-frame M factor: M(z) = A(z) / (1 - alpha_A(z))
 +   Exact covariant conformal transformation. */
-+double tep_M_factor(struct background *pba, double z) {
-+  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
-+    return 1.0;
-+  }
-+  double A_z = tep_gamma_factor(pba, z);
-+  double alpha_A = tep_alpha_A(pba, z);
+ double tep_M_factor(struct background *pba, double z) {
+-  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0 || z <= 0.0) {
++  if (pba->tep_mode == _FALSE_ || pba->epsilon_T == 0.0) {
+     return 1.0;
+   }
+-  double A_z = tep_gamma_factor(pba, z);
+-  double S_z = tep_f_transition(pba, z);
+-  double dS = 0.0;
+-  if (z > 1e-10 && pba->z_T > 0.0) {
+-    dS = -S_z * pba->n_T * pow(z / pba->z_T, pba->n_T - 1.0) / pba->z_T;
+-  }
+-  double alpha_A = -(pba->epsilon_T) * (S_z + (1.0 + z) * log(1.0 + z) * dS);
++  /* Clamp to the z -> 0+ limit at the endpoint so M(0) = 1/(1 +
++     epsilon_T) is continuous with the interior values. */
++  double z_eval = (z > 0.0) ? z : 0.0;
++  double A_z = tep_gamma_factor(pba, z_eval);
++  double alpha_A = tep_alpha_A(pba, z_eval);
    return A_z / (1.0 - alpha_A);
  }
  
-@@ -692,6 +701,39 @@ int background_functions(
+@@ -195,6 +219,17 @@ double tep_hubble_rate(struct background *pba, double z, double H_lcdm) {
+   return H_lcdm * M;
+ }
+ 
++/* TEP perturbation screening envelope: S_Sigma(k) = [1 + (k/k_t)^n]^{-1}
++   Used to drive alpha_M(k) from background value at large scales to
++   screened value at structure formation scales. */
++double tep_screening_factor(double k, double k_t, double n) {
++  if (k_t <= 0.0 || n <= 0.0 || k <= 0.0) {
++    return 0.0;
++  }
++  double x = pow(k / k_t, n);
++  return 1.0 / (1.0 + x);
++}
++
+ /* Validate and log TEP parameters */
+ int tep_background_init(struct background *pba) {
+   if (pba->tep_mode == _TRUE_) {
+@@ -688,6 +723,44 @@ int background_functions(
                &rho_de),
        pba->error_message,
        pba->error_message);
@@ -373,9 +1578,14 @@ index 8001834..83d411b 100644
 +    /** TEP bridge: when tep_mode is active alongside SMG perturbations,
 +        the SMG framework provides the alphas but the background Hubble
 +        must come from the native Jordan-frame relation H_TEP = H_LCDM * M(z).
-+        gravity_models_get_back_par_smg sets rho_smg = 0 for tep, so
-+        rho_tot here is the true LCDM density. */
-+    if (pba->tep_mode == _TRUE_ && pba->epsilon_T != 0.0) {
++
++        For gravity_model = tep, the designer-fluid rho_smg/p_smg set in
++        gravity_models_get_back_par_smg already makes the parameterised
++        Friedmann path return H_tep and H'_tep self-consistently; applying
++        the bridge factor again would double-count M(z) and break the
++        Einstein-00 constraint in the perturbation equations. */
++    if (pba->tep_mode == _TRUE_ && pba->epsilon_T != 0.0 &&
++        pba->gravity_model_smg != tep) {
 +      double z = 1.0/a - 1.0;
 +      double H_lcdm = pvecback[pba->index_bg_H];
 +
@@ -405,7 +1615,7 @@ index 8001834..83d411b 100644
    }
    else {
      // not only _smg!!
-@@ -708,7 +750,7 @@ int background_functions(
+@@ -704,7 +777,7 @@ int background_functions(
  
      /** - Apply TEP Jordan-frame background-only Hubble modification (native TEP, no SMG)
       *  M(z) = A(z) / (1 - alpha_A(z)), matching TEP-C0 (Paper 26) compiled CLASS.
@@ -414,11 +1624,106 @@ index 8001834..83d411b 100644
       *  H_prime updated via numerical derivative to preserve consistency. */
      if (pba->tep_mode == _TRUE_ && pba->epsilon_T != 0.0) {
        double z = 1.0/a - 1.0;
+@@ -749,6 +822,19 @@ int background_functions(
+     }
+   }
+ 
++  /** - TEP matter-frame conformal Hubble rate for perturbation friction.
++   *    The matter particles feel the causal metric \tilde{g}_{\mu\nu} = A^2 g_{\mu\nu},
++   *    so their friction term uses \tilde{H} = H_TEP * (1 - alpha_A) = H_LCDM * A(z).
++   *    When tep_mode is off, this defaults to the standard Hubble rate. */
++  if (pba->tep_mode == _TRUE_ && pba->epsilon_T != 0.0) {
++    double z = 1.0/a - 1.0;
++    double alpha_A = tep_alpha_A(pba, z);
++    pvecback[pba->index_bg_H_conformal] = pvecback[pba->index_bg_H] * (1.0 - alpha_A);
++  }
++  else {
++    pvecback[pba->index_bg_H_conformal] = pvecback[pba->index_bg_H];
++  }
++
+   /* Total energy density*/
+   pvecback[pba->index_bg_rho_tot] = rho_tot;
+ 
+@@ -1202,7 +1288,13 @@ int background_indices(
+   if (pba->varconst_dep != varconst_none)
+     pba->has_varconst = _TRUE_;
+ 
+-  if (pba->Omega0_smg != 0.)
++  /* TEP bridge: gravity_model=tep requires the SMG perturbation
++     machinery (Bellini-Sawicki alphas) even though Omega0_smg = 0 --
++     the tep_mode background supplies H directly and rho_smg stays
++     zero by construction. Without this condition background_init
++     would reset has_smg to _FALSE_ and silently bypass the active
++     perturbation closure. */
++  if (pba->Omega0_smg != 0. || pba->gravity_model_smg == tep)
+     pba->has_smg = _TRUE_;
+ 
+   /** - initialize all indices */
+@@ -1219,6 +1311,9 @@ int background_indices(
+   /* - end of indices in the short vector of background values */
+   pba->bg_size_short = index_bg;
+ 
++  /** - TEP matter-frame conformal Hubble rate for perturbation friction */
++  class_define_index(pba->index_bg_H_conformal,_TRUE_,index_bg,1);
++
+   /* - index for rho_g (photon density) */
+   class_define_index(pba->index_bg_rho_g,_TRUE_,index_bg,1);
+ 
 diff --git a/source/input.c b/source/input.c
-index 0679dfa..255b46c 100644
+index 0679dfa..f7aef9f 100644
 --- a/source/input.c
 +++ b/source/input.c
-@@ -3513,14 +3513,28 @@ int input_read_parameters_species(struct file_content * pfc,
+@@ -2389,6 +2389,11 @@ int input_read_parameters_general(struct file_content * pfc,
+   pba->epsilon_T = 0.0;
+   pba->z_T = 5.0;
+   pba->n_T = 2.0;
++  pba->tep_k_t = 0.0;
++  pba->tep_n_t = 2.0;
++  pba->tep_beta_coupling = 1.0;
++  pba->tep_screening_s = 1.0;
++  pba->tep_kin_boost = 1.0;
+   class_call(parser_read_string(pfc,"tep_mode",&string1,&flag1,errmsg),
+              errmsg,
+              errmsg);
+@@ -2399,10 +2404,14 @@ int input_read_parameters_general(struct file_content * pfc,
+       class_read_double("epsilon_T",pba->epsilon_T);
+       class_read_double("z_T",pba->z_T);
+       class_read_double("n_T",pba->n_T);
++      class_read_double("tep_k_t",pba->tep_k_t);
++      class_read_double("tep_n_t",pba->tep_n_t);
++      class_read_double("tep_beta_coupling",pba->tep_beta_coupling);
++      class_read_double("tep_screening_s",pba->tep_screening_s);
++      class_read_double("tep_kin_boost",pba->tep_kin_boost);
+       /* TEP requires H from Friedmann equation, not evolved */
+       if (pba->hubble_evolution == _TRUE_){
+         pba->hubble_evolution = _FALSE_;
+-        printf(" -> tep_mode enabled: forcing hubble_evolution = no for consistency\n");
+       }
+     }
+   }
+@@ -2419,6 +2428,21 @@ int input_read_parameters_general(struct file_content * pfc,
+       if (strcmp(pfc->name[index], "n_T") == 0) {
+         pfc->read[index] = _TRUE_;
+       }
++      if (strcmp(pfc->name[index], "tep_k_t") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
++      if (strcmp(pfc->name[index], "tep_n_t") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
++      if (strcmp(pfc->name[index], "tep_beta_coupling") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
++      if (strcmp(pfc->name[index], "tep_screening_s") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
++      if (strcmp(pfc->name[index], "tep_kin_boost") == 0) {
++        pfc->read[index] = _TRUE_;
++      }
+     }
+   }
+ 
+@@ -3513,14 +3537,28 @@ int input_read_parameters_species(struct file_content * pfc,
      }
    }
  
@@ -454,4 +1759,230 @@ index 0679dfa..255b46c 100644
 +  }
  
    return _SUCCESS_;
+ 
+diff --git a/source/models/tep.c b/source/models/tep.c
+new file mode 100644
+index 0000000..c043c9a
+--- /dev/null
++++ b/source/models/tep.c
+@@ -0,0 +1,95 @@
++#include "common.h"
++#include "background.h"
++#include "tep.h"
++#include "parser.h"
++
++int smg_tep_init(struct file_content * pfc, struct background *pba, struct smg_tep_params *params, ErrorMsg errmsg) {
++    // Default values
++    params->alpha_eff = 1.0e6;
++    params->phi_init = 0.0;
++    params->B_phi_coeff = 0.0;
++    params->screening_threshold = 1.8e-124;
++    params->beta = 1.0;
++    
++    class_read_double("tep_alpha_eff", params->alpha_eff);
++    class_read_double("tep_phi_init", params->phi_init);
++    class_read_double("tep_B_coeff", params->B_phi_coeff);
++    class_read_double("tep_beta", params->beta);
++    
++    return _SUCCESS_;
++}
++
++double tep_alpha_M(struct background *pba, double phi, double phi_prime, double H) {
++    double M_pl = 1.0; 
++    double beta = pba->tep_params.beta;
++    return (2.0 * beta / M_pl) * (phi_prime / H);
++}
++
++double tep_alpha_T(struct background *pba, double phi, double phi_prime, double H) {
++    return 0.0;
++}
++
++double tep_alpha_B(struct background *pba, double phi, double phi_prime, double H, double H_prime) {
++    double X = 0.5 * phi_prime * phi_prime;
++    double f_B = tep_f_B_coupling(phi, X, pba->tep_params);
++    return -(H_prime * phi_prime / (H * H)) * f_B;
++}
++
++double tep_alpha_K(struct background *pba, double phi, double phi_prime, double H) {
++    double M_pl = 1.0;
++    double X = 0.5 * phi_prime * phi_prime;
++    double f_K = tep_f_K_coupling(phi, X, pba->tep_params);
++    return (phi_prime * phi_prime / (H * H * M_pl * M_pl)) * f_K;
++}
++
++double tep_f_B_coupling(double phi, double X, struct smg_tep_params params) {
++    double screening = tep_screening_factor(phi, params);
++    return params.alpha_eff * screening;
++}
++
++double tep_f_K_coupling(double phi, double X, struct smg_tep_params params) {
++    double screening = tep_screening_factor(phi, params);
++    return params.alpha_eff * screening;
++}
++
++double tep_screening_factor(double phi, struct smg_tep_params params) {
++    double rho_eff = exp(-phi);
++    double factor = 1.0 / (1.0 + exp((rho_eff - params.screening_threshold) / (0.1 * params.screening_threshold)));
++    return factor;
++}
++
++int smg_tep_gravity_functions(struct background *pba, double *pvecback, double *pvecgravity) {
++    double phi = pvecback[pba->index_bg_phi_smg];
++    double phi_prime = pvecback[pba->index_bg_phi_prime_smg];
++    double H = pvecback[pba->index_bg_H];
++    double H_prime = pvecback[pba->index_bg_H_prime];
++    
++    pvecgravity[pba->index_bg_kineticity_smg] = tep_alpha_K(pba, phi, phi_prime, H);
++    pvecgravity[pba->index_bg_braiding_smg] = tep_alpha_B(pba, phi, phi_prime, H, H_prime);
++    pvecgravity[pba->index_bg_tensor_excess_smg] = tep_alpha_T(pba, phi, phi_prime, H);
++    pvecgravity[pba->index_bg_M2_running_smg] = tep_alpha_M(pba, phi, phi_prime, H);
++    
++    return _SUCCESS_;
++}
++
++int smg_tep_background_evolution(struct background *pba, double * pvecback, double a, double *y, double *dy) {
++    double phi_prime = y[pba->index_bi_phi_prime_smg];
++    double H = pvecback[pba->index_bg_H];
++    double M_pl = 1.0;
++    
++    // Conformal time derivatives: dy = d/dln(a)
++    dy[pba->index_bi_phi_smg] = phi_prime / (a * H);
++    
++    // Trace of energy-momentum tensor T = -rho + 3p
++    double T_mu_mu = -(pvecback[pba->index_bg_rho_tot] - 3.0 * pvecback[pba->index_bg_p_tot]);
++    
++    double beta = pba->tep_params.beta;
++    double screening = tep_screening_factor(y[pba->index_bi_phi_smg], pba->tep_params);
++    double Q_TEP = (beta / M_pl) * T_mu_mu * screening;
++    
++    // phi'' + 2*H*phi' = a^2 * Q_TEP
++    // In d/dln(a) variables:
++    dy[pba->index_bi_phi_prime_smg] = (-2.0 * H * phi_prime + a * a * Q_TEP) / (a * H);
++    
++    return _SUCCESS_;
++}
+diff --git a/source/models/tep.h b/source/models/tep.h
+new file mode 100644
+index 0000000..24ba44f
+--- /dev/null
++++ b/source/models/tep.h
+@@ -0,0 +1,33 @@
++#ifndef __TEP_H__
++#define __TEP_H__
++
++#include "common.h"
++
++struct smg_tep_params {
++    double alpha_eff;
++    double phi_init;
++    double B_phi_coeff;
++    double screening_threshold;
++    double beta;
++};
++
++/* Forward declaration for structures needed */
++struct background;
++
++int smg_tep_init(struct file_content * pfc, struct background *pba, struct smg_tep_params *params, ErrorMsg errmsg);
++
++int smg_tep_gravity_functions(struct background *pba, double *pvecback, double *pvecgravity);
++
++int smg_tep_background_evolution(struct background *pba, double * pvecback, double a, double *y, double *dy);
++
++/* Internal helper functions */
++double tep_alpha_M(struct background *pba, double phi, double phi_prime, double H);
++double tep_alpha_T(struct background *pba, double phi, double phi_prime, double H);
++double tep_alpha_B(struct background *pba, double phi, double phi_prime, double H, double H_prime);
++double tep_alpha_K(struct background *pba, double phi, double phi_prime, double H);
++
++double tep_f_B_coupling(double phi, double X, struct smg_tep_params params);
++double tep_f_K_coupling(double phi, double X, struct smg_tep_params params);
++double tep_screening_factor(double phi, struct smg_tep_params params);
++
++#endif
+diff --git a/source/perturbations.c b/source/perturbations.c
+index f1c5bc1..b123720 100644
+--- a/source/perturbations.c
++++ b/source/perturbations.c
+@@ -8907,7 +8907,7 @@ int perturbations_derivs(double tau,
+   int l;
+ 
+   /* scale factor and other background quantities */
+-  double a,a2,a_prime_over_a,R;
++  double a,a2,a_prime_over_a,a_prime_over_a_matter,R;
+ 
+   /* short-cut names for the fields of the input structure */
+   struct perturbations_parameters_and_workspace * pppaw;
+@@ -9023,6 +9023,7 @@ int perturbations_derivs(double tau,
+   a = pvecback[pba->index_bg_a];
+   a2 = a*a;
+   a_prime_over_a = pvecback[pba->index_bg_H] * a;
++  a_prime_over_a_matter = pvecback[pba->index_bg_H_conformal] * a;
+   R = 4./3. * pvecback[pba->index_bg_rho_g]/pvecback[pba->index_bg_rho_b];
+ 
+   photon_scattering_rate = pvecthermo[pth->index_th_dkappa];
+@@ -9189,7 +9190,7 @@ int perturbations_derivs(double tau,
+     if (pba->has_idm == _TRUE_){
+       dy[pv->index_pt_delta_idm] = -(theta_idm+metric_continuity); /* idm density */
+       dy[pv->index_pt_theta_idm] =
+-        -a_prime_over_a*theta_idm
++        -a_prime_over_a_matter*theta_idm
+         +metric_euler
+         + k2*c2_idm*delta_idm; /* idm velocity */
+ 
+@@ -9253,7 +9254,7 @@ int perturbations_derivs(double tau,
+ 
+       /** - ----> perturbed recombination has an impact **/
+       dy[pv->index_pt_theta_b] =
+-        - a_prime_over_a*theta_b
++        - a_prime_over_a_matter*theta_b
+         + metric_euler
+         + k2*delta_p_b_over_rho_b
+         + R*pvecthermo[pth->index_th_dkappa]*(theta_g-theta_b);
+@@ -9272,7 +9273,7 @@ int perturbations_derivs(double tau,
+ 
+       /* perturbed recombination has an impact **/
+       dy[pv->index_pt_theta_b] =
+-        (-a_prime_over_a*theta_b
++        (-a_prime_over_a_matter*theta_b
+          +k2*(delta_p_b_over_rho_b+R*(delta_g/4.-s2_squared*ppw->tca_shear_g))
+          +R*ppw->tca_slip)/(1.+R)
+         +metric_euler;
+@@ -9399,7 +9400,7 @@ int perturbations_derivs(double tau,
+       if (ppt->gauge == newtonian) {
+         dy[pv->index_pt_delta_cdm] = -(y[pv->index_pt_theta_cdm]+metric_continuity); /* cdm density */
+ 
+-        dy[pv->index_pt_theta_cdm] = - a_prime_over_a*y[pv->index_pt_theta_cdm] + metric_euler; /* cdm velocity */
++        dy[pv->index_pt_theta_cdm] = - a_prime_over_a_matter*y[pv->index_pt_theta_cdm] + metric_euler; /* cdm velocity */
+       }
+ 
+       /** - ----> synchronous gauge: cdm density only (velocity set to zero by definition of the gauge) */
+@@ -9485,7 +9486,7 @@ int perturbations_derivs(double tau,
+       dy[pv->index_pt_delta_dcdm] = -(y[pv->index_pt_theta_dcdm]+metric_continuity)
+         - a * pba->Gamma_dcdm / k2 * metric_euler; /* dcdm density */
+ 
+-      dy[pv->index_pt_theta_dcdm] = - a_prime_over_a*y[pv->index_pt_theta_dcdm] + metric_euler; /* dcdm velocity */
++      dy[pv->index_pt_theta_dcdm] = - a_prime_over_a_matter*y[pv->index_pt_theta_dcdm] + metric_euler; /* dcdm velocity */
+     }
+ 
+     /** - ---> dr */
+@@ -9837,16 +9838,16 @@ int perturbations_derivs(double tau,
+ 
+     if (ppt->gauge == synchronous) {
+ 
+-      dy[pv->index_pt_theta_b] = -(1-3.*cb2)*a_prime_over_a*y[pv->index_pt_theta_b]
++      dy[pv->index_pt_theta_b] = -(1-3.*cb2)*a_prime_over_a_matter*y[pv->index_pt_theta_b]
+         - pvecthermo[pth->index_th_dkappa]*(_SQRT2_/4.*delta_g + y[pv->index_pt_theta_b]);
+ 
+     }
+ 
+     else if (ppt->gauge == newtonian) {
+ 
+-      dy[pv->index_pt_theta_b] = -(1-3.*cb2)*a_prime_over_a*y[pv->index_pt_theta_b]
++      dy[pv->index_pt_theta_b] = -(1-3.*cb2)*a_prime_over_a_matter*y[pv->index_pt_theta_b]
+         - _SQRT2_/4.*pvecthermo[pth->index_th_dkappa]*(delta_g+2.*_SQRT2_*y[pv->index_pt_theta_b])
+-        + pvecmetric[ppw->index_mt_V_prime]+(1.-3.*cb2)*a_prime_over_a*y[pv->index_pt_V];
++        + pvecmetric[ppw->index_mt_V_prime]+(1.-3.*cb2)*a_prime_over_a_matter*y[pv->index_pt_V];
+ 
+     }
  

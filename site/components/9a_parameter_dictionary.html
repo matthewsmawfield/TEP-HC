@@ -28,13 +28,13 @@
         </tr>
         <tr>
             <td>$\alpha_A$</td>
-            <td>Temporal-shear conformal amplitude in Jordan-frame notation</td>
+            <td>Runtime logarithmic derivative $\alpha_A=d\ln A_{\rm HC}/d\ln a$; distinct from the exact endpoint map $A_{\rm clock}$</td>
             <td>TEP-HC</td>
-            <td>$-0.0028$ (TEP MCMC posterior)</td>
+            <td>Redshift-dependent; zero at the finite-profile turnover</td>
         </tr>
         <tr>
             <td>$\alpha_M$, $\alpha_B$, $\alpha_K$, $\alpha_T$</td>
-            <td>Runtime Bellini–Sawicki EFT functions: $\alpha_M=-2\alpha_A$, $\alpha_B=2\alpha_A$, $\alpha_K=-5\alpha_A^2$, $\alpha_T=0$</td>
+            <td>Runtime Bellini–Sawicki EFT functions: $\alpha_M=-2\alpha_A$, $\alpha_B=2\alpha_A$, $\alpha_K=w_c\,\alpha_A^2$ with $w_c = Z_E-6$ ($Z_E = P_{,X}+2XP_{,XX}$; production $w_c=700$, canonical image $w_c=-5$ unstable), $\alpha_T=0$; screened diagnostic branch $S_\Sigma&lt;1$: $\alpha_M\to-2S_\Sigma\alpha_A$, $\alpha_B\to2S_\Sigma\alpha_A$ at fixed $w_c$</td>
             <td>TEP-HC</td>
             <td>Adopted from $\alpha_A$</td>
         </tr>
@@ -54,7 +54,7 @@
             <td>$\epsilon_T^{\rm HC}$</td>
             <td>Native hi_class homogeneous conformal amplitude</td>
             <td>TEP-HC</td>
-            <td>$0.00547\pm0.00429$</td>
+            <td>$0.0043\pm0.0025$ (full high-$\ell$ likelihood); $0.00547\pm0.00429$ (historical low-$\ell$ active chain)</td>
         </tr>
         <tr>
             <td>$\epsilon_{\rm dyn}$</td>
@@ -90,13 +90,13 @@
             <td>$r_s^{\rm TEP}/r_s^{\Lambda\rm CDM}$</td>
             <td>Pre-recombination sound-horizon ratio</td>
             <td>TEP-HC</td>
-            <td>$0.999994$ ($<6$ ppm deviation)</td>
+            <td>$0.999994$ ($&lt;6$ ppm deviation)</td>
         </tr>
         <tr>
             <td>$D=\alpha_K+\tfrac32\alpha_B^2$</td>
-            <td>No-ghost discriminant (physical branch: $D=\alpha_A^2$)</td>
+            <td>No-ghost discriminant ($D=(w_c+6)\alpha_A^2$; necessary but not sufficient for linear stability — the $w_c=-5$ branch is tachyonic)</td>
             <td>TEP-HC</td>
-            <td>$\alpha_A^2\ge 0$ (non-negative; GR/decoupling limit at $\alpha_A=0$)</td>
+            <td>$(w_c+6)\alpha_A^2 \ge 0$ (non-negative; GR/decoupling limit at $\alpha_A=0$)</td>
         </tr>
         <tr>
             <td>$r(k_{\rm pivot})$</td>
@@ -126,7 +126,7 @@
             <td>$\sigma_8^{\rm HC}$</td>
             <td>Native hi_class matter-fluctuation amplitude at fiducial point ($\epsilon_T=0.0066$, $z_T=5$, $n_T=2$)</td>
             <td>TEP-HC</td>
-            <td>$0.825\pm0.016$ (fiducial); $0.858\pm0.016$ (MCMC posterior mean)</td>
+            <td>$0.824$ (fiducial); $0.858\pm0.016$ (MCMC posterior mean)</td>
         </tr>
     </tbody>
 </table>

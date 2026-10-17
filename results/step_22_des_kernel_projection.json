@@ -1,7 +1,7 @@
 {
   "step": "22",
   "title": "DES-Y3-style kernel-projected weak-lensing comparison",
-  "timestamp": "2026-09-30T19:35:20.323641Z",
+  "timestamp": "2026-10-13T01:19:15.773533Z",
   "fixed_cosmology": {
     "H0": 67.36,
     "omega_b": 0.022383,
@@ -11,81 +11,89 @@
   "sigma8_direct": {
     "lcdm_post": {
       "0.0": {
-        "sigma8": 0.8227401757604301,
-        "n_k": 524
+        "sigma8": 0.823342522566798,
+        "n_k": 6857
       },
       "0.5": {
-        "sigma8": 0.6329125643348522,
-        "n_k": 524
+        "sigma8": 0.6333759394204475,
+        "n_k": 6857
       }
     },
     "tep_bg_post": {
       "0.0": {
-        "sigma8": 0.8241092732668286,
-        "n_k": 524
+        "sigma8": 0.8248058511261129,
+        "n_k": 6869
       },
       "0.5": {
-        "sigma8": 0.6324618642809905,
-        "n_k": 524
+        "sigma8": 0.6329705240411576,
+        "n_k": 6869
       }
     },
     "tep_pert_post": {
       "0.0": {
-        "sigma8": 0.8241092732668286,
-        "n_k": 524
+        "sigma8": 0.824409334417033,
+        "n_k": 6869
       },
       "0.5": {
-        "sigma8": 0.6324618642809905,
-        "n_k": 524
+        "sigma8": 0.6327740302021359,
+        "n_k": 6869
       }
     }
   },
   "growth_deviation_delta": {
     "tep_bg_post": {
-      "0.0": 0.0016640703185948347,
-      "0.5": -0.0007121047665333835
+      "0.0": 0.0017773023003269106,
+      "0.5": -0.0006400864858567834
     },
     "tep_pert_post": {
-      "0.0": 0.0016640703185948347,
-      "0.5": -0.0007121047665333835
+      "0.0": 0.0012957084336044922,
+      "0.5": -0.0009503190456877642
     }
   },
   "kernel": {
     "source_n_z": "n(z_s) ~ z_s^2 exp[-(z_s/0.5)^1.5] (DES-Y3-like combined)",
     "z_eff": 0.4572789499875069,
-    "projection": "sigma8_eff^2 = <W^2 sigma8^2>/<W^2>; S8_eff = sigma8_eff*sqrt(Om/0.3)"
+    "projection": "sigma8_eff^2 = <W^2 sigma8^2>/<W^2>; S8_eff = sigma8_eff*sqrt(Om/0.3)",
+    "weight_fraction_above_z05": 0.37584995085168915
   },
   "projected": {
     "lcdm_post": {
-      "sigma8_eff_kernel": 0.635169413274494,
-      "S8_kernel_projected": 0.6496399369310164
+      "sigma8_eff_kernel": 0.6566167195883089,
+      "S8_kernel_projected": 0.6715758589541154
     },
     "tep_bg_post": {
-      "sigma8_eff_kernel": 0.6350099000244818,
-      "S8_kernel_projected": 0.6494767896265147
+      "sigma8_eff_kernel": 0.6564760457054934,
+      "S8_kernel_projected": 0.6714319802180646
     },
     "tep_pert_post": {
-      "sigma8_eff_kernel": 0.6350099000244818,
-      "S8_kernel_projected": 0.6494767896265147
+      "sigma8_eff_kernel": 0.6562524995615309,
+      "S8_kernel_projected": 0.6712033412127378
     }
   },
   "external_comparison": {
     "DES-Y3": {
       "external_S8": 0.776,
       "external_err": 0.017,
-      "TEP_kernel_projected": 0.6494767896265147,
-      "LCDM_kernel_projected": 0.6496399369310164,
+      "TEP_kernel_projected": 0.6712033412127378,
+      "LCDM_kernel_projected": 0.6715758589541154,
       "TEP_gap_sigma_at_mc_posterior": null,
-      "LCDM_gap_at_fixed_cosmology": -7.432944886410801
+      "LCDM_gap_at_fixed_cosmology": null,
+      "directly_comparable": false,
+      "external_analysis": "DES Y3 3x2pt",
+      "reason": "Published S8 uses sigma8(z=0); this kernel average is a different statistic."
     },
     "KiDS-1000": {
       "external_S8": 0.759,
       "external_err": 0.021,
-      "TEP_kernel_projected": 0.6494767896265147,
-      "LCDM_kernel_projected": 0.6496399369310164,
+      "TEP_kernel_projected": 0.6712033412127378,
+      "LCDM_kernel_projected": 0.6715758589541154,
       "TEP_gap_sigma_at_mc_posterior": null,
-      "LCDM_gap_at_fixed_cosmology": -5.207622050903981
+      "LCDM_gap_at_fixed_cosmology": null,
+      "directly_comparable": false,
+      "external_analysis": "KiDS-1000 cosmic shear",
+      "reason": "Published S8 uses sigma8(z=0); this kernel average is a different statistic."
     }
   },
-  "note_on_uncertainty": "The kernel-projected values are at the FIXED cosmology of the pk outputs (Omega_m=0.3139), not marginalized over the MCMC posterior. The MCMC-marginalized z=0 S8 is 0.868+/-0.025 (07_mcmc_summary_full). This step quantifies how that z=0 number maps onto the lensing kernel: because the TEP/LCDM deviation grows with z (delta(0)= +0.0017, delta(0.5)=-0.0007), kernel projection does not reconcile the gap."
+  "note_on_uncertainty": "This fixed-cosmology W^2-weighted linear-growth proxy compares TEP with LCDM under a common source kernel. It is not a shear angular power spectrum (which requires P((ell+0.5)/chi,z), the Limber distance measure and tomographic nuisance modeling), nor the published z=0 S8 posterior. No survey tension is inferred from it. TEP/LCDM deviations are linearly interpolated between z=0 and 0.5 and extrapolated beyond 0.5; additional native redshift outputs are needed to validate that approximation.",
+  "relative_kernel_amplitude_TEP_over_LCDM": 0.9994453080223018
 }

@@ -1,11 +1,6 @@
-v0.7 (Cambridge) — 2026-09-13 — CMB acoustic preservation without a hot Big Bang: native hi_class conformal implementation
+v0.8 (Cambridge) — 17 October 2026 — Screened scalar perturbation closure, full-likelihood Planck MCMC, and zero-parameter baryon clock-slope acoustic/lensing closure
 
-- "Big Bang" reinterpreted as TEP temporal horizon (A_clock → 0), not a physical density singularity
-- Native hi_class implementation: conformal transport geometry isomorphic to FLRW scale factor
-- Sound-horizon ratio r_s^TEP/r_s^ΛCDM = 0.999994 (<6 ppm deviation); acoustic peaks preserved without spatial expansion
-- Linear pure-conformal perturbation sector closed: Bellini–Sawicki α-functions adopted, no-ghost discriminant D=α_A²≥0 (touches zero at turnover z*≈2.65)
-- Dark Energy (Ω_Λ) reinterpreted as homogeneous temporal-shear background (Ω_φ)
-- TEP terminology aligned across corpus: matter-frame, temporal horizon, Temporal Shear
-- Cross-paper consistency: aligned with TEP-TH (Paper 27), TEP-C0 (Paper 26), TEP (Paper 0) v0.10
-- Added CDM-free lensing scope diagnostic (step 21): removing the CDM fluid collapses the lensing potential, stated as an open scope
-- Updated imported C0 Pantheon+ Bayes factors (≈4.2/35.8/33.1) with prior- and anchor-sensitivity noted
+- Completed the regular-variable scalar perturbation integration in hi_class across the kinetic-screening branch structure, establishing the stable screened regime (w_c = 700, sigma_8 = 0.824 vs 0.823 for Lambda-CDM; sigma_8 = 0.76 at Z_E ~ 6 x 10^3) and retiring the linearly unstable canonical-image closure (w_c = -5)
+- Added the converged four-chain Planck 2018 high-ell TTTEEE_lite + low-ell + lensing + BAO + Pantheon+ MCMC constraint (epsilon_T = 0.0043 +/- 0.0025, 95% CL bound epsilon_T < 0.0087 at z_T = 5, Delta chi^2 = -0.11 relative to Lambda-CDM)
+- Demonstrated under the unified (3+1) ADM unstretched-space metric on the zero-parameter two-branch sector (k = 16.03) that the pre-boundary baryon clock-slope response predicts omega_phi = 0.11816 (matching the Planck TTTEEE posterior 0.11813 +/- 0.00117 to 0.02 sigma [0.02%], unique fixed-point root H_0 = 68.18 km/s/Mpc, 100 theta_s = 1.04201, BAO/RSD chi^2/N = 0.71-0.76, full Planck+BAO+Pantheon+ Delta AIC = -2.06) while late-time temporal refraction boosts baryon-only C_ell^{phiphi} by 9.4x-129.3x (fitting Planck CMBMarged lensing at omega_cdm = 0 with chi^2 = 13.40)
+- Added rich-cluster radial mass profiles (M_dyn/M_b = 5.4-7.4 across 0.5-2.0 Mpc) and superfluid dark-matter comparison; synchronized the shared core library

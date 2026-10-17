@@ -1,0 +1,16 @@
+08:06:27 [INFO] ============================================================
+08:06:27 [INFO] Step 21: CDM-Free Lensing Potential Diagnostic
+08:06:27 [INFO] ============================================================
+/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/steps/step_21_cdm_free_lensing.py:135: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  "timestamp": datetime.utcnow().isoformat() + "Z",
+08:06:27 [PROCESS] background_only / omega_cdm = 0.1155
+08:06:28 [INFO]     pp[100] = 5.950308e-15  pp[400] = 5.942076e-18  sigma8 = 0.8183
+08:06:28 [PROCESS] background_only / omega_cdm = 0.0
+08:06:28 [INFO]     pp[100] = 5.207332e-16  pp[400] = 5.486157e-20  sigma8 = 0.0750
+08:06:28 [INFO]     no-CDM/CDM ratios: pp[100]=0.0875  pp[400]=0.00923  sigma8=0.0917
+08:06:28 [PROCESS] active_perturbation / omega_cdm = 0.1155
+08:06:28 [INFO]     pp[100] = 6.081927e-15  pp[400] = 6.095000e-18  sigma8 = 0.8207
+08:06:28 [PROCESS] active_perturbation / omega_cdm = 0.0
+08:06:29 [INFO]     pp[100] = 5.305595e-16  pp[400] = 5.579330e-20  sigma8 = 0.0750
+08:06:29 [INFO]     no-CDM/CDM ratios: pp[100]=0.0872  pp[400]=0.00915  sigma8=0.0914
+08:06:29 [SUCCESS] Results saved to /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/step_21_cdm_free_lensing.json

@@ -1,0 +1,98 @@
+# TEP-HC Active Perturbation Configuration — high-ell TTTEEE extension
+# ======================================================================
+# Same corrected screened-closure perturbation model as
+# tep_hiclass_perturbations.yaml, with the Planck 2018 high-ell plik
+# likelihood added so the active-scalar posterior is bound by the same
+# acoustic anchor as the background-only headline run.
+#
+# Run from the repo root:
+#   mpirun -np 4 cobaya-run -f data/cobaya/tep_hiclass_perturbations_ttteee.yaml
+
+theory:
+  classy:
+    path: external/hi_class/hi_class
+    ignore_obsolete: true
+    extra_args:
+      output: tCl,pCl,lCl,mPk
+      lensing: yes
+      modes: s
+      non_linear: halofit
+      l_max_scalars: 2700
+      # Native TEP background Hubble modification
+      tep_mode: 'yes'
+      z_T: 5.0
+      n_T: 2.0
+      # Active scalar perturbation closure (delta-phi variable; x_smg =
+      # dphi/phi' is singular at the alpha_A=0 turnover z~2.6)
+      gravity_model: 'tep'
+      M2_evolution: 'yes'
+      use_pert_var_deltaphi_smg: 'yes'
+      pert_initial_conditions_smg: 'zero'
+      # Production screened branch wc = +700 (tep_kin_boost = 10).
+      tep_screening_s: 1.0
+      tep_kin_boost: 10.0
+
+likelihood:
+  planck_2018_lowl.TT: null
+  planck_2018_lowl.EE: null
+  planck_2018_highl_plik.TTTEEE_lite: null
+  planck_2018_lensing.native: null
+  bao.sdss_dr12_consensus_final: null
+  sn.pantheonplus: null
+
+params:
+  logA:
+    prior: {min: 2.5, max: 3.5}
+    ref: {dist: norm, loc: 3.044, scale: 0.014}
+    proposal: 0.01
+    drop: true
+  A_s:
+    value: 'lambda logA: 1e-10*np.exp(logA)'
+  n_s:
+    prior: {min: 0.94, max: 1.0}
+    ref: {dist: norm, loc: 0.966, scale: 0.004}
+    proposal: 0.004
+  H0:
+    prior: {min: 40, max: 100}
+    ref: {dist: norm, loc: 67.4, scale: 0.5}
+    proposal: 1.5
+  omega_b:
+    prior: {min: 0.005, max: 0.1}
+    ref: {dist: norm, loc: 0.0224, scale: 0.0002}
+    proposal: 0.0003
+  omega_cdm:
+    prior: {min: 0.01, max: 0.99}
+    ref: {dist: norm, loc: 0.12, scale: 0.001}
+    proposal: 0.0015
+  tau_reio:
+    prior: {min: 0.01, max: 0.8}
+    ref: {dist: norm, loc: 0.054, scale: 0.007}
+    proposal: 0.01
+  A_planck:
+    prior: {min: 0.9, max: 1.1}
+    ref: {dist: norm, loc: 1.0, scale: 0.0025}
+    proposal: 0.005
+  epsilon_T:
+    prior: {min: -1.0, max: 1.0}
+    ref: {dist: norm, loc: 0.006, scale: 0.005}
+    proposal: 0.0005
+    latex: '\epsilon_T'
+  sigma8:
+    latex: '\sigma_8'
+
+sampler:
+  mcmc:
+    burn_in: 0
+    max_tries: 10000
+    max_samples: 500000
+    Rminus1_stop: 0.05
+    Rminus1_cl_stop: 0.2
+    output_every: 10
+    learn_proposal: true
+    learn_proposal_Rminus1_max_early: 100.0
+    fallback_covmat_scale: 3
+    drag: true
+    seed: 46
+
+output: results/mcmc_chains/tep_hiclass_perturbations_ttteee
+resume: false

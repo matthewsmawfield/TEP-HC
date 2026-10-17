@@ -1,6 +1,6 @@
 {
   "step": "04b_jordan_frame",
-  "timestamp": "2026-06-05T20:42:20.643264",
+  "timestamp": "2026-10-09T14:42:20.994073",
   "standard_scan": {
     "z_T": 5.0,
     "scan": [
@@ -15,50 +15,50 @@
       {
         "epsilon_T": 0.01,
         "success": true,
-        "r_s_Mpc": 144.5243,
-        "D_comov_Mpc": 13853.9614,
+        "r_s_Mpc": 144.5256,
+        "D_comov_Mpc": 13853.9679,
         "theta_s": 0.010432,
         "theta_s_100": 1.0432
       },
       {
         "epsilon_T": 0.02,
         "success": true,
-        "r_s_Mpc": 144.523,
-        "D_comov_Mpc": 13815.2626,
+        "r_s_Mpc": 144.5256,
+        "D_comov_Mpc": 13815.2755,
         "theta_s": 0.010461,
         "theta_s_100": 1.0461
       },
       {
         "epsilon_T": 0.03,
         "success": true,
-        "r_s_Mpc": 144.5217,
-        "D_comov_Mpc": 13776.8331,
+        "r_s_Mpc": 144.5256,
+        "D_comov_Mpc": 13776.8525,
         "theta_s": 0.01049,
         "theta_s_100": 1.049
       },
       {
         "epsilon_T": 0.04,
         "success": true,
-        "r_s_Mpc": 144.5204,
-        "D_comov_Mpc": 13738.6707,
-        "theta_s": 0.010519,
-        "theta_s_100": 1.0519
+        "r_s_Mpc": 144.5256,
+        "D_comov_Mpc": 13738.6965,
+        "theta_s": 0.01052,
+        "theta_s_100": 1.052
       },
       {
         "epsilon_T": 0.05,
         "success": true,
-        "r_s_Mpc": 144.5191,
-        "D_comov_Mpc": 13700.7733,
-        "theta_s": 0.010548,
-        "theta_s_100": 1.0548
+        "r_s_Mpc": 144.5256,
+        "D_comov_Mpc": 13700.8056,
+        "theta_s": 0.010549,
+        "theta_s_100": 1.0549
       },
       {
         "epsilon_T": 0.06,
         "success": true,
-        "r_s_Mpc": 144.5178,
-        "D_comov_Mpc": 13663.1389,
-        "theta_s": 0.010577,
-        "theta_s_100": 1.0577
+        "r_s_Mpc": 144.5256,
+        "D_comov_Mpc": 13663.1777,
+        "theta_s": 0.010578,
+        "theta_s_100": 1.0578
       }
     ]
   },

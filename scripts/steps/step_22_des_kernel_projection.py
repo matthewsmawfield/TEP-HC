@@ -6,7 +6,7 @@ Step 22: DES-Y3-Style Kernel-Projected Weak-Lensing Comparison
 PURPOSE: The joint-MCMC S8 = 0.868 +/- 0.025 is a z=0-extrapolated CMB
 quantity, while DES-Y3/KiDS-1000 measure a lensing-kernel-weighted
 structure amplitude at z_eff ~ 0.5. Comparing them directly is an
-observable mismatch. This step performs the like-for-like projection:
+observable mismatch. This step performs the common-kernel diagnostic:
 
   1. sigma8(z) is integrated directly from the registered hi_class
      matter-power outputs (z=0 and z=0.5) for lcdm_post, tep_bg_post,
@@ -21,15 +21,14 @@ observable mismatch. This step performs the like-for-like projection:
      weak-lensing efficiency kernel to produce the shear-power weight
      W(z_l)^2 on lens planes; the kernel-weighted effective sigma8^2
      and effective redshift z_eff are computed for each model.
-  5. The kernel-projected S8_eff = sigma8_eff * sqrt(Omega_m/0.3) is
-     compared to the published DES-Y3 (0.776 +/- 0.017) and KiDS-1000
-     (0.759 +0.024/-0.021) cosmic-shear values.
+  5. The kernel-weighted amplitudes compare the models internally.
+     Published z=0 S8 constraints are metadata only and are not directly
+     comparable to this growth proxy.
 
-Scope: linear-theory Limber-style projection at the fixed cosmology of
+Scope: linear growth proxy at the fixed cosmology of
 the registered pk outputs; no non-linear prescription is applied (pk
-runs were computed with non_linear=none). The result quantifies how
-much, if any, of the z=0 S8 excess is removed by observable-matched
-projection.
+runs were computed with non_linear=none). The result quantifies relative model growth under an assigned common
+kernel; it does not evaluate a survey likelihood.
 
 Output: results/step_22_des_kernel_projection.json
 """
@@ -38,7 +37,7 @@ import json
 import numpy as np
 from pathlib import Path
 from datetime import datetime
-from scipy.integrate import simpson
+from scipy.integrate import simpson, quad
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 RESULTS = PROJECT_ROOT / "results"
@@ -51,7 +50,7 @@ OMEGA_M = (0.022383 + 0.120011) / H ** 2
 
 # DES-Y3-like source distribution and published external values
 Z0_SRC = 0.5          # combined-source characteristic redshift
-DES_Y3_S8 = (0.776, 0.017)      # Amon/Secco cosmic shear
+DES_Y3_S8 = (0.776, 0.017)      # Abbott et al. DES Y3 3x2pt
 KIDS_S8 = (0.759, 0.021)        # Asgari et al. KiDS-1000
 
 R8 = 8.0  # Mpc/h top-hat radius
@@ -79,17 +78,24 @@ def sigma8_of(k, P):
 
 
 def lcdm_D(z, om=OMEGA_M):
-    """Un-normalized flat-LCDM linear growth factor D(z)."""
+    """Growing mode of matter + Lambda, normalized at a=1.
+
+    Integrate from a=0 so the result has no redshift-grid cutoff or
+    dependence on the order/range of requested redshifts. Radiation is
+    neglected in this low-redshift diagnostic.
+    """
     z = np.asarray(z, dtype=float)
-    zp = np.linspace(0, max(z.max(), 3.0) + 0.5, 4001)
-    E = np.sqrt(om * (1 + zp) ** 3 + (1 - om))
-    integ = (1 + zp) / E ** 3
-    # cumulative integral from z'=z to inf ~ cumulative to max
-    c = np.cumsum(integ[::-1])[::-1] * (zp[1] - zp[0])
-    c = np.interp(z, zp, c)
-    E_z = np.sqrt(om * (1 + z) ** 3 + (1 - om))
-    D = E_z * c
-    return D / np.interp(0.0, z, D)  # normalized to D(0)=1
+    if not np.all(np.isfinite(z)) or np.any(z < 0) or not 0 < om <= 1:
+        raise ValueError("Require finite z >= 0 and 0 < Omega_m <= 1")
+
+    def growing_mode(a):
+        integral = quad(lambda x: x ** 1.5 / (om + (1 - om) * x ** 3) ** 1.5,
+                        0, a, epsabs=1e-12, epsrel=1e-11)[0]
+        return np.sqrt(om / a ** 3 + 1 - om) * integral
+
+    norm = growing_mode(1.0)
+    return np.array([growing_mode(1 / (1 + zz)) / norm
+                     for zz in z.ravel()]).reshape(z.shape)
 
 
 def lensing_kernel(nu_grid_z_l, om=OMEGA_M):
@@ -192,19 +198,25 @@ def main():
             "TEP_kernel_projected": tep,
             "LCDM_kernel_projected": lcdm,
             "TEP_gap_sigma_at_mc_posterior": None,  # filled below
-            "LCDM_gap_at_fixed_cosmology": (lcdm - val) / err,
+            "LCDM_gap_at_fixed_cosmology": None,
+            "directly_comparable": False,
+            "external_analysis": "DES Y3 3x2pt" if name == "DES-Y3" else "KiDS-1000 cosmic shear",
+            "reason": "Published S8 uses sigma8(z=0); this kernel average is a different statistic.",
         }
     out["external_comparison"] = comp
     out["note_on_uncertainty"] = (
-        "The kernel-projected values are at the FIXED cosmology of the pk "
-        "outputs (Omega_m=0.3139), not marginalized over the MCMC posterior. "
-        "The MCMC-marginalized z=0 S8 is 0.868+/-0.025 (07_mcmc_summary_full). "
-        "This step quantifies how that z=0 number maps onto the lensing "
-        "kernel: because the TEP/LCDM deviation grows with z (delta(0)= "
-        f"{deltas['tep_pert_post'][0.0]:+.4f}, delta(0.5)="
-        f"{deltas['tep_pert_post'][0.5]:+.4f}), kernel projection does not "
-        "reconcile the gap."
+        "This fixed-cosmology W^2-weighted linear-growth proxy compares TEP "
+        "with LCDM under a common source kernel. It is not a shear angular "
+        "power spectrum (which requires P((ell+0.5)/chi,z), the Limber "
+        "distance measure and tomographic nuisance modeling), nor the "
+        "published z=0 S8 posterior. No survey tension is inferred from it. "
+        "TEP/LCDM deviations are linearly interpolated between z=0 and 0.5 "
+        "and extrapolated beyond 0.5; additional native redshift outputs "
+        "are needed to validate that approximation."
     )
+    out["relative_kernel_amplitude_TEP_over_LCDM"] = float(tep / lcdm)
+    out["kernel"]["weight_fraction_above_z05"] = float(
+        simpson(W2[z_l > 0.5], x=z_l[z_l > 0.5]) / norm)
 
     OUTPUT_FILE.write_text(json.dumps(out, indent=2))
     print("Step 22 written:", OUTPUT_FILE)
@@ -212,8 +224,7 @@ def main():
     for t, p in proj.items():
         print(f"  {t}: sigma8={p['sigma8_eff_kernel']:.4f} "
               f"S8_eff={p['S8_kernel_projected']:.4f}")
-    print(f"  TEP-vs-DES-Y3 fixed-point gap: {(tep-0.776)/0.017:.1f} sigma "
-          f"(same-cosmology comparison)")
+    print(f"  TEP/LCDM common-kernel amplitude ratio: {tep/lcdm:.8f}")
     return 0
 
 

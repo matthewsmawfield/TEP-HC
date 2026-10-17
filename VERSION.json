@@ -1,11 +1,11 @@
 {
-  "version": "0.7",
+  "version": "0.8",
   "codename": "Cambridge",
-  "date": "2026-09-13",
+  "date": "2026-10-17",
   "author": "Matthew Lukin Smawfield",
   "description": "hi_class EFT mapping and Planck MCMC constraints for TEP",
   "status": "Preprint",
   "paper": "18",
   "doi": "10.5281/zenodo.20572722",
-  "previous_version": "0.6"
+  "previous_version": "0.7"
 }

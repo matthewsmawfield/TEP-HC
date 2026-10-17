@@ -10,7 +10,7 @@ Standard GR perturbations; only background H(z) is modified.
 
 Outputs:
     - logs/step_08_synthesis_full.log
-    - results/18-TEP-HC-Results-Full-Suite.md
+    - results/F18-TEP-HC-Results-Full-Suite.md
 """
 
 import sys
@@ -68,7 +68,7 @@ class Step08Synthesis:
             print_status("Generating full suite synthesis report...", "PROCESS")
             report = self._generate_markdown_report(joint_data, jordan_data)
             
-            output_file = self.results_dir / "18-TEP-HC-Results-Full-Suite.md"
+            output_file = self.results_dir / "F18-TEP-HC-Results-Full-Suite.md"
             with open(output_file, 'w') as f:
                 f.write(report)
             
@@ -94,12 +94,12 @@ class Step08Synthesis:
         report = rf"""# TEP-HC Analysis: Synthesis
 
 **Date**: {datetime.now().strftime("%Y-%m-%d")}
-**Framework**: hi_class with native TEP background-only Hubble modification
+**Framework**: hi_class with native TEP background + active scalar perturbation closure (corrected delta-phi branch)
 **Datasets**: Planck 2018 low-l TT/EE + lensing + BAO (SDSS DR12) + Pantheon+ SNIa
 
 ## 1. Executive Summary
 
-This report documents the TEP-HC analysis using the native TEP background-only implementation. The native TEP modification is H_TEP(z) = H_LCDM(z) * M(z) with M(z) = A(z)/(1 - alpha_A(z)) and standard GR perturbations. When confronted with full Planck TTTEEE, TEP-C0 (Paper 26) yields n_s = 0.9619 +- 0.0046 and epsilon_T = (6.75 +- 0.24) x 10^-6, consistent with Planck LambdaCDM.
+This report documents the TEP-HC analysis using the native TEP background implementation, H_TEP(z) = H_LCDM(z) * M(z) with M(z) = A(z)/(1 - alpha_A(z)), evolved through the hi_class scalar-tensor perturbation equations (use_pert_var_deltaphi_smg, corrected kinetic completion alpha_B = 2 S_Sigma alpha_A, alpha_K = wc alpha_A^2; production S_Sigma = 1, wc = +700 i.e. tep_kin_boost = 10). The canonical-EF map alpha_K = -5 alpha_A^2 previously quoted is linearly unstable on this background (tachyonic scalarization channel; see results/closure_response_scan.json), and earlier bitwise-identical P(k) results reflected a silently disabled SMG sector (has_smg gate), now fixed. On the production screened branch the active scalar yields sigma8 = 0.824 vs Lambda-CDM 0.823 with a ~13% low-ell ISW signature; acoustic scales are preserved to <2%. When confronted with full Planck TTTEEE, TEP-C0 (Paper 26) yields n_s = 0.9619 +- 0.0046 and epsilon_T = (6.75 +- 0.24) x 10^-6, consistent with Planck LambdaCDM. Note: the MCMC chains summarized below were run under the earlier inert-closure pipeline and are flagged accordingly.
 
 ## 2. Parameter Constraints
 

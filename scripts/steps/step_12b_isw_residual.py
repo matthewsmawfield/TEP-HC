@@ -94,6 +94,7 @@ def tep_isw_estimate(logger):
     # Cumulative S/N over ℓ = 2–10 (approximate, assuming independence)
     sn_total = np.sqrt(np.sum(sn_per_ell**2))
 
+    detection_snr = 3.0  # Declared reporting convention, not a physical cutoff.
     results = {
         "description": "ISW residual vs cosmic-variance floor for TEP vs ΛCDM",
         "assumptions": [
@@ -117,14 +118,14 @@ def tep_isw_estimate(logger):
             "cumulative_signal_to_noise_ell2_10": float(sn_total)
         },
         "verdict": {
-            "isw_detectable": bool(sn_total > 1.0),
-            "required_snr_for_detection": 3.0,
+            "isw_detectable": bool(sn_total >= detection_snr),
+            "required_snr_for_detection": detection_snr,
             "predicted_snr": float(sn_total),
             "interpretation": (
                 f"The predicted TEP ISW modification at low-ℓ has S/N ≈ {sn_total:.2f} "
                 f"relative to the cosmic-variance floor. " +
-                ("This is below the threshold for a confident detection (S/N > 3). "
-                 if sn_total < 3.0 else
+                ("This is below the threshold for a confident detection (S/N >= 3). "
+                 if sn_total < detection_snr else
                  "This exceeds the threshold for detection. ") +
                 "A full Boltzmann integration of the ISW power spectrum with the native "
                 "hi_class tep_mode implementation is required for a definitive number. "

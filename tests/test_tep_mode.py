@@ -196,8 +196,19 @@ class TestCdmLensingScope:
         self._check_lensing_depends_on_cdm({})
 
     def test_active_perturbation_lensing_depends_on_cdm_fluid(self):
+        # Mirrors ACTIVE_EXTRA in scripts/steps/step_21_cdm_free_lensing.py:
+        # the regular delta-phi variable (use_pert_var_deltaphi_smg) is required
+        # because x_smg = dphi/phi' is singular at the alpha_A=0 turnover z~2.6;
+        # tep_screening_s / tep_kin_boost select the stable screened branch.
         self._check_lensing_depends_on_cdm(
-            {"gravity_model": "tep", "M2_evolution": "yes"}
+            {
+                "gravity_model": "tep",
+                "M2_evolution": "yes",
+                "use_pert_var_deltaphi_smg": "yes",
+                "pert_initial_conditions_smg": "zero",
+                "tep_screening_s": 1.0,
+                "tep_kin_boost": 10.0,
+            }
         )
 
 

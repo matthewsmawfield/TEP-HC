@@ -1,0 +1,583 @@
+{
+  "scope": "Pressure sensitivity by an explicit w -> 0- sequence in the supported fluid solver.\n\nThis tests a phenomenological near-dust limit, not an action-derived TEP fluid.\nNo CLASS guards are changed. Both the zero-sound-speed CDM control and the\nfinite-pressure sequence must converge before the limit is reported usable.\nThe fluid density is counted in the metric sources, but CLASS's conventional\nsigma8 matter selection is not used to compare a fluid with CDM.\n",
+  "status": "controlled_near_dust_limit_completed",
+  "failure": null,
+  "checks": {
+    "zero_sequence_rms_below_0p5percent": true,
+    "pressure_sequence_rms_below_0p5percent": true,
+    "zero_pressure_control_rms_below_0p5percent": true
+  },
+  "w_sequence": [
+    -0.01,
+    -0.001,
+    -0.0001,
+    -1e-05,
+    -1e-06,
+    -1e-07
+  ],
+  "sound_speed_squared_prescribed": 0.00503690860773789,
+  "multipole_range": [
+    30,
+    2000
+  ],
+  "comparisons": {
+    "zero_0_vs_cdm": {
+      "tt": {
+        "rms_fractional_change": 0.09623312578057551,
+        "max_abs_fractional_change": 0.21651896343244792
+      },
+      "ee": {
+        "rms_fractional_change": 0.21936628784066187,
+        "max_abs_fractional_change": 0.56910022340738
+      },
+      "pp": {
+        "rms_fractional_change": 0.4652844417424587,
+        "max_abs_fractional_change": 0.52792827547635
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.11598576320216246,
+        "max_abs_change_over_sqrt_TT_EE": 0.27963540750869215
+      }
+    },
+    "pressure_0_vs_zero": {
+      "tt": {
+        "rms_fractional_change": 0.04259886505262232,
+        "max_abs_fractional_change": 0.2365766069538459
+      },
+      "ee": {
+        "rms_fractional_change": 0.045239522079705635,
+        "max_abs_fractional_change": 0.1270085480653566
+      },
+      "pp": {
+        "rms_fractional_change": 0.9950035284675954,
+        "max_abs_fractional_change": 0.999997082425124
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.02595909571666142,
+        "max_abs_change_over_sqrt_TT_EE": 0.05289224109357255
+      }
+    },
+    "zero_1_vs_cdm": {
+      "tt": {
+        "rms_fractional_change": 0.010953440063454343,
+        "max_abs_fractional_change": 0.02167323387071653
+      },
+      "ee": {
+        "rms_fractional_change": 0.02328093984536351,
+        "max_abs_fractional_change": 0.0520066358831876
+      },
+      "pp": {
+        "rms_fractional_change": 0.06293901388313707,
+        "max_abs_fractional_change": 0.07403391258117883
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.013073781433504832,
+        "max_abs_change_over_sqrt_TT_EE": 0.027262368961792596
+      }
+    },
+    "pressure_1_vs_zero": {
+      "tt": {
+        "rms_fractional_change": 0.0530847520907511,
+        "max_abs_fractional_change": 0.263826177927962
+      },
+      "ee": {
+        "rms_fractional_change": 0.058977890407628034,
+        "max_abs_fractional_change": 0.1617826826291903
+      },
+      "pp": {
+        "rms_fractional_change": 0.9956736081813373,
+        "max_abs_fractional_change": 0.9999985541752759
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.033318433157388146,
+        "max_abs_change_over_sqrt_TT_EE": 0.0721283202192808
+      }
+    },
+    "zero_2_vs_cdm": {
+      "tt": {
+        "rms_fractional_change": 0.00289138153769412,
+        "max_abs_fractional_change": 0.006427132957556375
+      },
+      "ee": {
+        "rms_fractional_change": 0.003954072325657021,
+        "max_abs_fractional_change": 0.008240140985319775
+      },
+      "pp": {
+        "rms_fractional_change": 0.007763128609362174,
+        "max_abs_fractional_change": 0.00889522898394151
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.0020215770806562643,
+        "max_abs_change_over_sqrt_TT_EE": 0.004240433562441831
+      }
+    },
+    "pressure_2_vs_zero": {
+      "tt": {
+        "rms_fractional_change": 0.054305589516317164,
+        "max_abs_fractional_change": 0.26659938277805606
+      },
+      "ee": {
+        "rms_fractional_change": 0.0606084871105909,
+        "max_abs_fractional_change": 0.16554461381281269
+      },
+      "pp": {
+        "rms_fractional_change": 0.9957359931641084,
+        "max_abs_fractional_change": 0.999998635216867
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.034127402470215576,
+        "max_abs_change_over_sqrt_TT_EE": 0.07446168773137748
+      }
+    },
+    "zero_3_vs_cdm": {
+      "tt": {
+        "rms_fractional_change": 0.0024741166260720962,
+        "max_abs_fractional_change": 0.005153451164070797
+      },
+      "ee": {
+        "rms_fractional_change": 0.002290542592414879,
+        "max_abs_fractional_change": 0.005257569624890192
+      },
+      "pp": {
+        "rms_fractional_change": 0.002093266953064299,
+        "max_abs_fractional_change": 0.0027766147313627986
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.0009975797873182017,
+        "max_abs_change_over_sqrt_TT_EE": 0.00217873456162145
+      }
+    },
+    "pressure_3_vs_zero": {
+      "tt": {
+        "rms_fractional_change": 0.054426963983984805,
+        "max_abs_fractional_change": 0.2668369384031408
+      },
+      "ee": {
+        "rms_fractional_change": 0.06076969077626415,
+        "max_abs_fractional_change": 0.1658398511998145
+      },
+      "pp": {
+        "rms_fractional_change": 0.9957414526714835,
+        "max_abs_fractional_change": 0.9999986713355069
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.0342088540263473,
+        "max_abs_change_over_sqrt_TT_EE": 0.07473053202390417
+      }
+    },
+    "zero_4_vs_cdm": {
+      "tt": {
+        "rms_fractional_change": 0.0024498732680787597,
+        "max_abs_fractional_change": 0.005016988850621366
+      },
+      "ee": {
+        "rms_fractional_change": 0.002174841541565181,
+        "max_abs_fractional_change": 0.005046533170306584
+      },
+      "pp": {
+        "rms_fractional_change": 0.0015333439252837322,
+        "max_abs_fractional_change": 0.0023360718629631804
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.0009263231068657178,
+        "max_abs_change_over_sqrt_TT_EE": 0.001991223994427754
+      }
+    },
+    "pressure_4_vs_zero": {
+      "tt": {
+        "rms_fractional_change": 0.05443966558100802,
+        "max_abs_fractional_change": 0.26685956762294955
+      },
+      "ee": {
+        "rms_fractional_change": 0.06078957128421408,
+        "max_abs_fractional_change": 0.16595883018378924
+      },
+      "pp": {
+        "rms_fractional_change": 0.9957428078956032,
+        "max_abs_fractional_change": 0.9999986436047986
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.034218402137191455,
+        "max_abs_change_over_sqrt_TT_EE": 0.07471894791901428
+      }
+    },
+    "zero_5_vs_cdm": {
+      "tt": {
+        "rms_fractional_change": 0.0024466682351399335,
+        "max_abs_fractional_change": 0.005002480938414103
+      },
+      "ee": {
+        "rms_fractional_change": 0.0021616207981261944,
+        "max_abs_fractional_change": 0.005020604841101203
+      },
+      "pp": {
+        "rms_fractional_change": 0.001478636773903918,
+        "max_abs_fractional_change": 0.002291080262386151
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.0009179603459228006,
+        "max_abs_change_over_sqrt_TT_EE": 0.0019735346159283915
+      }
+    },
+    "pressure_5_vs_zero": {
+      "tt": {
+        "rms_fractional_change": 0.05444154869572964,
+        "max_abs_fractional_change": 0.2668625401254483
+      },
+      "ee": {
+        "rms_fractional_change": 0.060790616487766784,
+        "max_abs_fractional_change": 0.16596264995638962
+      },
+      "pp": {
+        "rms_fractional_change": 0.995742870249707,
+        "max_abs_fractional_change": 0.999998643658739
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 0.03421926639133014,
+        "max_abs_change_over_sqrt_TT_EE": 0.07472427788001965
+      }
+    },
+    "zero_last_step": {
+      "tt": {
+        "rms_fractional_change": 9.436002760086582e-06,
+        "max_abs_fractional_change": 1.7791621662067296e-05
+      },
+      "ee": {
+        "rms_fractional_change": 2.0367020830164318e-05,
+        "max_abs_fractional_change": 4.3205371310168136e-05
+      },
+      "pp": {
+        "rms_fractional_change": 5.723719533656054e-05,
+        "max_abs_fractional_change": 6.791979494520933e-05
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 1.1268451502143769e-05,
+        "max_abs_change_over_sqrt_TT_EE": 2.5296177805725472e-05
+      }
+    },
+    "pressure_last_step": {
+      "tt": {
+        "rms_fractional_change": 9.988069803276416e-06,
+        "max_abs_fractional_change": 2.2030834364218288e-05
+      },
+      "ee": {
+        "rms_fractional_change": 2.144840500471979e-05,
+        "max_abs_fractional_change": 4.375920829541396e-05
+      },
+      "pp": {
+        "rms_fractional_change": 3.970182956153911e-05,
+        "max_abs_fractional_change": 6.122659240663888e-05
+      },
+      "te": {
+        "rms_change_over_sqrt_TT_EE": 1.427706177670386e-05,
+        "max_abs_change_over_sqrt_TT_EE": 3.0046314856766886e-05
+      }
+    }
+  },
+  "scenarios": {
+    "cdm": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.11794311926902028
+      }
+    },
+    "zero_0": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -0.01,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.0,
+        "use_ppf": "no"
+      }
+    },
+    "pressure_0": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -0.01,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.00503690860773789,
+        "use_ppf": "no"
+      }
+    },
+    "zero_1": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -0.001,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.0,
+        "use_ppf": "no"
+      }
+    },
+    "pressure_1": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -0.001,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.00503690860773789,
+        "use_ppf": "no"
+      }
+    },
+    "zero_2": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -0.0001,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.0,
+        "use_ppf": "no"
+      }
+    },
+    "pressure_2": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -0.0001,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.00503690860773789,
+        "use_ppf": "no"
+      }
+    },
+    "zero_3": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -1e-05,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.0,
+        "use_ppf": "no"
+      }
+    },
+    "pressure_3": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -1e-05,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.00503690860773789,
+        "use_ppf": "no"
+      }
+    },
+    "zero_4": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -1e-06,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.0,
+        "use_ppf": "no"
+      }
+    },
+    "pressure_4": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -1e-06,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.00503690860773789,
+        "use_ppf": "no"
+      }
+    },
+    "zero_5": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -1e-07,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.0,
+        "use_ppf": "no"
+      }
+    },
+    "pressure_5": {
+      "parameters": {
+        "output": "tCl,pCl,lCl",
+        "lensing": "yes",
+        "l_max_scalars": 2500,
+        "H0": 67.951,
+        "omega_b": 0.02247,
+        "A_s": 2.0989031673191437e-09,
+        "n_s": 0.9686,
+        "tau_reio": 0.0479,
+        "tep_mode": "yes",
+        "z_T": 5.0,
+        "n_T": 2.0,
+        "epsilon_T": 0.00488,
+        "gauge": "newtonian",
+        "omega_cdm": 0.0,
+        "Omega_fld": 0.2554352941588097,
+        "w0_fld": -1e-07,
+        "wa_fld": 0.0,
+        "cs2_fld": 0.00503690860773789,
+        "use_ppf": "no"
+      }
+    }
+  },
+  "limitations": [
+    "Finite negative-w sequence; not an exact w=0 integration.",
+    "No likelihood or parameter refit; pressure response does not validate its action origin.",
+    "Convergence is tested over this sequence and multipole range, not every numerical setting."
+  ],
+  "provenance": {
+    "script_sha256": "39f34649c73d49163f8426055a2256ac1174c3111c3bf5aa3fecefedfa154a7b",
+    "bbn_sha256": "c18fa2f51e3541e84d97e94f1e4f156898ddb55d87a529dad460c4e674842bcd",
+    "classy_sha256": "818539b752b55125f48c2f76e5569e6ec04555e17d98d7026a81e419bb65d1af"
+  }
+}

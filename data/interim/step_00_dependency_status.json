@@ -1,6 +1,6 @@
 {
   "step": "00_setup",
-  "timestamp": "2026-06-05T20:42:03.123302",
+  "timestamp": "2026-10-08T23:30:35.594766",
   "python_packages": {
     "numpy": {
       "available": true,
@@ -28,7 +28,7 @@
     },
     "pyyaml": {
       "available": true,
-      "version": "6.0.3"
+      "version": "6.0.2"
     }
   },
   "system_dependencies": {
@@ -58,6 +58,6 @@
   "mpi_available": true,
   "hi_class": {
     "available": true,
-    "path": "/Users/matthewsmawfield/opt/miniconda3/lib/python3.13/site-packages"
+    "path": "/Users/matthewsmawfield/Library/Caches/Python-Eggs"
   }
 }

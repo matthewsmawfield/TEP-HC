@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/steps/step_23_s8_provenance_audit.py", line 388, in <module>
+    main()
+    ~~~~^^
+  File "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/steps/step_23_s8_provenance_audit.py", line 259, in main
+    sens = chain_column_stats(CHAINS / "tep_hiclass_aplanck_sens.1.txt",
+                              ["sigma8", "A_planck", "n_s", "omega_b",
+                               "omega_cdm", "H0"])
+  File "/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/scripts/steps/step_23_s8_provenance_audit.py", line 93, in chain_column_stats
+    hdr = open(path).readline().strip("#").split()
+          ~~~~^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/results/mcmc_chains/tep_hiclass_aplanck_sens.1.txt'

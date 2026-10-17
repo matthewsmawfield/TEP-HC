@@ -1,0 +1,18 @@
+[output] Output to be read-from/written-into folder 'results/mcmc_chains', with prefix 'tep_hiclass_suite'
+[output] Found existing info files with the requested output prefix: 'results/mcmc_chains/tep_hiclass_suite'
+[output] Let's try to resume/load.
+[output] Found an old sample. Resuming.
+[classy] `classy` module loaded successfully from /Users/matthewsmawfield/www/Temporal Equivalence Principle/TEP-HC/external/hi_class/hi_class/build/lib.macosx-11.1-arm64-cpython-313
+[bao.sdss_dr12_consensus_final] Initialized.
+[mcmc] Resuming from previous sample!
+[mcmc] *WARNING* This run has been SEEDED with seed 42
+[samplecollection] Loaded 20160 sample points from 'results/mcmc_chains/tep_hiclass_suite.1.txt'
+[mcmc] Initial point: logA:3.130942, n_s:0.9999505, H0:67.10851, omega_b:0.02287839, omega_cdm:0.1160249, tau_reio:0.03991347, A_planck:1.083226, epsilon_T:0.01222636
+[mcmc] *WARNING* Parameter blocking manually/previously fixed: speeds will not be measured.
+[mcmc] *WARNING* Dragging disabled: speed ratio and fast-to-slow ratio not large enough.
+[mcmc] Oversampling with factors:
+[mcmc] * 1 : ['logA', 'n_s', 'H0', 'omega_b', 'omega_cdm', 'tau_reio', 'epsilon_T']
+[mcmc] * 9 : ['A_planck']
+[mcmc] Covariance matrix from previous sample.
+[mcmc] Sampling!
+[mcmc] Sampling complete after 20160 accepted steps.
